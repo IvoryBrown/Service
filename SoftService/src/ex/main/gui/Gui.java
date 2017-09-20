@@ -12,14 +12,19 @@ import javax.swing.JTabbedPane;
 import javax.swing.SpringLayout;
 import javax.swing.SwingConstants;
 
-@SuppressWarnings({ "unused", "serial" })
+import ex.main.setting.DataBaseConnect;
+
 public class Gui extends JFrame {
-	private JPanel jplMainPanel;
-	private SpringLayout springLayout;
-	private SpringLayout sl_jplMainPanel;
-	private JTabbedPane jTbdPane;
-	private JPanel jplWorksheet, jplClients, jplDevice;
-	private FlowLayout fl_jplClients;
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -902277029378989079L;
+	protected JPanel jplMainPanel;
+	protected JTabbedPane jTbdPane;
+	protected JPanel jplWorksheet, jplClients, jplDevice;
+	protected FlowLayout fl_jplClients;
+	DataBaseConnect connect = new DataBaseConnect();
+	private JPanel panel;
 
 	public Gui() {
 
@@ -30,23 +35,16 @@ public class Gui extends JFrame {
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.setSize(1250, 680);
 		this.setResizable(false);
-		springLayout = new SpringLayout();
-		getContentPane().setLayout(springLayout);
+		getContentPane().setLayout(null);
+		
 
 		jplMainPanel = new JPanel();
-		springLayout.putConstraint(SpringLayout.NORTH, jplMainPanel, 0, SpringLayout.NORTH, getContentPane());
-		springLayout.putConstraint(SpringLayout.WEST, jplMainPanel, 0, SpringLayout.WEST, getContentPane());
-		springLayout.putConstraint(SpringLayout.SOUTH, jplMainPanel, 651, SpringLayout.NORTH, getContentPane());
-		springLayout.putConstraint(SpringLayout.EAST, jplMainPanel, 1244, SpringLayout.WEST, getContentPane());
+		jplMainPanel.setBounds(0, 0, 1244, 651);
 		getContentPane().add(jplMainPanel);
-		sl_jplMainPanel = new SpringLayout();
-		jplMainPanel.setLayout(sl_jplMainPanel);
+		jplMainPanel.setLayout(null);
 
 		jTbdPane = new JTabbedPane(JTabbedPane.TOP);
-		sl_jplMainPanel.putConstraint(SpringLayout.NORTH, jTbdPane, 0, SpringLayout.NORTH, jplMainPanel);
-		sl_jplMainPanel.putConstraint(SpringLayout.WEST, jTbdPane, 0, SpringLayout.WEST, jplMainPanel);
-		sl_jplMainPanel.putConstraint(SpringLayout.SOUTH, jTbdPane, 617, SpringLayout.NORTH, jplMainPanel);
-		sl_jplMainPanel.putConstraint(SpringLayout.EAST, jTbdPane, 0, SpringLayout.EAST, jplMainPanel);
+		jTbdPane.setBounds(0, 0, 1244, 617);
 		jplMainPanel.add(jTbdPane);
 
 		jplWorksheet = new JPanel();
@@ -61,12 +59,19 @@ public class Gui extends JFrame {
 		jTbdPane.addTab("Eszköz", null, jplDevice, null);
 
 		JLabel lblNewLabel = new JLabel("Verzió: 1.0.0");
+		lblNewLabel.setBounds(1152, 623, 82, 16);
 		lblNewLabel.setForeground(new Color(0, 128, 0));
-		sl_jplMainPanel.putConstraint(SpringLayout.NORTH, lblNewLabel, 6, SpringLayout.SOUTH, jTbdPane);
-		sl_jplMainPanel.putConstraint(SpringLayout.EAST, lblNewLabel, -10, SpringLayout.EAST, jplMainPanel);
 		lblNewLabel.setHorizontalAlignment(SwingConstants.RIGHT);
 		lblNewLabel.setFont(new Font("Tahoma", Font.BOLD, 13));
 		jplMainPanel.add(lblNewLabel);
+
+		panel = new JPanel();
+		panel.setBounds(5, 623, 225, 23);
+		FlowLayout flowLayout = (FlowLayout) panel.getLayout();
+		flowLayout.setAlignment(FlowLayout.LEFT);
+		panel.setForeground(new Color(0, 128, 0));
+		jplMainPanel.add(panel);
+		panel.add(connect.getSubtitle());
 
 	}
 }
