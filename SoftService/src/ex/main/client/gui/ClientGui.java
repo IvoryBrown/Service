@@ -15,24 +15,25 @@ import java.awt.Color;
 import javax.swing.ImageIcon;
 
 public class ClientGui extends WorksheetGui {
-	protected JTextField txtSearch;
+	protected JTextField txtSearchClient;
 	protected JTextField txtIDClient;
 	protected JTextField txtNameClient;
 	protected JTextField txtMobilClient;
 	protected JTextField txtHomeAddressClient;
 	protected JTextField txtCommentClient;
 	protected JTable jTblClient;
-	protected JButton btnNewClient, btnDelete, btnEdit,btnNull;
-	private JButton btnSearch;
-	
+	protected JButton btnNewClient, btnDeleteClient, btnEditClient, btnNullClient;
+	private JButton btnSearchClient;
+	protected JTextField txtIdClient;
 
 	public ClientGui() {
-		jTbdPane.setBounds(0, 0, 1244, 617);
-		jplMainPanel.setBounds(0, 0, 1244, 651);
+
 		setComponent();
 	}
 
 	private void setComponent() {
+		jTbdPane.setBounds(0, 0, 1244, 617);
+		jplMainPanel.setBounds(0, 0, 1244, 651);
 		jplClients.setLayout(null);
 
 		JScrollPane jScPClient = new JScrollPane();
@@ -44,41 +45,41 @@ public class ClientGui extends WorksheetGui {
 		jTblClient.setModel(new javax.swing.table.DefaultTableModel(new Object[][] {},
 				new String[] { "sorszám", "név", "telefon" }));
 
-		JPanel pnlSetting = new JPanel();
-		pnlSetting.setBounds(292, 10, 815, 63);
-		jplClients.add(pnlSetting);
-		pnlSetting.setLayout(null);
+		JPanel jpnSettingClient = new JPanel();
+		jpnSettingClient.setBounds(302, 10, 805, 63);
+		jplClients.add(jpnSettingClient);
+		jpnSettingClient.setLayout(null);
 
-		btnDelete = new JButton("törlés");
-		btnDelete.setBounds(565, 12, 109, 37);
-		pnlSetting.add(btnDelete);
+		btnDeleteClient = new JButton("törlés");
+		btnDeleteClient.setBounds(565, 12, 109, 37);
+		jpnSettingClient.add(btnDeleteClient);
 
-		btnEdit = new JButton("szerkesztés");
-		btnEdit.setBounds(446, 12, 109, 37);
-		pnlSetting.add(btnEdit);
+		btnEditClient = new JButton("szerkesztés");
+		btnEditClient.setBounds(446, 12, 109, 37);
+		jpnSettingClient.add(btnEditClient);
 
 		btnNewClient = new JButton("új ügyfél");
 		btnNewClient.setIcon(
 				new ImageIcon(ClientGui.class.getResource("/com/sun/java/swing/plaf/windows/icons/UpFolder.gif")));
 		btnNewClient.setBounds(327, 11, 109, 37);
-		pnlSetting.add(btnNewClient);
+		jpnSettingClient.add(btnNewClient);
 
-		txtSearch = new JTextField();
-		txtSearch.setBackground(new Color(127, 255, 212));
-		txtSearch.setBounds(10, 13, 185, 35);
-		pnlSetting.add(txtSearch);
-		txtSearch.setColumns(10);
-		
-		btnSearch = new JButton("keresés");
-		btnSearch.setBounds(208, 12, 109, 37);
-		pnlSetting.add(btnSearch);
-		
-		btnNull = new JButton("null");
-		btnNull.setBounds(684, 12, 109, 37);
-		pnlSetting.add(btnNull);
+		txtSearchClient = new JTextField();
+		txtSearchClient.setBackground(new Color(127, 255, 212));
+		txtSearchClient.setBounds(10, 13, 185, 35);
+		jpnSettingClient.add(txtSearchClient);
+		txtSearchClient.setColumns(10);
+
+		btnSearchClient = new JButton("keresés");
+		btnSearchClient.setBounds(208, 12, 109, 37);
+		jpnSettingClient.add(btnSearchClient);
+
+		btnNullClient = new JButton("null");
+		btnNullClient.setBounds(684, 12, 109, 37);
+		jpnSettingClient.add(btnNullClient);
 
 		JPanel jpnNewClient = new JPanel();
-		jpnNewClient.setBounds(292, 79, 565, 458);
+		jpnNewClient.setBounds(302, 79, 555, 341);
 		jplClients.add(jpnNewClient);
 		jpnNewClient.setLayout(null);
 
@@ -146,6 +147,14 @@ public class ClientGui extends WorksheetGui {
 		txtCommentClient.setBackground(new Color(245, 255, 250));
 		txtCommentClient.setBounds(153, 196, 189, 131);
 		jpnNewClient.add(txtCommentClient);
+		
+		txtIdClient = new JTextField();
+		txtIdClient.setEnabled(false);
+		txtIdClient.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		txtIdClient.setColumns(10);
+		txtIdClient.setBackground(new Color(245, 255, 250));
+		txtIdClient.setBounds(352, 11, 95, 35);
+		jpnNewClient.add(txtIdClient);
 		jplMainPanel.setLayout(null);
 		getContentPane().setLayout(null);
 	}

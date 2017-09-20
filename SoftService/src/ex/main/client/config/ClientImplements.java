@@ -4,5 +4,5 @@ import java.util.ArrayList;
 import ex.main.client.config.ClientConfig;
 
 public interface ClientImplements {
-	public ArrayList<ClientConfig> getProductList();
+	public ArrayList<ClientConfig> getClientProductList();
 }

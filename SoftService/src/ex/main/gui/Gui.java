@@ -9,9 +9,9 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
-import javax.swing.SpringLayout;
 import javax.swing.SwingConstants;
 
+import ex.main.setting.CenterWindow;
 import ex.main.setting.DataBaseConnect;
 
 public class Gui extends JFrame {
@@ -36,7 +36,7 @@ public class Gui extends JFrame {
 		this.setSize(1250, 680);
 		this.setResizable(false);
 		getContentPane().setLayout(null);
-		
+		new CenterWindow().centerWindow(this);
 
 		jplMainPanel = new JPanel();
 		jplMainPanel.setBounds(0, 0, 1244, 651);

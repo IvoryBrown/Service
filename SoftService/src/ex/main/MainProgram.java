@@ -1,6 +1,6 @@
 package ex.main;
 
-import ex.main.client.gui.ClientJDBCSetDAO;
+import ex.main.device.gui.DeviceJDBCSetDAO;
 import ex.main.gui.Gui;
 
 public class MainProgram {
@@ -24,7 +24,7 @@ public class MainProgram {
 		}
 		java.awt.EventQueue.invokeLater(new Runnable() {
 			public void run() {
-				new ClientJDBCSetDAO().setVisible(true);
+				new DeviceJDBCSetDAO().setVisible(true);
 			}
 		});
 	}
