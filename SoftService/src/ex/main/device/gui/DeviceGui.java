@@ -13,6 +13,7 @@ import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 
 import ex.main.client.gui.ClientJDBCSetDAO;
+import javax.swing.JLayeredPane;
 
 public class DeviceGui extends ClientJDBCSetDAO {
 	protected JTextField txtSearchDevice;
@@ -23,6 +24,10 @@ public class DeviceGui extends ClientJDBCSetDAO {
 	protected JTextField txtCommentDevice;
 	protected JButton btnNewDevice, btnNullDevice, btnEditDevice, jbtnDeleteDevice;
 	protected JComboBox cmBoxStatusdevice, cmBoxPriorityDevice;
+	protected JTextField txtDeviceImageClientName;
+	protected JTextField txtDeviceImageNameDevice;
+	protected JTextField txtDeviceImageSerialDevice;
+	protected JTextField txtDeviceImageDeviceId;
 
 	public DeviceGui() {
 
@@ -139,5 +144,37 @@ public class DeviceGui extends ClientJDBCSetDAO {
 		lblCommentDevice.setFont(new Font("Tahoma", Font.BOLD, 15));
 		lblCommentDevice.setBounds(10, 243, 140, 35);
 		pnlDevice.add(lblCommentDevice);
+		
+		txtDeviceImageClientName = new JTextField();
+		txtDeviceImageClientName.setEnabled(false);
+		txtDeviceImageClientName.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		txtDeviceImageClientName.setColumns(10);
+		txtDeviceImageClientName.setBackground(new Color(245, 255, 250));
+		txtDeviceImageClientName.setBounds(318, 85, 189, 35);
+		jplDeviceImage.add(txtDeviceImageClientName);
+		
+		txtDeviceImageNameDevice = new JTextField();
+		txtDeviceImageNameDevice.setEnabled(false);
+		txtDeviceImageNameDevice.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		txtDeviceImageNameDevice.setColumns(10);
+		txtDeviceImageNameDevice.setBackground(new Color(245, 255, 250));
+		txtDeviceImageNameDevice.setBounds(517, 85, 189, 35);
+		jplDeviceImage.add(txtDeviceImageNameDevice);
+		
+		txtDeviceImageSerialDevice = new JTextField();
+		txtDeviceImageSerialDevice.setEnabled(false);
+		txtDeviceImageSerialDevice.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		txtDeviceImageSerialDevice.setColumns(10);
+		txtDeviceImageSerialDevice.setBackground(new Color(245, 255, 250));
+		txtDeviceImageSerialDevice.setBounds(716, 85, 189, 35);
+		jplDeviceImage.add(txtDeviceImageSerialDevice);
+		
+		txtDeviceImageDeviceId = new JTextField();
+		txtDeviceImageDeviceId.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		txtDeviceImageDeviceId.setEnabled(false);
+		txtDeviceImageDeviceId.setColumns(10);
+		txtDeviceImageDeviceId.setBackground(new Color(245, 255, 250));
+		txtDeviceImageDeviceId.setBounds(915, 85, 95, 35);
+		jplDeviceImage.add(txtDeviceImageDeviceId);
 	}
 }

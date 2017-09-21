@@ -25,7 +25,7 @@ public class Gui extends JFrame {
 	protected FlowLayout fl_jplClients;
 	DataBaseConnect connect = new DataBaseConnect();
 	private JPanel panel;
-	private JPanel jplWorkingTime;
+	protected JPanel jplDeviceImage;
 
 	public Gui() {
 
@@ -59,9 +59,9 @@ public class Gui extends JFrame {
 		jplDevice = new JPanel();
 		jTbdPane.addTab("Eszköz", null, jplDevice, null);
 		
-		jplWorkingTime = new JPanel();
-		jTbdPane.addTab("Munkaidő", null, jplWorkingTime, null);
-		jplWorkingTime.setLayout(null);
+		jplDeviceImage = new JPanel();
+		jTbdPane.addTab("Eszköz képek", null, jplDeviceImage, null);
+		jplDeviceImage.setLayout(null);
 
 		JLabel lblNewLabel = new JLabel("Verzió: 1.0.0");
 		lblNewLabel.setBounds(1152, 623, 82, 16);
