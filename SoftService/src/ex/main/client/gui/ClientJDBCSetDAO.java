@@ -63,7 +63,7 @@ public class ClientJDBCSetDAO extends ClientGui implements ClientImplements {
 		});
 	}
 
-	public boolean checkInputs() {
+	private boolean checkInputs() {
 		if (txtIDClient.getText().trim().isEmpty() || txtNameClient.getText().trim().isEmpty()
 				|| txtMobilClient.getText().trim().isEmpty()) {
 			return false;
@@ -98,7 +98,7 @@ public class ClientJDBCSetDAO extends ClientGui implements ClientImplements {
 		return productList;
 	}
 
-	public void showProductsInJTableClient() {
+	private void showProductsInJTableClient() {
 		ArrayList<ClientConfig> list = getClientProductList();
 		DefaultTableModel model = (DefaultTableModel) jTblClient.getModel();
 		model.setRowCount(0);
@@ -128,7 +128,7 @@ public class ClientJDBCSetDAO extends ClientGui implements ClientImplements {
 				Connection con = DataBaseConnect.getConnection();
 				PreparedStatement insertClient = con.prepareStatement("INSERT INTO megrendelo(azonosito_m, nev,"
 						+ "kapcsolat, lakcim, megjegyzes_m)" + "values(?,?,?,?,?) ");
-				insertClient.setString(1, txtIDClient.getText());
+				insertClient.setInt(1, Integer.parseInt(txtIDClient.getText()));
 				insertClient.setString(2, txtNameClient.getText());
 				insertClient.setString(3, txtMobilClient.getText());
 				insertClient.setString(4, txtHomeAddressClient.getText());
@@ -138,8 +138,6 @@ public class ClientJDBCSetDAO extends ClientGui implements ClientImplements {
 				JOptionPane.showMessageDialog(null, "Adatok beillesztve");
 			} catch (SQLException ex) {
 				JOptionPane.showMessageDialog(null, "Sikertelen beillesztés: " + ex.getMessage());
-			} catch (Exception ex) {
-				JOptionPane.showMessageDialog(null, "Sikertelen kép beillesztés: " + ex.getMessage());
 			}
 		} else {
 			JOptionPane.showMessageDialog(null, "Egy vagy több mező üres");
