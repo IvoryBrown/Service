@@ -174,11 +174,11 @@ public class ClientJDBCSetDAO extends ClientGui implements ClientImplements {
 		if (!txtIdClient.getText().equals("")) {
 			try {
 				Connection con = DataBaseConnect.getConnection();
-				PreparedStatement deleteWorkingDocuments = con
+				PreparedStatement deleteClient = con
 						.prepareStatement("DELETE FROM megrendelo WHERE ID_m = ? ");
-				int idWorkingDocuments = Integer.parseInt(txtIdClient.getText());
-				deleteWorkingDocuments.setInt(1, idWorkingDocuments);
-				deleteWorkingDocuments.executeUpdate();
+				int idClient = Integer.parseInt(txtIdClient.getText());
+				deleteClient.setInt(1, idClient);
+				deleteClient.executeUpdate();
 				showProductsInJTableClient();
 				JOptionPane.showMessageDialog(null, "Sikeres törlés");
 			} catch (SQLException ex) {

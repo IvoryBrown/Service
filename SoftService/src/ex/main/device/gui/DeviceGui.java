@@ -21,7 +21,7 @@ public class DeviceGui extends ClientJDBCSetDAO {
 	protected JTextField txtSerialDevice;
 	protected JTextField txtDeviceId;
 	protected JTextField txtCommentDevice;
-	protected JButton btnNewDevice, btnNullDevice;
+	protected JButton btnNewDevice, btnNullDevice, btnEditDevice, jbtnDeleteDevice;
 	protected JComboBox cmBoxStatusdevice, cmBoxPriorityDevice;
 
 	public DeviceGui() {
@@ -37,11 +37,11 @@ public class DeviceGui extends ClientJDBCSetDAO {
 		jpnSettingDevice.setBounds(10, 11, 815, 63);
 		jplDevice.add(jpnSettingDevice);
 
-		JButton jbtnDeleteDevice = new JButton("törlés");
+		jbtnDeleteDevice = new JButton("törlés");
 		jbtnDeleteDevice.setBounds(565, 12, 109, 37);
 		jpnSettingDevice.add(jbtnDeleteDevice);
 
-		JButton btnEditDevice = new JButton("szerkesztés");
+		btnEditDevice = new JButton("szerkesztés");
 		btnEditDevice.setBounds(446, 12, 109, 37);
 		jpnSettingDevice.add(btnEditDevice);
 

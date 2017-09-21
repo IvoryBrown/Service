@@ -12,6 +12,7 @@ import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
+import ex.main.client.gui.ClientJDBCSetDAO;
 import ex.main.device.config.DeviceConfig;
 import ex.main.device.config.DeviceImplements;
 import ex.main.setting.DataBaseConnect;
@@ -34,6 +35,21 @@ public class DeviceJDBCSetDAO extends DeviceGui implements DeviceImplements {
 		btnNewDevice.addActionListener(new java.awt.event.ActionListener() {
 			public void actionPerformed(java.awt.event.ActionEvent evt) {
 				jBtnInsertActionPerformedDevice(evt);
+			}
+		});
+		btnEditDevice.addActionListener(new java.awt.event.ActionListener() {
+			public void actionPerformed(java.awt.event.ActionEvent evt) {
+				jBtnUpdateActionPerformedDevice(evt);
+			}
+		});
+		jbtnDeleteDevice.addActionListener(new java.awt.event.ActionListener() {
+			public void actionPerformed(java.awt.event.ActionEvent evt) {
+				int res = JOptionPane.showConfirmDialog(null, "Biztos törölni szeretnéd?", "Figyelmeztetés",
+						JOptionPane.YES_NO_OPTION);
+				if (res == JOptionPane.YES_OPTION)
+					jBtnDeleteActionPerformedDevice(evt);
+				else
+					return;
 			}
 		});
 		btnNullDevice.addActionListener(new java.awt.event.ActionListener() {
@@ -125,6 +141,53 @@ public class DeviceJDBCSetDAO extends DeviceGui implements DeviceImplements {
 			}
 		} else {
 			JOptionPane.showMessageDialog(null, "Egy vagy több mező üres");
+		}
+	}
+
+	private void jBtnUpdateActionPerformedDevice(java.awt.event.ActionEvent evt) {
+		if (checkInputsDevice()) {
+			String updateDevice = null;
+			PreparedStatement ps = null;
+			Connection con = DataBaseConnect.getConnection();
+			try {
+				updateDevice = "UPDATE gepadatok SET ugyfel_nev = ?, eszkoz_g = ?"
+						+ ", sorozatszam_g = ?, allapot = ?, prioritas = ?, megjegyzes_g = ?, megrendelo_ID_m = ? WHERE ID_g = ?";
+				ps = con.prepareStatement(updateDevice);
+				ps.setString(1, txtClientDeviceName.getText());
+				ps.setString(2, txtDevice.getText());
+				ps.setString(3, txtSerialDevice.getText());
+				ps.setString(4, (String) cmBoxStatusdevice.getItemAt(cmBoxStatusdevice.getSelectedIndex()));
+				ps.setString(5, (String) cmBoxPriorityDevice.getItemAt(cmBoxPriorityDevice.getSelectedIndex()));
+				ps.setString(6, txtCommentDevice.getText());
+				ps.setString(7, txtClientDeviceId.getText());
+				ps.setInt(8, Integer.parseInt(txtDeviceId.getText()));
+				ps.executeUpdate();
+				showProductsInJTableDevice();
+				JOptionPane.showMessageDialog(null, "Sikeres Frissítés");
+			} catch (SQLException ex) {
+				Logger.getLogger(DeviceJDBCSetDAO.class.getName()).log(Level.SEVERE, null, ex);
+			}
+		} else {
+			JOptionPane.showMessageDialog(null, "Egy vagy több mező üres vagy rossz");
+		}
+	}
+
+	private void jBtnDeleteActionPerformedDevice(java.awt.event.ActionEvent evt) {
+		if (!txtDeviceId.getText().equals("")) {
+			try {
+				Connection con = DataBaseConnect.getConnection();
+				PreparedStatement deleteDevice = con.prepareStatement("DELETE FROM gepadatok WHERE ID_g = ? ");
+				int idDevice = Integer.parseInt(txtDeviceId.getText());
+				deleteDevice.setInt(1, idDevice);
+				deleteDevice.executeUpdate();
+				showProductsInJTableDevice();
+				JOptionPane.showMessageDialog(null, "Sikeres törlés");
+			} catch (SQLException ex) {
+				Logger.getLogger(DeviceJDBCSetDAO.class.getName()).log(Level.SEVERE, null, ex);
+				JOptionPane.showMessageDialog(null, "Sikertelen törlés");
+			}
+		} else {
+			JOptionPane.showMessageDialog(null, "Sikertelen törlés : Nincs ID a törléshez");
 		}
 	}
 
