@@ -13,14 +13,12 @@ import javax.swing.JTable;
 
 public class DeviceGui extends ClientJDBCSetDAO {
 	protected JTextField txtSearchDevice;
-	protected JTextField textClientDevice;
-	protected JTextField txtSerialDevice;
-	protected JTextField txtNameDevice;
-	protected JTextField txtStatusDevice;
-	protected JTextField txtPrioritDevice;
-	protected JTextField txtCommentDevice;
-	protected JTextField txtIdDevice;
 	protected JTable jTableDevice;
+	private JTextField txtDevice;
+	private JTextField txtSerialDevice;
+	private JTextField txtConditionDevice;
+	private JTextField txtPriorityDevice;
+	private JTextField txtDeviceId;
 	public DeviceGui() {
 		
 		setComponent();
@@ -60,103 +58,71 @@ public class DeviceGui extends ClientJDBCSetDAO {
 		btnNullDevice.setBounds(684, 12, 109, 37);
 		jpnSettingDevice.add(btnNullDevice);
 		
-		JPanel jpnNewDevice = new JPanel();
-		jpnNewDevice.setLayout(null);
-		jpnNewDevice.setBounds(673, 85, 458, 493);
-		jplDevice.add(jpnNewDevice);
-		
-		JLabel lblClientDevice = new JLabel("ügyfél név: ");
-		lblClientDevice.setHorizontalAlignment(SwingConstants.RIGHT);
-		lblClientDevice.setFont(new Font("Tahoma", Font.BOLD, 15));
-		lblClientDevice.setBounds(10, 11, 140, 35);
-		jpnNewDevice.add(lblClientDevice);
-		
-		JLabel lblSerialDevice = new JLabel("sorozatszám: ");
-		lblSerialDevice.setHorizontalAlignment(SwingConstants.RIGHT);
-		lblSerialDevice.setFont(new Font("Tahoma", Font.BOLD, 15));
-		lblSerialDevice.setBounds(10, 55, 140, 35);
-		jpnNewDevice.add(lblSerialDevice);
-		
-		JLabel lblNameDevice = new JLabel("név: ");
-		lblNameDevice.setHorizontalAlignment(SwingConstants.RIGHT);
-		lblNameDevice.setFont(new Font("Tahoma", Font.BOLD, 15));
-		lblNameDevice.setBounds(10, 99, 140, 35);
-		jpnNewDevice.add(lblNameDevice);
-		
-		JLabel lblStatusDevice = new JLabel("állapot: ");
-		lblStatusDevice.setHorizontalAlignment(SwingConstants.RIGHT);
-		lblStatusDevice.setFont(new Font("Tahoma", Font.BOLD, 15));
-		lblStatusDevice.setBounds(10, 145, 140, 35);
-		jpnNewDevice.add(lblStatusDevice);
-		
-		JLabel lblPrioritDevice = new JLabel("prioritás: ");
-		lblPrioritDevice.setHorizontalAlignment(SwingConstants.RIGHT);
-		lblPrioritDevice.setFont(new Font("Tahoma", Font.BOLD, 15));
-		lblPrioritDevice.setBounds(10, 193, 140, 35);
-		jpnNewDevice.add(lblPrioritDevice);
-		
-		JLabel lblCommentDevice = new JLabel("megjegyzés: ");
-		lblCommentDevice.setHorizontalAlignment(SwingConstants.RIGHT);
-		lblCommentDevice.setFont(new Font("Tahoma", Font.BOLD, 15));
-		lblCommentDevice.setBounds(10, 239, 140, 35);
-		jpnNewDevice.add(lblCommentDevice);
-		
-		textClientDevice = new JTextField();
-		textClientDevice.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		textClientDevice.setEnabled(false);
-		textClientDevice.setColumns(10);
-		textClientDevice.setBackground(new Color(245, 255, 250));
-		textClientDevice.setBounds(153, 13, 189, 35);
-		jpnNewDevice.add(textClientDevice);
-		
-		txtSerialDevice = new JTextField();
-		txtSerialDevice.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		txtSerialDevice.setColumns(10);
-		txtSerialDevice.setBackground(new Color(245, 255, 250));
-		txtSerialDevice.setBounds(153, 57, 189, 35);
-		jpnNewDevice.add(txtSerialDevice);
-		
-		txtNameDevice = new JTextField();
-		txtNameDevice.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		txtNameDevice.setColumns(10);
-		txtNameDevice.setBackground(new Color(245, 255, 250));
-		txtNameDevice.setBounds(153, 101, 189, 35);
-		jpnNewDevice.add(txtNameDevice);
-		
-		txtStatusDevice = new JTextField();
-		txtStatusDevice.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		txtStatusDevice.setColumns(10);
-		txtStatusDevice.setBackground(new Color(245, 255, 250));
-		txtStatusDevice.setBounds(153, 147, 189, 35);
-		jpnNewDevice.add(txtStatusDevice);
-		
-		txtPrioritDevice = new JTextField();
-		txtPrioritDevice.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		txtPrioritDevice.setColumns(10);
-		txtPrioritDevice.setBackground(new Color(245, 255, 250));
-		txtPrioritDevice.setBounds(153, 193, 189, 35);
-		jpnNewDevice.add(txtPrioritDevice);
-		
-		txtCommentDevice = new JTextField();
-		txtCommentDevice.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		txtCommentDevice.setColumns(10);
-		txtCommentDevice.setBackground(new Color(245, 255, 250));
-		txtCommentDevice.setBounds(153, 239, 189, 131);
-		jpnNewDevice.add(txtCommentDevice);
-		
-		txtIdDevice = new JTextField();
-		txtIdDevice.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		txtIdDevice.setEnabled(false);
-		txtIdDevice.setColumns(10);
-		txtIdDevice.setBackground(new Color(245, 255, 250));
-		txtIdDevice.setBounds(350, 57, 95, 35);
-		jpnNewDevice.add(txtIdDevice);
-		
 		JScrollPane jScpDevice = new JScrollPane();
 		jScpDevice.setBounds(10, 85, 428, 493);
 		jplDevice.add(jScpDevice);
 		
 		jTableDevice = new JTable();
 		jScpDevice.setViewportView(jTableDevice);
+		
+		txtDevice = new JTextField();
+		txtDevice.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		txtDevice.setColumns(10);
+		txtDevice.setBackground(new Color(245, 255, 250));
+		txtDevice.setBounds(153, 59, 189, 35);
+		pnlDevice.add(txtDevice);
+		
+		txtDeviceId = new JTextField();
+		txtDeviceId.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		txtDeviceId.setEnabled(false);
+		txtDeviceId.setColumns(10);
+		txtDeviceId.setBackground(new Color(245, 255, 250));
+		txtDeviceId.setBounds(352, 59, 95, 35);
+		pnlDevice.add(txtDeviceId);
+		
+		txtSerialDevice = new JTextField();
+		txtSerialDevice.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		txtSerialDevice.setColumns(10);
+		txtSerialDevice.setBackground(new Color(245, 255, 250));
+		txtSerialDevice.setBounds(153, 105, 189, 35);
+		pnlDevice.add(txtSerialDevice);
+		
+		txtConditionDevice = new JTextField();
+		txtConditionDevice.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		txtConditionDevice.setColumns(10);
+		txtConditionDevice.setBackground(new Color(245, 255, 250));
+		txtConditionDevice.setBounds(153, 151, 189, 35);
+		pnlDevice.add(txtConditionDevice);
+		
+		txtPriorityDevice = new JTextField();
+		txtPriorityDevice.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		txtPriorityDevice.setColumns(10);
+		txtPriorityDevice.setBackground(new Color(245, 255, 250));
+		txtPriorityDevice.setBounds(153, 197, 189, 35);
+		pnlDevice.add(txtPriorityDevice);
+		
+		JLabel lblDevice = new JLabel("eszköz:  ");
+		lblDevice.setHorizontalAlignment(SwingConstants.RIGHT);
+		lblDevice.setFont(new Font("Tahoma", Font.BOLD, 15));
+		lblDevice.setBounds(10, 59, 140, 35);
+		pnlDevice.add(lblDevice);
+		
+		JLabel lblSerialDevice = new JLabel("sorozatszám: ");
+		lblSerialDevice.setHorizontalAlignment(SwingConstants.RIGHT);
+		lblSerialDevice.setFont(new Font("Tahoma", Font.BOLD, 15));
+		lblSerialDevice.setBounds(10, 105, 140, 35);
+		pnlDevice.add(lblSerialDevice);
+		
+		JLabel lblConditionDevice = new JLabel("állapot: ");
+		lblConditionDevice.setHorizontalAlignment(SwingConstants.RIGHT);
+		lblConditionDevice.setFont(new Font("Tahoma", Font.BOLD, 15));
+		lblConditionDevice.setBounds(10, 151, 140, 35);
+		pnlDevice.add(lblConditionDevice);
+		
+		JLabel lblPriorityDevice = new JLabel("prioritás: ");
+		lblPriorityDevice.setHorizontalAlignment(SwingConstants.RIGHT);
+		lblPriorityDevice.setFont(new Font("Tahoma", Font.BOLD, 15));
+		lblPriorityDevice.setBounds(10, 197, 140, 35);
+		pnlDevice.add(lblPriorityDevice);
 	}
 }

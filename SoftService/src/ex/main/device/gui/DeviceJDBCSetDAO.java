@@ -10,7 +10,6 @@ import java.util.logging.Logger;
 
 import javax.swing.table.DefaultTableModel;
 
-import ex.main.client.config.ClientConfig;
 import ex.main.device.config.DeviceConfig;
 import ex.main.device.config.DeviceImplements;
 import ex.main.setting.DataBaseConnect;
@@ -44,8 +43,8 @@ public class DeviceJDBCSetDAO extends DeviceGui implements DeviceImplements {
 			rs = st.executeQuery(query);
 			DeviceConfig product;
 			while (rs.next()) {
-				product = new DeviceConfig(rs.getInt("ID_g"), rs.getString("azonosito_g"), rs.getString("eszkoz_g"),
-						rs.getString("allapot"), rs.getString("prioritas"), rs.getString("megjegyzes_g"));
+				product = new DeviceConfig(rs.getInt("ID_g"),rs.getString("ugyfel_nev"),  rs.getString("eszkoz_g"), rs.getString("sorozatszam_g"),
+						rs.getString("allapot"), rs.getString("prioritas"), rs.getString("megjegyzes_g"),rs.getInt("megrendelo_ID_m"));
 				productListDevice.add(product);
 			}
 		} catch (SQLException ex) {
@@ -56,14 +55,11 @@ public class DeviceJDBCSetDAO extends DeviceGui implements DeviceImplements {
 
 	public void showProductsInJTableDevice() {
 		ArrayList<DeviceConfig> listDevice = getDeviceProductList();
-		ArrayList<ClientConfig> list = getClientProductList();
 		DefaultTableModel modelDevice = (DefaultTableModel) jTableDevice.getModel();
 		modelDevice.setRowCount(0);
 		Object[] rowDevice = new Object[3];
 		for (int i = 0; i < listDevice.size(); i++) {
-			
-				rowDevice[0] = list.get(i).getName();
-			
+			rowDevice[0] = listDevice.get(i).getClientName();
 			rowDevice[1] = listDevice.get(i).getDeviceName();
 			rowDevice[2] = listDevice.get(i).getSerial();
 			modelDevice.addRow(rowDevice);
@@ -71,13 +67,8 @@ public class DeviceJDBCSetDAO extends DeviceGui implements DeviceImplements {
 	}
 
 	public void ShowItemDevice(int index) {
-		txtIdDevice.setText(Integer.toString(getDeviceProductList().get(index).getIdg()));
-		txtSerialDevice.setText(getDeviceProductList().get(index).getSerial());
-		txtNameDevice.setText(getDeviceProductList().get(index).getDeviceName());
-		textClientDevice.setText(getClientProductList().get(index).getName());
-		txtStatusDevice.setText(getDeviceProductList().get(index).getStatus());
-		txtPrioritDevice.setText(getDeviceProductList().get(index).getPriorit());
-		txtCommentDevice.setText(getDeviceProductList().get(index).getComment());
+		txtClientDeviceId.setText(Integer.toString(getDeviceProductList().get(index).getClientId()));
+		txtClientDeviceName.setText(getDeviceProductList().get(index).getClientName());
 	}
 
 	private void JTable_ProductsMouseClickedDevice(java.awt.event.MouseEvent evt) {

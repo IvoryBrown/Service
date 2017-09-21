@@ -10,9 +10,12 @@ import javax.swing.JButton;
 import javax.swing.JPanel;
 import javax.swing.JLabel;
 import java.awt.Font;
+import java.util.ArrayList;
+
 import javax.swing.SwingConstants;
 import java.awt.Color;
 import javax.swing.ImageIcon;
+import javax.swing.JComboBox;
 
 public class ClientGui extends WorksheetGui {
 	protected JTextField txtSearchClient;
@@ -25,6 +28,10 @@ public class ClientGui extends WorksheetGui {
 	protected JButton btnNewClient, btnDeleteClient, btnEditClient, btnNullClient;
 	private JButton btnSearchClient;
 	protected JTextField txtIdClient;
+	protected JPanel pnlDevice;
+	private JLabel lblClientDeviceName;
+	protected JTextField txtClientDeviceName;
+	protected JTextField txtClientDeviceId;
 
 	public ClientGui() {
 
@@ -147,7 +154,7 @@ public class ClientGui extends WorksheetGui {
 		txtCommentClient.setBackground(new Color(245, 255, 250));
 		txtCommentClient.setBounds(153, 196, 189, 131);
 		jpnNewClient.add(txtCommentClient);
-		
+
 		txtIdClient = new JTextField();
 		txtIdClient.setEnabled(false);
 		txtIdClient.setFont(new Font("Tahoma", Font.PLAIN, 14));
@@ -157,5 +164,34 @@ public class ClientGui extends WorksheetGui {
 		jpnNewClient.add(txtIdClient);
 		jplMainPanel.setLayout(null);
 		getContentPane().setLayout(null);
+		jplDevice.setLayout(null);
+
+		pnlDevice = new JPanel();
+		pnlDevice.setLayout(null);
+		pnlDevice.setBounds(613, 96, 458, 493);
+		jplDevice.add(pnlDevice);
+
+		lblClientDeviceName = new JLabel("ügyfél név: ");
+		lblClientDeviceName.setHorizontalAlignment(SwingConstants.RIGHT);
+		lblClientDeviceName.setFont(new Font("Tahoma", Font.BOLD, 15));
+		lblClientDeviceName.setBounds(10, 11, 140, 35);
+		pnlDevice.add(lblClientDeviceName);
+
+		txtClientDeviceName = new JTextField();
+		txtClientDeviceName.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		txtClientDeviceName.setEnabled(false);
+		txtClientDeviceName.setColumns(10);
+		txtClientDeviceName.setBackground(new Color(245, 255, 250));
+		txtClientDeviceName.setBounds(153, 13, 189, 35);
+		pnlDevice.add(txtClientDeviceName);
+
+		txtClientDeviceId = new JTextField();
+		txtClientDeviceId.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		txtClientDeviceId.setEnabled(false);
+		txtClientDeviceId.setColumns(10);
+		txtClientDeviceId.setBackground(new Color(245, 255, 250));
+		txtClientDeviceId.setBounds(352, 13, 95, 35);
+		pnlDevice.add(txtClientDeviceId);
+
 	}
 }

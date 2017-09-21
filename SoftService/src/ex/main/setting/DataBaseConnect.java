@@ -46,7 +46,6 @@ public class DataBaseConnect {
 		try {
 			Class.forName(JDBC_DRIVER);
 			con = DriverManager.getConnection(DB_URL, USER, PASS);
-			System.out.println("online");
 			return con;
 		} catch (SQLException ex) {
 			Logger.getLogger(Gui.class.getName()).log(Level.SEVERE, null, ex);

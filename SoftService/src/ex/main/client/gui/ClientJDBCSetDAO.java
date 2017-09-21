@@ -113,8 +113,10 @@ public class ClientJDBCSetDAO extends ClientGui implements ClientImplements {
 
 	public void ShowItem(int index) {
 		txtIdClient.setText(Integer.toString(getClientProductList().get(index).getiDm()));
+		txtClientDeviceId.setText(Integer.toString(getClientProductList().get(index).getiDm()));
 		txtIDClient.setText(Integer.toString(getClientProductList().get(index).getiD()));
 		txtNameClient.setText(getClientProductList().get(index).getName());
+		txtClientDeviceName.setText(getClientProductList().get(index).getName());
 		txtMobilClient.setText(getClientProductList().get(index).getMobil());
 		txtHomeAddressClient.setText(getClientProductList().get(index).getHomeAddress());
 		txtCommentClient.setText(getClientProductList().get(index).getComment());
