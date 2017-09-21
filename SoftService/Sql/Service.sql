@@ -11,20 +11,31 @@ SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='TRADITIONAL,ALLOW_INVALID_DATES';
 -- -----------------------------------------------------
 -- Schema Service
 -- -----------------------------------------------------
-CREATE SCHEMA IF NOT EXISTS `Service` DEFAULT CHARACTER SET utf8 ;
+CREATE SCHEMA IF NOT EXISTS `Service` DEFAULT CHARACTER SET utf8 COLLATE utf8_hungarian_ci ;
 USE `Service` ;
+
+-- -----------------------------------------------------
+-- Table `Service`.`image_alkatresz`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `Service`.`image_alkatresz` (
+  `Image_a` LONGBLOB NULL,
+  `uj_alaktresz_azonosito_a` INT NOT NULL)
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8
+COLLATE = utf8_hungarian_ci;
+
 
 -- -----------------------------------------------------
 -- Table `Service`.`megrendelo`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `Service`.`megrendelo` (
-  `ID_m` INT NOT NULL,
+  `ID_m` INT NOT NULL AUTO_INCREMENT,
   `azonosito_m` INT NOT NULL,
   `nev` VARCHAR(255) NOT NULL,
   `kapcsolat` VARCHAR(255) NOT NULL,
   `lakcim` VARCHAR(255) NULL,
   `megjegyzes_m` VARCHAR(255) NULL,
-  PRIMARY KEY (`azonosito_m`))
+  PRIMARY KEY (`ID_m`))
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8
 COLLATE = utf8_hungarian_ci;
@@ -34,55 +45,19 @@ COLLATE = utf8_hungarian_ci;
 -- Table `Service`.`gepadatok`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `Service`.`gepadatok` (
-  `ID_g` INT NOT NULL,
-  `azonosito_g` INT NOT NULL,
+  `ID_g` INT NOT NULL AUTO_INCREMENT,
+  `ugyfel_nev` VARCHAR(255) NOT NULL,
   `eszkoz_g` VARCHAR(255) NOT NULL,
+  `sorozatszam_g` VARCHAR(255) NOT NULL,
   `allapot` VARCHAR(255) NOT NULL,
+  `prioritas` VARCHAR(60) NULL,
   `megjegyzes_g` VARCHAR(255) NULL,
-  `megrendelo_azonosito_m` INT NOT NULL,
-  PRIMARY KEY (`azonosito_g`),
-  INDEX `fk_gepadatok_megrendelo_idx` (`megrendelo_azonosito_m` ASC),
+  `megrendelo_ID_m` INT NOT NULL,
+  PRIMARY KEY (`ID_g`),
+  INDEX `fk_gepadatok_megrendelo_idx` (`megrendelo_ID_m` ASC),
   CONSTRAINT `fk_gepadatok_megrendelo`
-    FOREIGN KEY (`megrendelo_azonosito_m`)
-    REFERENCES `Service`.`megrendelo` (`azonosito_m`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
-ENGINE = InnoDB
-DEFAULT CHARACTER SET = utf8
-COLLATE = utf8_hungarian_ci;
-
-
--- -----------------------------------------------------
--- Table `Service`.`uj_alaktresz`
--- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `Service`.`uj_alaktresz` (
-  `ID_a` INT NOT NULL,
-  `azonosito_a` INT NOT NULL,
-  `eszkoz_a` VARCHAR(255) NULL,
-  `megjegyzes_a` VARCHAR(255) NULL,
-  `gepadatok_azonosito_g` INT NOT NULL,
-  PRIMARY KEY (`azonosito_a`),
-  INDEX `fk_uj_alaktresz_gepadatok1_idx` (`gepadatok_azonosito_g` ASC),
-  CONSTRAINT `fk_uj_alaktresz_gepadatok1`
-    FOREIGN KEY (`gepadatok_azonosito_g`)
-    REFERENCES `Service`.`gepadatok` (`azonosito_g`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
-ENGINE = InnoDB
-DEFAULT CHARACTER SET = utf8
-COLLATE = utf8_hungarian_ci;
-
-
--- -----------------------------------------------------
--- Table `Service`.`image_alkatresz`
--- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `Service`.`image_alkatresz` (
-  `Image_a` LONGBLOB NULL,
-  `uj_alaktresz_azonosito_a` INT NOT NULL,
-  INDEX `fk_image_alkatresz_uj_alaktresz1_idx` (`uj_alaktresz_azonosito_a` ASC),
-  CONSTRAINT `fk_image_alkatresz_uj_alaktresz1`
-    FOREIGN KEY (`uj_alaktresz_azonosito_a`)
-    REFERENCES `Service`.`uj_alaktresz` (`azonosito_a`)
+    FOREIGN KEY (`megrendelo_ID_m`)
+    REFERENCES `Service`.`megrendelo` (`ID_m`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB
@@ -99,11 +74,11 @@ CREATE TABLE IF NOT EXISTS `Service`.`munka_ido` (
   `ra_forditott_ido` INT NULL,
   `tenyleges_teljesites` DATE NULL,
   `megjegyzes_i` VARCHAR(255) NULL,
-  `gepadatok_azonosito_g` INT NOT NULL,
-  INDEX `fk_munka_ido_gepadatok1_idx` (`gepadatok_azonosito_g` ASC),
+  `gepadatok_ID_g` INT NOT NULL,
+  INDEX `fk_munka_ido_gepadatok1_idx` (`gepadatok_ID_g` ASC),
   CONSTRAINT `fk_munka_ido_gepadatok1`
-    FOREIGN KEY (`gepadatok_azonosito_g`)
-    REFERENCES `Service`.`gepadatok` (`azonosito_g`)
+    FOREIGN KEY (`gepadatok_ID_g`)
+    REFERENCES `Service`.`gepadatok` (`ID_g`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB
@@ -117,13 +92,7 @@ COLLATE = utf8_hungarian_ci;
 CREATE TABLE IF NOT EXISTS `Service`.`software` (
   `software` VARCHAR(255) NULL,
   `megjegyzes_s` VARCHAR(255) NULL,
-  `gepadatok_azonosito_g` INT NOT NULL,
-  INDEX `fk_softver_gepadatok1_idx` (`gepadatok_azonosito_g` ASC),
-  CONSTRAINT `fk_softver_gepadatok1`
-    FOREIGN KEY (`gepadatok_azonosito_g`)
-    REFERENCES `Service`.`gepadatok` (`azonosito_g`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
+  `gepadatok_azonosito_g` INT NOT NULL)
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8
 COLLATE = utf8_hungarian_ci;
@@ -133,14 +102,31 @@ COLLATE = utf8_hungarian_ci;
 -- Table `Service`.`image_gep`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `Service`.`image_gep` (
-  `Image_g` LONGBLOB NULL,
-  `gepadatok_azonosito_g` INT NOT NULL,
-  INDEX `fk_image_gep_gepadatok1_idx` (`gepadatok_azonosito_g` ASC),
+  `Image_i` LONGBLOB NULL,
+  `ugyfel_nev_i` VARCHAR(255) NOT NULL,
+  `sorozatszam_i` VARCHAR(255) NOT NULL,
+  `gepadatok_ID_g` INT NOT NULL,
+  INDEX `fk_image_gep_gepadatok1_idx` (`gepadatok_ID_g` ASC),
   CONSTRAINT `fk_image_gep_gepadatok1`
-    FOREIGN KEY (`gepadatok_azonosito_g`)
-    REFERENCES `Service`.`gepadatok` (`azonosito_g`)
+    FOREIGN KEY (`gepadatok_ID_g`)
+    REFERENCES `Service`.`gepadatok` (`ID_g`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8
+COLLATE = utf8_hungarian_ci;
+
+
+-- -----------------------------------------------------
+-- Table `Service`.`uj_alaktresz`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `Service`.`uj_alaktresz` (
+  `ID_a` INT NOT NULL,
+  `azonosito_a` INT NOT NULL,
+  `eszkoz_a` VARCHAR(255) NULL,
+  `megjegyzes_a` VARCHAR(255) NULL,
+  `gepadatok_azonosito_g` INT NOT NULL,
+  PRIMARY KEY (`azonosito_a`))
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8
 COLLATE = utf8_hungarian_ci;
@@ -155,13 +141,7 @@ CREATE TABLE IF NOT EXISTS `Service`.`hasznalt_alaktresz` (
   `eszkoz_h` VARCHAR(255) NULL,
   `megjegyzes_h` VARCHAR(255) NULL,
   `gepadatok_azonosito_g` INT NOT NULL,
-  PRIMARY KEY (`azonosito_h`),
-  INDEX `fk_hasznalt_alaktresz_gepadatok1_idx` (`gepadatok_azonosito_g` ASC),
-  CONSTRAINT `fk_hasznalt_alaktresz_gepadatok1`
-    FOREIGN KEY (`gepadatok_azonosito_g`)
-    REFERENCES `Service`.`gepadatok` (`azonosito_g`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
+  PRIMARY KEY (`azonosito_h`))
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8
 COLLATE = utf8_hungarian_ci;
@@ -172,13 +152,7 @@ COLLATE = utf8_hungarian_ci;
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `Service`.`image_hasznalt` (
   `Image_h` LONGBLOB NULL,
-  `hasznalt_alaktresz_azonosito_h` INT NOT NULL,
-  INDEX `fk_image_hasznalt_hasznalt_alaktresz1_idx` (`hasznalt_alaktresz_azonosito_h` ASC),
-  CONSTRAINT `fk_image_hasznalt_hasznalt_alaktresz1`
-    FOREIGN KEY (`hasznalt_alaktresz_azonosito_h`)
-    REFERENCES `Service`.`hasznalt_alaktresz` (`azonosito_h`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
+  `hasznalt_alaktresz_azonosito_h` INT NOT NULL)
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8
 COLLATE = utf8_hungarian_ci;
@@ -189,13 +163,7 @@ COLLATE = utf8_hungarian_ci;
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `Service`.`szervizes` (
   `szervizes` VARCHAR(255) NOT NULL,
-  `gepadatok_azonosito_g` INT NOT NULL,
-  INDEX `fk_szervizes_gepadatok1_idx` (`gepadatok_azonosito_g` ASC),
-  CONSTRAINT `fk_szervizes_gepadatok1`
-    FOREIGN KEY (`gepadatok_azonosito_g`)
-    REFERENCES `Service`.`gepadatok` (`azonosito_g`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION);
+  `gepadatok_azonosito_g` INT NOT NULL);
 
 
 SET SQL_MODE=@OLD_SQL_MODE;
