@@ -1,6 +1,7 @@
 package ex.main.deviceimage.gui;
 
 import java.awt.Image;
+import java.io.File;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -10,6 +11,8 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import javax.swing.ImageIcon;
+import javax.swing.JFileChooser;
+import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.table.DefaultTableModel;
 
 import ex.main.deviceimage.config.DeviceImageConfig;
@@ -17,6 +20,7 @@ import ex.main.deviceimage.config.DeviceImageImplements;
 import ex.main.setting.DataBaseConnect;
 
 public class DeviceImageJDBCSetDAO extends DeviceImageGui implements DeviceImageImplements {
+	String ImgPath = null;
 	public DeviceImageJDBCSetDAO() {
 		setActionDeviceImage();
 		showProductsInJTableDeviceImage();
@@ -28,6 +32,11 @@ public class DeviceImageJDBCSetDAO extends DeviceImageGui implements DeviceImage
 		jtblDeviceImage.addMouseListener(new java.awt.event.MouseAdapter() {
 			public void mouseClicked(java.awt.event.MouseEvent evt) {
 				JTable_ProductsMouseClickedDeviceImage(evt);
+			}
+		});
+		btnDeviceImageUpload.addActionListener(new java.awt.event.ActionListener() {
+			public void actionPerformed(java.awt.event.ActionEvent evt) {
+				Btn_Choose_ImageActionPerformed(evt);
 			}
 		});
 	}
@@ -57,7 +66,7 @@ public class DeviceImageJDBCSetDAO extends DeviceImageGui implements DeviceImage
 			rs = st.executeQuery(query);
 			DeviceImageConfig product;
 			while (rs.next()) {
-				product = new DeviceImageConfig(rs.getBytes("image_i"), rs.getString("ugyfel_nev_i"),
+				product = new DeviceImageConfig(rs.getBytes("Image_i"), rs.getString("ugyfel_nev_i"),
 						rs.getString("sorozatszam_i"), rs.getInt("gepadatok_ID_g"));
 				productListDeviceImage.add(product);
 			}
@@ -85,6 +94,21 @@ public class DeviceImageJDBCSetDAO extends DeviceImageGui implements DeviceImage
 		txtDeviceImageDeviceId.setText((Integer.toString(getDeviceImageProductList().get(index).getDeviceId())));
 		txtDeviceImageSerialDevice.setText(getDeviceImageProductList().get(index).getDeviceSerial());
 
+	}
+	private void Btn_Choose_ImageActionPerformed(java.awt.event.ActionEvent evt) {
+		JFileChooser file = new JFileChooser();
+		file.setCurrentDirectory(new File(System.getProperty("user.home")));
+		FileNameExtensionFilter filter = new FileNameExtensionFilter("*.images", "jpg", "png");
+		file.addChoosableFileFilter(filter);
+		int result = file.showSaveDialog(null);
+		if (result == JFileChooser.APPROVE_OPTION) {
+			File selectedFile = file.getSelectedFile();
+			String path = selectedFile.getAbsolutePath();
+			jlblDeviceImage.setIcon(ResizeImage(path, null));
+			ImgPath = path;
+		} else {
+			System.out.println("Nincs fájl kiválasztva");
+		}
 	}
 
 	private void JTable_ProductsMouseClickedDeviceImage(java.awt.event.MouseEvent evt) {

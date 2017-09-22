@@ -8,6 +8,7 @@ import javax.swing.JButton;
 import javax.swing.JTextField;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
+import javax.swing.ImageIcon;
 
 public class DeviceImageGui extends DeviceJDBCSetDAO {
 	protected JTextField txtDeviceImageSearch;
@@ -39,6 +40,8 @@ public class DeviceImageGui extends DeviceJDBCSetDAO {
 		pnlDeviceImageSetting.add(btnDeviceImageDelete);
 
 		btnDeviceImageNew = new JButton("új eszköz");
+		btnDeviceImageNew.setIcon(new ImageIcon("\\PNG\\Button Add-01.png"));
+		
 		btnDeviceImageNew.setBounds(327, 11, 109, 37);
 		pnlDeviceImageSetting.add(btnDeviceImageNew);
 
