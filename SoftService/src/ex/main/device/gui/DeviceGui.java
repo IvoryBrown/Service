@@ -28,10 +28,10 @@ public class DeviceGui extends ClientJDBCSetDAO {
 	protected JTextField txtDeviceImageNameDevice;
 	protected JTextField txtDeviceImageSerialDevice;
 	protected JTextField txtDeviceImageDeviceId;
-	private JPanel pnlWorkingHoursSetting;
+	protected JPanel pnlWorkingHoursSetting;
 	private JLabel lblWorkingHoursDeviceName;
-	private JTextField txtWorkingHoursDeviceName;
-	private JTextField txtWorkingHoursDeviceSerial;
+	protected JTextField txtWorkingHoursDeviceName;
+	protected JTextField txtWorkingHoursDeviceSerial;
 
 	public DeviceGui() {
 		pnlDevice.setLocation(448, 85);
@@ -194,7 +194,7 @@ public class DeviceGui extends ClientJDBCSetDAO {
 		lblWorkingHoursDeviceName.setBounds(10, 11, 140, 35);
 		pnlWorkingHoursSetting.add(lblWorkingHoursDeviceName);
 		
-		JLabel lblAzonost = new JLabel("azonosító: ");
+		JLabel lblAzonost = new JLabel("sorozatszám: ");
 		lblAzonost.setHorizontalAlignment(SwingConstants.RIGHT);
 		lblAzonost.setFont(new Font("Tahoma", Font.BOLD, 15));
 		lblAzonost.setBounds(10, 57, 140, 35);

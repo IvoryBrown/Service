@@ -45,9 +45,24 @@ public class DeviceImageJDBCSetDAO extends DeviceImageGui implements DeviceImage
 				jBtnInsertActionPerformedDeviceImage(evt);
 			}
 		});
+		btnDeviceImageEdit.addActionListener(new java.awt.event.ActionListener() {
+			public void actionPerformed(java.awt.event.ActionEvent evt) {
+				jBtnUpdateActionPerformedDeviceImage(evt);
+			}
+		});
 		btnDeviceImageUpload.addActionListener(new java.awt.event.ActionListener() {
 			public void actionPerformed(java.awt.event.ActionEvent evt) {
 				Btn_Choose_ImageActionPerformed(evt);
+			}
+		});
+		btnDeviceImageDelete.addActionListener(new java.awt.event.ActionListener() {
+			public void actionPerformed(java.awt.event.ActionEvent evt) {
+				int res = JOptionPane.showConfirmDialog(null, "Biztos törölni szeretnéd?", "Figyelmeztetés",
+						JOptionPane.YES_NO_OPTION);
+				if (res == JOptionPane.YES_OPTION)
+					jDeleteActionPerformedDeviceImage(evt);
+				else
+					return;
 			}
 		});
 	}
@@ -70,13 +85,21 @@ public class DeviceImageJDBCSetDAO extends DeviceImageGui implements DeviceImage
 		ImageIcon myImage = null;
 		if (imagePath != null) {
 			myImage = new ImageIcon(imagePath);
-		} else {
+			Image img = myImage.getImage();
+			Image img2 = img.getScaledInstance(jlblDeviceImage.getWidth(), jlblDeviceImage.getHeight(),
+					Image.SCALE_SMOOTH);
+			ImageIcon image = new ImageIcon(img2);
+			return image;
+		} else if (pic != null) {
 			myImage = new ImageIcon(pic);
+			Image img = myImage.getImage();
+			Image img2 = img.getScaledInstance(jlblDeviceImage.getWidth(), jlblDeviceImage.getHeight(),
+					Image.SCALE_SMOOTH);
+			ImageIcon image = new ImageIcon(img2);
+			return image;
+		} else {
+			return null;
 		}
-		Image img = myImage.getImage();
-		Image img2 = img.getScaledInstance(jlblDeviceImage.getWidth(), jlblDeviceImage.getHeight(), Image.SCALE_SMOOTH);
-		ImageIcon image = new ImageIcon(img2);
-		return image;
 	}
 
 	@Override
@@ -162,6 +185,53 @@ public class DeviceImageJDBCSetDAO extends DeviceImageGui implements DeviceImage
 			}
 		} else {
 			JOptionPane.showMessageDialog(null, "Egy vagy több mező üres");
+		}
+	}
+
+	private void jBtnUpdateActionPerformedDeviceImage(java.awt.event.ActionEvent evt) {
+		if (checkInputsDeviceImage()) {
+			String updateDevice = null;
+			PreparedStatement psDeviceImage = null;
+			Connection con = DataBaseConnect.getConnection();
+			try {
+				updateDevice = "UPDATE image_gep SET ugyfel_nev_i = ?, eszkoz_nev = ?"
+						+ ", sorozatszam_i = ?, Image_i = ? WHERE gepadatok_ID_g = ?";
+				psDeviceImage = con.prepareStatement(updateDevice);
+				psDeviceImage.setString(1, txtDeviceImageClientName.getText());
+				psDeviceImage.setString(2, txtDeviceImageNameDevice.getText());
+				psDeviceImage.setString(3, txtDeviceImageSerialDevice.getText());
+				InputStream img = new FileInputStream(new File(ImgPath));
+				psDeviceImage.setBlob(4, img);
+				psDeviceImage.setString(5, txtDeviceImageDeviceId.getText());
+				psDeviceImage.executeUpdate();
+				showProductsInJTableDeviceImage();
+				JOptionPane.showMessageDialog(null, "Sikeres Frissítés");
+			} catch (SQLException ex) {
+				Logger.getLogger(DeviceImageJDBCSetDAO.class.getName()).log(Level.SEVERE, null, ex);
+			} catch (FileNotFoundException e) {
+				JOptionPane.showMessageDialog(null, "Kép nem található");
+			}
+		} else {
+			JOptionPane.showMessageDialog(null, "Egy vagy több mező üres vagy rossz");
+		}
+	}
+
+	private void jDeleteActionPerformedDeviceImage(java.awt.event.ActionEvent evt) {
+		if (!txtDeviceImageDeviceId.getText().equals("")) {
+			try {
+				Connection con = DataBaseConnect.getConnection();
+				PreparedStatement DELETE = con.prepareStatement("DELETE FROM image_gep WHERE gepadatok_ID_g = ?");
+				int id = Integer.parseInt(txtDeviceImageDeviceId.getText());
+				DELETE.setInt(1, id);
+				DELETE.executeUpdate();
+				showProductsInJTableDeviceImage();
+				JOptionPane.showMessageDialog(null, "Sikeres törlés");
+			} catch (SQLException ex) {
+				Logger.getLogger(DeviceImageJDBCSetDAO.class.getName()).log(Level.SEVERE, null, ex);
+				JOptionPane.showMessageDialog(null, "Sikertelen törlés");
+			}
+		} else {
+			JOptionPane.showMessageDialog(null, "Sikertelen törlés : Nincs ID a törléshez");
 		}
 	}
 

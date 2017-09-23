@@ -1,24 +1,20 @@
 package ex.main.client.gui;
 
+import java.awt.Color;
+import java.awt.Font;
+
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
-import javax.swing.SpringLayout;
 import javax.swing.JTextField;
-import javax.swing.JButton;
-import javax.swing.JPanel;
-import javax.swing.JLabel;
-import java.awt.Font;
-import java.util.ArrayList;
-
 import javax.swing.SwingConstants;
 
-import ex.main.worksheet.gui.WorksheetGui;
+import ex.main.worksheet.gui.WorkSheetJDBCSetDao;
 
-import java.awt.Color;
-import javax.swing.ImageIcon;
-import javax.swing.JComboBox;
-
-public class ClientGui extends WorksheetGui {
+public class ClientGui extends WorkSheetJDBCSetDao {
 	protected JTextField txtSearchClient;
 	protected JTextField txtIDClient;
 	protected JTextField txtNameClient;

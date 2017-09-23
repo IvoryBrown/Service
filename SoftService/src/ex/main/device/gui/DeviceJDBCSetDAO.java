@@ -113,9 +113,11 @@ public class DeviceJDBCSetDAO extends DeviceGui implements DeviceImplements {
 		txtDeviceImageClientName.setText(getDeviceProductList().get(index).getClientName());
 		txtDevice.setText(getDeviceProductList().get(index).getDeviceName());
 		txtDeviceImageNameDevice.setText(getDeviceProductList().get(index).getDeviceName());
+		txtWorkingHoursDeviceName.setText(getDeviceProductList().get(index).getDeviceName());
 		txtDeviceId.setText(Integer.toString(getDeviceProductList().get(index).getIdg()));
 		txtDeviceImageDeviceId.setText(Integer.toString(getDeviceProductList().get(index).getIdg()));
 		txtSerialDevice.setText(getDeviceProductList().get(index).getSerial());
+		txtWorkingHoursDeviceSerial.setText(getDeviceProductList().get(index).getSerial());
 		txtDeviceImageSerialDevice.setText(getDeviceProductList().get(index).getSerial());
 		cmBoxStatusdevice.setSelectedItem(getDeviceProductList().get(index).getStatus());
 		cmBoxPriorityDevice.setSelectedItem(getDeviceProductList().get(index).getPriorit());

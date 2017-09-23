@@ -1,6 +1,6 @@
 package ex.main;
 
-import ex.main.deviceimage.gui.DeviceImageJDBCSetDAO;
+import ex.main.workhours.gui.WorkHoursJDBCSetDAO;
 
 public class MainProgram {
 	public MainProgram() {
@@ -31,7 +31,7 @@ public class MainProgram {
 		}
 		java.awt.EventQueue.invokeLater(new Runnable() {
 			public void run() {
-				new DeviceImageJDBCSetDAO().setVisible(true);
+				new WorkHoursJDBCSetDAO().setVisible(true);
 			}
 		});
 	}
