@@ -1,4 +1,4 @@
-package ex.main.gui.worksheet;
+package ex.main.worksheet.gui;
 
 import ex.main.gui.Gui;
 
