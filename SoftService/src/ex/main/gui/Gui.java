@@ -1,6 +1,7 @@
 package ex.main.gui;
 
 import java.awt.Color;
+import java.awt.Component;
 import java.awt.FlowLayout;
 import java.awt.Font;
 
@@ -21,7 +22,7 @@ public class Gui extends JFrame {
 	private static final long serialVersionUID = -902277029378989079L;
 	protected JPanel jplMainPanel;
 	protected JTabbedPane jTbdPane;
-	protected JPanel jplWorksheet, jplClients, jplDevice;
+	protected JPanel jplWorksheet, jplClients, jplDevice, jplWorkingHours;
 	protected FlowLayout fl_jplClients;
 	DataBaseConnect connect = new DataBaseConnect();
 	private JPanel panel;
@@ -58,10 +59,13 @@ public class Gui extends JFrame {
 
 		jplDevice = new JPanel();
 		jTbdPane.addTab("Eszköz", null, jplDevice, null);
-		
+
 		jplDeviceImage = new JPanel();
 		jTbdPane.addTab("Eszköz képek", null, jplDeviceImage, null);
 		jplDeviceImage.setLayout(null);
+
+		jplWorkingHours = new JPanel();
+		jTbdPane.addTab("Dátum", null, jplWorkingHours, null);
 
 		JLabel lblNewLabel = new JLabel("Verzió: 1.0.0");
 		lblNewLabel.setBounds(1152, 623, 82, 16);

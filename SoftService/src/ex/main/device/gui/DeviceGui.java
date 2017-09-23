@@ -28,8 +28,13 @@ public class DeviceGui extends ClientJDBCSetDAO {
 	protected JTextField txtDeviceImageNameDevice;
 	protected JTextField txtDeviceImageSerialDevice;
 	protected JTextField txtDeviceImageDeviceId;
+	private JPanel pnlWorkingHoursSetting;
+	private JLabel lblWorkingHoursDeviceName;
+	private JTextField txtWorkingHoursDeviceName;
+	private JTextField txtWorkingHoursDeviceSerial;
 
 	public DeviceGui() {
+		pnlDevice.setLocation(448, 85);
 
 		setComponent();
 	}
@@ -176,5 +181,39 @@ public class DeviceGui extends ClientJDBCSetDAO {
 		txtDeviceImageDeviceId.setBackground(new Color(245, 255, 250));
 		txtDeviceImageDeviceId.setBounds(915, 85, 95, 35);
 		jplDeviceImage.add(txtDeviceImageDeviceId);
+		jplWorkingHours.setLayout(null);
+		
+		pnlWorkingHoursSetting = new JPanel();
+		pnlWorkingHoursSetting.setLayout(null);
+		pnlWorkingHoursSetting.setBounds(459, 85, 458, 493);
+		jplWorkingHours.add(pnlWorkingHoursSetting);
+		
+		lblWorkingHoursDeviceName = new JLabel("eszköz név: ");
+		lblWorkingHoursDeviceName.setHorizontalAlignment(SwingConstants.RIGHT);
+		lblWorkingHoursDeviceName.setFont(new Font("Tahoma", Font.BOLD, 15));
+		lblWorkingHoursDeviceName.setBounds(10, 11, 140, 35);
+		pnlWorkingHoursSetting.add(lblWorkingHoursDeviceName);
+		
+		JLabel lblAzonost = new JLabel("azonosító: ");
+		lblAzonost.setHorizontalAlignment(SwingConstants.RIGHT);
+		lblAzonost.setFont(new Font("Tahoma", Font.BOLD, 15));
+		lblAzonost.setBounds(10, 57, 140, 35);
+		pnlWorkingHoursSetting.add(lblAzonost);
+		
+		txtWorkingHoursDeviceName = new JTextField();
+		txtWorkingHoursDeviceName.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		txtWorkingHoursDeviceName.setEnabled(false);
+		txtWorkingHoursDeviceName.setColumns(10);
+		txtWorkingHoursDeviceName.setBackground(new Color(245, 255, 250));
+		txtWorkingHoursDeviceName.setBounds(153, 13, 189, 35);
+		pnlWorkingHoursSetting.add(txtWorkingHoursDeviceName);
+		
+		txtWorkingHoursDeviceSerial = new JTextField();
+		txtWorkingHoursDeviceSerial.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		txtWorkingHoursDeviceSerial.setEnabled(false);
+		txtWorkingHoursDeviceSerial.setColumns(10);
+		txtWorkingHoursDeviceSerial.setBackground(new Color(245, 255, 250));
+		txtWorkingHoursDeviceSerial.setBounds(153, 59, 189, 35);
+		pnlWorkingHoursSetting.add(txtWorkingHoursDeviceSerial);
 	}
 }

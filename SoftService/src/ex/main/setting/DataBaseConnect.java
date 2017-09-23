@@ -9,7 +9,7 @@ import java.util.logging.Logger;
 
 import javax.swing.JLabel;
 
-import ex.main.gui.Gui;
+import ex.main.MainProgram;
 
 public class DataBaseConnect {
 	static final String JDBC_DRIVER = "com.mysql.jdbc.Driver";
@@ -20,6 +20,7 @@ public class DataBaseConnect {
 
 	public DataBaseConnect() {
 		Connection conn = null;
+
 		try {
 			Class.forName(JDBC_DRIVER);
 			conn = DriverManager.getConnection(DB_URL, USER, PASS);
@@ -35,10 +36,12 @@ public class DataBaseConnect {
 			try {
 				if (conn != null)
 					conn.close();
+					new MainProgram();
 			} catch (SQLException se) {
 				se.printStackTrace();
 			}
 		}
+
 	}
 
 	public static Connection getConnection() {
@@ -48,7 +51,7 @@ public class DataBaseConnect {
 			con = DriverManager.getConnection(DB_URL, USER, PASS);
 			return con;
 		} catch (SQLException ex) {
-			Logger.getLogger(Gui.class.getName()).log(Level.SEVERE, null, ex);
+			Logger.getLogger(DataBaseConnect.class.getName()).log(Level.SEVERE, null, ex);
 			return null;
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();

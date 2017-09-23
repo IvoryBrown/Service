@@ -3,8 +3,6 @@ package ex.main.client.gui;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.SpringLayout;
-
-import ex.main.gui.worksheet.WorksheetGui;
 import javax.swing.JTextField;
 import javax.swing.JButton;
 import javax.swing.JPanel;
@@ -13,6 +11,9 @@ import java.awt.Font;
 import java.util.ArrayList;
 
 import javax.swing.SwingConstants;
+
+import ex.main.worksheet.gui.WorksheetGui;
+
 import java.awt.Color;
 import javax.swing.ImageIcon;
 import javax.swing.JComboBox;
