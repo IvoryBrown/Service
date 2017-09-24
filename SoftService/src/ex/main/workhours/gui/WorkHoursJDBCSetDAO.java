@@ -15,6 +15,7 @@ import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
+import ex.main.deviceimage.gui.DeviceImageJDBCSetDAO;
 import ex.main.setting.DataBaseConnect;
 import ex.main.workhours.config.WorkHoursConfig;
 import ex.main.workhours.config.WorkHoursImplements;
@@ -36,6 +37,21 @@ public class WorkHoursJDBCSetDAO extends WorkHourGui implements WorkHoursImpleme
 		btnWorkHoursNew.addActionListener(new java.awt.event.ActionListener() {
 			public void actionPerformed(java.awt.event.ActionEvent evt) {
 				jBtnInsertActionPerformedWorkHours(evt);
+			}
+		});
+		btnWorkHoursEdit.addActionListener(new java.awt.event.ActionListener() {
+			public void actionPerformed(java.awt.event.ActionEvent evt) {
+				jBtnUpdateActionPerformedWorkHour(evt);
+			}
+		});
+		btnWorkHoursDelete.addActionListener(new java.awt.event.ActionListener() {
+			public void actionPerformed(java.awt.event.ActionEvent evt) {
+				int res = JOptionPane.showConfirmDialog(null, "Biztos törölni szeretnéd?", "Figyelmeztetés",
+						JOptionPane.YES_NO_OPTION);
+				if (res == JOptionPane.YES_OPTION)
+					jDeleteActionPerformedWorkHour(evt);
+				else
+					return;
 			}
 		});
 	}
@@ -66,8 +82,8 @@ public class WorkHoursJDBCSetDAO extends WorkHourGui implements WorkHoursImpleme
 			WorkHoursConfig product;
 			while (rs.next()) {
 				product = new WorkHoursConfig(rs.getString("sorozatszam_g"), rs.getString("rogzites"),
-						rs.getString("hatarido"), rs.getInt("ra_forditott_ido"), rs.getString("tenyleges_teljesites"),
-						rs.getString("megjegyzes_i"), rs.getInt("gepadatok_ID_g"));
+						rs.getString("hatarido"), rs.getString("tenyleges_teljesites"), rs.getString("megjegyzes_i"),
+						rs.getInt("gepadatok_ID_g"));
 				productListWorkHours.add(product);
 			}
 		} catch (SQLException ex) {
@@ -92,20 +108,22 @@ public class WorkHoursJDBCSetDAO extends WorkHourGui implements WorkHoursImpleme
 	private void showProductsInJTableWorksHours(int index) {
 		txtWorkingHoursDeviceName.setText(null);
 		txtWorkingHoursDeviceSerial.setText(getWorkHoursProductList().get(index).getSerialDevice());
+		txtDeviceId.setText(Integer.toString(getWorkHoursProductList().get(index).getDeviceId()));
 		try {
 			Date addDate = null;
 			Date endDate = null;
-			Date spentDate = null;
+			Date completed = null;
 			addDate = new SimpleDateFormat("yyyy-MM-dd")
 					.parse((String) getWorkHoursProductList().get(index).getAddDate());
 			txtWorkHourAddDate.setDate(addDate);
 			endDate = new SimpleDateFormat("yyyy-MM-dd")
 					.parse((String) getWorkHoursProductList().get(index).getExitDate());
 			txtWorkHourEndDate.setDate(endDate);
-			spentDate = new SimpleDateFormat("yyyy-MM-dd")
-					.parse((String) getWorkHoursProductList().get(index).getCompletedDate());
-			txtWorkHourCompletedDate.setDate(spentDate);
-			txtWorkHourSpentDate.setText(Integer.toString(getWorkHoursProductList().get(index).getSpentDate()));
+			if (getWorkHoursProductList().get(index).getCompletedDate() != null) {
+				completed = new SimpleDateFormat("yyyy-MM-dd")
+						.parse((String) getWorkHoursProductList().get(index).getCompletedDate());
+			}
+			txtWorkHourCompletedDate.setDate(completed);
 			txtWorkHourComment.setText(getWorkHoursProductList().get(index).getCommentWorkHours());
 		} catch (ParseException ex) {
 			Logger.getLogger(WorkHoursJDBCSetDAO.class.getName()).log(Level.SEVERE, null, ex);
@@ -113,12 +131,12 @@ public class WorkHoursJDBCSetDAO extends WorkHourGui implements WorkHoursImpleme
 	}
 
 	private void jBtnInsertActionPerformedWorkHours(java.awt.event.ActionEvent evt) {
+		String completedDate = null;
 		if (checkInputsWorkHours()) {
 			try {
 				Connection con = DataBaseConnect.getConnection();
 				PreparedStatement insertDevice = con.prepareStatement("INSERT INTO munka_ido(sorozatszam_g, rogzites,"
-						+ "hatarido, ra_forditott_ido, tenyleges_teljesites, megjegyzes_i, gepadatok_ID_g)"
-						+ "values(?,?,?,?,?,?,?) ");
+						+ "hatarido, tenyleges_teljesites, megjegyzes_i, gepadatok_ID_g)" + "values(?,?,?,?,?,?) ");
 				insertDevice.setString(1, txtWorkingHoursDeviceSerial.getText());
 				SimpleDateFormat addDateFormat = new SimpleDateFormat("yyyy-MM-dd");
 				String addDate = addDateFormat.format(txtWorkHourAddDate.getDate());
@@ -126,12 +144,15 @@ public class WorkHoursJDBCSetDAO extends WorkHourGui implements WorkHoursImpleme
 				SimpleDateFormat endDateFormat = new SimpleDateFormat("yyyy-MM-dd");
 				String endDate = endDateFormat.format(txtWorkHourEndDate.getDate());
 				insertDevice.setString(3, endDate);
-				insertDevice.setInt(4, Integer.parseInt(txtWorkHourSpentDate.getText()));
 				SimpleDateFormat completedDateFormat = new SimpleDateFormat("yyyy-MM-dd");
-				String completedDate = completedDateFormat.format(txtWorkHourCompletedDate.getDate());
-				insertDevice.setString(5, completedDate);
-				insertDevice.setString(6, txtWorkHourComment.getText());
-				insertDevice.setInt(7, Integer.parseInt(txtDeviceId.getText()));
+				try {
+					completedDateFormat.setLenient(false);
+					completedDate = completedDateFormat.format(txtWorkHourCompletedDate.getDate());
+				} catch (Exception e) {
+				}
+				insertDevice.setString(4, completedDate);
+				insertDevice.setString(5, txtWorkHourComment.getText());
+				insertDevice.setInt(6, Integer.parseInt(txtDeviceId.getText()));
 				insertDevice.executeUpdate();
 				showProductsInJTableWorksHours();
 				JOptionPane.showMessageDialog(null, "Adatok beillesztve");
@@ -140,6 +161,77 @@ public class WorkHoursJDBCSetDAO extends WorkHourGui implements WorkHoursImpleme
 			}
 		} else {
 			JOptionPane.showMessageDialog(null, "Egy vagy több mező üres");
+		}
+	}
+
+	private void jBtnUpdateActionPerformedWorkHour(java.awt.event.ActionEvent evt) {
+		String completedDate = null;
+		if (checkInputsWorkHours()) {
+			String updateDevice = null;
+			PreparedStatement updateWorkHour = null;
+			Connection con = DataBaseConnect.getConnection();
+			try {
+				updateDevice = "UPDATE munka_ido SET sorozatszam_g = ?, rogzites = ?"
+						+ ", hatarido = ?, tenyleges_teljesites = ?, megjegyzes_i = ? WHERE gepadatok_ID_g = ?";
+				updateWorkHour = con.prepareStatement(updateDevice);
+				updateWorkHour.setString(1, txtWorkingHoursDeviceSerial.getText());
+				SimpleDateFormat addDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+				String addDate = addDateFormat.format(txtWorkHourAddDate.getDate());
+				updateWorkHour.setString(2, addDate);
+				SimpleDateFormat endDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+				String endDate = endDateFormat.format(txtWorkHourEndDate.getDate());
+				updateWorkHour.setString(3, endDate);
+				SimpleDateFormat completedDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+				try {
+					completedDateFormat.setLenient(false);
+					completedDate = completedDateFormat.format(txtWorkHourCompletedDate.getDate());
+				} catch (Exception e) {
+				}
+				updateWorkHour.setString(4, completedDate);
+				updateWorkHour.setString(5, txtWorkHourComment.getText());
+				updateWorkHour.setInt(6, Integer.parseInt(txtDeviceId.getText()));
+				updateWorkHour.executeUpdate();
+				showProductsInJTableWorksHours();
+				JOptionPane.showMessageDialog(null, "Sikeres Frissítés");
+			} catch (SQLException ex) {
+				Logger.getLogger(WorkHoursJDBCSetDAO.class.getName()).log(Level.SEVERE, null, ex);
+			}
+		} else {
+			JOptionPane.showMessageDialog(null, "Egy vagy több mező üres vagy rossz");
+		}
+	}
+
+	private void jDeleteActionPerformedWorkHour(java.awt.event.ActionEvent evt) {
+		if (!txtWorkingHoursDeviceSerial.getText().equals("")) {
+			try {
+				Connection con = DataBaseConnect.getConnection();
+				PreparedStatement DELETE = con
+						.prepareStatement("DELETE FROM munka_ido SET sorozatszam_g = ?, rogzites = ?"
+								+ ", hatarido = ?, tenyleges_teljesites = ?, megjegyzes_i = ? WHERE gepadatok_ID_g = ?");
+				String id = txtWorkingHoursDeviceSerial.getText();
+				SimpleDateFormat addDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+				String addDate = addDateFormat.format(txtWorkHourCompletedDate.getDate());
+				SimpleDateFormat endDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+				String endDate = endDateFormat.format(txtWorkHourEndDate.getDate());
+				SimpleDateFormat completDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+				String completDate = completDateFormat.format(txtWorkHourCompletedDate.getDate());
+				String comment = txtWorkHourComment.getText();
+				int idDevice = Integer.parseInt(txtDeviceId.getText());
+				DELETE.setString(1, id);
+				DELETE.setString(2, addDate);
+				DELETE.setString(3, endDate);
+				DELETE.setString(4, completDate);
+				DELETE.setString(5, comment);
+				DELETE.setInt(6, idDevice);
+				DELETE.executeUpdate();
+				showProductsInJTableWorksHours();
+				JOptionPane.showMessageDialog(null, "Sikeres törlés");
+			} catch (SQLException ex) {
+				Logger.getLogger(DeviceImageJDBCSetDAO.class.getName()).log(Level.SEVERE, null, ex);
+				JOptionPane.showMessageDialog(null, "Sikertelen törlés");
+			}
+		} else {
+			JOptionPane.showMessageDialog(null, "Sikertelen törlés : Nincs ID a törléshez");
 		}
 	}
 

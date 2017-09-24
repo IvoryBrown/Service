@@ -19,11 +19,9 @@ public class WorkHourGui extends DeviceImageJDBCSetDAO {
 	protected JTable jtblWorkingHours;
 	protected JDateChooser txtWorkHourAddDate, txtWorkHourEndDate, txtWorkHourCompletedDate;
 	protected JButton btnWorkHoursDelete, btnWorkHoursEdit, btnWorkHoursNew, btnWorkHoursSearch, btnWorkHoursNull;
-	protected JTextField txtWorkHourSpentDate;
 	protected JTextField txtWorkHourComment;
 	private JLabel lblAddDate;
 	private JLabel lblEndDate;
-	private JLabel lblSpentDate;
 	private JLabel lblCompletedDate;
 	private JLabel lblComment;
 	protected JPanel pnlWorkHoursSett;
@@ -85,26 +83,19 @@ public class WorkHourGui extends DeviceImageJDBCSetDAO {
 		txtWorkHourEndDate.setBounds(153, 151, 189, 35);
 		pnlWorkingHoursSetting.add(txtWorkHourEndDate);
 
-		txtWorkHourSpentDate = new JTextField();
-		txtWorkHourSpentDate.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		txtWorkHourSpentDate.setColumns(10);
-		txtWorkHourSpentDate.setBackground(new Color(245, 255, 250));
-		txtWorkHourSpentDate.setBounds(153, 197, 189, 35);
-		pnlWorkingHoursSetting.add(txtWorkHourSpentDate);
-
 		txtWorkHourCompletedDate = new JDateChooser();
 		txtWorkHourCompletedDate.setBackground(new Color(245, 255, 250));
 		txtWorkHourCompletedDate.getCalendarButton().setFont(new Font("Tahoma", Font.PLAIN, 14));
 		txtWorkHourCompletedDate.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		txtWorkHourCompletedDate.setDateFormatString("yyyy-MM-dd");
-		txtWorkHourCompletedDate.setBounds(153, 243, 189, 35);
+		txtWorkHourCompletedDate.setBounds(153, 197, 189, 35);
 		pnlWorkingHoursSetting.add(txtWorkHourCompletedDate);
 
 		txtWorkHourComment = new JTextField();
 		txtWorkHourComment.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		txtWorkHourComment.setColumns(10);
 		txtWorkHourComment.setBackground(new Color(245, 255, 250));
-		txtWorkHourComment.setBounds(153, 289, 189, 131);
+		txtWorkHourComment.setBounds(153, 243, 189, 131);
 		pnlWorkingHoursSetting.add(txtWorkHourComment);
 		
 		lblAddDate = new JLabel("rögzítés: ");
@@ -119,22 +110,16 @@ public class WorkHourGui extends DeviceImageJDBCSetDAO {
 		lblEndDate.setBounds(10, 151, 140, 35);
 		pnlWorkingHoursSetting.add(lblEndDate);
 		
-		lblSpentDate = new JLabel("ráfordított idő: ");
-		lblSpentDate.setHorizontalAlignment(SwingConstants.RIGHT);
-		lblSpentDate.setFont(new Font("Tahoma", Font.BOLD, 15));
-		lblSpentDate.setBounds(10, 197, 140, 35);
-		pnlWorkingHoursSetting.add(lblSpentDate);
-		
 		lblCompletedDate = new JLabel("elkészült: ");
 		lblCompletedDate.setHorizontalAlignment(SwingConstants.RIGHT);
 		lblCompletedDate.setFont(new Font("Tahoma", Font.BOLD, 15));
-		lblCompletedDate.setBounds(10, 243, 140, 35);
+		lblCompletedDate.setBounds(10, 197, 140, 35);
 		pnlWorkingHoursSetting.add(lblCompletedDate);
 		
 		lblComment = new JLabel("megjegyzés: ");
 		lblComment.setHorizontalAlignment(SwingConstants.RIGHT);
 		lblComment.setFont(new Font("Tahoma", Font.BOLD, 15));
-		lblComment.setBounds(10, 289, 140, 35);
+		lblComment.setBounds(10, 243, 140, 35);
 		pnlWorkingHoursSetting.add(lblComment);
 
 	}

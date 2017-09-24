@@ -5,17 +5,15 @@ public class WorkHoursConfig {
 	private String serialDevice;
 	private String addDate;
 	private String exitDate;
-	private Integer spentDate;
 	private String completedDate;
 	private String commentWorkHours;
 	private Integer deviceId;
 
-	public WorkHoursConfig(String serialDevice, String addDate, String exitDate, Integer spentDate,
+	public WorkHoursConfig(String serialDevice, String addDate, String exitDate, 
 			String completedDate, String commentWorkHours, Integer deviceId) {
 		this.serialDevice = serialDevice;
 		this.addDate = addDate;
 		this.exitDate = exitDate;
-		this.spentDate = spentDate;
 		this.completedDate = completedDate;
 		this.commentWorkHours = commentWorkHours;
 		this.deviceId = deviceId;
@@ -31,10 +29,6 @@ public class WorkHoursConfig {
 
 	public String getExitDate() {
 		return exitDate;
-	}
-
-	public Integer getSpentDate() {
-		return spentDate;
 	}
 
 	public String getCompletedDate() {
