@@ -19,23 +19,21 @@ import ex.main.worksheet.config.WorkSheetConfig;
 import ex.main.worksheet.config.WorkSheetImplements;
 
 public class WorkSheetJDBCSetDao extends WorksheetGui implements WorkSheetImplements {
-	protected String[] bakker;
-	protected String[] rows;
+	protected String[] columns;
 
 	public WorkSheetJDBCSetDao() {
 		setComponentJdbc();
 		showProductsInJTableWorkSheet();
-
 		tablerows();
 
 	}
 
 	private void setComponentJdbc() {
 
-		rows = new String[] { "ID", "ügyfél", "eszköz", "állapot", "prioritás", "rögzítés", "határidő", "lezárva" };
-		tblWorksheet.setModel(new javax.swing.table.DefaultTableModel(new Object[][] {}, rows));
+		columns = new String[] { "ügyfél", "eszköz", "állapot", "prioritás", "rögzítés", "határidő", "lezárva" };
+		tblWorksheet.setModel(new javax.swing.table.DefaultTableModel(new Object[][] {}, columns));
 		// oszlop méretezés
-		tblWorksheet.getColumn("ID").setMaxWidth(36);
+		// tblWorksheet.getColumn("ID").setMaxWidth(36);
 		// oszlopok rendezés letíltás
 		tblWorksheet.getTableHeader().setReorderingAllowed(false);
 
@@ -74,22 +72,21 @@ public class WorkSheetJDBCSetDao extends WorksheetGui implements WorkSheetImplem
 		ArrayList<WorkSheetConfig> list = getWorkShettProductList();
 		DefaultTableModel model = (DefaultTableModel) tblWorksheet.getModel();
 		model.setRowCount(0);
-		Object[] row = new Object[8];
+		Object[] row = new Object[7];
 		for (int i = 0; i < list.size(); i++) {
-			row[0] = i + 1;
-			row[1] = list.get(i).getClientNameWorkSheet();
-			row[2] = list.get(i).getDeviceNameWorkSheet();
-			row[3] = list.get(i).getStatusWorkSheet();
-			row[4] = list.get(i).getPrioritWorkSheet();
-			row[5] = list.get(i).getAddDateWorkSheet();
-			row[6] = list.get(i).getEndDateWorkSheet();
-			row[7] = list.get(i).getCompleteDateWorkSheet();
+			row[0] = list.get(i).getClientNameWorkSheet();
+			row[1] = list.get(i).getDeviceNameWorkSheet();
+			row[2] = list.get(i).getStatusWorkSheet();
+			row[3] = list.get(i).getPrioritWorkSheet();
+			row[4] = list.get(i).getAddDateWorkSheet();
+			row[5] = list.get(i).getEndDateWorkSheet();
+			row[6] = list.get(i).getCompleteDateWorkSheet();
 			model.addRow(row);
 		}
 	}
 
 	private void tablerows() {
-		TableRowSorter<TableModel> tableRowSorter = new TableRowSorter<TableModel>( tblWorksheet.getModel());
+		TableRowSorter<TableModel> tableRowSorter = new TableRowSorter<TableModel>(tblWorksheet.getModel());
 		tableRowSorter.setComparator(0, new Comparator<String>() {
 
 			@Override
@@ -106,7 +103,6 @@ public class WorkSheetJDBCSetDao extends WorksheetGui implements WorkSheetImplem
 		});
 		tblWorksheet.setRowSorter(tableRowSorter);
 
-		
 	}
 
 	private void JTableProductsMouseClicked(java.awt.event.MouseEvent evt) {

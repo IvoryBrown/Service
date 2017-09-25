@@ -81,9 +81,9 @@ public class WorkHoursJDBCSetDAO extends WorkHourGui implements WorkHoursImpleme
 			rs = st.executeQuery(query);
 			WorkHoursConfig product;
 			while (rs.next()) {
-				product = new WorkHoursConfig(rs.getString("sorozatszam_g"), rs.getString("rogzites"),
-						rs.getString("hatarido"), rs.getString("tenyleges_teljesites"), rs.getString("megjegyzes_i"),
-						rs.getInt("gepadatok_ID_g"));
+				product = new WorkHoursConfig(rs.getInt("ID_munka_ido"), rs.getString("sorozatszam_g"),
+						rs.getString("rogzites"), rs.getString("hatarido"), rs.getString("tenyleges_teljesites"),
+						rs.getString("megjegyzes_i"), rs.getInt("gepadatok_ID_g"));
 				productListWorkHours.add(product);
 			}
 		} catch (SQLException ex) {
@@ -106,6 +106,7 @@ public class WorkHoursJDBCSetDAO extends WorkHourGui implements WorkHoursImpleme
 	}
 
 	private void showProductsInJTableWorksHours(int index) {
+		txtWrokHourID.setText(Integer.toString(getWorkHoursProductList().get(index).getWorkHoursId()));
 		txtWorkingHoursDeviceName.setText(null);
 		txtWorkingHoursDeviceSerial.setText(getWorkHoursProductList().get(index).getSerialDevice());
 		txtDeviceId.setText(Integer.toString(getWorkHoursProductList().get(index).getDeviceId()));
@@ -202,13 +203,13 @@ public class WorkHoursJDBCSetDAO extends WorkHourGui implements WorkHoursImpleme
 	}
 
 	private void jDeleteActionPerformedWorkHour(java.awt.event.ActionEvent evt) {
-		if (!txtWorkingHoursDeviceSerial.getText().equals("")) {
+		if (!txtWrokHourID.getText().equals("")) {
 			try {
 				Connection con = DataBaseConnect.getConnection();
-				PreparedStatement DELETE = con.prepareStatement("DELETE FROM munka_ido WHERE gepadatok_ID_g = ?");
-				String id = txtWorkingHoursDeviceSerial.getText();
+				PreparedStatement DELETE = con.prepareStatement("DELETE FROM munka_ido WHERE ID_munka_ido = ?");
+				int id = Integer.parseInt(txtWrokHourID.getText());
 
-				DELETE.setString(1, id);
+				DELETE.setInt(1, id);
 
 				DELETE.executeUpdate();
 				showProductsInJTableWorksHours();

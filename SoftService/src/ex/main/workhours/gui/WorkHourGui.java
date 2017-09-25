@@ -25,6 +25,7 @@ public class WorkHourGui extends DeviceImageJDBCSetDAO {
 	private JLabel lblCompletedDate;
 	private JLabel lblComment;
 	protected JPanel pnlWorkHoursSett;
+	protected JTextField txtWrokHourID;
 
 	public WorkHourGui() {
 		jplWorkingHours.setLayout(null);
@@ -121,6 +122,14 @@ public class WorkHourGui extends DeviceImageJDBCSetDAO {
 		lblComment.setFont(new Font("Tahoma", Font.BOLD, 15));
 		lblComment.setBounds(10, 243, 140, 35);
 		pnlWorkingHoursSetting.add(lblComment);
+		
+		txtWrokHourID = new JTextField();
+		txtWrokHourID.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		txtWrokHourID.setEnabled(false);
+		txtWrokHourID.setColumns(10);
+		txtWrokHourID.setBackground(new Color(245, 255, 250));
+		txtWrokHourID.setBounds(352, 13, 95, 35);
+		pnlWorkingHoursSetting.add(txtWrokHourID);
 
 	}
 }

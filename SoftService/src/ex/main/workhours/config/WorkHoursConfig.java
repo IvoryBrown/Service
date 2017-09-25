@@ -2,6 +2,7 @@ package ex.main.workhours.config;
 
 public class WorkHoursConfig {
 
+	private Integer workHoursId;
 	private String serialDevice;
 	private String addDate;
 	private String exitDate;
@@ -9,14 +10,19 @@ public class WorkHoursConfig {
 	private String commentWorkHours;
 	private Integer deviceId;
 
-	public WorkHoursConfig(String serialDevice, String addDate, String exitDate, 
+	public WorkHoursConfig(Integer workHoursId, String serialDevice, String addDate, String exitDate,
 			String completedDate, String commentWorkHours, Integer deviceId) {
+		this.workHoursId = workHoursId;
 		this.serialDevice = serialDevice;
 		this.addDate = addDate;
 		this.exitDate = exitDate;
 		this.completedDate = completedDate;
 		this.commentWorkHours = commentWorkHours;
 		this.deviceId = deviceId;
+	}
+
+	public Integer getWorkHoursId() {
+		return workHoursId;
 	}
 
 	public String getSerialDevice() {
