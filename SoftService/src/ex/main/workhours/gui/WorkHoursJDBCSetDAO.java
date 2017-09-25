@@ -205,24 +205,11 @@ public class WorkHoursJDBCSetDAO extends WorkHourGui implements WorkHoursImpleme
 		if (!txtWorkingHoursDeviceSerial.getText().equals("")) {
 			try {
 				Connection con = DataBaseConnect.getConnection();
-				PreparedStatement DELETE = con
-						.prepareStatement("DELETE FROM munka_ido SET sorozatszam_g = ?, rogzites = ?"
-								+ ", hatarido = ?, tenyleges_teljesites = ?, megjegyzes_i = ? WHERE gepadatok_ID_g = ?");
+				PreparedStatement DELETE = con.prepareStatement("DELETE FROM munka_ido WHERE gepadatok_ID_g = ?");
 				String id = txtWorkingHoursDeviceSerial.getText();
-				SimpleDateFormat addDateFormat = new SimpleDateFormat("yyyy-MM-dd");
-				String addDate = addDateFormat.format(txtWorkHourCompletedDate.getDate());
-				SimpleDateFormat endDateFormat = new SimpleDateFormat("yyyy-MM-dd");
-				String endDate = endDateFormat.format(txtWorkHourEndDate.getDate());
-				SimpleDateFormat completDateFormat = new SimpleDateFormat("yyyy-MM-dd");
-				String completDate = completDateFormat.format(txtWorkHourCompletedDate.getDate());
-				String comment = txtWorkHourComment.getText();
-				int idDevice = Integer.parseInt(txtDeviceId.getText());
+
 				DELETE.setString(1, id);
-				DELETE.setString(2, addDate);
-				DELETE.setString(3, endDate);
-				DELETE.setString(4, completDate);
-				DELETE.setString(5, comment);
-				DELETE.setInt(6, idDevice);
+
 				DELETE.executeUpdate();
 				showProductsInJTableWorksHours();
 				JOptionPane.showMessageDialog(null, "Sikeres törlés");
