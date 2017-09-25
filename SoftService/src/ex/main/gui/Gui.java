@@ -14,6 +14,7 @@ import javax.swing.SwingConstants;
 
 import ex.main.setting.CenterWindow;
 import ex.main.setting.DataBaseConnect;
+import java.awt.Toolkit;
 
 public class Gui extends JFrame {
 	/**
@@ -29,6 +30,7 @@ public class Gui extends JFrame {
 	protected JPanel jplDeviceImage;
 
 	public Gui() {
+		setIconImage(Toolkit.getDefaultToolkit().getImage(Gui.class.getResource("/icon/function/48x48/world-blocks.png")));
 
 		setComponent();
 	}

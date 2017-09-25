@@ -25,14 +25,20 @@ public class WorkSheetJDBCSetDao extends WorksheetGui implements WorkSheetImplem
 	public WorkSheetJDBCSetDao() {
 		setComponentJdbc();
 		showProductsInJTableWorkSheet();
+
 		tablerows();
+
 	}
 
 	private void setComponentJdbc() {
 
 		rows = new String[] { "ID", "ügyfél", "eszköz", "állapot", "prioritás", "rögzítés", "határidő", "lezárva" };
 		tblWorksheet.setModel(new javax.swing.table.DefaultTableModel(new Object[][] {}, rows));
-		tblWorksheet.getColumn("ID").setMaxWidth(36); // oszlop méretezés
+		// oszlop méretezés
+		tblWorksheet.getColumn("ID").setMaxWidth(36);
+		// oszlopok rendezés letíltás
+		tblWorksheet.getTableHeader().setReorderingAllowed(false);
+
 		btnUpdate.addMouseListener(new java.awt.event.MouseAdapter() {
 			public void mouseClicked(java.awt.event.MouseEvent evt) {
 				JTableProductsMouseClicked(evt);
@@ -82,8 +88,8 @@ public class WorkSheetJDBCSetDao extends WorksheetGui implements WorkSheetImplem
 		}
 	}
 
-	private JTable tablerows() {
-		TableRowSorter<TableModel> tableRowSorter = new TableRowSorter<TableModel>(tblWorksheet.getModel());
+	private void tablerows() {
+		TableRowSorter<TableModel> tableRowSorter = new TableRowSorter<TableModel>( tblWorksheet.getModel());
 		tableRowSorter.setComparator(0, new Comparator<String>() {
 
 			@Override
@@ -99,7 +105,8 @@ public class WorkSheetJDBCSetDao extends WorksheetGui implements WorkSheetImplem
 			}
 		});
 		tblWorksheet.setRowSorter(tableRowSorter);
-		return tblWorksheet;
+
+		
 	}
 
 	private void JTableProductsMouseClicked(java.awt.event.MouseEvent evt) {

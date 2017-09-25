@@ -59,12 +59,14 @@ public class ClientGui extends WorkSheetJDBCSetDao {
 		jpnSettingClient.add(btnDeleteClient);
 
 		btnEditClient = new JButton("szerkesztés");
+		btnEditClient.setHorizontalAlignment(SwingConstants.LEADING);
+		btnEditClient.setIcon(new ImageIcon(ClientGui.class.getResource("/icon/function/22x22/database-star.png")));
 		btnEditClient.setBounds(446, 12, 109, 37);
 		jpnSettingClient.add(btnEditClient);
 
 		btnNewClient = new JButton("új ügyfél");
 		btnNewClient.setIcon(
-				new ImageIcon(ClientGui.class.getResource("/com/sun/java/swing/plaf/windows/icons/UpFolder.gif")));
+				new ImageIcon(ClientGui.class.getResource("/icon/function/22x22/database_add.png")));
 		btnNewClient.setBounds(327, 11, 109, 37);
 		jpnSettingClient.add(btnNewClient);
 

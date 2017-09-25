@@ -8,6 +8,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 
 import ex.main.gui.Gui;
+import javax.swing.ImageIcon;
 
 public class WorksheetGui extends Gui {
 	protected JTable tblWorksheet;
@@ -31,6 +32,7 @@ public class WorksheetGui extends Gui {
 		tblWorksheet = new JTable();
 		scrollPane.setViewportView(tblWorksheet);
 		btnUpdate = new JButton("frissités");
+		btnUpdate.setIcon(new ImageIcon(WorksheetGui.class.getResource("/icon/tango/22x22/actions/view-refresh.png")));
 		btnUpdate.setBounds(1120, 545, 109, 37);
 		jplWorksheet.add(btnUpdate);
 	}
