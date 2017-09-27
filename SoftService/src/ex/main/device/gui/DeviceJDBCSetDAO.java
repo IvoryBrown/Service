@@ -1,5 +1,6 @@
 package ex.main.device.gui;
 
+import java.awt.Color;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -63,14 +64,22 @@ public class DeviceJDBCSetDAO extends DeviceGui implements DeviceImplements {
 	}
 
 	private boolean checkInputsDevice() {
+		if (txtDevice.getText().trim().isEmpty()) {
+			txtDevice.setBackground(new Color(255, 250, 240));
+			cmBoxStatusdevice.setBackground(new Color(245, 255, 250));
+		} else {
+			txtDevice.setBackground(new Color(245, 255, 250));
+		}
+		if (cmBoxStatusdevice.getFocusTraversalKeysEnabled()) {
+			cmBoxStatusdevice.getEditor().getEditorComponent().setBackground(new Color(255, 250, 240));
+
+		} else {
+
+		}
 		if (txtDevice.getText().trim().isEmpty() || txtSerialDevice.getText().trim().isEmpty()) {
 			return false;
 		} else {
-			try {
-				return true;
-			} catch (Exception ex) {
-				return false;
-			}
+			return true;
 		}
 	}
 

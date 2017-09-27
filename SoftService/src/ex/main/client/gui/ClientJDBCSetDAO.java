@@ -209,9 +209,13 @@ public class ClientJDBCSetDAO extends ClientGui implements ClientImplements {
 
 	private void btnNullShowPerformed(java.awt.event.ActionEvent evt) {
 		txtIDClient.setText(null);
+		txtIDClient.setBackground(new Color(245, 255, 250));
 		txtNameClient.setText(null);
+		txtNameClient.setBackground(new Color(245, 255, 250));
 		txtHomeAddressClient.setText(null);
+		txtHomeAddressClient.setBackground(new Color(245, 255, 250));
 		txtMobilClient.setText(null);
+		txtMobilClient.setBackground(new Color(245, 255, 250));
 		txtCommentClient.setText(null);
 
 	}
