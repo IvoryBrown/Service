@@ -49,7 +49,7 @@ public class WorkSheetJDBCSetDao extends WorksheetGui implements WorkSheetImplem
 	public ArrayList<WorkSheetConfig> getWorkShettProductList() {
 		ArrayList<WorkSheetConfig> productList = new ArrayList<WorkSheetConfig>();
 		Connection con = DataBaseConnect.getConnection();
-		String query = "SELECT * FROM gepadatok " + " JOIN munka_ido ON ID_g = gepadatok_ID_g ";
+		String query = "SELECT * FROM gepadatok " ;
 		Statement st;
 		ResultSet rs;
 		try {
@@ -59,7 +59,7 @@ public class WorkSheetJDBCSetDao extends WorksheetGui implements WorkSheetImplem
 			while (rs.next()) {
 				product = new WorkSheetConfig(rs.getString("ugyfel_nev"), rs.getString("eszkoz_g"),
 						rs.getString("allapot"), rs.getString("prioritas"), rs.getString("rogzites"),
-						rs.getString("hatarido"), rs.getString("tenyleges_teljesites"));
+						rs.getString("hatarido"), rs.getString("teljesitve"));
 				productList.add(product);
 			}
 		} catch (SQLException ex) {

@@ -7,17 +7,24 @@ public class DeviceConfig {
 	private String serial;
 	private String status;
 	private String priorit;
+	private String addDate;
+	private String exitDate;
+	private String completedDate;
 	private String comment;
 	private Integer clientId;
 
 	public DeviceConfig(Integer dIdg, String dClientName, String dDeviceName, String dSerial, String dStatus,
-			String dPriorit, String dComment, Integer dClientId) {
+			String dPriorit, String addDate, String exitDate,
+			String completedDate, String dComment, Integer dClientId) {
 		this.idg = dIdg;
 		this.clientName = dClientName;
 		this.deviceName = dDeviceName;
 		this.serial = dSerial;
 		this.status = dStatus;
 		this.priorit = dPriorit;
+		this.addDate = addDate;
+		this.exitDate = exitDate;
+		this.completedDate = completedDate;
 		this.comment = dComment;
 		this.clientId = dClientId;
 	}
@@ -44,6 +51,18 @@ public class DeviceConfig {
 
 	public String getPriorit() {
 		return priorit;
+	}
+
+	public String getAddDate() {
+		return addDate;
+	}
+
+	public String getExitDate() {
+		return exitDate;
+	}
+
+	public String getCompletedDate() {
+		return completedDate;
 	}
 
 	public String getComment() {

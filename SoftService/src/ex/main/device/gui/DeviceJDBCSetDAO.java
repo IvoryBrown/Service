@@ -5,14 +5,16 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
-import ex.main.client.gui.ClientJDBCSetDAO;
 import ex.main.device.config.DeviceConfig;
 import ex.main.device.config.DeviceImplements;
 import ex.main.setting.DataBaseConnect;
@@ -20,6 +22,7 @@ import ex.main.setting.DataBaseConnect;
 public class DeviceJDBCSetDAO extends DeviceGui implements DeviceImplements {
 
 	public DeviceJDBCSetDAO() {
+		scrollPane.setLocation(10, 11);
 		setActionDevice();
 		showProductsInJTableDevice();
 	}
@@ -85,6 +88,7 @@ public class DeviceJDBCSetDAO extends DeviceGui implements DeviceImplements {
 			while (rs.next()) {
 				product = new DeviceConfig(rs.getInt("ID_g"), rs.getString("ugyfel_nev"), rs.getString("eszkoz_g"),
 						rs.getString("sorozatszam_g"), rs.getString("allapot"), rs.getString("prioritas"),
+						rs.getString("rogzites"), rs.getString("hatarido"), rs.getString("teljesitve"),
 						rs.getString("megjegyzes_g"), rs.getInt("megrendelo_ID_m"));
 				productListDevice.add(product);
 			}
@@ -108,37 +112,69 @@ public class DeviceJDBCSetDAO extends DeviceGui implements DeviceImplements {
 	}
 
 	private void ShowItemDevice(int index) {
-		txtClientDeviceId.setText(Integer.toString(getDeviceProductList().get(index).getClientId()));
 		txtClientDeviceName.setText(getDeviceProductList().get(index).getClientName());
-		txtDeviceImageClientName.setText(getDeviceProductList().get(index).getClientName());
+		txtClientDeviceId.setText(Integer.toString(getDeviceProductList().get(index).getClientId()));
 		txtDevice.setText(getDeviceProductList().get(index).getDeviceName());
-		txtDeviceImageNameDevice.setText(getDeviceProductList().get(index).getDeviceName());
-		txtWorkingHoursDeviceName.setText(getDeviceProductList().get(index).getDeviceName());
 		txtDeviceId.setText(Integer.toString(getDeviceProductList().get(index).getIdg()));
-		txtDeviceImageDeviceId.setText(Integer.toString(getDeviceProductList().get(index).getIdg()));
 		txtSerialDevice.setText(getDeviceProductList().get(index).getSerial());
-		txtWorkingHoursDeviceSerial.setText(getDeviceProductList().get(index).getSerial());
-		txtDeviceImageSerialDevice.setText(getDeviceProductList().get(index).getSerial());
 		cmBoxStatusdevice.setSelectedItem(getDeviceProductList().get(index).getStatus());
 		cmBoxPriorityDevice.setSelectedItem(getDeviceProductList().get(index).getPriorit());
-		txtCommentDevice.setText(getDeviceProductList().get(index).getComment());
+		try {
+			Date addDate = null;
+			Date endDate = null;
+			Date completed = null;
+			addDate = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss")
+					.parse((String) getDeviceProductList().get(index).getAddDate());
+			txtWorkHourAddDate.setDate(addDate);
+			endDate = new SimpleDateFormat("yyyy-MM-dd")
+					.parse((String) getDeviceProductList().get(index).getExitDate());
+			txtWorkHourEndDate.setDate(endDate);
+			if (getDeviceProductList().get(index).getCompletedDate() != null) {
+				completed = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss")
+						.parse((String) getDeviceProductList().get(index).getCompletedDate());
+			}
+			txtWorkHourCompletedDate.setDate(completed);
+		} catch (ParseException ex) {
+			Logger.getLogger(DeviceJDBCSetDAO.class.getName()).log(Level.SEVERE, null, ex);
+		}
+		txtComment.setText(getDeviceProductList().get(index).getComment());
+		// Image Set!!!
+		txtDeviceImageClientName.setText(getDeviceProductList().get(index).getClientName());
+		txtDeviceImageNameDevice.setText(getDeviceProductList().get(index).getDeviceName());
+		txtDeviceImageSerialDevice.setText(getDeviceProductList().get(index).getSerial());
+		txtDeviceImageIDDevice.setText(Integer.toString(getDeviceProductList().get(index).getIdg()));
+		txtDeviceImageID.setText(null);
 	}
 
 	private void jBtnInsertActionPerformedDevice(java.awt.event.ActionEvent evt) {
+		String completedDate = null;
 		if (checkInputsDevice()) {
 			try {
 				Connection con = DataBaseConnect.getConnection();
 				PreparedStatement insertDevice = con.prepareStatement("INSERT INTO gepadatok(ugyfel_nev, eszkoz_g,"
-						+ "sorozatszam_g, allapot, prioritas, megjegyzes_g, megrendelo_ID_m)"
-						+ "values(?,?,?,?,?,?,?) ");
+						+ "sorozatszam_g, allapot, prioritas, rogzites,"
+						+ "hatarido, teljesitve, megjegyzes_g, megrendelo_ID_m)" + "values(?,?,?,?,?,?,?,?,?,?) ");
 				insertDevice.setString(1, txtClientDeviceName.getText());
 				insertDevice.setString(2, txtDevice.getText());
 				insertDevice.setString(3, txtSerialDevice.getText());
 				insertDevice.setString(4, (String) cmBoxStatusdevice.getItemAt(cmBoxStatusdevice.getSelectedIndex()));
 				insertDevice.setString(5,
 						(String) cmBoxPriorityDevice.getItemAt(cmBoxPriorityDevice.getSelectedIndex()));
-				insertDevice.setString(6, txtCommentDevice.getText());
-				insertDevice.setString(7, txtClientDeviceId.getText());
+				SimpleDateFormat addDateFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+				String addDate = addDateFormat.format(txtWorkHourAddDate.getDate());
+				insertDevice.setString(6, addDate);
+				SimpleDateFormat endDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+				String endDate = endDateFormat.format(txtWorkHourEndDate.getDate());
+				insertDevice.setString(7, endDate);
+				SimpleDateFormat completedDateFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+				try {
+					completedDateFormat.setLenient(false);
+					completedDate = completedDateFormat.format(txtWorkHourCompletedDate.getDate());
+				} catch (Exception e) {
+				}
+				insertDevice.setString(8, completedDate);
+				insertDevice.setString(9, txtComment.getText());
+				insertDevice.setString(10, txtClientDeviceId.getText());
 				insertDevice.executeUpdate();
 				showProductsInJTableDevice();
 				JOptionPane.showMessageDialog(null, "Adatok beillesztve");
@@ -151,22 +187,37 @@ public class DeviceJDBCSetDAO extends DeviceGui implements DeviceImplements {
 	}
 
 	private void jBtnUpdateActionPerformedDevice(java.awt.event.ActionEvent evt) {
+		String completedDate = null;
 		if (checkInputsDevice()) {
 			String updateDevice = null;
 			PreparedStatement ps = null;
 			Connection con = DataBaseConnect.getConnection();
 			try {
 				updateDevice = "UPDATE gepadatok SET ugyfel_nev = ?, eszkoz_g = ?"
-						+ ", sorozatszam_g = ?, allapot = ?, prioritas = ?, megjegyzes_g = ?, megrendelo_ID_m = ? WHERE ID_g = ?";
+						+ ", sorozatszam_g = ?, allapot = ?, prioritas = ?, rogzites = ?"
+						+ ", hatarido = ?, teljesitve = ?, megjegyzes_g = ?, megrendelo_ID_m = ? WHERE ID_g = ?";
 				ps = con.prepareStatement(updateDevice);
 				ps.setString(1, txtClientDeviceName.getText());
 				ps.setString(2, txtDevice.getText());
 				ps.setString(3, txtSerialDevice.getText());
 				ps.setString(4, (String) cmBoxStatusdevice.getItemAt(cmBoxStatusdevice.getSelectedIndex()));
 				ps.setString(5, (String) cmBoxPriorityDevice.getItemAt(cmBoxPriorityDevice.getSelectedIndex()));
-				ps.setString(6, txtCommentDevice.getText());
-				ps.setString(7, txtClientDeviceId.getText());
-				ps.setInt(8, Integer.parseInt(txtDeviceId.getText()));
+				SimpleDateFormat addDateFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+				String addDate = addDateFormat.format(txtWorkHourAddDate.getDate());
+				ps.setString(6, addDate);
+				SimpleDateFormat endDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+				String endDate = endDateFormat.format(txtWorkHourEndDate.getDate());
+				ps.setString(7, endDate);
+				SimpleDateFormat completedDateFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+				try {
+					completedDateFormat.setLenient(false);
+					completedDate = completedDateFormat.format(txtWorkHourCompletedDate.getDate());
+				} catch (Exception e) {
+				}
+				ps.setString(8, completedDate);
+				ps.setString(9, txtComment.getText());
+				ps.setString(10, txtClientDeviceId.getText());
+				ps.setInt(11, Integer.parseInt(txtDeviceId.getText()));
 				ps.executeUpdate();
 				showProductsInJTableDevice();
 				JOptionPane.showMessageDialog(null, "Sikeres Frissítés");
@@ -198,13 +249,17 @@ public class DeviceJDBCSetDAO extends DeviceGui implements DeviceImplements {
 	}
 
 	private void btnNullShowPerformedDevice(java.awt.event.ActionEvent evt) {
+		txtClientDeviceName.setText(null);
+		txtClientDeviceId.setText(null);
 		txtDeviceId.setText(null);
 		txtDevice.setText(null);
 		txtSerialDevice.setText(null);
 		cmBoxStatusdevice.setSelectedItem(null);
 		cmBoxPriorityDevice.setSelectedItem(null);
-		txtCommentDevice.setText(null);
-
+		txtWorkHourAddDate.setDate(null);
+		txtWorkHourEndDate.setDate(null);
+		txtWorkHourCompletedDate.setDate(null);
+		txtComment.setText(null);
 	}
 
 	private void JTable_ProductsMouseClickedDevice(java.awt.event.MouseEvent evt) {

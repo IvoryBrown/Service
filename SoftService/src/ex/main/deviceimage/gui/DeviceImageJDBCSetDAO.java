@@ -114,8 +114,9 @@ public class DeviceImageJDBCSetDAO extends DeviceImageGui implements DeviceImage
 			rs = st.executeQuery(query);
 			DeviceImageConfig product;
 			while (rs.next()) {
-				product = new DeviceImageConfig(rs.getString("ugyfel_nev_i"), rs.getString("eszkoz_nev"),
-						rs.getString("sorozatszam_i"), rs.getInt("gepadatok_ID_g"), rs.getBytes("Image_i"));
+				product = new DeviceImageConfig(rs.getInt("ID_image_gep"), rs.getString("ugyfel_nev_i"),
+						rs.getString("eszkoz_nev"), rs.getString("sorozatszam_i"), rs.getInt("gepadatok_ID_g"),
+						rs.getBytes("Image_i"));
 				productListDeviceImage.add(product);
 			}
 		} catch (SQLException ex) {
@@ -140,8 +141,9 @@ public class DeviceImageJDBCSetDAO extends DeviceImageGui implements DeviceImage
 	private void ShowItemDeviceImage(int index) {
 		txtDeviceImageClientName.setText(getDeviceImageProductList().get(index).getClientName());
 		txtDeviceImageNameDevice.setText(getDeviceImageProductList().get(index).getDeviceImageName());
-		txtDeviceImageDeviceId.setText((Integer.toString(getDeviceImageProductList().get(index).getDeviceId())));
 		txtDeviceImageSerialDevice.setText(getDeviceImageProductList().get(index).getDeviceSerial());
+		txtDeviceImageIDDevice.setText((Integer.toString(getDeviceImageProductList().get(index).getDeviceId())));
+		txtDeviceImageID.setText((Integer.toString(getDeviceImageProductList().get(index).getDeviceImageId())));
 		jlblDeviceImage.setIcon(ResizeImage(null, getDeviceImageProductList().get(index).getPicture()));
 
 	}
@@ -172,7 +174,7 @@ public class DeviceImageJDBCSetDAO extends DeviceImageGui implements DeviceImage
 				insertDeviceImage.setString(1, txtDeviceImageClientName.getText());
 				insertDeviceImage.setString(2, txtDeviceImageNameDevice.getText());
 				insertDeviceImage.setString(3, txtDeviceImageSerialDevice.getText());
-				insertDeviceImage.setString(4, txtDeviceImageDeviceId.getText());
+				insertDeviceImage.setString(4, txtDeviceImageIDDevice.getText());
 				InputStream img = new FileInputStream(new File(ImgPath));
 				insertDeviceImage.setBlob(5, img);
 				insertDeviceImage.executeUpdate();
@@ -195,14 +197,15 @@ public class DeviceImageJDBCSetDAO extends DeviceImageGui implements DeviceImage
 			Connection con = DataBaseConnect.getConnection();
 			try {
 				updateDevice = "UPDATE image_gep SET ugyfel_nev_i = ?, eszkoz_nev = ?"
-						+ ", sorozatszam_i = ?, Image_i = ? WHERE gepadatok_ID_g = ?";
+						+ ", sorozatszam_i = ?, Image_i = ?, gepadatok_ID_g = ? WHERE ID_image_gep = ?";
 				psDeviceImage = con.prepareStatement(updateDevice);
 				psDeviceImage.setString(1, txtDeviceImageClientName.getText());
 				psDeviceImage.setString(2, txtDeviceImageNameDevice.getText());
 				psDeviceImage.setString(3, txtDeviceImageSerialDevice.getText());
 				InputStream img = new FileInputStream(new File(ImgPath));
 				psDeviceImage.setBlob(4, img);
-				psDeviceImage.setString(5, txtDeviceImageDeviceId.getText());
+				psDeviceImage.setString(5, txtDeviceImageIDDevice.getText());
+				psDeviceImage.setString(6, txtDeviceImageID.getText());
 				psDeviceImage.executeUpdate();
 				showProductsInJTableDeviceImage();
 				JOptionPane.showMessageDialog(null, "Sikeres Frissítés");
@@ -217,11 +220,11 @@ public class DeviceImageJDBCSetDAO extends DeviceImageGui implements DeviceImage
 	}
 
 	private void jDeleteActionPerformedDeviceImage(java.awt.event.ActionEvent evt) {
-		if (!txtDeviceImageDeviceId.getText().equals("")) {
+		if (!txtDeviceImageID.getText().equals("")) {
 			try {
 				Connection con = DataBaseConnect.getConnection();
-				PreparedStatement DELETE = con.prepareStatement("DELETE FROM image_gep WHERE gepadatok_ID_g = ?");
-				int id = Integer.parseInt(txtDeviceImageDeviceId.getText());
+				PreparedStatement DELETE = con.prepareStatement("DELETE FROM image_gep WHERE ID_image_gep = ?");
+				int id = Integer.parseInt(txtDeviceImageID.getText());
 				DELETE.setInt(1, id);
 				DELETE.executeUpdate();
 				showProductsInJTableDeviceImage();
