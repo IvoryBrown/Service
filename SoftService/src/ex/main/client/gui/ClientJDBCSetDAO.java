@@ -1,5 +1,6 @@
 package ex.main.client.gui;
 
+import java.awt.Color;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -64,16 +65,33 @@ public class ClientJDBCSetDAO extends ClientGui implements ClientImplements {
 	}
 
 	private boolean checkInputs() {
+		if (txtIDClient.getText().trim().isEmpty()) {
+			txtIDClient.setBackground(new Color(255, 250, 240));
+		} else {
+			txtIDClient.setBackground(new Color(245, 255, 250));
+		}
+		if (txtNameClient.getText().trim().isEmpty()) {
+			txtNameClient.setBackground(new Color(255, 250, 240));
+		} else {
+			txtNameClient.setBackground(new Color(245, 255, 250));
+		}
+		if (txtMobilClient.getText().trim().isEmpty()) {
+			txtMobilClient.setBackground(new Color(255, 250, 240));
+		} else {
+			txtMobilClient.setBackground(new Color(245, 255, 250));
+		}
+		if (txtHomeAddressClient.getText().trim().isEmpty()) {
+			txtHomeAddressClient.setBackground(new Color(255, 250, 240));
+		} else {
+			txtHomeAddressClient.setBackground(new Color(245, 255, 250));
+		}
 		if (txtIDClient.getText().trim().isEmpty() || txtNameClient.getText().trim().isEmpty()
-				|| txtMobilClient.getText().trim().isEmpty()) {
+				|| txtMobilClient.getText().trim().isEmpty() || txtHomeAddressClient.getText().trim().isEmpty()) {
 			return false;
 		} else {
-			try {
-				return true;
-			} catch (Exception ex) {
-				return false;
-			}
+			return true;
 		}
+
 	}
 
 	@Override
@@ -174,8 +192,7 @@ public class ClientJDBCSetDAO extends ClientGui implements ClientImplements {
 		if (!txtIdClient.getText().equals("")) {
 			try {
 				Connection con = DataBaseConnect.getConnection();
-				PreparedStatement deleteClient = con
-						.prepareStatement("DELETE FROM megrendelo WHERE ID_m = ? ");
+				PreparedStatement deleteClient = con.prepareStatement("DELETE FROM megrendelo WHERE ID_m = ? ");
 				int idClient = Integer.parseInt(txtIdClient.getText());
 				deleteClient.setInt(1, idClient);
 				deleteClient.executeUpdate();
