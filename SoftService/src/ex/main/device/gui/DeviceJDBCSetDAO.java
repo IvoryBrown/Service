@@ -132,21 +132,20 @@ public class DeviceJDBCSetDAO extends DeviceGui implements DeviceImplements {
 			Date addDate = null;
 			Date endDate = null;
 			Date completed = null;
-			addDate = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss")
-					.parse((String) getDeviceProductList().get(index).getAddDate());
+			addDate = new SimpleDateFormat("yyyy-MM-dd").parse((String) getDeviceProductList().get(index).getAddDate());
 			txtWorkHourAddDate.setDate(addDate);
 			endDate = new SimpleDateFormat("yyyy-MM-dd")
 					.parse((String) getDeviceProductList().get(index).getExitDate());
 			txtWorkHourEndDate.setDate(endDate);
 			if (getDeviceProductList().get(index).getCompletedDate() != null) {
-				completed = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss")
+				completed = new SimpleDateFormat("yyyy-MM-dd")
 						.parse((String) getDeviceProductList().get(index).getCompletedDate());
 			}
 			txtWorkHourCompletedDate.setDate(completed);
 		} catch (ParseException ex) {
 			Logger.getLogger(DeviceJDBCSetDAO.class.getName()).log(Level.SEVERE, null, ex);
 		}
-		txtComment.setText(getDeviceProductList().get(index).getComment());
+		txtAreaComment.setText(getDeviceProductList().get(index).getComment());
 		// Image Set!!!
 		txtDeviceImageClientName.setText(getDeviceProductList().get(index).getClientName());
 		txtDeviceImageNameDevice.setText(getDeviceProductList().get(index).getDeviceName());
@@ -169,20 +168,20 @@ public class DeviceJDBCSetDAO extends DeviceGui implements DeviceImplements {
 				insertDevice.setString(4, (String) cmBoxStatusdevice.getItemAt(cmBoxStatusdevice.getSelectedIndex()));
 				insertDevice.setString(5,
 						(String) cmBoxPriorityDevice.getItemAt(cmBoxPriorityDevice.getSelectedIndex()));
-				SimpleDateFormat addDateFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+				SimpleDateFormat addDateFormat = new SimpleDateFormat("yyyy-MM-dd");
 				String addDate = addDateFormat.format(txtWorkHourAddDate.getDate());
 				insertDevice.setString(6, addDate);
 				SimpleDateFormat endDateFormat = new SimpleDateFormat("yyyy-MM-dd");
 				String endDate = endDateFormat.format(txtWorkHourEndDate.getDate());
 				insertDevice.setString(7, endDate);
-				SimpleDateFormat completedDateFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+				SimpleDateFormat completedDateFormat = new SimpleDateFormat("yyyy-MM-dd");
 				try {
 					completedDateFormat.setLenient(false);
 					completedDate = completedDateFormat.format(txtWorkHourCompletedDate.getDate());
 				} catch (Exception e) {
 				}
 				insertDevice.setString(8, completedDate);
-				insertDevice.setString(9, txtComment.getText());
+				insertDevice.setString(9, txtAreaComment.getText());
 				insertDevice.setString(10, txtClientDeviceId.getText());
 				insertDevice.executeUpdate();
 				showProductsInJTableDevice();
@@ -211,20 +210,20 @@ public class DeviceJDBCSetDAO extends DeviceGui implements DeviceImplements {
 				ps.setString(3, txtSerialDevice.getText());
 				ps.setString(4, (String) cmBoxStatusdevice.getItemAt(cmBoxStatusdevice.getSelectedIndex()));
 				ps.setString(5, (String) cmBoxPriorityDevice.getItemAt(cmBoxPriorityDevice.getSelectedIndex()));
-				SimpleDateFormat addDateFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+				SimpleDateFormat addDateFormat = new SimpleDateFormat("yyyy-MM-dd ");
 				String addDate = addDateFormat.format(txtWorkHourAddDate.getDate());
 				ps.setString(6, addDate);
 				SimpleDateFormat endDateFormat = new SimpleDateFormat("yyyy-MM-dd");
 				String endDate = endDateFormat.format(txtWorkHourEndDate.getDate());
 				ps.setString(7, endDate);
-				SimpleDateFormat completedDateFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+				SimpleDateFormat completedDateFormat = new SimpleDateFormat("yyyy-MM-dd ");
 				try {
 					completedDateFormat.setLenient(false);
 					completedDate = completedDateFormat.format(txtWorkHourCompletedDate.getDate());
 				} catch (Exception e) {
 				}
 				ps.setString(8, completedDate);
-				ps.setString(9, txtComment.getText());
+				ps.setString(9, txtAreaComment.getText());
 				ps.setString(10, txtClientDeviceId.getText());
 				ps.setInt(11, Integer.parseInt(txtDeviceId.getText()));
 				ps.executeUpdate();
@@ -268,7 +267,7 @@ public class DeviceJDBCSetDAO extends DeviceGui implements DeviceImplements {
 		txtWorkHourAddDate.setDate(null);
 		txtWorkHourEndDate.setDate(null);
 		txtWorkHourCompletedDate.setDate(null);
-		txtComment.setText(null);
+		txtAreaComment.setText(null);
 	}
 
 	private void JTable_ProductsMouseClickedDevice(java.awt.event.MouseEvent evt) {

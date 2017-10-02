@@ -11,12 +11,14 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
+import javax.swing.text.Document;
+
+import com.toedter.calendar.JDateChooser;
 
 import ex.main.client.gui.ClientJDBCSetDAO;
-import javax.swing.JLayeredPane;
-import javax.swing.GroupLayout;
-import javax.swing.GroupLayout.Alignment;
-import com.toedter.calendar.JDateChooser;
+import javax.swing.JTextArea;
 
 public class DeviceGui extends ClientJDBCSetDAO {
 	protected JTextField txtSearchDevice;
@@ -35,9 +37,9 @@ public class DeviceGui extends ClientJDBCSetDAO {
 	protected JTextField txtWorkingHoursDeviceName;
 	protected JTextField txtWorkingHoursDeviceSerial;
 	protected JDateChooser txtWorkHourCompletedDate, txtWorkHourAddDate, txtWorkHourEndDate;
-	protected JTextField txtComment;
 	protected JTextField txtDeviceImageIDDevice;
 	protected JTextField txtDeviceImageID;
+	protected JTextArea txtAreaComment;
 
 	public DeviceGui() {
 		txtClientDeviceId.setBounds(352, 13, 95, 35);
@@ -83,7 +85,7 @@ public class DeviceGui extends ClientJDBCSetDAO {
 		jpnSettingDevice.add(btnNullDevice);
 
 		JScrollPane jScpDevice = new JScrollPane();
-		jScpDevice.setBounds(10, 85, 428, 493);
+		jScpDevice.setBounds(10, 85, 383, 493);
 		jplDevice.add(jScpDevice);
 
 		jTableDevice = new JTable();
@@ -150,7 +152,7 @@ public class DeviceGui extends ClientJDBCSetDAO {
 		txtWorkHourAddDate = new JDateChooser();
 		txtWorkHourAddDate.getCalendarButton().setFont(new Font("Tahoma", Font.PLAIN, 14));
 		txtWorkHourAddDate.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		txtWorkHourAddDate.setDateFormatString("yyyy-MM-dd hh:mm:ss");
+		txtWorkHourAddDate.setDateFormatString("yyyy-MM-dd");
 		txtWorkHourAddDate.setBackground(new Color(245, 255, 250));
 		txtWorkHourAddDate.setBounds(153, 243, 189, 35);
 		pnlDevice.add(txtWorkHourAddDate);
@@ -166,17 +168,10 @@ public class DeviceGui extends ClientJDBCSetDAO {
 		txtWorkHourCompletedDate = new JDateChooser();
 		txtWorkHourCompletedDate.getCalendarButton().setFont(new Font("Tahoma", Font.PLAIN, 14));
 		txtWorkHourCompletedDate.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		txtWorkHourCompletedDate.setDateFormatString("yyyy-MM-dd hh:mm:ss");
+		txtWorkHourCompletedDate.setDateFormatString("yyyy-MM-dd");
 		txtWorkHourCompletedDate.setBackground(new Color(245, 255, 250));
 		txtWorkHourCompletedDate.setBounds(153, 335, 189, 35);
 		pnlDevice.add(txtWorkHourCompletedDate);
-
-		txtComment = new JTextField();
-		txtComment.setBounds(153, 381, 294, 106);
-		pnlDevice.add(txtComment);
-		txtComment.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		txtComment.setColumns(10);
-		txtComment.setBackground(new Color(245, 255, 250));
 
 		JLabel lblEndDate = new JLabel("határidő: ");
 		lblEndDate.setHorizontalAlignment(SwingConstants.RIGHT);
@@ -184,7 +179,7 @@ public class DeviceGui extends ClientJDBCSetDAO {
 		lblEndDate.setBounds(10, 289, 140, 35);
 		pnlDevice.add(lblEndDate);
 
-		JLabel lblComment = new JLabel("megjegyzés: ");
+		JLabel lblComment = new JLabel("hiba leírás: ");
 		lblComment.setHorizontalAlignment(SwingConstants.RIGHT);
 		lblComment.setFont(new Font("Tahoma", Font.BOLD, 15));
 		lblComment.setBounds(10, 381, 140, 35);
@@ -201,6 +196,15 @@ public class DeviceGui extends ClientJDBCSetDAO {
 		lblCompletedDate.setFont(new Font("Tahoma", Font.BOLD, 15));
 		lblCompletedDate.setBounds(10, 335, 140, 35);
 		pnlDevice.add(lblCompletedDate);
+		
+		JScrollPane scrollPane = new JScrollPane();
+		scrollPane.setBounds(153, 381, 289, 101);
+		pnlDevice.add(scrollPane);
+		
+		 txtAreaComment = new JTextArea();
+		 txtAreaComment.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		scrollPane.setViewportView(txtAreaComment);
+		txtAreaComment.setBackground(new Color(245, 255, 250));
 
 		txtDeviceImageClientName = new JTextField();
 		txtDeviceImageClientName.setEnabled(false);
