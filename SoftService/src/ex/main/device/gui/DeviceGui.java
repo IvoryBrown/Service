@@ -19,6 +19,8 @@ import com.toedter.calendar.JDateChooser;
 
 import ex.main.client.gui.ClientJDBCSetDAO;
 import javax.swing.JTextArea;
+import javax.swing.GroupLayout;
+import javax.swing.GroupLayout.Alignment;
 
 public class DeviceGui extends ClientJDBCSetDAO {
 	protected JTextField txtSearchDevice;
@@ -44,8 +46,8 @@ public class DeviceGui extends ClientJDBCSetDAO {
 	public DeviceGui() {
 		txtClientDeviceId.setBounds(352, 13, 95, 35);
 		txtClientDeviceName.setBounds(153, 13, 189, 35);
-		pnlDevice.setSize(452, 493);
-		pnlDevice.setLocation(448, 85);
+		pnlDevice.setSize(449, 493);
+		pnlDevice.setLocation(376, 85);
 
 		setComponent();
 	}
@@ -85,7 +87,7 @@ public class DeviceGui extends ClientJDBCSetDAO {
 		jpnSettingDevice.add(btnNullDevice);
 
 		JScrollPane jScpDevice = new JScrollPane();
-		jScpDevice.setBounds(10, 85, 383, 493);
+		jScpDevice.setBounds(10, 85, 356, 493);
 		jplDevice.add(jScpDevice);
 
 		jTableDevice = new JTable();
@@ -138,6 +140,55 @@ public class DeviceGui extends ClientJDBCSetDAO {
 		lblPriorityDevice.setBounds(10, 197, 140, 35);
 		lblPriorityDevice.setHorizontalAlignment(SwingConstants.RIGHT);
 		lblPriorityDevice.setFont(new Font("Tahoma", Font.BOLD, 15));
+
+		txtWorkHourAddDate = new JDateChooser();
+		txtWorkHourAddDate.setBounds(153, 243, 189, 35);
+		txtWorkHourAddDate.getCalendarButton().setFont(new Font("Tahoma", Font.PLAIN, 14));
+		txtWorkHourAddDate.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		txtWorkHourAddDate.setDateFormatString("yyyy-MM-dd");
+		txtWorkHourAddDate.setBackground(new Color(245, 255, 250));
+
+		txtWorkHourEndDate = new JDateChooser();
+		txtWorkHourEndDate.setBounds(153, 289, 189, 35);
+		txtWorkHourEndDate.getCalendarButton().setFont(new Font("Tahoma", Font.PLAIN, 14));
+		txtWorkHourEndDate.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		txtWorkHourEndDate.setDateFormatString("yyyy-MM-dd");
+		txtWorkHourEndDate.setBackground(new Color(245, 255, 250));
+
+		txtWorkHourCompletedDate = new JDateChooser();
+		txtWorkHourCompletedDate.setBounds(153, 335, 189, 35);
+		txtWorkHourCompletedDate.getCalendarButton().setFont(new Font("Tahoma", Font.PLAIN, 14));
+		txtWorkHourCompletedDate.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		txtWorkHourCompletedDate.setDateFormatString("yyyy-MM-dd");
+		txtWorkHourCompletedDate.setBackground(new Color(245, 255, 250));
+
+		JLabel lblEndDate = new JLabel("határidő: ");
+		lblEndDate.setBounds(10, 289, 140, 35);
+		lblEndDate.setHorizontalAlignment(SwingConstants.RIGHT);
+		lblEndDate.setFont(new Font("Tahoma", Font.BOLD, 15));
+
+		JLabel lblComment = new JLabel("hiba leírás: ");
+		lblComment.setBounds(10, 381, 140, 35);
+		lblComment.setHorizontalAlignment(SwingConstants.RIGHT);
+		lblComment.setFont(new Font("Tahoma", Font.BOLD, 15));
+
+		JLabel lblAddDate = new JLabel("rögzítés: ");
+		lblAddDate.setBounds(10, 243, 140, 35);
+		lblAddDate.setHorizontalAlignment(SwingConstants.RIGHT);
+		lblAddDate.setFont(new Font("Tahoma", Font.BOLD, 15));
+
+		JLabel lblCompletedDate = new JLabel("elkészült: ");
+		lblCompletedDate.setBounds(10, 335, 140, 35);
+		lblCompletedDate.setHorizontalAlignment(SwingConstants.RIGHT);
+		lblCompletedDate.setFont(new Font("Tahoma", Font.BOLD, 15));
+		
+		JScrollPane scrollPane = new JScrollPane();
+		scrollPane.setBounds(153, 381, 289, 101);
+		
+		 txtAreaComment = new JTextArea();
+		 txtAreaComment.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		scrollPane.setViewportView(txtAreaComment);
+		txtAreaComment.setBackground(new Color(245, 255, 250));
 		pnlDevice.setLayout(null);
 		pnlDevice.add(lblDevice);
 		pnlDevice.add(txtDevice);
@@ -148,63 +199,14 @@ public class DeviceGui extends ClientJDBCSetDAO {
 		pnlDevice.add(cmBoxStatusdevice);
 		pnlDevice.add(lblPriorityDevice);
 		pnlDevice.add(cmBoxPriorityDevice);
-
-		txtWorkHourAddDate = new JDateChooser();
-		txtWorkHourAddDate.getCalendarButton().setFont(new Font("Tahoma", Font.PLAIN, 14));
-		txtWorkHourAddDate.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		txtWorkHourAddDate.setDateFormatString("yyyy-MM-dd");
-		txtWorkHourAddDate.setBackground(new Color(245, 255, 250));
-		txtWorkHourAddDate.setBounds(153, 243, 189, 35);
 		pnlDevice.add(txtWorkHourAddDate);
-
-		txtWorkHourEndDate = new JDateChooser();
-		txtWorkHourEndDate.getCalendarButton().setFont(new Font("Tahoma", Font.PLAIN, 14));
-		txtWorkHourEndDate.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		txtWorkHourEndDate.setDateFormatString("yyyy-MM-dd");
-		txtWorkHourEndDate.setBackground(new Color(245, 255, 250));
-		txtWorkHourEndDate.setBounds(153, 289, 189, 35);
 		pnlDevice.add(txtWorkHourEndDate);
-
-		txtWorkHourCompletedDate = new JDateChooser();
-		txtWorkHourCompletedDate.getCalendarButton().setFont(new Font("Tahoma", Font.PLAIN, 14));
-		txtWorkHourCompletedDate.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		txtWorkHourCompletedDate.setDateFormatString("yyyy-MM-dd");
-		txtWorkHourCompletedDate.setBackground(new Color(245, 255, 250));
-		txtWorkHourCompletedDate.setBounds(153, 335, 189, 35);
 		pnlDevice.add(txtWorkHourCompletedDate);
-
-		JLabel lblEndDate = new JLabel("határidő: ");
-		lblEndDate.setHorizontalAlignment(SwingConstants.RIGHT);
-		lblEndDate.setFont(new Font("Tahoma", Font.BOLD, 15));
-		lblEndDate.setBounds(10, 289, 140, 35);
 		pnlDevice.add(lblEndDate);
-
-		JLabel lblComment = new JLabel("hiba leírás: ");
-		lblComment.setHorizontalAlignment(SwingConstants.RIGHT);
-		lblComment.setFont(new Font("Tahoma", Font.BOLD, 15));
-		lblComment.setBounds(10, 381, 140, 35);
 		pnlDevice.add(lblComment);
-
-		JLabel lblAddDate = new JLabel("rögzítés: ");
-		lblAddDate.setHorizontalAlignment(SwingConstants.RIGHT);
-		lblAddDate.setFont(new Font("Tahoma", Font.BOLD, 15));
-		lblAddDate.setBounds(10, 243, 140, 35);
 		pnlDevice.add(lblAddDate);
-
-		JLabel lblCompletedDate = new JLabel("elkészült: ");
-		lblCompletedDate.setHorizontalAlignment(SwingConstants.RIGHT);
-		lblCompletedDate.setFont(new Font("Tahoma", Font.BOLD, 15));
-		lblCompletedDate.setBounds(10, 335, 140, 35);
 		pnlDevice.add(lblCompletedDate);
-		
-		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(153, 381, 289, 101);
 		pnlDevice.add(scrollPane);
-		
-		 txtAreaComment = new JTextArea();
-		 txtAreaComment.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		scrollPane.setViewportView(txtAreaComment);
-		txtAreaComment.setBackground(new Color(245, 255, 250));
 
 		txtDeviceImageClientName = new JTextField();
 		txtDeviceImageClientName.setEnabled(false);

@@ -21,6 +21,7 @@ import ex.main.device.config.DeviceImplements;
 import ex.main.setting.DataBaseConnect;
 
 public class DeviceJDBCSetDAO extends DeviceGui implements DeviceImplements {
+	private String[] columns;
 
 	public DeviceJDBCSetDAO() {
 		scrollPane.setLocation(10, 11);
@@ -29,8 +30,14 @@ public class DeviceJDBCSetDAO extends DeviceGui implements DeviceImplements {
 	}
 
 	private void setActionDevice() {
-		jTableDevice.setModel(new javax.swing.table.DefaultTableModel(new Object[][] {},
-				new String[] { "ügyfél", "eszköz", "sorozatszám" }));
+		columns = new String[] { "ügyfél", "eszköz", "sorozatszám" };
+		jTableDevice.setModel(new javax.swing.table.DefaultTableModel(new Object[][] {}, columns));
+		jTableDevice.getColumn("ügyfél").setMinWidth(120);
+		jTableDevice.getColumn("ügyfél").setMaxWidth(120);
+		jTableDevice.getColumn("eszköz").setMinWidth(80);
+		jTableDevice.getColumn("eszköz").setMaxWidth(80);
+		
+		jTableDevice.getTableHeader().setReorderingAllowed(false);
 		jTableDevice.addMouseListener(new java.awt.event.MouseAdapter() {
 			public void mouseClicked(java.awt.event.MouseEvent evt) {
 				JTable_ProductsMouseClickedDevice(evt);

@@ -167,7 +167,7 @@ public class ClientGui extends WorkSheetJDBCSetDao {
 
 		pnlDevice = new JPanel();
 		pnlDevice.setLayout(null);
-		pnlDevice.setBounds(613, 96, 458, 493);
+		pnlDevice.setBounds(539, 62, 458, 493);
 		jplDevice.add(pnlDevice);
 
 		lblClientDeviceName = new JLabel("ügyfél név: ");
