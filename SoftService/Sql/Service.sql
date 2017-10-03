@@ -26,6 +26,20 @@ COLLATE = utf8_hungarian_ci;
 
 
 -- -----------------------------------------------------
+-- Table `Service`.`software`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `Service`.`software` (
+  `ID_sofware` INT NOT NULL AUTO_INCREMENT,
+  `software` VARCHAR(255) NULL,
+  `megjegyzes_s` VARCHAR(255) NULL,
+  `gepadatok_azonosito_g` INT NOT NULL,
+  PRIMARY KEY (`ID_sofware`))
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8
+COLLATE = utf8_hungarian_ci;
+
+
+-- -----------------------------------------------------
 -- Table `Service`.`megrendelo`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `Service`.`megrendelo` (
@@ -51,6 +65,9 @@ CREATE TABLE IF NOT EXISTS `Service`.`gepadatok` (
   `sorozatszam_g` VARCHAR(255) NOT NULL,
   `allapot` VARCHAR(255) NOT NULL,
   `prioritas` VARCHAR(60) NULL,
+  `rogzites` DATETIME NOT NULL,
+  `hatarido` DATE NOT NULL,
+  `teljesitve` DATETIME NULL,
   `megjegyzes_g` VARCHAR(255) NULL,
   `megrendelo_ID_m` INT NOT NULL,
   PRIMARY KEY (`ID_g`),
@@ -66,47 +83,17 @@ COLLATE = utf8_hungarian_ci;
 
 
 -- -----------------------------------------------------
--- Table `Service`.`munka_ido`
--- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `Service`.`munka_ido` (
-  `rogzites` DATE NOT NULL,
-  `hatarido` DATE NOT NULL,
-  `ra_forditott_ido` INT NULL,
-  `tenyleges_teljesites` DATE NULL,
-  `megjegyzes_i` VARCHAR(255) NULL,
-  `gepadatok_ID_g` INT NOT NULL,
-  INDEX `fk_munka_ido_gepadatok1_idx` (`gepadatok_ID_g` ASC),
-  CONSTRAINT `fk_munka_ido_gepadatok1`
-    FOREIGN KEY (`gepadatok_ID_g`)
-    REFERENCES `Service`.`gepadatok` (`ID_g`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
-ENGINE = InnoDB
-DEFAULT CHARACTER SET = utf8
-COLLATE = utf8_hungarian_ci;
-
-
--- -----------------------------------------------------
--- Table `Service`.`software`
--- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `Service`.`software` (
-  `software` VARCHAR(255) NULL,
-  `megjegyzes_s` VARCHAR(255) NULL,
-  `gepadatok_azonosito_g` INT NOT NULL)
-ENGINE = InnoDB
-DEFAULT CHARACTER SET = utf8
-COLLATE = utf8_hungarian_ci;
-
-
--- -----------------------------------------------------
 -- Table `Service`.`image_gep`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `Service`.`image_gep` (
-  `Image_i` LONGBLOB NULL,
+  `ID_image_gep` INT NOT NULL AUTO_INCREMENT,
   `ugyfel_nev_i` VARCHAR(255) NOT NULL,
+  `eszkoz_nev` VARCHAR(255) NULL,
   `sorozatszam_i` VARCHAR(255) NOT NULL,
   `gepadatok_ID_g` INT NOT NULL,
+  `Image_i` LONGBLOB NULL,
   INDEX `fk_image_gep_gepadatok1_idx` (`gepadatok_ID_g` ASC),
+  PRIMARY KEY (`ID_image_gep`),
   CONSTRAINT `fk_image_gep_gepadatok1`
     FOREIGN KEY (`gepadatok_ID_g`)
     REFERENCES `Service`.`gepadatok` (`ID_g`)
