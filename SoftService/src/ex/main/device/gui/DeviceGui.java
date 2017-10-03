@@ -29,7 +29,7 @@ public class DeviceGui extends ClientJDBCSetDAO {
 	protected JTextField txtSerialDevice;
 	protected JTextField txtDeviceId;
 	protected JButton btnNewDevice, btnNullDevice, btnEditDevice, jbtnDeleteDevice;
-	protected JComboBox cmBoxStatusdevice, cmBoxPriorityDevice;
+	protected JComboBox cmBoxStatusdevice, cmBoxPriorityDevice, cmBoxDeviceInterchange, cmBoxDeviceSoftwer;
 	protected JTextField txtDeviceImageClientName;
 	protected JTextField txtDeviceImageNameDevice;
 	protected JTextField txtDeviceImageSerialDevice;
@@ -41,12 +41,16 @@ public class DeviceGui extends ClientJDBCSetDAO {
 	protected JDateChooser txtWorkHourCompletedDate, txtWorkHourAddDate, txtWorkHourEndDate;
 	protected JTextField txtDeviceImageIDDevice;
 	protected JTextField txtDeviceImageID;
-	protected JTextArea txtAreaComment;
+	protected JTextArea txtAreaComment, txtAreaDeviceErrors;
+	private JLabel lbDevicelnterchange;
+	private JLabel lblSoftwerTelepts;
+	private JTextField textField;
 
 	public DeviceGui() {
-		txtClientDeviceId.setBounds(352, 13, 95, 35);
-		txtClientDeviceName.setBounds(153, 13, 189, 35);
-		pnlDevice.setSize(449, 493);
+		lblClientDeviceName.setBounds(10, 11, 95, 35);
+		txtClientDeviceId.setBounds(302, 13, 95, 35);
+		txtClientDeviceName.setBounds(103, 13, 189, 35);
+		pnlDevice.setSize(404, 493);
 		pnlDevice.setLocation(376, 85);
 
 		setComponent();
@@ -54,6 +58,65 @@ public class DeviceGui extends ClientJDBCSetDAO {
 
 	private void setComponent() {
 		jplDevice.setLayout(null);
+
+		JPanel pnlDeviceListener = new JPanel();
+		pnlDeviceListener.setBounds(782, 85, 447, 493);
+		jplDevice.add(pnlDeviceListener);
+		pnlDeviceListener.setLayout(null);
+
+		JLabel lblErrors = new JLabel("valós hiba:");
+		lblErrors.setHorizontalAlignment(SwingConstants.RIGHT);
+		lblErrors.setFont(new Font("Tahoma", Font.BOLD, 15));
+		lblErrors.setBounds(0, 213, 137, 35);
+		pnlDeviceListener.add(lblErrors);
+
+		JScrollPane scrlDeviceErrors = new JScrollPane();
+		scrlDeviceErrors.setBounds(139, 213, 294, 101);
+		pnlDeviceListener.add(scrlDeviceErrors);
+
+		txtAreaDeviceErrors = new JTextArea();
+		txtAreaDeviceErrors.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		txtAreaDeviceErrors.setBackground(new Color(245, 255, 250));
+		scrlDeviceErrors.setViewportView(txtAreaDeviceErrors);
+
+		lbDevicelnterchange = new JLabel("hardwer csere:");
+		lbDevicelnterchange.setHorizontalAlignment(SwingConstants.RIGHT);
+		lbDevicelnterchange.setFont(new Font("Tahoma", Font.BOLD, 15));
+		lbDevicelnterchange.setBounds(0, 55, 137, 35);
+		pnlDeviceListener.add(lbDevicelnterchange);
+
+		String boxInterchane[] = { "Igen", "Nem" };
+		cmBoxDeviceInterchange = new JComboBox(boxInterchane);
+		cmBoxDeviceInterchange.setBounds(139, 57, 189, 35);
+		pnlDeviceListener.add(cmBoxDeviceInterchange);
+		cmBoxDeviceInterchange.setSelectedItem(null);
+
+		lblSoftwerTelepts = new JLabel("softwer telepítés:");
+		lblSoftwerTelepts.setHorizontalAlignment(SwingConstants.RIGHT);
+		lblSoftwerTelepts.setFont(new Font("Tahoma", Font.BOLD, 15));
+		lblSoftwerTelepts.setBounds(0, 11, 137, 35);
+		pnlDeviceListener.add(lblSoftwerTelepts);
+
+		String boxDeviceSoftwer[] = { "Igen", "Nem" };
+		cmBoxDeviceSoftwer = new JComboBox(boxDeviceSoftwer);
+		cmBoxDeviceSoftwer.setBounds(139, 13, 189, 35);
+		pnlDeviceListener.add(cmBoxDeviceSoftwer);
+		cmBoxDeviceSoftwer.setSelectedItem(null);
+		
+				JScrollPane scrollPane = new JScrollPane();
+				scrollPane.setBounds(139, 101, 294, 101);
+				pnlDeviceListener.add(scrollPane);
+				
+						txtAreaComment = new JTextArea();
+						txtAreaComment.setFont(new Font("Tahoma", Font.PLAIN, 14));
+						scrollPane.setViewportView(txtAreaComment);
+						txtAreaComment.setBackground(new Color(245, 255, 250));
+						
+								JLabel lblComment = new JLabel("hiba leírás:");
+								lblComment.setBounds(0, 101, 137, 35);
+								pnlDeviceListener.add(lblComment);
+								lblComment.setHorizontalAlignment(SwingConstants.RIGHT);
+								lblComment.setFont(new Font("Tahoma", Font.BOLD, 15));
 
 		JPanel jpnSettingDevice = new JPanel();
 		jpnSettingDevice.setLayout(null);
@@ -94,107 +157,89 @@ public class DeviceGui extends ClientJDBCSetDAO {
 		jScpDevice.setViewportView(jTableDevice);
 
 		txtDevice = new JTextField();
-		txtDevice.setBounds(153, 59, 189, 35);
+		txtDevice.setBounds(103, 59, 189, 35);
 		txtDevice.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		txtDevice.setColumns(10);
 		txtDevice.setBackground(new Color(245, 255, 250));
 
 		txtDeviceId = new JTextField();
-		txtDeviceId.setBounds(352, 59, 95, 35);
+		txtDeviceId.setBounds(302, 59, 95, 35);
 		txtDeviceId.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		txtDeviceId.setEnabled(false);
 		txtDeviceId.setColumns(10);
 		txtDeviceId.setBackground(new Color(245, 255, 250));
 
-		txtSerialDevice = new JTextField();
-		txtSerialDevice.setBounds(153, 105, 189, 35);
-		txtSerialDevice.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		txtSerialDevice.setColumns(10);
-		txtSerialDevice.setBackground(new Color(245, 255, 250));
-
-		cmBoxStatusdevice = new JComboBox(
-				new Object[] { "Bevizsgálás alatt", "Alkatrészre vár", "Garanciális", "Bevizsgálva" });
-		cmBoxStatusdevice.setBounds(153, 151, 189, 35);
+		String boxStatus[] = { "Bevizsgálás alatt", "Alkatrészre vár", "Garanciális", "Bevizsgálva" };
+		cmBoxStatusdevice = new JComboBox(boxStatus);
+		cmBoxStatusdevice.setBounds(103, 199, 189, 35);
 		cmBoxStatusdevice.setSelectedItem(null);
 
-		cmBoxPriorityDevice = new JComboBox(new Object[] { "Alap", "Szerződött", "Sűrgős" });
-		cmBoxPriorityDevice.setBounds(153, 197, 189, 35);
+		String boxPriority[] = { "Alap", "Szerződött", "Sűrgős" };
+		cmBoxPriorityDevice = new JComboBox(boxPriority);
+		cmBoxPriorityDevice.setBounds(103, 245, 189, 35);
 		cmBoxPriorityDevice.setSelectedItem(null);
 
 		JLabel lblDevice = new JLabel("eszköz:  ");
-		lblDevice.setBounds(10, 59, 140, 35);
+		lblDevice.setBounds(10, 59, 95, 35);
 		lblDevice.setHorizontalAlignment(SwingConstants.RIGHT);
 		lblDevice.setFont(new Font("Tahoma", Font.BOLD, 15));
 
 		JLabel lblSerialDevice = new JLabel("serial: ");
-		lblSerialDevice.setBounds(10, 105, 140, 35);
+		lblSerialDevice.setBounds(10, 153, 95, 35);
 		lblSerialDevice.setHorizontalAlignment(SwingConstants.RIGHT);
 		lblSerialDevice.setFont(new Font("Tahoma", Font.BOLD, 15));
 
 		JLabel lblConditionDevice = new JLabel("állapot: ");
-		lblConditionDevice.setBounds(10, 151, 140, 35);
+		lblConditionDevice.setBounds(10, 199, 95, 35);
 		lblConditionDevice.setHorizontalAlignment(SwingConstants.RIGHT);
 		lblConditionDevice.setFont(new Font("Tahoma", Font.BOLD, 15));
 
 		JLabel lblPriorityDevice = new JLabel("prioritás: ");
-		lblPriorityDevice.setBounds(10, 197, 140, 35);
+		lblPriorityDevice.setBounds(10, 245, 95, 35);
 		lblPriorityDevice.setHorizontalAlignment(SwingConstants.RIGHT);
 		lblPriorityDevice.setFont(new Font("Tahoma", Font.BOLD, 15));
 
 		txtWorkHourAddDate = new JDateChooser();
-		txtWorkHourAddDate.setBounds(153, 243, 189, 35);
+		txtWorkHourAddDate.setBounds(103, 291, 189, 35);
 		txtWorkHourAddDate.getCalendarButton().setFont(new Font("Tahoma", Font.PLAIN, 14));
 		txtWorkHourAddDate.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		txtWorkHourAddDate.setDateFormatString("yyyy-MM-dd");
 		txtWorkHourAddDate.setBackground(new Color(245, 255, 250));
 
 		txtWorkHourEndDate = new JDateChooser();
-		txtWorkHourEndDate.setBounds(153, 289, 189, 35);
+		txtWorkHourEndDate.setBounds(103, 337, 189, 35);
 		txtWorkHourEndDate.getCalendarButton().setFont(new Font("Tahoma", Font.PLAIN, 14));
 		txtWorkHourEndDate.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		txtWorkHourEndDate.setDateFormatString("yyyy-MM-dd");
 		txtWorkHourEndDate.setBackground(new Color(245, 255, 250));
 
 		txtWorkHourCompletedDate = new JDateChooser();
-		txtWorkHourCompletedDate.setBounds(153, 335, 189, 35);
+		txtWorkHourCompletedDate.setBounds(103, 383, 189, 35);
 		txtWorkHourCompletedDate.getCalendarButton().setFont(new Font("Tahoma", Font.PLAIN, 14));
 		txtWorkHourCompletedDate.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		txtWorkHourCompletedDate.setDateFormatString("yyyy-MM-dd");
 		txtWorkHourCompletedDate.setBackground(new Color(245, 255, 250));
 
 		JLabel lblEndDate = new JLabel("határidő: ");
-		lblEndDate.setBounds(10, 289, 140, 35);
+		lblEndDate.setBounds(10, 337, 95, 35);
 		lblEndDate.setHorizontalAlignment(SwingConstants.RIGHT);
 		lblEndDate.setFont(new Font("Tahoma", Font.BOLD, 15));
 
-		JLabel lblComment = new JLabel("hiba leírás: ");
-		lblComment.setBounds(10, 381, 140, 35);
-		lblComment.setHorizontalAlignment(SwingConstants.RIGHT);
-		lblComment.setFont(new Font("Tahoma", Font.BOLD, 15));
-
 		JLabel lblAddDate = new JLabel("rögzítés: ");
-		lblAddDate.setBounds(10, 243, 140, 35);
+		lblAddDate.setBounds(10, 291, 95, 35);
 		lblAddDate.setHorizontalAlignment(SwingConstants.RIGHT);
 		lblAddDate.setFont(new Font("Tahoma", Font.BOLD, 15));
 
 		JLabel lblCompletedDate = new JLabel("elkészült: ");
-		lblCompletedDate.setBounds(10, 335, 140, 35);
+		lblCompletedDate.setBounds(10, 383, 95, 35);
 		lblCompletedDate.setHorizontalAlignment(SwingConstants.RIGHT);
 		lblCompletedDate.setFont(new Font("Tahoma", Font.BOLD, 15));
-		
-		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(153, 381, 289, 101);
-		
-		 txtAreaComment = new JTextArea();
-		 txtAreaComment.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		scrollPane.setViewportView(txtAreaComment);
-		txtAreaComment.setBackground(new Color(245, 255, 250));
+
 		pnlDevice.setLayout(null);
 		pnlDevice.add(lblDevice);
 		pnlDevice.add(txtDevice);
 		pnlDevice.add(txtDeviceId);
 		pnlDevice.add(lblSerialDevice);
-		pnlDevice.add(txtSerialDevice);
 		pnlDevice.add(lblConditionDevice);
 		pnlDevice.add(cmBoxStatusdevice);
 		pnlDevice.add(lblPriorityDevice);
@@ -203,10 +248,28 @@ public class DeviceGui extends ClientJDBCSetDAO {
 		pnlDevice.add(txtWorkHourEndDate);
 		pnlDevice.add(txtWorkHourCompletedDate);
 		pnlDevice.add(lblEndDate);
-		pnlDevice.add(lblComment);
 		pnlDevice.add(lblAddDate);
 		pnlDevice.add(lblCompletedDate);
-		pnlDevice.add(scrollPane);
+		
+		textField = new JTextField();
+		textField.setBounds(103, 105, 189, 35);
+		pnlDevice.add(textField);
+		textField.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		textField.setColumns(10);
+		textField.setBackground(new Color(245, 255, 250));
+		
+		JLabel lblTips = new JLabel("típus: ");
+		lblTips.setBounds(10, 105, 95, 35);
+		pnlDevice.add(lblTips);
+		lblTips.setHorizontalAlignment(SwingConstants.RIGHT);
+		lblTips.setFont(new Font("Tahoma", Font.BOLD, 15));
+		
+				txtSerialDevice = new JTextField();
+				txtSerialDevice.setBounds(103, 153, 189, 35);
+				pnlDevice.add(txtSerialDevice);
+				txtSerialDevice.setFont(new Font("Tahoma", Font.PLAIN, 14));
+				txtSerialDevice.setColumns(10);
+				txtSerialDevice.setBackground(new Color(245, 255, 250));
 
 		txtDeviceImageClientName = new JTextField();
 		txtDeviceImageClientName.setEnabled(false);

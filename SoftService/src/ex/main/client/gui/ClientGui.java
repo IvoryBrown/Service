@@ -26,7 +26,7 @@ public class ClientGui extends WorkSheetJDBCSetDao {
 	private JButton btnSearchClient;
 	protected JTextField txtIdClient;
 	protected JPanel pnlDevice;
-	private JLabel lblClientDeviceName;
+	protected JLabel lblClientDeviceName;
 	protected JTextField txtClientDeviceName;
 	protected JTextField txtClientDeviceId;
 
