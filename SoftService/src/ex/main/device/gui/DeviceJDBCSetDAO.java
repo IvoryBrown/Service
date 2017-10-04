@@ -36,7 +36,7 @@ public class DeviceJDBCSetDAO extends DeviceGui implements DeviceImplements {
 		jTableDevice.getColumn("ügyfél").setMaxWidth(120);
 		jTableDevice.getColumn("eszköz").setMinWidth(80);
 		jTableDevice.getColumn("eszköz").setMaxWidth(80);
-		
+
 		jTableDevice.getTableHeader().setReorderingAllowed(false);
 		jTableDevice.addMouseListener(new java.awt.event.MouseAdapter() {
 			public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -103,9 +103,11 @@ public class DeviceJDBCSetDAO extends DeviceGui implements DeviceImplements {
 			DeviceConfig product;
 			while (rs.next()) {
 				product = new DeviceConfig(rs.getInt("ID_g"), rs.getString("ugyfel_nev"), rs.getString("eszkoz_g"),
-						rs.getString("sorozatszam_g"), rs.getString("allapot"), rs.getString("prioritas"),
-						rs.getString("rogzites"), rs.getString("hatarido"), rs.getString("teljesitve"),
-						rs.getString("megjegyzes_g"), rs.getInt("megrendelo_ID_m"));
+						rs.getString("tipus"), rs.getString("sorozatszam_g"), rs.getString("allapot"),
+						rs.getString("prioritas"), rs.getString("softwer"), rs.getString("hardwer"),
+						rs.getString("takaritas"), rs.getString("hiba_leiras"), rs.getString("rogzites"),
+						rs.getString("hatarido"), rs.getString("teljesitve"), rs.getString("valos_hiba"),
+						rs.getInt("megrendelo_ID_m"));
 				productListDevice.add(product);
 			}
 		} catch (SQLException ex) {
