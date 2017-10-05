@@ -237,6 +237,7 @@ public class DeviceJDBCSetDAO extends DeviceGui implements DeviceImplements {
 	}
 
 	private void jBtnUpdateActionPerformedDevice(java.awt.event.ActionEvent evt) {
+		String buyingDate = null;
 		String completedDate = null;
 		if (checkInputsDevice()) {
 			String updateDevice = null;
@@ -244,8 +245,9 @@ public class DeviceJDBCSetDAO extends DeviceGui implements DeviceImplements {
 			Connection con = DataBaseConnect.getConnection();
 			try {
 				updateDevice = "UPDATE gepadatok SET ugyfel_nev = ?, eszkoz_g = ?, tipus = ?"
-						+ ", sorozatszam_g = ?, allapot = ?, prioritas = ?, rogzites = ?"
+						+ ", sorozatszam_g = ?, allapot = ?, prioritas = ?, vasarlas_ido = ?, rogzites = ?"
 						+ ", hatarido = ?, teljesitve = ?, softwer = ?, hardwer = ?, takaritas = ?"
+						+ ", jelszo = ?, tartozekok = ?, serules = ?"
 						+ ", hiba_leiras = ?, valos_hiba = ?, megrendelo_ID_m = ? WHERE ID_g = ?";
 				ps = con.prepareStatement(updateDevice);
 				ps.setString(1, txtClientDeviceName.getText());
@@ -254,26 +256,36 @@ public class DeviceJDBCSetDAO extends DeviceGui implements DeviceImplements {
 				ps.setString(4, txtSerialDevice.getText());
 				ps.setString(5, (String) cmBoxStatusdevice.getItemAt(cmBoxStatusdevice.getSelectedIndex()));
 				ps.setString(6, (String) cmBoxPriorityDevice.getItemAt(cmBoxPriorityDevice.getSelectedIndex()));
+				SimpleDateFormat buyingDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+				try {
+					buyingDateFormat.setLenient(false);
+					buyingDate = buyingDateFormat.format(txtDeviceBuyingDate.getDate());
+				} catch (Exception e) {
+				}
+				ps.setString(7, buyingDate);
 				SimpleDateFormat addDateFormat = new SimpleDateFormat("yyyy-MM-dd ");
 				String addDate = addDateFormat.format(txtWorkHourAddDate.getDate());
-				ps.setString(7, addDate);
+				ps.setString(8, addDate);
 				SimpleDateFormat endDateFormat = new SimpleDateFormat("yyyy-MM-dd");
 				String endDate = endDateFormat.format(txtWorkHourEndDate.getDate());
-				ps.setString(8, endDate);
+				ps.setString(9, endDate);
 				SimpleDateFormat completedDateFormat = new SimpleDateFormat("yyyy-MM-dd ");
 				try {
 					completedDateFormat.setLenient(false);
 					completedDate = completedDateFormat.format(txtWorkHourCompletedDate.getDate());
 				} catch (Exception e) {
 				}
-				ps.setString(9, completedDate);
-				ps.setString(10, (String) cmBoxDeviceSoftwer.getItemAt(cmBoxDeviceSoftwer.getSelectedIndex()));
-				ps.setString(11, (String) cmBoxDeviceInterchange.getItemAt(cmBoxDeviceInterchange.getSelectedIndex()));
-				ps.setString(12, (String) cmBoxCleaning.getItemAt(cmBoxCleaning.getSelectedIndex()));
-				ps.setString(13, txtAreaComment.getText());
-				ps.setString(14, txtAreaDeviceErrors.getText());
-				ps.setString(15, txtClientDeviceId.getText());
-				ps.setInt(16, Integer.parseInt(txtDeviceId.getText()));
+				ps.setString(10, completedDate);
+				ps.setString(11, (String) cmBoxDeviceSoftwer.getItemAt(cmBoxDeviceSoftwer.getSelectedIndex()));
+				ps.setString(12, (String) cmBoxDeviceInterchange.getItemAt(cmBoxDeviceInterchange.getSelectedIndex()));
+				ps.setString(13, (String) cmBoxCleaning.getItemAt(cmBoxCleaning.getSelectedIndex()));
+				ps.setString(14, txtDevicePassword.getText());
+				ps.setString(15, txtAreaDeviceAccessory.getText());
+				ps.setString(16, txtAreaInjury.getText());
+				ps.setString(17, txtAreaComment.getText());
+				ps.setString(18, txtAreaDeviceErrors.getText());
+				ps.setString(19, txtClientDeviceId.getText());
+				ps.setInt(20, Integer.parseInt(txtDeviceId.getText()));
 				ps.executeUpdate();
 				showProductsInJTableDevice();
 				JOptionPane.showMessageDialog(null, "Sikeres Frissítés");

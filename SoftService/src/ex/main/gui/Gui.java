@@ -28,6 +28,7 @@ public class Gui extends JFrame {
 	DataBaseConnect connect = new DataBaseConnect();
 	private JPanel panel;
 	protected JPanel jplDeviceImage;
+	private JPanel jplSoftver;
 
 	public Gui() {
 		setIconImage(Toolkit.getDefaultToolkit().getImage(Gui.class.getResource("/icon/function/48x48/world-blocks.png")));
@@ -65,6 +66,9 @@ public class Gui extends JFrame {
 		jplDeviceImage = new JPanel();
 		jTbdPane.addTab("Eszköz képek", null, jplDeviceImage, null);
 		jplDeviceImage.setLayout(null);
+		
+		jplSoftver = new JPanel();
+		jTbdPane.addTab("Softver", null, jplSoftver, null);
 
 		JLabel lblNewLabel = new JLabel("Verzió: 1.0.0");
 		lblNewLabel.setBounds(1152, 623, 82, 16);
