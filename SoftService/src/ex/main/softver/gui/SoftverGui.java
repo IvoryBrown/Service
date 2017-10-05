@@ -16,17 +16,17 @@ import javax.swing.JTextArea;
 public class SoftverGui extends DeviceImageJDBCSetDAO {
 	protected JTextField txtSoftverID;
 	protected JComboBox cmbSoftverName;
-	private JPanel panel;
-	private JButton button;
-	private JButton button_1;
-	private JButton button_2;
-	private JTextField textField;
-	private JButton button_3;
-	private JButton button_4;
-	private JScrollPane scrollPane;
-	private JTable table;
-	private JScrollPane scrollPane_1;
-	private JTextArea textArea;
+	protected JPanel pnlSoftverSetting;
+	protected JButton btnSoftverDelete;
+	protected JButton btnSoftverEdit;
+	protected JButton btnSoftverNewSoftver;
+	protected JTextField txtSoftverSearch;
+	protected JButton btnSoftverSearch;
+	protected JButton btnSoftverNull;
+	protected JScrollPane scrSoftver;
+	protected JTable tblSoftver;
+	protected JScrollPane scrSoftverComment;
+	protected JTextArea txtAreaSoftverComment;
 
 	public SoftverGui() {
 
@@ -36,10 +36,11 @@ public class SoftverGui extends DeviceImageJDBCSetDAO {
 	private void setSoftverComponent() {
 		jplSoftver.setLayout(null);
 
-		String softverName[] = {"Win Pro 7 32Bit Hungarian", "Win Pro 7 64Bit Hungarian","Egyéb"};
+		String softverName[] = { "Win Pro 7 32Bit Hungarian", "Win Pro 7 64Bit Hungarian", "Egyéb" };
 		cmbSoftverName = new JComboBox(softverName);
 		cmbSoftverName.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		cmbSoftverName.setBounds(116, 103, 294, 35);
+		cmbSoftverName.setSelectedItem(null);
 		pnlSoftver.add(cmbSoftverName);
 
 		txtSoftverID = new JTextField();
@@ -61,52 +62,52 @@ public class SoftverGui extends DeviceImageJDBCSetDAO {
 		lblSoftver.setFont(new Font("Tahoma", Font.BOLD, 15));
 		lblSoftver.setBounds(4, 103, 102, 35);
 		pnlSoftver.add(lblSoftver);
-		
-		scrollPane_1 = new JScrollPane();
-		scrollPane_1.setBounds(116, 149, 294, 63);
-		pnlSoftver.add(scrollPane_1);
-		
-		textArea = new JTextArea();
-		textArea.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		textArea.setBackground(new Color(245, 255, 250));
-		scrollPane_1.setViewportView(textArea);
-		
-		panel = new JPanel();
-		panel.setLayout(null);
-		panel.setBounds(10, 11, 815, 63);
-		jplSoftver.add(panel);
-		
-		button = new JButton("törlés");
-		button.setBounds(565, 12, 109, 37);
-		panel.add(button);
-		
-		button_1 = new JButton("szerkesztés");
-		button_1.setBounds(446, 12, 109, 37);
-		panel.add(button_1);
-		
-		button_2 = new JButton("új eszköz");
-		button_2.setBounds(327, 11, 109, 37);
-		panel.add(button_2);
-		
-		textField = new JTextField();
-		textField.setColumns(10);
-		textField.setBackground(new Color(127, 255, 212));
-		textField.setBounds(10, 13, 185, 35);
-		panel.add(textField);
-		
-		button_3 = new JButton("keresés");
-		button_3.setBounds(208, 12, 109, 37);
-		panel.add(button_3);
-		
-		button_4 = new JButton("null");
-		button_4.setBounds(684, 12, 109, 37);
-		panel.add(button_4);
-		
-		scrollPane = new JScrollPane();
-		scrollPane.setBounds(10, 85, 618, 493);
-		jplSoftver.add(scrollPane);
-		
-		table = new JTable();
-		scrollPane.setViewportView(table);
+
+		scrSoftverComment = new JScrollPane();
+		scrSoftverComment.setBounds(116, 149, 294, 63);
+		pnlSoftver.add(scrSoftverComment);
+
+		txtAreaSoftverComment = new JTextArea();
+		txtAreaSoftverComment.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		txtAreaSoftverComment.setBackground(new Color(245, 255, 250));
+		scrSoftverComment.setViewportView(txtAreaSoftverComment);
+
+		pnlSoftverSetting = new JPanel();
+		pnlSoftverSetting.setLayout(null);
+		pnlSoftverSetting.setBounds(10, 11, 815, 63);
+		jplSoftver.add(pnlSoftverSetting);
+
+		btnSoftverDelete = new JButton("törlés");
+		btnSoftverDelete.setBounds(565, 12, 109, 37);
+		pnlSoftverSetting.add(btnSoftverDelete);
+
+		btnSoftverEdit = new JButton("szerkesztés");
+		btnSoftverEdit.setBounds(446, 12, 109, 37);
+		pnlSoftverSetting.add(btnSoftverEdit);
+
+		btnSoftverNewSoftver = new JButton("új eszköz");
+		btnSoftverNewSoftver.setBounds(327, 11, 109, 37);
+		pnlSoftverSetting.add(btnSoftverNewSoftver);
+
+		txtSoftverSearch = new JTextField();
+		txtSoftverSearch.setColumns(10);
+		txtSoftverSearch.setBackground(new Color(127, 255, 212));
+		txtSoftverSearch.setBounds(10, 13, 185, 35);
+		pnlSoftverSetting.add(txtSoftverSearch);
+
+		btnSoftverSearch = new JButton("keresés");
+		btnSoftverSearch.setBounds(208, 12, 109, 37);
+		pnlSoftverSetting.add(btnSoftverSearch);
+
+		btnSoftverNull = new JButton("null");
+		btnSoftverNull.setBounds(684, 12, 109, 37);
+		pnlSoftverSetting.add(btnSoftverNull);
+
+		scrSoftver = new JScrollPane();
+		scrSoftver.setBounds(10, 85, 618, 493);
+		jplSoftver.add(scrSoftver);
+
+		tblSoftver = new JTable();
+		scrSoftver.setViewportView(tblSoftver);
 	}
 }

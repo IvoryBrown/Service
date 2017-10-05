@@ -36,8 +36,8 @@ public class DeviceJDBCSetDAO extends DeviceGui implements DeviceImplements {
 		jTableDevice.getColumn("ügyfél").setMaxWidth(120);
 		jTableDevice.getColumn("eszköz").setMinWidth(80);
 		jTableDevice.getColumn("eszköz").setMaxWidth(80);
-
 		jTableDevice.getTableHeader().setReorderingAllowed(false);
+		
 		jTableDevice.addMouseListener(new java.awt.event.MouseAdapter() {
 			public void mouseClicked(java.awt.event.MouseEvent evt) {
 				JTable_ProductsMouseClickedDevice(evt);

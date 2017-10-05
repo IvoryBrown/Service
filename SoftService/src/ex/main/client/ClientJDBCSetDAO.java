@@ -22,7 +22,6 @@ import ex.main.setting.DataBaseConnect;
 public class ClientJDBCSetDAO extends ClientGui implements ClientImplements {
 
 	public ClientJDBCSetDAO() {
-
 		setAction();
 		showProductsInJTableClient();
 	}
