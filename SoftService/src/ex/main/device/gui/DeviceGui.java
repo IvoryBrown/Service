@@ -45,7 +45,7 @@ public class DeviceGui extends ClientJDBCSetDAO {
 	protected JTextArea txtAreaComment, txtAreaDeviceErrors;
 	private JLabel lbDevicelnterchange;
 	private JLabel lblSoftwerTelepts;
-	private JTextField textField;
+	protected JTextField txtTypeDevice;
 
 	public DeviceGui() {
 		lblClientDeviceName.setBounds(10, 11, 95, 35);
@@ -264,12 +264,12 @@ public class DeviceGui extends ClientJDBCSetDAO {
 		pnlDevice.add(lblAddDate);
 		pnlDevice.add(lblCompletedDate);
 
-		textField = new JTextField();
-		textField.setBounds(103, 105, 189, 35);
-		pnlDevice.add(textField);
-		textField.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		textField.setColumns(10);
-		textField.setBackground(new Color(245, 255, 250));
+		txtTypeDevice = new JTextField();
+		txtTypeDevice.setBounds(103, 105, 189, 35);
+		pnlDevice.add(txtTypeDevice);
+		txtTypeDevice.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		txtTypeDevice.setColumns(10);
+		txtTypeDevice.setBackground(new Color(245, 255, 250));
 
 		JLabel lblTips = new JLabel("típus: ");
 		lblTips.setBounds(10, 105, 95, 35);

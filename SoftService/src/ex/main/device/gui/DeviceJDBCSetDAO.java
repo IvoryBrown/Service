@@ -104,9 +104,9 @@ public class DeviceJDBCSetDAO extends DeviceGui implements DeviceImplements {
 			while (rs.next()) {
 				product = new DeviceConfig(rs.getInt("ID_g"), rs.getString("ugyfel_nev"), rs.getString("eszkoz_g"),
 						rs.getString("tipus"), rs.getString("sorozatszam_g"), rs.getString("allapot"),
-						rs.getString("prioritas"), rs.getString("softwer"), rs.getString("hardwer"),
-						rs.getString("takaritas"), rs.getString("hiba_leiras"), rs.getString("rogzites"),
-						rs.getString("hatarido"), rs.getString("teljesitve"), rs.getString("valos_hiba"),
+						rs.getString("prioritas"), rs.getString("rogzites"), rs.getString("hatarido"),
+						rs.getString("teljesitve"), rs.getString("softwer"), rs.getString("hardwer"),
+						rs.getString("takaritas"), rs.getString("hiba_leiras"), rs.getString("valos_hiba"),
 						rs.getInt("megrendelo_ID_m"));
 				productListDevice.add(product);
 			}
@@ -133,10 +133,15 @@ public class DeviceJDBCSetDAO extends DeviceGui implements DeviceImplements {
 		txtClientDeviceName.setText(getDeviceProductList().get(index).getClientName());
 		txtClientDeviceId.setText(Integer.toString(getDeviceProductList().get(index).getClientId()));
 		txtDevice.setText(getDeviceProductList().get(index).getDeviceName());
+		txtTypeDevice.setText(getDeviceProductList().get(index).getType());
 		txtDeviceId.setText(Integer.toString(getDeviceProductList().get(index).getIdg()));
 		txtSerialDevice.setText(getDeviceProductList().get(index).getSerial());
 		cmBoxStatusdevice.setSelectedItem(getDeviceProductList().get(index).getStatus());
 		cmBoxPriorityDevice.setSelectedItem(getDeviceProductList().get(index).getPriorit());
+		cmBoxDeviceSoftwer.setSelectedItem(getDeviceProductList().get(index).getSoftwer());
+		cmBoxDeviceInterchange.setSelectedItem(getDeviceProductList().get(index).getHardver());
+		cmBoxCleaning.setSelectedItem(getDeviceProductList().get(index).getCleaning());
+		txtAreaDeviceErrors.setText(getDeviceProductList().get(index).getFault());
 		try {
 			Date addDate = null;
 			Date endDate = null;
@@ -168,29 +173,33 @@ public class DeviceJDBCSetDAO extends DeviceGui implements DeviceImplements {
 		if (checkInputsDevice()) {
 			try {
 				Connection con = DataBaseConnect.getConnection();
-				PreparedStatement insertDevice = con.prepareStatement("INSERT INTO gepadatok(ugyfel_nev, eszkoz_g,"
-						+ "sorozatszam_g, allapot, prioritas, rogzites,"
-						+ "hatarido, teljesitve, megjegyzes_g, megrendelo_ID_m)" + "values(?,?,?,?,?,?,?,?,?,?) ");
+				PreparedStatement insertDevice = con
+						.prepareStatement("INSERT INTO gepadatok(ugyfel_nev, eszkoz_g, tipus,"
+								+ "sorozatszam_g, allapot, prioritas, rogzites,"
+								+ "hatarido, teljesitve, softwer, hardwer, takaritas, hiba_leiras,"
+								+ "valos_hiba, megrendelo_ID_m)" + "values(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?) ");
 				insertDevice.setString(1, txtClientDeviceName.getText());
 				insertDevice.setString(2, txtDevice.getText());
-				insertDevice.setString(3, txtSerialDevice.getText());
-				insertDevice.setString(4, (String) cmBoxStatusdevice.getItemAt(cmBoxStatusdevice.getSelectedIndex()));
-				insertDevice.setString(5,
+				insertDevice.setString(3, txtTypeDevice.getText());
+				insertDevice.setString(4, txtSerialDevice.getText());
+				insertDevice.setString(5, (String) cmBoxStatusdevice.getItemAt(cmBoxStatusdevice.getSelectedIndex()));
+				insertDevice.setString(6,
 						(String) cmBoxPriorityDevice.getItemAt(cmBoxPriorityDevice.getSelectedIndex()));
 				SimpleDateFormat addDateFormat = new SimpleDateFormat("yyyy-MM-dd");
 				String addDate = addDateFormat.format(txtWorkHourAddDate.getDate());
-				insertDevice.setString(6, addDate);
+				insertDevice.setString(7, addDate);
 				SimpleDateFormat endDateFormat = new SimpleDateFormat("yyyy-MM-dd");
 				String endDate = endDateFormat.format(txtWorkHourEndDate.getDate());
-				insertDevice.setString(7, endDate);
+				insertDevice.setString(8, endDate);
 				SimpleDateFormat completedDateFormat = new SimpleDateFormat("yyyy-MM-dd");
 				try {
 					completedDateFormat.setLenient(false);
 					completedDate = completedDateFormat.format(txtWorkHourCompletedDate.getDate());
 				} catch (Exception e) {
 				}
-				insertDevice.setString(8, completedDate);
-				insertDevice.setString(9, txtAreaComment.getText());
+				insertDevice.setString(9, completedDate);
+				insertDevice.setString(10, (String) cmBoxDeviceSoftwer.getItemAt(cmBoxStatusdevice.getSelectedIndex()));
+				insertDevice.setString(11, txtAreaComment.getText());
 				insertDevice.setString(10, txtClientDeviceId.getText());
 				insertDevice.executeUpdate();
 				showProductsInJTableDevice();
