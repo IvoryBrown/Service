@@ -12,9 +12,9 @@ import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 
-import ex.main.worksheet.WorkSheetJDBCSetDao;
+import ex.main.gui.Gui;
 
-public class ClientGui extends WorkSheetJDBCSetDao {
+public class ClientGui extends Gui {
 	protected JTextField txtSearchClient;
 	protected JTextField txtIDClient;
 	protected JTextField txtNameClient;

@@ -25,7 +25,6 @@ public class DeviceJDBCSetDAO extends DeviceGui implements DeviceImplements {
 	private String[] columns;
 
 	public DeviceJDBCSetDAO() {
-		scrollPane.setLocation(10, 11);
 		setActionDevice();
 		showProductsInJTableDevice();
 	}
@@ -174,6 +173,10 @@ public class DeviceJDBCSetDAO extends DeviceGui implements DeviceImplements {
 		txtDeviceImageSerialDevice.setText(getDeviceProductList().get(index).getSerial());
 		txtDeviceImageIDDevice.setText(Integer.toString(getDeviceProductList().get(index).getIdg()));
 		txtDeviceImageID.setText(null);
+		// Softver set!!!
+		txtSoftverDeviceName.setText(getDeviceProductList().get(index).getDeviceName());
+		txtSoftverserial.setText(getDeviceProductList().get(index).getSerial());
+		txtSoftverDeviceId.setText(Integer.toString(getDeviceProductList().get(index).getIdg()));
 	}
 
 	private void jBtnInsertActionPerformedDevice(java.awt.event.ActionEvent evt) {

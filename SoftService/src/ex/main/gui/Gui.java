@@ -28,7 +28,7 @@ public class Gui extends JFrame {
 	DataBaseConnect connect = new DataBaseConnect();
 	private JPanel panel;
 	protected JPanel jplDeviceImage;
-	private JPanel jplSoftver;
+	protected  JPanel jplSoftver;
 
 	public Gui() {
 		setIconImage(Toolkit.getDefaultToolkit().getImage(Gui.class.getResource("/icon/function/48x48/world-blocks.png")));

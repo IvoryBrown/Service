@@ -19,7 +19,7 @@ import ex.main.worksheet.config.WorkSheetConfig;
 import ex.main.worksheet.config.WorkSheetImplements;
 import ex.main.worksheet.gui.WorksheetGui;
 
-public class WorkSheetJDBCSetDao extends WorksheetGui implements WorkSheetImplements {
+public class WorkSheetJDBCSetDao extends  implements WorkSheetImplements {
 	protected String[] columns;
 
 	public WorkSheetJDBCSetDao() {

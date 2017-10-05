@@ -35,8 +35,7 @@ public class DeviceGui extends ClientJDBCSetDAO {
 	protected JTextField txtDeviceImageNameDevice;
 	protected JTextField txtDeviceImageSerialDevice;
 	protected JTextField txtDeviceImageDeviceId;
-	protected JPanel pnlWorkingHoursSetting;
-	private JLabel lblWorkingHoursDeviceName;
+	protected JPanel pnlWorkingHoursSetting, pnlSoftver;
 	protected JTextField txtWorkingHoursDeviceName;
 	protected JTextField txtWorkingHoursDeviceSerial;
 	protected JDateChooser txtDeviceBuyingDate, txtWorkHourCompletedDate, txtWorkHourAddDate, txtWorkHourEndDate;
@@ -47,6 +46,7 @@ public class DeviceGui extends ClientJDBCSetDAO {
 	private JLabel lblSoftwerTelepts;
 	protected JTextField txtTypeDevice;
 	protected JTextField txtDevicePassword;
+	protected JTextField txtSoftverDeviceName, txtSoftverserial, txtSoftverDeviceId;
 
 	public DeviceGui() {
 		lblClientDeviceName.setBounds(10, 11, 95, 35);
@@ -54,6 +54,48 @@ public class DeviceGui extends ClientJDBCSetDAO {
 		txtClientDeviceName.setBounds(103, 13, 189, 35);
 		pnlDevice.setSize(404, 493);
 		pnlDevice.setLocation(376, 85);
+		jplSoftver.setLayout(null);
+
+		pnlSoftver = new JPanel();
+		pnlSoftver.setBounds(638, 85, 591, 304);
+		jplSoftver.add(pnlSoftver);
+		pnlSoftver.setLayout(null);
+
+		JLabel lblsoftverDeviceName = new JLabel("eszköz:");
+		lblsoftverDeviceName.setHorizontalAlignment(SwingConstants.RIGHT);
+		lblsoftverDeviceName.setFont(new Font("Tahoma", Font.BOLD, 15));
+		lblsoftverDeviceName.setBounds(10, 11, 106, 35);
+		pnlSoftver.add(lblsoftverDeviceName);
+
+		JLabel lblSoftverSerial = new JLabel("serial:");
+		lblSoftverSerial.setHorizontalAlignment(SwingConstants.RIGHT);
+		lblSoftverSerial.setFont(new Font("Tahoma", Font.BOLD, 15));
+		lblSoftverSerial.setBounds(10, 57, 106, 35);
+		pnlSoftver.add(lblSoftverSerial);
+
+		txtSoftverDeviceName = new JTextField();
+		txtSoftverDeviceName.setEnabled(false);
+		txtSoftverDeviceName.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		txtSoftverDeviceName.setColumns(10);
+		txtSoftverDeviceName.setBackground(new Color(245, 255, 250));
+		txtSoftverDeviceName.setBounds(116, 11, 189, 35);
+		pnlSoftver.add(txtSoftverDeviceName);
+
+		txtSoftverserial = new JTextField();
+		txtSoftverserial.setEnabled(false);
+		txtSoftverserial.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		txtSoftverserial.setColumns(10);
+		txtSoftverserial.setBackground(new Color(245, 255, 250));
+		txtSoftverserial.setBounds(116, 57, 189, 35);
+		pnlSoftver.add(txtSoftverserial);
+
+		txtSoftverDeviceId = new JTextField();
+		txtSoftverDeviceId.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		txtSoftverDeviceId.setEnabled(false);
+		txtSoftverDeviceId.setColumns(10);
+		txtSoftverDeviceId.setBackground(new Color(245, 255, 250));
+		txtSoftverDeviceId.setBounds(315, 57, 95, 35);
+		pnlSoftver.add(txtSoftverDeviceId);
 
 		setComponent();
 	}
@@ -89,6 +131,7 @@ public class DeviceGui extends ClientJDBCSetDAO {
 
 		String boxInterchane[] = { "Igen", "Nem" };
 		cmBoxDeviceInterchange = new JComboBox(boxInterchane);
+		cmBoxDeviceInterchange.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		cmBoxDeviceInterchange.setBounds(139, 57, 189, 35);
 		pnlDeviceListener.add(cmBoxDeviceInterchange);
 		cmBoxDeviceInterchange.setSelectedItem(null);
@@ -101,6 +144,7 @@ public class DeviceGui extends ClientJDBCSetDAO {
 
 		String boxDeviceSoftwer[] = { "Igen", "Nem" };
 		cmBoxDeviceSoftwer = new JComboBox(boxDeviceSoftwer);
+		cmBoxDeviceSoftwer.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		cmBoxDeviceSoftwer.setBounds(139, 13, 189, 35);
 		pnlDeviceListener.add(cmBoxDeviceSoftwer);
 		cmBoxDeviceSoftwer.setSelectedItem(null);
@@ -122,6 +166,7 @@ public class DeviceGui extends ClientJDBCSetDAO {
 
 		String BoxCleaning[] = { "Igen", "Nem" };
 		cmBoxCleaning = new JComboBox(BoxCleaning);
+		cmBoxCleaning.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		cmBoxCleaning.setBounds(139, 103, 189, 35);
 		pnlDeviceListener.add(cmBoxCleaning);
 		cmBoxCleaning.setSelectedItem(null);
@@ -215,11 +260,13 @@ public class DeviceGui extends ClientJDBCSetDAO {
 
 		String boxStatus[] = { "Bevizsgálás alatt", "Alkatrészre vár", "Garanciális", "Bevizsgálva" };
 		cmBoxStatusdevice = new JComboBox(boxStatus);
+		cmBoxStatusdevice.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		cmBoxStatusdevice.setBounds(103, 199, 189, 35);
 		cmBoxStatusdevice.setSelectedItem(null);
 
 		String boxPriority[] = { "Alap", "Szerződött", "Sűrgős" };
 		cmBoxPriorityDevice = new JComboBox(boxPriority);
+		cmBoxPriorityDevice.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		cmBoxPriorityDevice.setBounds(103, 245, 189, 35);
 		cmBoxPriorityDevice.setSelectedItem(null);
 
@@ -302,6 +349,7 @@ public class DeviceGui extends ClientJDBCSetDAO {
 
 		String boxDevice[] = { "Számítógép", "Notebook", "Nyomtató", "Monitor", "Projektor", "Egyéb" };
 		cmBoxDevice = new JComboBox(boxDevice);
+		cmBoxDevice.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		cmBoxDevice.setBounds(103, 59, 189, 35);
 		pnlDevice.add(cmBoxDevice);
 		cmBoxDevice.setSelectedItem(null);

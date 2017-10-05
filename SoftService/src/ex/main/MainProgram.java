@@ -1,6 +1,6 @@
 package ex.main;
 
-import ex.main.deviceimage.DeviceImageJDBCSetDAO;
+import ex.main.softver.SoftverJDBCSetDao;
 
 public class MainProgram {
 	public MainProgram() {
@@ -31,7 +31,7 @@ public class MainProgram {
 		}
 		java.awt.EventQueue.invokeLater(new Runnable() {
 			public void run() {
-				new DeviceImageJDBCSetDAO().setVisible(true);
+				new SoftverJDBCSetDao().setVisible(true);
 			}
 		});
 	}

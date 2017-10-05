@@ -1,5 +1,7 @@
 package ex.main.softver;
 
-public class SoftverJDBCSetDao {
+import ex.main.softver.gui.SoftverGui;
+
+public class SoftverJDBCSetDao extends SoftverGui {
 
 }

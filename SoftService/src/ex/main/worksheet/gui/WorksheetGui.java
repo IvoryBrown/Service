@@ -10,7 +10,7 @@ import javax.swing.JTable;
 import ex.main.gui.Gui;
 import javax.swing.ImageIcon;
 
-public class WorksheetGui extends Gui {
+public class WorksheetGui extends  {
 	protected JTable tblWorksheet;
 	protected JButton btnUpdate;
 	protected JScrollPane scrollPane;
