@@ -1,4 +1,4 @@
-package ex.main.client.gui;
+package ex.main.client;
 
 import java.awt.Color;
 import java.sql.Connection;
@@ -16,6 +16,7 @@ import javax.swing.table.DefaultTableModel;
 
 import ex.main.client.config.ClientConfig;
 import ex.main.client.config.ClientImplements;
+import ex.main.client.gui.ClientGui;
 import ex.main.setting.DataBaseConnect;
 
 public class ClientJDBCSetDAO extends ClientGui implements ClientImplements {

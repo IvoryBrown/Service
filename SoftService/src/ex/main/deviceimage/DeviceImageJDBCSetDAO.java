@@ -1,4 +1,4 @@
-package ex.main.deviceimage.gui;
+package ex.main.deviceimage;
 
 import java.awt.Image;
 import java.io.File;
@@ -22,6 +22,7 @@ import javax.swing.table.DefaultTableModel;
 
 import ex.main.deviceimage.config.DeviceImageConfig;
 import ex.main.deviceimage.config.DeviceImageImplements;
+import ex.main.deviceimage.gui.DeviceImageGui;
 import ex.main.setting.DataBaseConnect;
 
 public class DeviceImageJDBCSetDAO extends DeviceImageGui implements DeviceImageImplements {

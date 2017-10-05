@@ -17,7 +17,8 @@ import javax.swing.text.Document;
 
 import com.toedter.calendar.JDateChooser;
 
-import ex.main.client.gui.ClientJDBCSetDAO;
+import ex.main.client.ClientJDBCSetDAO;
+
 import javax.swing.JTextArea;
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;

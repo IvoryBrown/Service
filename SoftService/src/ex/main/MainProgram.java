@@ -1,6 +1,6 @@
 package ex.main;
 
-import ex.main.deviceimage.gui.DeviceImageJDBCSetDAO;
+import ex.main.deviceimage.DeviceImageJDBCSetDAO;
 
 public class MainProgram {
 	public MainProgram() {

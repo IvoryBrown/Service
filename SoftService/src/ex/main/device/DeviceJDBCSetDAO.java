@@ -1,4 +1,4 @@
-package ex.main.device.gui;
+package ex.main.device;
 
 import java.awt.Color;
 import java.sql.Connection;
@@ -18,6 +18,7 @@ import javax.swing.table.DefaultTableModel;
 
 import ex.main.device.config.DeviceConfig;
 import ex.main.device.config.DeviceImplements;
+import ex.main.device.gui.DeviceGui;
 import ex.main.setting.DataBaseConnect;
 
 public class DeviceJDBCSetDAO extends DeviceGui implements DeviceImplements {

@@ -12,7 +12,7 @@ import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 
-import ex.main.worksheet.gui.WorkSheetJDBCSetDao;
+import ex.main.worksheet.WorkSheetJDBCSetDao;
 
 public class ClientGui extends WorkSheetJDBCSetDao {
 	protected JTextField txtSearchClient;

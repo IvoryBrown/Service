@@ -1,11 +1,13 @@
 package ex.main.deviceimage.gui;
 
-import ex.main.device.gui.DeviceJDBCSetDAO;
 import javax.swing.JLabel;
 import java.awt.Color;
 import javax.swing.JPanel;
 import javax.swing.JButton;
 import javax.swing.JTextField;
+
+import ex.main.device.DeviceJDBCSetDAO;
+
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.ImageIcon;
