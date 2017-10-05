@@ -1,6 +1,6 @@
 package ex.main;
 
-import ex.main.softver.SoftverJDBCSetDao;
+import ex.main.worksheet.WorkSheetJDBCSetDao;
 
 public class MainProgram {
 	public MainProgram() {
@@ -31,7 +31,7 @@ public class MainProgram {
 		}
 		java.awt.EventQueue.invokeLater(new Runnable() {
 			public void run() {
-				new SoftverJDBCSetDao().setVisible(true);
+				new WorkSheetJDBCSetDao().setVisible(true);
 			}
 		});
 	}

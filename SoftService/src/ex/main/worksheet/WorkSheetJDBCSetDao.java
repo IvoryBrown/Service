@@ -19,7 +19,7 @@ import ex.main.worksheet.config.WorkSheetConfig;
 import ex.main.worksheet.config.WorkSheetImplements;
 import ex.main.worksheet.gui.WorksheetGui;
 
-public class WorkSheetJDBCSetDao extends  implements WorkSheetImplements {
+public class WorkSheetJDBCSetDao extends WorksheetGui implements WorkSheetImplements {
 	protected String[] columns;
 
 	public WorkSheetJDBCSetDao() {
@@ -50,7 +50,7 @@ public class WorkSheetJDBCSetDao extends  implements WorkSheetImplements {
 	public ArrayList<WorkSheetConfig> getWorkShettProductList() {
 		ArrayList<WorkSheetConfig> productList = new ArrayList<WorkSheetConfig>();
 		Connection con = DataBaseConnect.getConnection();
-		String query = "SELECT * FROM gepadatok " ;
+		String query = "SELECT * FROM gepadatok ";
 		Statement st;
 		ResultSet rs;
 		try {

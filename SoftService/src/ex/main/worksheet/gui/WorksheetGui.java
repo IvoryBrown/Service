@@ -2,15 +2,14 @@ package ex.main.worksheet.gui;
 
 import java.awt.BorderLayout;
 
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
-import javax.swing.JFrame;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 
-import ex.main.gui.Gui;
-import javax.swing.ImageIcon;
+import ex.main.fixture.FixtureJDBCSetDAO;
 
-public class WorksheetGui extends  {
+public class WorksheetGui extends FixtureJDBCSetDAO {
 	protected JTable tblWorksheet;
 	protected JButton btnUpdate;
 	protected JScrollPane scrollPane;

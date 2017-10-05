@@ -29,6 +29,7 @@ public class Gui extends JFrame {
 	private JPanel panel;
 	protected JPanel jplDeviceImage;
 	protected  JPanel jplSoftver;
+	protected JPanel jplFixture;
 
 	public Gui() {
 		setIconImage(Toolkit.getDefaultToolkit().getImage(Gui.class.getResource("/icon/function/48x48/world-blocks.png")));
@@ -69,6 +70,9 @@ public class Gui extends JFrame {
 		
 		jplSoftver = new JPanel();
 		jTbdPane.addTab("Softver", null, jplSoftver, null);
+		
+		jplFixture = new JPanel();
+		jTbdPane.addTab("Alkatrész", null, jplFixture, null);
 
 		JLabel lblNewLabel = new JLabel("Verzió: 1.0.0");
 		lblNewLabel.setBounds(1152, 623, 82, 16);
