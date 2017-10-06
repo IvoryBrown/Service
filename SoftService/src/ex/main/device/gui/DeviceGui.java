@@ -35,7 +35,7 @@ public class DeviceGui extends ClientJDBCSetDAO {
 	protected JTextField txtDeviceImageNameDevice;
 	protected JTextField txtDeviceImageSerialDevice;
 	protected JTextField txtDeviceImageDeviceId;
-	protected JPanel pnlWorkingHoursSetting, pnlSoftver;
+	protected JPanel pnlWorkingHoursSetting, pnlSoftver, pnlFixture;
 	protected JTextField txtWorkingHoursDeviceName;
 	protected JTextField txtWorkingHoursDeviceSerial;
 	protected JDateChooser txtDeviceBuyingDate, txtWorkHourCompletedDate, txtWorkHourAddDate, txtWorkHourEndDate;
@@ -47,6 +47,7 @@ public class DeviceGui extends ClientJDBCSetDAO {
 	protected JTextField txtTypeDevice;
 	protected JTextField txtDevicePassword;
 	protected JTextField txtSoftverDeviceName, txtSoftverserial, txtSoftverDeviceId;
+	protected JTextField txtFixtureDeviceName, txtFixtureDeviceSerial, txtFixtureDeviceId;
 
 	public DeviceGui() {
 		lblClientDeviceName.setBounds(10, 11, 95, 35);
@@ -96,6 +97,48 @@ public class DeviceGui extends ClientJDBCSetDAO {
 		txtSoftverDeviceId.setBackground(new Color(245, 255, 250));
 		txtSoftverDeviceId.setBounds(315, 57, 95, 35);
 		pnlSoftver.add(txtSoftverDeviceId);
+		jplFixture.setLayout(null);
+
+		pnlFixture = new JPanel();
+		pnlFixture.setLayout(null);
+		pnlFixture.setBounds(638, 85, 591, 493);
+		jplFixture.add(pnlFixture);
+
+		JLabel lblFixtureDeviceName = new JLabel("eszköz:");
+		lblFixtureDeviceName.setHorizontalAlignment(SwingConstants.RIGHT);
+		lblFixtureDeviceName.setFont(new Font("Tahoma", Font.BOLD, 15));
+		lblFixtureDeviceName.setBounds(10, 11, 106, 35);
+		pnlFixture.add(lblFixtureDeviceName);
+
+		JLabel lblFixtureSerial = new JLabel("serial:");
+		lblFixtureSerial.setHorizontalAlignment(SwingConstants.RIGHT);
+		lblFixtureSerial.setFont(new Font("Tahoma", Font.BOLD, 15));
+		lblFixtureSerial.setBounds(10, 57, 106, 35);
+		pnlFixture.add(lblFixtureSerial);
+
+		txtFixtureDeviceName = new JTextField();
+		txtFixtureDeviceName.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		txtFixtureDeviceName.setEnabled(false);
+		txtFixtureDeviceName.setColumns(10);
+		txtFixtureDeviceName.setBackground(new Color(245, 255, 250));
+		txtFixtureDeviceName.setBounds(116, 11, 189, 35);
+		pnlFixture.add(txtFixtureDeviceName);
+
+		txtFixtureDeviceSerial = new JTextField();
+		txtFixtureDeviceSerial.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		txtFixtureDeviceSerial.setEnabled(false);
+		txtFixtureDeviceSerial.setColumns(10);
+		txtFixtureDeviceSerial.setBackground(new Color(245, 255, 250));
+		txtFixtureDeviceSerial.setBounds(116, 57, 189, 35);
+		pnlFixture.add(txtFixtureDeviceSerial);
+
+		txtFixtureDeviceId = new JTextField();
+		txtFixtureDeviceId.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		txtFixtureDeviceId.setEnabled(false);
+		txtFixtureDeviceId.setColumns(10);
+		txtFixtureDeviceId.setBackground(new Color(245, 255, 250));
+		txtFixtureDeviceId.setBounds(315, 57, 95, 35);
+		pnlFixture.add(txtFixtureDeviceId);
 
 		setComponent();
 	}
@@ -323,7 +366,7 @@ public class DeviceGui extends ClientJDBCSetDAO {
 		lblPriorityDevice.setFont(new Font("Tahoma", Font.BOLD, 15));
 		pnlDevice.add(lblPriorityDevice);
 
-		JLabel lblDeviceGuiBuying = new JLabel("vásárlás:");
+		JLabel lblDeviceGuiBuying = new JLabel("vásárlás: ");
 		lblDeviceGuiBuying.setHorizontalAlignment(SwingConstants.RIGHT);
 		lblDeviceGuiBuying.setFont(new Font("Tahoma", Font.BOLD, 15));
 		lblDeviceGuiBuying.setBounds(10, 291, 95, 35);
