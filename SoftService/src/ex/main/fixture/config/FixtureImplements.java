@@ -1,5 +1,7 @@
 package ex.main.fixture.config;
 
-public interface FixtureImplements {
+import java.util.ArrayList;
 
+public interface FixtureImplements {
+	public ArrayList<FixtureConfig> getFixtureProductList();
 }
