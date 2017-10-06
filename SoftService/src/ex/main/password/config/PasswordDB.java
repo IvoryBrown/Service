@@ -17,17 +17,13 @@ public class PasswordDB {
 			Class.forName("com.mysql.jdbc.Driver");
 			con = DriverManager.getConnection("jdbc:mysql://localhost:3306/service", "root", "12345");
 			pst = con.prepareStatement("select * from user where username=? and password=?");
-
 		} catch (Exception e) {
 			JOptionPane.showMessageDialog(null, "Server hiba!", "Hiba!!", JOptionPane.ERROR_MESSAGE);
 		}
 	}
 
-	
-
 	public Boolean checkLogin(String uname, String pwd) {
 		try {
-
 			pst.setString(1, uname);
 			pst.setString(2, pwd);
 			rs = pst.executeQuery();

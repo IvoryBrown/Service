@@ -1,6 +1,6 @@
 package ex.main;
 
-import ex.main.password.gui.PasswordGui;
+import ex.main.password.PasswordJDBCSet;
 
 public class MainProgram {
 	public MainProgram() {
@@ -31,7 +31,7 @@ public class MainProgram {
 		}
 		java.awt.EventQueue.invokeLater(new Runnable() {
 			public void run() {
-				new PasswordGui().setVisible(true);
+				new PasswordJDBCSet().setVisible(true);
 			}
 		});
 	}
