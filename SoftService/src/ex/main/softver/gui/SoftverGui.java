@@ -36,7 +36,10 @@ public class SoftverGui extends DeviceImageJDBCSetDAO {
 	private void setSoftverComponent() {
 		jplSoftver.setLayout(null);
 
-		String softverName[] = { "Win Pro 7 32Bit Hungarian", "Win Pro 7 64Bit Hungarian", "Egyéb" };
+		String softverName[] = { "Win Pro 7 32Bit Hungarian", "Win Pro 7 64Bit Hungarian", "Win 8.1 32Bit Hungarian",
+				"Win 8.1 64Bit Hungarian", "Win 10 32Bit Hungarian", "Win 10 64Bit Hungarian",
+				"Office 2017 32Bit Hungarian", "Office 2017 64Bit Hungarian", "Office 2016 32Bit Hungarian",
+				"Office 2016 64Bit Hungarian", "Egyéb" };
 		cmbSoftverName = new JComboBox(softverName);
 		cmbSoftverName.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		cmbSoftverName.setBounds(116, 103, 294, 35);

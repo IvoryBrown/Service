@@ -37,7 +37,7 @@ public class DeviceJDBCSetDAO extends DeviceGui implements DeviceImplements {
 		jTableDevice.getColumn("eszköz").setMinWidth(80);
 		jTableDevice.getColumn("eszköz").setMaxWidth(80);
 		jTableDevice.getTableHeader().setReorderingAllowed(false);
-		
+
 		jTableDevice.addMouseListener(new java.awt.event.MouseAdapter() {
 			public void mouseClicked(java.awt.event.MouseEvent evt) {
 				JTable_ProductsMouseClickedDevice(evt);
@@ -177,6 +177,10 @@ public class DeviceJDBCSetDAO extends DeviceGui implements DeviceImplements {
 		txtSoftverDeviceName.setText(getDeviceProductList().get(index).getDeviceName());
 		txtSoftverserial.setText(getDeviceProductList().get(index).getSerial());
 		txtSoftverDeviceId.setText(Integer.toString(getDeviceProductList().get(index).getIdg()));
+		// Hardver set!!
+		txtFixtureDeviceId.setText(Integer.toString(getDeviceProductList().get(index).getIdg()));
+		txtFixtureDeviceName.setText(getDeviceProductList().get(index).getDeviceName());
+		txtFixtureDeviceSerial.setText(getDeviceProductList().get(index).getSerial());
 	}
 
 	private void jBtnInsertActionPerformedDevice(java.awt.event.ActionEvent evt) {
