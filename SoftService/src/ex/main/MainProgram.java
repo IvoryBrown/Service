@@ -1,6 +1,6 @@
 package ex.main;
 
-import ex.main.service.worksheet.WorkSheetJDBCSetDao;
+import ex.main.gui.MainGuiSet;
 
 public class MainProgram {
 	public MainProgram() {
@@ -31,7 +31,7 @@ public class MainProgram {
 		}
 		java.awt.EventQueue.invokeLater(new Runnable() {
 			public void run() {
-				new WorkSheetJDBCSetDao().setVisible(true);
+				new  MainGuiSet().setVisible(true);
 			}
 		});
 	}
