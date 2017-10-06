@@ -23,7 +23,7 @@ import javax.swing.table.DefaultTableModel;
 import ex.main.service.deviceimage.config.DeviceImageConfig;
 import ex.main.service.deviceimage.config.DeviceImageImplements;
 import ex.main.service.deviceimage.gui.DeviceImageGui;
-import ex.main.setting.DataBaseConnect;
+import ex.main.setting.database.DataBaseConnect;
 
 public class DeviceImageJDBCSetDAO extends DeviceImageGui implements DeviceImageImplements {
 	String ImgPath = null;

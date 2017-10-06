@@ -16,7 +16,7 @@ import ex.main.service.client.ClientJDBCSetDAO;
 import ex.main.service.softver.config.SoftverConfig;
 import ex.main.service.softver.config.SoftverImplements;
 import ex.main.service.softver.gui.SoftverGui;
-import ex.main.setting.DataBaseConnect;
+import ex.main.setting.database.DataBaseConnect;
 
 public class SoftverJDBCSetDao extends SoftverGui implements SoftverImplements {
 	private String[] columns;

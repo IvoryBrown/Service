@@ -16,7 +16,7 @@ import ex.main.service.fixture.config.FixtureConfig;
 import ex.main.service.fixture.config.FixtureImplements;
 import ex.main.service.fixture.gui.FixtureGui;
 import ex.main.service.softver.SoftverJDBCSetDao;
-import ex.main.setting.DataBaseConnect;
+import ex.main.setting.database.DataBaseConnect;
 
 public class FixtureJDBCSetDAO extends FixtureGui implements FixtureImplements {
 	String columns[];

@@ -12,8 +12,9 @@ import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
 import javax.swing.SwingConstants;
 
-import ex.main.setting.CenterWindow;
-import ex.main.setting.DataBaseConnect;
+import ex.main.setting.centerwindow.CenterWindow;
+import ex.main.setting.database.DataBaseConnect;
+
 import java.awt.Toolkit;
 
 public class Gui extends JFrame {

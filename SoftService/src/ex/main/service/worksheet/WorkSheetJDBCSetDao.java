@@ -17,7 +17,7 @@ import javax.swing.table.TableRowSorter;
 import ex.main.service.worksheet.config.WorkSheetConfig;
 import ex.main.service.worksheet.config.WorkSheetImplements;
 import ex.main.service.worksheet.gui.WorksheetGui;
-import ex.main.setting.DataBaseConnect;
+import ex.main.setting.database.DataBaseConnect;
 
 public class WorkSheetJDBCSetDao extends WorksheetGui implements WorkSheetImplements {
 	protected String[] columns;

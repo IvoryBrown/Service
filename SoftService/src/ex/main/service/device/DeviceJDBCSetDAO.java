@@ -19,7 +19,7 @@ import javax.swing.table.DefaultTableModel;
 import ex.main.service.device.config.DeviceConfig;
 import ex.main.service.device.config.DeviceImplements;
 import ex.main.service.device.gui.DeviceGui;
-import ex.main.setting.DataBaseConnect;
+import ex.main.setting.database.DataBaseConnect;
 
 public class DeviceJDBCSetDAO extends DeviceGui implements DeviceImplements {
 	private String[] columns;

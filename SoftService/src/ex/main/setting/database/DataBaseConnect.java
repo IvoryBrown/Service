@@ -1,4 +1,4 @@
-package ex.main.setting;
+package ex.main.setting.database;
 
 import java.awt.Color;
 import java.sql.Connection;

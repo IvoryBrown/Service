@@ -20,7 +20,7 @@ import javax.swing.table.DefaultTableModel;
 import ex.main.service.client.config.ClientConfig;
 import ex.main.service.client.config.ClientImplements;
 import ex.main.service.client.gui.ClientGui;
-import ex.main.setting.DataBaseConnect;
+import ex.main.setting.database.DataBaseConnect;
 
 public class ClientJDBCSetDAO extends ClientGui implements ClientImplements {
 

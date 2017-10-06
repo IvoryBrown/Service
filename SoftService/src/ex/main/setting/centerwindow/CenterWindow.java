@@ -1,4 +1,4 @@
-package ex.main.setting;
+package ex.main.setting.centerwindow;
 
 public class CenterWindow {
 	public  void centerWindow(java.awt.Window frame) {
