@@ -29,14 +29,14 @@ public class MainGui extends JFrame {
 		pnl.setLayout(null);
 
 		btnService = new JButton("Szervíz");
-		btnService.setIcon(new ImageIcon("image/szerviz.jpg"));
+		btnService.setIcon(new ImageIcon("Image/szerviz.jpg"));
 		btnService.setBounds(24, 33, 298, 230);
 		pnl.add(btnService);
 
 		btnSales = new JButton("Értékesítés");
 		btnSales.setBounds(24, 289, 298, 230);
 		pnl.add(btnSales);
-		
+
 		new CenterWindow().centerWindow(this);
 	}
 }

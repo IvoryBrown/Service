@@ -1,6 +1,6 @@
 package ex.main;
 
-import ex.main.gui.MainGuiSet;
+import ex.main.password.gui.PasswordGui;
 
 public class MainProgram {
 	public MainProgram() {
@@ -31,7 +31,7 @@ public class MainProgram {
 		}
 		java.awt.EventQueue.invokeLater(new Runnable() {
 			public void run() {
-				new  MainGuiSet().setVisible(true);
+				new PasswordGui().setVisible(true);
 			}
 		});
 	}
