@@ -41,7 +41,7 @@ public class DeviceImageGui extends DeviceJDBCSetDAO {
 		btnDeviceImageDelete.setBounds(565, 12, 109, 37);
 		pnlDeviceImageSetting.add(btnDeviceImageDelete);
 
-		btnDeviceImageNew = new JButton("új eszköz");
+		btnDeviceImageNew = new JButton("új kép");
 		btnDeviceImageNew.setIcon(new ImageIcon("\\PNG\\Button Add-01.png"));
 		
 		btnDeviceImageNew.setBounds(327, 11, 109, 37);

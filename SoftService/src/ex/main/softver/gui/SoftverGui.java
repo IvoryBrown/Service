@@ -88,7 +88,7 @@ public class SoftverGui extends DeviceImageJDBCSetDAO {
 		btnSoftverEdit.setBounds(446, 12, 109, 37);
 		pnlSoftverSetting.add(btnSoftverEdit);
 
-		btnSoftverNewSoftver = new JButton("új eszköz");
+		btnSoftverNewSoftver = new JButton("új softver");
 		btnSoftverNewSoftver.setBounds(327, 11, 109, 37);
 		pnlSoftverSetting.add(btnSoftverNewSoftver);
 

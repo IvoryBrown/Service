@@ -36,7 +36,7 @@ public class FixtureGui extends SoftverJDBCSetDao {
 		btnFixtureEdit.setBounds(446, 12, 109, 37);
 		pnlFixtureSetting.add(btnFixtureEdit);
 
-		btnFixtureNewFixture = new JButton("új eszköz");
+		btnFixtureNewFixture = new JButton("új alkatrész");
 		btnFixtureNewFixture.setBounds(327, 11, 109, 37);
 		pnlFixtureSetting.add(btnFixtureNewFixture);
 
