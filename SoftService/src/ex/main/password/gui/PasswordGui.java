@@ -3,19 +3,14 @@ package ex.main.password.gui;
 import java.awt.Color;
 import java.awt.Container;
 import java.awt.Font;
-import java.awt.event.KeyAdapter;
-import java.awt.event.KeyEvent;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
-import javax.swing.JOptionPane;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 
-import ex.main.gui.MainGuiSet;
-import ex.main.password.config.PasswordDB;
 import ex.main.setting.centerwindow.CenterWindow;
 
 public class PasswordGui extends JFrame {

@@ -1,8 +1,5 @@
 package ex.main.gui;
 
-import java.awt.Image;
-
-import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -11,7 +8,11 @@ import javax.swing.JPanel;
 import ex.main.setting.centerwindow.CenterWindow;
 
 public class MainGui extends JFrame {
-	protected JButton btnSales, btnService;
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	protected JButton btnService, btnSales;
 
 	public MainGui() {
 		setComponent();
@@ -28,14 +29,20 @@ public class MainGui extends JFrame {
 		getContentPane().add(pnl);
 		pnl.setLayout(null);
 
-		btnService = new JButton("Szervíz");
-		btnService.setIcon(new ImageIcon("Image/szerviz.jpg"));
-		btnService.setBounds(24, 33, 298, 230);
+		btnSales = new JButton(new ImageIcon(((new ImageIcon("Image/ertekesites.png")).getImage()).getScaledInstance(400,
+				629, java.awt.Image.SCALE_SMOOTH)));
+		btnSales.setBounds(10, 11, 400, 629);
+		pnl.add(btnSales);
+
+		btnService = new JButton(new ImageIcon(((new ImageIcon("Image/pcszerviz.png")).getImage()).getScaledInstance(400,
+				629, java.awt.Image.SCALE_SMOOTH)));
+		btnService.setBounds(420, 11, 400, 629);
 		pnl.add(btnService);
 
-		btnSales = new JButton("Értékesítés");
-		btnSales.setBounds(24, 289, 298, 230);
-		pnl.add(btnSales);
+		JButton button = new JButton(new ImageIcon(((new ImageIcon("Image/pc.png")).getImage()).getScaledInstance(400,
+				629, java.awt.Image.SCALE_SMOOTH)));
+		button.setBounds(830, 11, 400, 629);
+		pnl.add(button);
 
 		new CenterWindow().centerWindow(this);
 	}

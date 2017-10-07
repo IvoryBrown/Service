@@ -6,6 +6,11 @@ import java.awt.event.ActionListener;
 import ex.main.service.worksheet.WorkSheetJDBCSetDao;
 
 public class MainGuiSet extends MainGui implements ActionListener {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
 	public MainGuiSet() {
 		setComponent();
 	}

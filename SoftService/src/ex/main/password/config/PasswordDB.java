@@ -18,7 +18,8 @@ public class PasswordDB {
 			con = DriverManager.getConnection("jdbc:mysql://localhost:3306/service", "root", "12345");
 			pst = con.prepareStatement("select * from user where username=? and password=?");
 		} catch (Exception e) {
-			JOptionPane.showMessageDialog(null, "Server hiba!", "Hiba!!", JOptionPane.ERROR_MESSAGE);
+			JOptionPane.showMessageDialog(null, "Server hiba!\n" + e, "Hiba!!", JOptionPane.ERROR_MESSAGE);
+
 		}
 	}
 
