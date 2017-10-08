@@ -14,6 +14,7 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 import javax.swing.table.TableRowSorter;
 
+import ex.main.gui.MainGuiSet;
 import ex.main.service.worksheet.config.WorkSheetConfig;
 import ex.main.service.worksheet.config.WorkSheetImplements;
 import ex.main.service.worksheet.gui.WorksheetGui;
@@ -43,7 +44,12 @@ public class WorkSheetJDBCSetDao extends WorksheetGui implements WorkSheetImplem
 				JTableProductsMouseClicked(evt);
 			}
 		});
-
+		btnBack.addActionListener(new java.awt.event.ActionListener() {
+			public void actionPerformed(java.awt.event.ActionEvent evt) {
+				new MainGuiSet().setVisible(true);
+				dispose();
+			}
+		});
 	}
 
 	@Override

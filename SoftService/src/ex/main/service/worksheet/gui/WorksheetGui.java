@@ -13,6 +13,7 @@ public class WorksheetGui extends FixtureJDBCSetDAO {
 	protected JTable tblWorksheet;
 	protected JButton btnUpdate;
 	protected JScrollPane scrollPane;
+	protected JButton btnBack;
 	
 
 	public WorksheetGui() {
@@ -34,6 +35,10 @@ public class WorksheetGui extends FixtureJDBCSetDAO {
 		btnUpdate.setIcon(new ImageIcon(WorksheetGui.class.getResource("/icon/tango/22x22/actions/view-refresh.png")));
 		btnUpdate.setBounds(1120, 545, 109, 37);
 		jplWorksheet.add(btnUpdate);
+		
+		btnBack = new JButton("Vissza");
+		btnBack.setBounds(1001, 545, 109, 37);
+		jplWorksheet.add(btnBack);
 	}
 
 	 

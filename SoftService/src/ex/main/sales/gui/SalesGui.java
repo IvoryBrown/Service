@@ -1,10 +1,13 @@
 package ex.main.sales.gui;
 
+import javax.swing.JButton;
 import javax.swing.JFrame;
-
-import ex.main.setting.centerwindow.CenterWindow;
 import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
+
+import ex.main.gui.MainGuiSet;
+import ex.main.setting.centerwindow.CenterWindow;
+import java.awt.Color;
 
 public class SalesGui extends JFrame {
 	/**
@@ -35,8 +38,20 @@ public class SalesGui extends JFrame {
 
 		pnl = new JPanel();
 		tbdPnSales.addTab("New tab", null, pnl, null);
+		pnl.setLayout(null);
+
+		JButton btnNewButton = new JButton("New button");
+		btnNewButton.setBounds(10, 589, 89, 23);
+		pnl.add(btnNewButton);
+		btnNewButton.addActionListener(new java.awt.event.ActionListener() {
+			public void actionPerformed(java.awt.event.ActionEvent evt) {
+				new MainGuiSet().setVisible(true);
+				dispose();
+			}
+		});
 
 		jpnlClient = new JPanel();
+		jpnlClient.setBackground(new Color(102, 0, 153));
 		tbdPnSales.addTab("Ügyfél", null, jpnlClient, null);
 		new CenterWindow().centerWindow(this);
 	}

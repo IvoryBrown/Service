@@ -33,11 +33,14 @@ public class PasswordGui extends JFrame {
 	private void setComponentPassword() {
 
 		c = getContentPane();
+		c.setBackground(new Color(102, 0, 153));
 		lblPasswordUserName = new JLabel("Felhasználó név: ");
+		lblPasswordUserName.setForeground(Color.WHITE);
 		lblPasswordUserName.setFont(new Font("Tahoma", Font.BOLD, 30));
 		lblPasswordUserName.setHorizontalAlignment(SwingConstants.RIGHT);
 		lblPasswordUserName.setBounds(10, 97, 272, 37);
 		lblPassword = new JLabel("Jelszó:");
+		lblPassword.setForeground(Color.WHITE);
 		lblPassword.setHorizontalAlignment(SwingConstants.RIGHT);
 		lblPassword.setFont(new Font("Tahoma", Font.BOLD, 30));
 		lblPassword.setBounds(10, 165, 272, 37);
@@ -48,6 +51,7 @@ public class PasswordGui extends JFrame {
 		jPwdPassword.setFont(new Font("Tahoma", Font.BOLD, 23));
 		jPwdPassword.setBounds(292, 167, 265, 42);
 		btnPasswordLogin = new JButton("Bejelenkezés");
+		btnPasswordLogin.setBackground(new Color(0, 128, 0));
 		btnPasswordLogin.setFont(new Font("Tahoma", Font.PLAIN, 17));
 		btnPasswordLogin.setBounds(338, 227, 156, 45);
 
@@ -59,7 +63,7 @@ public class PasswordGui extends JFrame {
 		c.add(btnPasswordLogin);
 
 		JLabel lblLogin = new JLabel("Login");
-		lblLogin.setForeground(Color.BLUE);
+		lblLogin.setForeground(Color.WHITE);
 		lblLogin.setFont(new Font("Tahoma", Font.BOLD, 33));
 		lblLogin.setHorizontalAlignment(SwingConstants.CENTER);
 		lblLogin.setBounds(10, 21, 564, 54);
