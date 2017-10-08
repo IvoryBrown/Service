@@ -15,6 +15,10 @@ import javax.swing.SwingConstants;
 import ex.main.service.gui.ServiceGui;
 
 public class ClientGui extends ServiceGui {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	protected JTextField txtSearchClient;
 	protected JTextField txtIDClient;
 	protected JTextField txtNameClient;

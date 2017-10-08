@@ -6,6 +6,7 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 
 import ex.main.setting.centerwindow.CenterWindow;
+import java.awt.Color;
 
 public class MainGui extends JFrame {
 	/**
@@ -25,6 +26,7 @@ public class MainGui extends JFrame {
 		getContentPane().setLayout(null);
 
 		JPanel pnl = new JPanel();
+		pnl.setBackground(new Color(102, 0, 153));
 		pnl.setBounds(0, 0, 1244, 651);
 		getContentPane().add(pnl);
 		pnl.setLayout(null);

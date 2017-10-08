@@ -25,6 +25,8 @@ public class ClientGui extends SalesGui {
 	protected JTable jtblSalesClient;
 	protected JTextField txtSalesClientNumber, txtSalesClientName, txtSalesClientMobil, txtSalesClientHomeAddress,
 			txtSalesClientID, txtSalesClientSearch;
+	protected JTextArea txtSalesClientComment;
+	protected JButton btnSalesClientDelete, btnSalesClientNewClient, btnSalesClientEdit, btnSalesClientNull;
 
 	private void setComponentClientGui() {
 		jpnlClient.setLayout(null);
@@ -111,7 +113,7 @@ public class ClientGui extends SalesGui {
 		scrPSalesClientComment.setBounds(153, 198, 294, 146);
 		panel.add(scrPSalesClientComment);
 
-		JTextArea txtSalesClientComment = new JTextArea();
+		txtSalesClientComment = new JTextArea();
 		txtSalesClientComment.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		txtSalesClientComment.setBackground(new Color(245, 255, 250));
 		scrPSalesClientComment.setViewportView(txtSalesClientComment);
@@ -121,16 +123,16 @@ public class ClientGui extends SalesGui {
 		jpnlClient.add(panel_1);
 		panel_1.setLayout(null);
 
-		JButton btnSalesClientDelete = new JButton("törlés");
+		btnSalesClientDelete = new JButton("törlés");
 		btnSalesClientDelete.setBounds(10, 259, 109, 37);
 		panel_1.add(btnSalesClientDelete);
 
-		JButton btnSalesClientEdit = new JButton("szerkesztés");
+		btnSalesClientEdit = new JButton("szerkesztés");
 		btnSalesClientEdit.setBounds(10, 211, 109, 37);
 		btnSalesClientEdit.setHorizontalAlignment(SwingConstants.LEADING);
 		panel_1.add(btnSalesClientEdit);
 
-		JButton btnSalesClientNewClient = new JButton("új ügyfél");
+		btnSalesClientNewClient = new JButton("új ügyfél");
 		btnSalesClientNewClient.setBounds(10, 163, 109, 37);
 		panel_1.add(btnSalesClientNewClient);
 
@@ -144,7 +146,7 @@ public class ClientGui extends SalesGui {
 		btnSalesClientSearch.setBounds(10, 115, 109, 37);
 		panel_1.add(btnSalesClientSearch);
 
-		JButton btnSalesClientNull = new JButton("null");
+		btnSalesClientNull = new JButton("null");
 		btnSalesClientNull.setBounds(10, 307, 109, 37);
 		panel_1.add(btnSalesClientNull);
 	}

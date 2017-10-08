@@ -28,6 +28,7 @@ public class SalesGui extends JFrame {
 		getContentPane().setLayout(null);
 
 		pnlSales = new JPanel();
+		pnlSales.setBackground(new Color(102, 0, 153));
 		pnlSales.setBounds(0, 0, 1244, 651);
 		getContentPane().add(pnlSales);
 		pnlSales.setLayout(null);
@@ -37,6 +38,7 @@ public class SalesGui extends JFrame {
 		pnlSales.add(tbdPnSales);
 
 		pnl = new JPanel();
+		pnl.setBackground(new Color(102, 0, 153));
 		tbdPnSales.addTab("New tab", null, pnl, null);
 		pnl.setLayout(null);
 

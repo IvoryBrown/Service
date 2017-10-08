@@ -1,10 +1,6 @@
 package ex.main.service.client;
 
 import java.awt.Color;
-import java.awt.Graphics;
-import java.awt.print.PageFormat;
-import java.awt.print.Printable;
-import java.awt.print.PrinterException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -23,6 +19,11 @@ import ex.main.service.client.gui.ClientGui;
 import ex.main.setting.database.DataBaseConnect;
 
 public class ClientJDBCSetDAO extends ClientGui implements ClientImplements {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 
 	public ClientJDBCSetDAO() {
 		setAction();
