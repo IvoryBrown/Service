@@ -1,9 +1,9 @@
 package ex.main.service.gui;
 
 import java.awt.Color;
-import java.awt.Component;
 import java.awt.FlowLayout;
 import java.awt.Font;
+import java.awt.Toolkit;
 
 import javax.swing.Icon;
 import javax.swing.JFrame;
@@ -15,9 +15,7 @@ import javax.swing.SwingConstants;
 import ex.main.setting.centerwindow.CenterWindow;
 import ex.main.setting.database.DataBaseConnect;
 
-import java.awt.Toolkit;
-
-public class Gui extends JFrame {
+public class ServiceGui extends JFrame {
 	/**
 	 * 
 	 */
@@ -32,8 +30,8 @@ public class Gui extends JFrame {
 	protected  JPanel jplSoftver;
 	protected JPanel jplFixture;
 
-	public Gui() {
-		setIconImage(Toolkit.getDefaultToolkit().getImage(Gui.class.getResource("/icon/function/48x48/world-blocks.png")));
+	public ServiceGui() {
+		setIconImage(Toolkit.getDefaultToolkit().getImage(ServiceGui.class.getResource("/icon/function/48x48/world-blocks.png")));
 
 		setComponent();
 	}

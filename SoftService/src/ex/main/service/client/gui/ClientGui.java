@@ -12,9 +12,9 @@ import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 
-import ex.main.service.gui.Gui;
+import ex.main.service.gui.ServiceGui;
 
-public class ClientGui extends Gui {
+public class ClientGui extends ServiceGui {
 	protected JTextField txtSearchClient;
 	protected JTextField txtIDClient;
 	protected JTextField txtNameClient;
