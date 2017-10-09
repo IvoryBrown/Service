@@ -1,8 +1,6 @@
 package ex.main.sales.client;
 
 import java.awt.Color;
-import java.awt.event.KeyAdapter;
-import java.awt.event.KeyEvent;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -85,12 +83,16 @@ public class ClientJDBCSetDAO extends ClientGui implements ClientImplements {
 				btnNullShowPerformed(evt);
 			}
 		});
-		btnSalesClientSearch.addActionListener(new java.awt.event.ActionListener() {
-			public void actionPerformed(java.awt.event.ActionEvent evt) {
-				getSearchClient(evt);
+		btnSalesClientSearch.addMouseListener(new java.awt.event.MouseAdapter() {
+			public void mouseClicked(java.awt.event.MouseEvent evt) {
+				JTable_ProductsMouseClickeds(evt);
 			}
 		});
-
+		jtblSalesClient.addMouseListener(new java.awt.event.MouseAdapter() {
+			public void mouseClicked(java.awt.event.MouseEvent evt) {
+				JTable_ProductsMouseClickeds(evt);
+			}
+		});
 	}
 
 	private boolean checkInputsSalesClient() {
@@ -145,6 +147,114 @@ public class ClientJDBCSetDAO extends ClientGui implements ClientImplements {
 		return productList;
 	}
 
+	// public ArrayList<ClientConfig> ListUsers(String ValToSearch) {
+	// ArrayList<ClientConfig> usersList = new ArrayList<ClientConfig>();
+	// Statement st;
+	// ResultSet rs;
+	// try {
+	// Connection con = DataBaseConnect.getConnection();
+	// st = con.createStatement();
+	// String searchQuery = "SELECT * FROM `megrendelo` WHERE CONCAT(`ID_m`,
+	// `azonosito_m`, `nev`, `kapcsolat`) LIKE '%"
+	// + ValToSearch + "%'";
+	// rs = st.executeQuery(searchQuery);
+	// ClientConfig user;
+	// while (rs.next()) {
+	// user = new ClientConfig(rs.getInt("ID_m"), rs.getInt("azonosito_m"),
+	// rs.getString("nev"),
+	// rs.getString("kapcsolat"), rs.getString("lakcim"),
+	// rs.getString("megjegyzes_m"));
+	// usersList.add(user);
+	// }
+	//
+	// } catch (Exception ex) {
+	// System.out.println(ex.getMessage());
+	// }
+	//
+	// return usersList;
+	// }
+	//
+	// public void findUsers() {
+	// ArrayList<ClientConfig> users =
+	// ListUsers(txtSalesClientSearch.getText());
+	// DefaultTableModel model = (DefaultTableModel) jtblSalesClient.getModel();
+	// model.setRowCount(0);
+	// Object[] row = new Object[6];
+	//
+	// for (int i = 0; i < users.size(); i++) {
+	// row[0] = users.get(i).getSalesClientID();
+	// row[1] = users.get(i).getSalesClientNumber();
+	// row[2] = users.get(i).getSalesClientName();
+	// row[3] = users.get(i).getSalesClientMobil();
+	// row[4] = users.get(i).getSalesClientHomeAddress();
+	// row[5] = users.get(i).getSalesClientComment();
+	// model.addRow(row);
+	// }
+	//
+	// }
+	//
+	// public void ShowItemS(int index) {
+	//
+	// }
+	//
+	@Override
+	public ArrayList<ClientConfig> getListUsers() {
+		ArrayList<ClientConfig> listSearch = new ArrayList<ClientConfig>();
+		ResultSet rs;
+		try {
+			String query = "SELECT * FROM megrendelo WHERE "
+					+ cmbSalesClientSearch.getItemAt(cmbSalesClientSearch.getSelectedIndex()) + " = ?";
+			Connection con = DataBaseConnect.getConnection();
+			PreparedStatement insertClient = con.prepareStatement(query);
+			insertClient.setString(1, txtSalesClientSearch.getText());
+			rs = insertClient.executeQuery();
+			ClientConfig clientSearch;
+			if (rs.next()) {
+				clientSearch = new ClientConfig(rs.getInt("ID_m"), rs.getInt("azonosito_m"), rs.getString("nev"),
+						rs.getString("kapcsolat"), rs.getString("lakcim"), rs.getString("megjegyzes_m"));
+				listSearch.add(clientSearch);
+			}
+		} catch (SQLException ex) {
+			JOptionPane.showMessageDialog(null, "Sikertelen Keresés: " + ex.getMessage());
+		}
+		return listSearch;
+
+	}
+
+	public void findUsers() {
+		ArrayList<ClientConfig> users = getListUsers();
+		DefaultTableModel model = (DefaultTableModel) jtblSalesClient.getModel();
+		model.setRowCount(0);
+		Object[] row = new Object[6];
+
+		for (int i = 0; i < users.size(); i++) {
+			row[0] = users.get(i).getSalesClientID();
+			row[1] = users.get(i).getSalesClientNumber();
+			row[2] = users.get(i).getSalesClientName();
+			row[3] = users.get(i).getSalesClientMobil();
+			row[4] = users.get(i).getSalesClientHomeAddress();
+			row[5] = users.get(i).getSalesClientComment();
+			model.addRow(row);
+		}
+
+	}
+
+	public void ShowItemS(int index) {
+		txtSalesClientID.setText(Integer.toString(getListUsers().get(index).getSalesClientID()));
+		txtSalesClientNumber.setText(Integer.toString(getListUsers().get(index).getSalesClientNumber()));
+		txtSalesClientName.setText(getListUsers().get(index).getSalesClientName());
+		txtSalesClientMobil.setText(getListUsers().get(index).getSalesClientMobil());
+		txtSalesClientHomeAddress.setText(getListUsers().get(index).getSalesClientHomeAddress());
+		txtSalesClientComment.setText(getListUsers().get(index).getSalesClientComment());
+	}
+
+	
+	private void JTable_ProductsMouseClickeds(java.awt.event.MouseEvent evt) {
+		findUsers();
+		int index = jtblSalesClient.getSelectedRow();
+		ShowItemS(index);
+	}
+
 	private void showProductsInJTableClient() {
 		ArrayList<ClientConfig> list = getClientProductList();
 		DefaultTableModel model = (DefaultTableModel) jtblSalesClient.getModel();
@@ -159,6 +269,7 @@ public class ClientJDBCSetDAO extends ClientGui implements ClientImplements {
 			row[5] = list.get(i).getSalesClientComment();
 			model.addRow(row);
 		}
+
 		TableRowSorter<TableModel> tableRowSorter = new TableRowSorter<TableModel>(jtblSalesClient.getModel());
 		tableRowSorter.setComparator(0, new Comparator<String>() {
 
@@ -262,80 +373,6 @@ public class ClientJDBCSetDAO extends ClientGui implements ClientImplements {
 			}
 		} else {
 			JOptionPane.showMessageDialog(null, "Sikertelen törlés : Nincs ID a törléshez");
-		}
-	}
-
-	private void getSearchClient(java.awt.event.ActionEvent evt) {
-		txtSalesClientSearch.addKeyListener(new KeyAdapter() {
-			public void keyPressed(KeyEvent evt) {
-				if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
-
-					ArrayList<ClientConfig> listSearch = new ArrayList<ClientConfig>();
-					ResultSet rs;
-					try {
-						String query = "SELECT * FROM megrendelo WHERE "
-								+ cmbSalesClientSearch.getItemAt(cmbSalesClientSearch.getSelectedIndex()) + " = ?";
-						Connection con = DataBaseConnect.getConnection();
-						PreparedStatement insertClient = con.prepareStatement(query);
-						insertClient.setString(1, txtSalesClientSearch.getText());
-						rs = insertClient.executeQuery();
-						ClientConfig clientSearch;
-						if (rs.next()) {
-							clientSearch = new ClientConfig(rs.getInt("ID_m"), rs.getInt("azonosito_m"),
-									rs.getString("nev"), rs.getString("kapcsolat"), rs.getString("lakcim"),
-									rs.getString("megjegyzes_m"));
-							listSearch.add(clientSearch);
-						}
-						DefaultTableModel model = (DefaultTableModel) jtblSalesClient.getModel();
-						model.setRowCount(0);
-						Object[] row = new Object[6];
-						for (int i = 0; i < listSearch.size(); i++) {
-							row[0] = listSearch.get(i).getSalesClientID();
-							row[1] = listSearch.get(i).getSalesClientNumber();
-							row[2] = listSearch.get(i).getSalesClientName();
-							row[3] = listSearch.get(i).getSalesClientMobil();
-							row[4] = listSearch.get(i).getSalesClientHomeAddress();
-							row[5] = listSearch.get(i).getSalesClientComment();
-							model.addRow(row);
-						}
-					} catch (SQLException ex) {
-						JOptionPane.showMessageDialog(null, "Sikertelen Keresés: " + ex.getMessage());
-					}
-
-				}
-
-			}
-
-		});
-		ArrayList<ClientConfig> listSearch = new ArrayList<ClientConfig>();
-		ResultSet rs;
-		try {
-			String query = "SELECT * FROM megrendelo WHERE "
-					+ cmbSalesClientSearch.getItemAt(cmbSalesClientSearch.getSelectedIndex())+ " = ?";
-			Connection con = DataBaseConnect.getConnection();
-			PreparedStatement insertClient = con.prepareStatement(query);
-			insertClient.setString(1, txtSalesClientSearch.getText());
-			rs = insertClient.executeQuery();
-			ClientConfig clientSearch;
-			if (rs.next()) {
-				clientSearch = new ClientConfig(rs.getInt("ID_m"), rs.getInt("azonosito_m"), rs.getString("nev"),
-						rs.getString("kapcsolat"), rs.getString("lakcim"), rs.getString("megjegyzes_m"));
-				listSearch.add(clientSearch);
-			}
-			DefaultTableModel model = (DefaultTableModel) jtblSalesClient.getModel();
-			model.setRowCount(0);
-			Object[] row = new Object[6];
-			for (int i = 0; i < listSearch.size(); i++) {
-				row[0] = listSearch.get(i).getSalesClientID();
-				row[1] = listSearch.get(i).getSalesClientNumber();
-				row[2] = listSearch.get(i).getSalesClientName();
-				row[3] = listSearch.get(i).getSalesClientMobil();
-				row[4] = listSearch.get(i).getSalesClientHomeAddress();
-				row[5] = listSearch.get(i).getSalesClientComment();
-				model.addRow(row);
-			}
-		} catch (SQLException ex) {
-			JOptionPane.showMessageDialog(null, "Sikertelen Keresés: " + ex.getMessage());
 		}
 	}
 
