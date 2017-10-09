@@ -22,10 +22,13 @@ import ex.main.sales.client.gui.ClientGui;
 import ex.main.setting.database.DataBaseConnect;
 
 public class ClientJDBCSetDAO extends ClientGui implements ClientImplements {
+	Object rows[][];
+	String columns[];
+
 	public ClientJDBCSetDAO() {
 		setActionSalesClient();
 		showProductsInJTableClient();
-		tableRows();
+
 	}
 
 	/**
@@ -34,9 +37,10 @@ public class ClientJDBCSetDAO extends ClientGui implements ClientImplements {
 	private static final long serialVersionUID = 1L;
 
 	private void setActionSalesClient() {
-		String columns[] = { "ID", "azonosító", "név", "telefon", "lakcím", "megjegyzés" };
 
-		jtblSalesClient.setModel(new javax.swing.table.DefaultTableModel(new Object[][] {}, columns));
+		columns = new String[] { "ID", "azonosító", "név", "telefon", "lakcím", "megjegyzés" };
+
+		jtblSalesClient.setModel(new javax.swing.table.DefaultTableModel(rows, columns));
 		jtblSalesClient.getColumn("ID").setMinWidth(30);
 		jtblSalesClient.getColumn("ID").setMaxWidth(30);
 		jtblSalesClient.getColumn("azonosító").setMinWidth(80);
@@ -77,6 +81,11 @@ public class ClientJDBCSetDAO extends ClientGui implements ClientImplements {
 		btnSalesClientNull.addActionListener(new java.awt.event.ActionListener() {
 			public void actionPerformed(java.awt.event.ActionEvent evt) {
 				btnNullShowPerformed(evt);
+			}
+		});
+		btnSalesClientSearch.addActionListener(new java.awt.event.ActionListener() {
+			public void actionPerformed(java.awt.event.ActionEvent evt) {
+				jBtnSearchActionPerformedSalesClient(evt);
 			}
 		});
 	}
@@ -147,6 +156,22 @@ public class ClientJDBCSetDAO extends ClientGui implements ClientImplements {
 			row[5] = list.get(i).getSalesClientComment();
 			model.addRow(row);
 		}
+		TableRowSorter<TableModel> tableRowSorter = new TableRowSorter<TableModel>(jtblSalesClient.getModel());
+		tableRowSorter.setComparator(0, new Comparator<String>() {
+
+			@Override
+			public int compare(String s1, String s2) {
+				if (s1.isEmpty() && s2.isEmpty()) {
+					return 0;
+				} else if (s1.isEmpty() && !s2.isEmpty()) {
+					return 1;
+				} else if (!s1.isEmpty() && s2.isEmpty()) {
+					return -1;
+				}
+				return s1.compareTo(s2);
+			}
+		});
+		jtblSalesClient.setRowSorter(tableRowSorter);
 	}
 
 	public void ShowItem(int index) {
@@ -156,7 +181,6 @@ public class ClientJDBCSetDAO extends ClientGui implements ClientImplements {
 		txtSalesClientMobil.setText(getClientProductList().get(index).getSalesClientMobil());
 		txtSalesClientHomeAddress.setText(getClientProductList().get(index).getSalesClientHomeAddress());
 		txtSalesClientComment.setText(getClientProductList().get(index).getSalesClientComment());
-
 	}
 
 	private void jBtnInsertActionPerformedSalesClient(java.awt.event.ActionEvent evt) {
@@ -238,6 +262,21 @@ public class ClientJDBCSetDAO extends ClientGui implements ClientImplements {
 		}
 	}
 
+	private void jBtnSearchActionPerformedSalesClient(java.awt.event.ActionEvent evt) {
+		Connection con = DataBaseConnect.getConnection();
+		ResultSet rs = null;
+		try {
+			if (rs.next()) {
+
+			} else {
+
+			}
+		} catch (SQLException ex) {
+			JOptionPane.showMessageDialog(null, "Sikertelen beillesztés: " + ex.getMessage());
+		}
+
+	}
+
 	private void btnNullShowPerformed(java.awt.event.ActionEvent evt) {
 		txtSalesClientID.setText(null);
 		txtSalesClientID.setBackground(new Color(245, 255, 250));
@@ -251,31 +290,10 @@ public class ClientJDBCSetDAO extends ClientGui implements ClientImplements {
 		txtSalesClientHomeAddress.setBackground(new Color(245, 255, 250));
 		txtSalesClientComment.setText(null);
 		txtSalesClientComment.setBackground(new Color(245, 255, 250));
-
 	}
 
 	private void JTable_ProductsMouseClicked(java.awt.event.MouseEvent evt) {
 		int index = jtblSalesClient.getSelectedRow();
 		ShowItem(index);
-	}
-
-	private void tableRows() {
-		TableRowSorter<TableModel> tableRowSorter = new TableRowSorter<TableModel>(jtblSalesClient.getModel());
-		tableRowSorter.setComparator(0, new Comparator<String>() {
-
-			@Override
-			public int compare(String s1, String s2) {
-				if (s1.isEmpty() && s2.isEmpty()) {
-					return 0;
-				} else if (s1.isEmpty() && !s2.isEmpty()) {
-					return 1;
-				} else if (!s1.isEmpty() && s2.isEmpty()) {
-					return -1;
-				}
-				return s1.compareTo(s2);
-			}
-		});
-		jtblSalesClient.setRowSorter(tableRowSorter);
-
 	}
 }

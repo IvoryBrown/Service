@@ -9,7 +9,6 @@ import java.util.Comparator;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 import javax.swing.table.TableRowSorter;
@@ -21,6 +20,10 @@ import ex.main.service.worksheet.gui.WorksheetGui;
 import ex.main.setting.database.DataBaseConnect;
 
 public class WorkSheetJDBCSetDao extends WorksheetGui implements WorkSheetImplements {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	protected String[] columns;
 
 	public WorkSheetJDBCSetDao() {

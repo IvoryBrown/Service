@@ -12,13 +12,16 @@ import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
-import ex.main.service.client.ClientJDBCSetDAO;
 import ex.main.service.softver.config.SoftverConfig;
 import ex.main.service.softver.config.SoftverImplements;
 import ex.main.service.softver.gui.SoftverGui;
 import ex.main.setting.database.DataBaseConnect;
 
 public class SoftverJDBCSetDao extends SoftverGui implements SoftverImplements {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private String[] columns;
 
 	public SoftverJDBCSetDao() {

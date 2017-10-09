@@ -11,6 +11,7 @@ import javax.swing.JTextField;
 import java.awt.Color;
 import javax.swing.JButton;
 import javax.swing.JTextArea;
+import javax.swing.JComboBox;
 
 public class ClientGui extends SalesGui {
 	public ClientGui() {
@@ -26,7 +27,9 @@ public class ClientGui extends SalesGui {
 	protected JTextField txtSalesClientNumber, txtSalesClientName, txtSalesClientMobil, txtSalesClientHomeAddress,
 			txtSalesClientID, txtSalesClientSearch;
 	protected JTextArea txtSalesClientComment;
-	protected JButton btnSalesClientDelete, btnSalesClientNewClient, btnSalesClientEdit, btnSalesClientNull;
+	protected JButton btnSalesClientDelete, btnSalesClientNewClient, btnSalesClientEdit, btnSalesClientNull,
+			btnSalesClientSearch;
+	protected JComboBox<?> cmbSalesClientSearch;
 
 	private void setComponentClientGui() {
 		jpnlClient.setLayout(null);
@@ -142,12 +145,18 @@ public class ClientGui extends SalesGui {
 		txtSalesClientSearch.setBackground(new Color(127, 255, 212));
 		panel_1.add(txtSalesClientSearch);
 
-		JButton btnSalesClientSearch = new JButton("keresés");
+		btnSalesClientSearch = new JButton("keresés");
 		btnSalesClientSearch.setBounds(10, 115, 109, 37);
 		panel_1.add(btnSalesClientSearch);
 
 		btnSalesClientNull = new JButton("null");
 		btnSalesClientNull.setBounds(10, 307, 109, 37);
 		panel_1.add(btnSalesClientNull);
+
+		String clientShearch[] = { "azonosito", "nev", "kapcsolat", "lakcím", "megjegyzés" };
+		cmbSalesClientSearch = new JComboBox<Object>(clientShearch);
+		cmbSalesClientSearch.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		cmbSalesClientSearch.setBounds(10, 59, 189, 35);
+		panel_1.add(cmbSalesClientSearch);
 	}
 }
