@@ -153,7 +153,7 @@ public class ClientGui extends SalesGui {
 		btnSalesClientNull.setBounds(10, 307, 109, 37);
 		panel_1.add(btnSalesClientNull);
 
-		String clientShearch[] = { "azonosito", "nev", "kapcsolat", "lakcím", "megjegyzés" };
+		String clientShearch[] = { "nev", "azonosito_m", "kapcsolat", "lakcím" };
 		cmbSalesClientSearch = new JComboBox<Object>(clientShearch);
 		cmbSalesClientSearch.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		cmbSalesClientSearch.setBounds(10, 59, 189, 35);

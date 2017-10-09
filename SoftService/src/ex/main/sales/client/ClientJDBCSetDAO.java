@@ -1,6 +1,8 @@
 package ex.main.sales.client;
 
 import java.awt.Color;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -85,9 +87,10 @@ public class ClientJDBCSetDAO extends ClientGui implements ClientImplements {
 		});
 		btnSalesClientSearch.addActionListener(new java.awt.event.ActionListener() {
 			public void actionPerformed(java.awt.event.ActionEvent evt) {
-				jBtnSearchActionPerformedSalesClient(evt);
+				getSearchClient(evt);
 			}
 		});
+
 	}
 
 	private boolean checkInputsSalesClient() {
@@ -262,19 +265,78 @@ public class ClientJDBCSetDAO extends ClientGui implements ClientImplements {
 		}
 	}
 
-	private void jBtnSearchActionPerformedSalesClient(java.awt.event.ActionEvent evt) {
-		Connection con = DataBaseConnect.getConnection();
-		ResultSet rs = null;
-		try {
-			if (rs.next()) {
+	private void getSearchClient(java.awt.event.ActionEvent evt) {
+		txtSalesClientSearch.addKeyListener(new KeyAdapter() {
+			public void keyPressed(KeyEvent evt) {
+				if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
 
-			} else {
+					ArrayList<ClientConfig> listSearch = new ArrayList<ClientConfig>();
+					ResultSet rs;
+					try {
+						String query = "SELECT * FROM megrendelo WHERE "
+								+ cmbSalesClientSearch.getItemAt(cmbSalesClientSearch.getSelectedIndex()) + " = ?";
+						Connection con = DataBaseConnect.getConnection();
+						PreparedStatement insertClient = con.prepareStatement(query);
+						insertClient.setString(1, txtSalesClientSearch.getText());
+						rs = insertClient.executeQuery();
+						ClientConfig clientSearch;
+						if (rs.next()) {
+							clientSearch = new ClientConfig(rs.getInt("ID_m"), rs.getInt("azonosito_m"),
+									rs.getString("nev"), rs.getString("kapcsolat"), rs.getString("lakcim"),
+									rs.getString("megjegyzes_m"));
+							listSearch.add(clientSearch);
+						}
+						DefaultTableModel model = (DefaultTableModel) jtblSalesClient.getModel();
+						model.setRowCount(0);
+						Object[] row = new Object[6];
+						for (int i = 0; i < listSearch.size(); i++) {
+							row[0] = listSearch.get(i).getSalesClientID();
+							row[1] = listSearch.get(i).getSalesClientNumber();
+							row[2] = listSearch.get(i).getSalesClientName();
+							row[3] = listSearch.get(i).getSalesClientMobil();
+							row[4] = listSearch.get(i).getSalesClientHomeAddress();
+							row[5] = listSearch.get(i).getSalesClientComment();
+							model.addRow(row);
+						}
+					} catch (SQLException ex) {
+						JOptionPane.showMessageDialog(null, "Sikertelen Keresés: " + ex.getMessage());
+					}
+
+				}
 
 			}
-		} catch (SQLException ex) {
-			JOptionPane.showMessageDialog(null, "Sikertelen beillesztés: " + ex.getMessage());
-		}
 
+		});
+		ArrayList<ClientConfig> listSearch = new ArrayList<ClientConfig>();
+		ResultSet rs;
+		try {
+			String query = "SELECT * FROM megrendelo WHERE "
+					+ cmbSalesClientSearch.getItemAt(cmbSalesClientSearch.getSelectedIndex())+ " = ?";
+			Connection con = DataBaseConnect.getConnection();
+			PreparedStatement insertClient = con.prepareStatement(query);
+			insertClient.setString(1, txtSalesClientSearch.getText());
+			rs = insertClient.executeQuery();
+			ClientConfig clientSearch;
+			if (rs.next()) {
+				clientSearch = new ClientConfig(rs.getInt("ID_m"), rs.getInt("azonosito_m"), rs.getString("nev"),
+						rs.getString("kapcsolat"), rs.getString("lakcim"), rs.getString("megjegyzes_m"));
+				listSearch.add(clientSearch);
+			}
+			DefaultTableModel model = (DefaultTableModel) jtblSalesClient.getModel();
+			model.setRowCount(0);
+			Object[] row = new Object[6];
+			for (int i = 0; i < listSearch.size(); i++) {
+				row[0] = listSearch.get(i).getSalesClientID();
+				row[1] = listSearch.get(i).getSalesClientNumber();
+				row[2] = listSearch.get(i).getSalesClientName();
+				row[3] = listSearch.get(i).getSalesClientMobil();
+				row[4] = listSearch.get(i).getSalesClientHomeAddress();
+				row[5] = listSearch.get(i).getSalesClientComment();
+				model.addRow(row);
+			}
+		} catch (SQLException ex) {
+			JOptionPane.showMessageDialog(null, "Sikertelen Keresés: " + ex.getMessage());
+		}
 	}
 
 	private void btnNullShowPerformed(java.awt.event.ActionEvent evt) {
@@ -290,6 +352,7 @@ public class ClientJDBCSetDAO extends ClientGui implements ClientImplements {
 		txtSalesClientHomeAddress.setBackground(new Color(245, 255, 250));
 		txtSalesClientComment.setText(null);
 		txtSalesClientComment.setBackground(new Color(245, 255, 250));
+		showProductsInJTableClient();
 	}
 
 	private void JTable_ProductsMouseClicked(java.awt.event.MouseEvent evt) {
