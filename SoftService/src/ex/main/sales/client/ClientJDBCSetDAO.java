@@ -28,7 +28,7 @@ public class ClientJDBCSetDAO extends ClientGui implements ClientImplements {
 	public ClientJDBCSetDAO() {
 		setActionSalesClient();
 		showProductsInJTableClient();
-
+		tableRows();
 	}
 
 	/**
@@ -209,23 +209,6 @@ public class ClientJDBCSetDAO extends ClientGui implements ClientImplements {
 			row[5] = list.get(i).getSalesClientComment();
 			model.addRow(row);
 		}
-
-		TableRowSorter<TableModel> tableRowSorter = new TableRowSorter<TableModel>(jtblSalesClient.getModel());
-		tableRowSorter.setComparator(0, new Comparator<String>() {
-
-			@Override
-			public int compare(String s1, String s2) {
-				if (s1.isEmpty() && s2.isEmpty()) {
-					return 0;
-				} else if (s1.isEmpty() && !s2.isEmpty()) {
-					return 1;
-				} else if (!s1.isEmpty() && s2.isEmpty()) {
-					return -1;
-				}
-				return s1.compareTo(s2);
-			}
-		});
-		jtblSalesClient.setRowSorter(tableRowSorter);
 	}
 
 	public void ShowItem(int index) {
@@ -335,10 +318,28 @@ public class ClientJDBCSetDAO extends ClientGui implements ClientImplements {
 	private void JTable_ProductsMouseClickeds(java.awt.event.MouseEvent evt) {
 		findUsers();
 	}
+	private void tableRows() {
+		TableRowSorter<TableModel> tableRowSorter = new TableRowSorter<TableModel>(jtblSalesClient.getModel());
+		tableRowSorter.setComparator(0, new Comparator<String>() {
 
+			@Override
+			public int compare(String s1, String s2) {
+				if (s1.isEmpty() && s2.isEmpty()) {
+					return 0;
+				} else if (s1.isEmpty() && !s2.isEmpty()) {
+					return 1;
+				} else if (!s1.isEmpty() && s2.isEmpty()) {
+					return -1;
+				}
+				return s1.compareTo(s2);
+			}
+		});
+		jtblSalesClient.setRowSorter(tableRowSorter);
+	}
 	private void JTable_ProductsMouseClicked(java.awt.event.MouseEvent evt) {
 		int index = jtblSalesClient.getSelectedRow();
 		ShowItem(index);
 		ShowItemS(index);
+		
 	}
 }

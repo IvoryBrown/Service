@@ -122,41 +122,46 @@ public class ClientGui extends SalesGui {
 		scrPSalesClientComment.setViewportView(txtSalesClientComment);
 
 		JPanel panel_1 = new JPanel();
-		panel_1.setBounds(488, 11, 228, 355);
+		panel_1.setBounds(483, 73, 131, 205);
 		jpnlClient.add(panel_1);
 		panel_1.setLayout(null);
 
 		btnSalesClientDelete = new JButton("törlés");
-		btnSalesClientDelete.setBounds(10, 259, 109, 37);
+		btnSalesClientDelete.setBounds(10, 107, 109, 37);
 		panel_1.add(btnSalesClientDelete);
 
 		btnSalesClientEdit = new JButton("szerkesztés");
-		btnSalesClientEdit.setBounds(10, 211, 109, 37);
+		btnSalesClientEdit.setBounds(10, 59, 109, 37);
 		btnSalesClientEdit.setHorizontalAlignment(SwingConstants.LEADING);
 		panel_1.add(btnSalesClientEdit);
 
 		btnSalesClientNewClient = new JButton("új ügyfél");
-		btnSalesClientNewClient.setBounds(10, 163, 109, 37);
+		btnSalesClientNewClient.setBounds(10, 11, 109, 37);
 		panel_1.add(btnSalesClientNewClient);
 
-		txtSalesClientSearch = new JTextField();
-		txtSalesClientSearch.setBounds(10, 13, 206, 35);
-		txtSalesClientSearch.setColumns(10);
-		txtSalesClientSearch.setBackground(new Color(127, 255, 212));
-		panel_1.add(txtSalesClientSearch);
-
-		btnSalesClientSearch = new JButton("keresés");
-		btnSalesClientSearch.setBounds(10, 115, 109, 37);
-		panel_1.add(btnSalesClientSearch);
-
 		btnSalesClientNull = new JButton("null");
-		btnSalesClientNull.setBounds(10, 307, 109, 37);
+		btnSalesClientNull.setBounds(10, 155, 109, 37);
 		panel_1.add(btnSalesClientNull);
 
 		String clientShearch[] = { "nev", "azonosito_m", "kapcsolat", "lakcím" };
-		cmbSalesClientSearch = new JComboBox<Object>(clientShearch);
-		cmbSalesClientSearch.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		cmbSalesClientSearch.setBounds(10, 59, 189, 35);
-		panel_1.add(cmbSalesClientSearch);
+		
+		JPanel panel_2 = new JPanel();
+		panel_2.setBounds(483, 11, 399, 56);
+		jpnlClient.add(panel_2);
+		panel_2.setLayout(null);
+		
+				txtSalesClientSearch = new JTextField();
+				txtSalesClientSearch.setBounds(10, 11, 152, 35);
+				panel_2.add(txtSalesClientSearch);
+				txtSalesClientSearch.setColumns(10);
+				txtSalesClientSearch.setBackground(new Color(127, 255, 212));
+				
+						btnSalesClientSearch = new JButton("");
+						btnSalesClientSearch.setBounds(162, 11, 57, 35);
+						panel_2.add(btnSalesClientSearch);
+						cmbSalesClientSearch = new JComboBox<Object>(clientShearch);
+						cmbSalesClientSearch.setBounds(229, 11, 160, 35);
+						panel_2.add(cmbSalesClientSearch);
+						cmbSalesClientSearch.setFont(new Font("Tahoma", Font.PLAIN, 14));
 	}
 }
