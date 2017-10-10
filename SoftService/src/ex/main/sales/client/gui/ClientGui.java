@@ -12,6 +12,7 @@ import java.awt.Color;
 import javax.swing.JButton;
 import javax.swing.JTextArea;
 import javax.swing.JComboBox;
+import javax.swing.ImageIcon;
 
 public class ClientGui extends SalesGui {
 	public ClientGui() {
@@ -30,6 +31,7 @@ public class ClientGui extends SalesGui {
 	protected JButton btnSalesClientDelete, btnSalesClientNewClient, btnSalesClientEdit, btnSalesClientNull,
 			btnSalesClientSearch;
 	protected JComboBox<?> cmbSalesClientSearch;
+	
 
 	private void setComponentClientGui() {
 		jpnlClient.setLayout(null);
@@ -126,42 +128,51 @@ public class ClientGui extends SalesGui {
 		jpnlClient.add(panel_1);
 		panel_1.setLayout(null);
 
-		btnSalesClientDelete = new JButton("törlés");
-		btnSalesClientDelete.setBounds(10, 107, 109, 37);
+		btnSalesClientDelete = new JButton("");
+		btnSalesClientDelete.setIcon(new ImageIcon(ClientGui.class.getResource("/icon/function/24x24/cross.png")));
+		btnSalesClientDelete.setBounds(10, 107, 60, 37);
 		panel_1.add(btnSalesClientDelete);
 
-		btnSalesClientEdit = new JButton("szerkesztés");
-		btnSalesClientEdit.setBounds(10, 59, 109, 37);
+		btnSalesClientEdit = new JButton("");
+		btnSalesClientEdit.setIcon(new ImageIcon(ClientGui.class.getResource("/icon/function/24x24/refresh.png")));
+		btnSalesClientEdit.setBounds(10, 59, 60, 37);
 		btnSalesClientEdit.setHorizontalAlignment(SwingConstants.LEADING);
 		panel_1.add(btnSalesClientEdit);
 
-		btnSalesClientNewClient = new JButton("új ügyfél");
-		btnSalesClientNewClient.setBounds(10, 11, 109, 37);
+		btnSalesClientNewClient = new JButton("");
+		btnSalesClientNewClient.setIcon(new ImageIcon(ClientGui.class.getResource("/icon/function/24x24/add.png")));
+		btnSalesClientNewClient.setBounds(10, 11, 60, 37);
 		panel_1.add(btnSalesClientNewClient);
 
-		btnSalesClientNull = new JButton("null");
-		btnSalesClientNull.setBounds(10, 155, 109, 37);
+		btnSalesClientNull = new JButton("");
+		btnSalesClientNull.setIcon(new ImageIcon(ClientGui.class.getResource("/icon/function/24x24/home.png")));
+		btnSalesClientNull.setBounds(10, 155, 60, 37);
 		panel_1.add(btnSalesClientNull);
 
-		String clientShearch[] = { "nev", "azonosito_m", "kapcsolat", "lakcím" };
 		
+
 		JPanel panel_2 = new JPanel();
-		panel_2.setBounds(483, 11, 399, 56);
+		panel_2.setBounds(483, 11, 350, 56);
 		jpnlClient.add(panel_2);
 		panel_2.setLayout(null);
+
+		txtSalesClientSearch = new JTextField();
+		txtSalesClientSearch.setForeground(Color.WHITE);
+		txtSalesClientSearch.setFont(new Font("Tahoma", Font.BOLD, 14));
+		txtSalesClientSearch.setBounds(10, 11, 152, 35);
+		panel_2.add(txtSalesClientSearch);
+		txtSalesClientSearch.setColumns(10);
+		txtSalesClientSearch.setBackground(new Color(204, 51, 204));
+
+		btnSalesClientSearch = new JButton("");
+		btnSalesClientSearch.setIcon(new ImageIcon(ClientGui.class.getResource("/icon/function/24x24/search.png")));
+		btnSalesClientSearch.setBounds(162, 11, 51, 35);
+		panel_2.add(btnSalesClientSearch);
 		
-				txtSalesClientSearch = new JTextField();
-				txtSalesClientSearch.setBounds(10, 11, 152, 35);
-				panel_2.add(txtSalesClientSearch);
-				txtSalesClientSearch.setColumns(10);
-				txtSalesClientSearch.setBackground(new Color(127, 255, 212));
-				
-						btnSalesClientSearch = new JButton("");
-						btnSalesClientSearch.setBounds(162, 11, 57, 35);
-						panel_2.add(btnSalesClientSearch);
-						cmbSalesClientSearch = new JComboBox<Object>(clientShearch);
-						cmbSalesClientSearch.setBounds(229, 11, 160, 35);
-						panel_2.add(cmbSalesClientSearch);
-						cmbSalesClientSearch.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		String clientShearch[] = { "nev", "azonosito_m", "kapcsolat", "lakcim" };
+		cmbSalesClientSearch = new JComboBox<Object>(clientShearch);
+		cmbSalesClientSearch.setBounds(217, 11, 123, 35);
+		panel_2.add(cmbSalesClientSearch);
+		cmbSalesClientSearch.setFont(new Font("Tahoma", Font.PLAIN, 14));
 	}
 }

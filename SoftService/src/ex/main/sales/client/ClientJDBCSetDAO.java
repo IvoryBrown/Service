@@ -38,7 +38,7 @@ public class ClientJDBCSetDAO extends ClientGui implements ClientImplements {
 
 	private void setActionSalesClient() {
 
-		columns = new String[] { "ID", "azonosító", "név", "telefon", "lakcím", "megjegyzés" };
+		columns = new String[] { "ID", "azonosító", "név", "kapcsolat", "lakcím", "megjegyzés" };
 
 		jtblSalesClient.setModel(new javax.swing.table.DefaultTableModel(rows, columns));
 		jtblSalesClient.getColumn("ID").setMinWidth(30);
@@ -47,8 +47,8 @@ public class ClientJDBCSetDAO extends ClientGui implements ClientImplements {
 		jtblSalesClient.getColumn("azonosító").setMaxWidth(80);
 		jtblSalesClient.getColumn("név").setMinWidth(230);
 		jtblSalesClient.getColumn("név").setMaxWidth(230);
-		jtblSalesClient.getColumn("telefon").setMinWidth(100);
-		jtblSalesClient.getColumn("telefon").setMaxWidth(100);
+		jtblSalesClient.getColumn("kapcsolat").setMinWidth(100);
+		jtblSalesClient.getColumn("kapcsolat").setMaxWidth(100);
 		jtblSalesClient.getColumn("lakcím").setMinWidth(270);
 		jtblSalesClient.getColumn("lakcím").setMaxWidth(270);
 		jtblSalesClient.getTableHeader().setReorderingAllowed(false);
@@ -143,21 +143,20 @@ public class ClientJDBCSetDAO extends ClientGui implements ClientImplements {
 	}
 
 	@Override
-	public ArrayList<ClientConfig> getListUsers() {
+	public ArrayList<ClientConfig> getListClient() {
 		ArrayList<ClientConfig> listSearch = new ArrayList<ClientConfig>();
 		ResultSet rs;
+		Statement insertClient;
 		try {
-			// String searchQuery = "SELECT * FROM `megrendelo` WHERE
-			// CONCAT(`azonosito_m`, `nev`, `kapcsolat`, `lakcim`) LIKE
-			// '%"+txtSalesClientSearch+"%'";
-			String query = "SELECT * FROM megrendelo WHERE "
-					+ cmbSalesClientSearch.getItemAt(cmbSalesClientSearch.getSelectedIndex()) + " = ? ";
+
 			Connection con = DataBaseConnect.getConnection();
-			PreparedStatement insertClient = con.prepareStatement(query);
-			insertClient.setString(1, txtSalesClientSearch.getText());
-			rs = insertClient.executeQuery();
+			insertClient = con.createStatement();
+			String searchQuery = "SELECT * FROM `megrendelo` WHERE CONCAT (`"
+					+ cmbSalesClientSearch.getItemAt(cmbSalesClientSearch.getSelectedIndex()) + "`) LIKE '%"
+					+ txtSalesClientSearch.getText() + "%'";
+			rs = insertClient.executeQuery(searchQuery);
 			ClientConfig clientSearch;
-			if (rs.next()) {
+			while (rs.next()) {
 				clientSearch = new ClientConfig(rs.getInt("ID_m"), rs.getInt("azonosito_m"), rs.getString("nev"),
 						rs.getString("kapcsolat"), rs.getString("lakcim"), rs.getString("megjegyzes_m"));
 				listSearch.add(clientSearch);
@@ -169,30 +168,31 @@ public class ClientJDBCSetDAO extends ClientGui implements ClientImplements {
 
 	}
 
-	public void findUsers() {
-		ArrayList<ClientConfig> users = getListUsers();
+	public void findClient() {
+		ArrayList<ClientConfig> client = getListClient();
 		DefaultTableModel model = (DefaultTableModel) jtblSalesClient.getModel();
+		;
 		model.setRowCount(0);
 		Object[] row = new Object[6];
-
-		for (int i = 0; i < users.size(); i++) {
-			row[0] = users.get(i).getSalesClientID();
-			row[1] = users.get(i).getSalesClientNumber();
-			row[2] = users.get(i).getSalesClientName();
-			row[3] = users.get(i).getSalesClientMobil();
-			row[4] = users.get(i).getSalesClientHomeAddress();
-			row[5] = users.get(i).getSalesClientComment();
+		for (int i = 0; i < client.size(); i++) {
+			row[0] = client.get(i).getSalesClientID();
+			row[1] = client.get(i).getSalesClientNumber();
+			row[2] = client.get(i).getSalesClientName();
+			row[3] = client.get(i).getSalesClientMobil();
+			row[4] = client.get(i).getSalesClientHomeAddress();
+			row[5] = client.get(i).getSalesClientComment();
 			model.addRow(row);
 		}
+
 	}
 
-	public void ShowItemS(int index) {
-		txtSalesClientID.setText(Integer.toString(getListUsers().get(index).getSalesClientID()));
-		txtSalesClientNumber.setText(Integer.toString(getListUsers().get(index).getSalesClientNumber()));
-		txtSalesClientName.setText(getListUsers().get(index).getSalesClientName());
-		txtSalesClientMobil.setText(getListUsers().get(index).getSalesClientMobil());
-		txtSalesClientHomeAddress.setText(getListUsers().get(index).getSalesClientHomeAddress());
-		txtSalesClientComment.setText(getListUsers().get(index).getSalesClientComment());
+	public void showItemClientSearch(int index) {
+		txtSalesClientID.setText(Integer.toString(getListClient().get(index).getSalesClientID()));
+		txtSalesClientNumber.setText(Integer.toString(getListClient().get(index).getSalesClientNumber()));
+		txtSalesClientName.setText(getListClient().get(index).getSalesClientName());
+		txtSalesClientMobil.setText(getListClient().get(index).getSalesClientMobil());
+		txtSalesClientHomeAddress.setText(getListClient().get(index).getSalesClientHomeAddress());
+		txtSalesClientComment.setText(getListClient().get(index).getSalesClientComment());
 	}
 
 	private void showProductsInJTableClient() {
@@ -211,7 +211,7 @@ public class ClientJDBCSetDAO extends ClientGui implements ClientImplements {
 		}
 	}
 
-	public void ShowItem(int index) {
+	public void showItemClient(int index) {
 		txtSalesClientID.setText(Integer.toString(getClientProductList().get(index).getSalesClientID()));
 		txtSalesClientNumber.setText(Integer.toString(getClientProductList().get(index).getSalesClientNumber()));
 		txtSalesClientName.setText(getClientProductList().get(index).getSalesClientName());
@@ -312,12 +312,15 @@ public class ClientJDBCSetDAO extends ClientGui implements ClientImplements {
 		txtSalesClientHomeAddress.setBackground(new Color(245, 255, 250));
 		txtSalesClientComment.setText(null);
 		txtSalesClientComment.setBackground(new Color(245, 255, 250));
+		txtSalesClientSearch.setText(null);
+		cmbSalesClientSearch.setSelectedIndex(0);
 		showProductsInJTableClient();
 	}
 
 	private void JTable_ProductsMouseClickeds(java.awt.event.MouseEvent evt) {
-		findUsers();
+		findClient();
 	}
+
 	private void tableRows() {
 		TableRowSorter<TableModel> tableRowSorter = new TableRowSorter<TableModel>(jtblSalesClient.getModel());
 		tableRowSorter.setComparator(0, new Comparator<String>() {
@@ -336,10 +339,11 @@ public class ClientJDBCSetDAO extends ClientGui implements ClientImplements {
 		});
 		jtblSalesClient.setRowSorter(tableRowSorter);
 	}
+
 	private void JTable_ProductsMouseClicked(java.awt.event.MouseEvent evt) {
 		int index = jtblSalesClient.getSelectedRow();
-		ShowItem(index);
-		ShowItemS(index);
-		
+		showItemClient(index);
+		showItemClientSearch(index);
+
 	}
 }
