@@ -22,6 +22,10 @@ import ex.main.service.device.gui.DeviceGui;
 import ex.main.setting.database.DataBaseConnect;
 
 public class DeviceJDBCSetDAO extends DeviceGui implements DeviceImplements {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private String[] columns;
 
 	public DeviceJDBCSetDAO() {

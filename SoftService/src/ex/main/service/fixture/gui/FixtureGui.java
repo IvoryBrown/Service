@@ -14,6 +14,10 @@ import javax.swing.SwingConstants;
 import ex.main.service.softver.SoftverJDBCSetDao;
 
 public class FixtureGui extends SoftverJDBCSetDao {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -3328000482934381440L;
 	protected JTextField txtFixtureSearch;
 	protected JTable tblFixture;
 	protected JTextField txtFixtureId;

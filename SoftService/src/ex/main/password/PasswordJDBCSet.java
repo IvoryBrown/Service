@@ -10,6 +10,10 @@ import ex.main.password.config.PasswordDB;
 import ex.main.password.gui.PasswordGui;
 
 public class PasswordJDBCSet extends PasswordGui {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	protected PasswordDB db;
 
 	public PasswordJDBCSet() {

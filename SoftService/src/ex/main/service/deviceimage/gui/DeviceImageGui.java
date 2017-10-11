@@ -13,6 +13,10 @@ import javax.swing.JTable;
 import javax.swing.ImageIcon;
 
 public class DeviceImageGui extends DeviceJDBCSetDAO {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -9110616842061672928L;
 	protected JTextField txtDeviceImageSearch;
 	protected JTable jtblDeviceImage;
 	protected JButton btnDeviceImageSearch, btnDeviceImageDelete, btnDeviceImageNew, btnDeviceImageEdit,

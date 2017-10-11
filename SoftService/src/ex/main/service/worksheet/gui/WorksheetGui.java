@@ -10,6 +10,10 @@ import javax.swing.JTable;
 import ex.main.service.fixture.FixtureJDBCSetDAO;
 
 public class WorksheetGui extends FixtureJDBCSetDAO {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -5056968578211729049L;
 	protected JTable tblWorksheet;
 	protected JButton btnUpdate;
 	protected JScrollPane scrollPane;

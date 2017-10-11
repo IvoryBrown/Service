@@ -1,18 +1,20 @@
 package ex.main.sales.client.gui;
 
-import ex.main.sales.gui.SalesGui;
+import java.awt.Color;
+import java.awt.Font;
+
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
+import javax.swing.JComboBox;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
-import javax.swing.JPanel;
-import javax.swing.JLabel;
-import java.awt.Font;
-import javax.swing.SwingConstants;
-import javax.swing.JTextField;
-import java.awt.Color;
-import javax.swing.JButton;
 import javax.swing.JTextArea;
-import javax.swing.JComboBox;
-import javax.swing.ImageIcon;
+import javax.swing.JTextField;
+import javax.swing.SwingConstants;
+
+import ex.main.sales.gui.SalesGui;
 
 public class ClientGui extends SalesGui {
 	public ClientGui() {
@@ -31,7 +33,7 @@ public class ClientGui extends SalesGui {
 	protected JButton btnSalesClientDelete, btnSalesClientNewClient, btnSalesClientEdit, btnSalesClientNull,
 			btnSalesClientSearch;
 	protected JComboBox<?> cmbSalesClientSearch;
-	
+	protected JPanel panel;
 
 	private void setComponentClientGui() {
 		jpnlClient.setLayout(null);
@@ -41,9 +43,10 @@ public class ClientGui extends SalesGui {
 		jpnlClient.add(scrSalesClient);
 
 		jtblSalesClient = new JTable();
+		jtblSalesClient.setFont(new Font("Tahoma", Font.PLAIN, 13));
 		scrSalesClient.setViewportView(jtblSalesClient);
 
-		JPanel panel = new JPanel();
+		panel = new JPanel();
 		panel.setLayout(null);
 		panel.setBounds(10, 11, 468, 355);
 		jpnlClient.add(panel);
@@ -124,7 +127,7 @@ public class ClientGui extends SalesGui {
 		scrPSalesClientComment.setViewportView(txtSalesClientComment);
 
 		JPanel panel_1 = new JPanel();
-		panel_1.setBounds(483, 73, 131, 205);
+		panel_1.setBounds(483, 73, 83, 205);
 		jpnlClient.add(panel_1);
 		panel_1.setLayout(null);
 
@@ -149,8 +152,6 @@ public class ClientGui extends SalesGui {
 		btnSalesClientNull.setBounds(10, 155, 60, 37);
 		panel_1.add(btnSalesClientNull);
 
-		
-
 		JPanel panel_2 = new JPanel();
 		panel_2.setBounds(483, 11, 350, 56);
 		jpnlClient.add(panel_2);
@@ -168,7 +169,7 @@ public class ClientGui extends SalesGui {
 		btnSalesClientSearch.setIcon(new ImageIcon(ClientGui.class.getResource("/icon/function/24x24/search.png")));
 		btnSalesClientSearch.setBounds(162, 11, 51, 35);
 		panel_2.add(btnSalesClientSearch);
-		
+
 		String clientShearch[] = { "nev", "azonosito_m", "kapcsolat", "lakcim" };
 		cmbSalesClientSearch = new JComboBox<Object>(clientShearch);
 		cmbSalesClientSearch.setBounds(217, 11, 123, 35);

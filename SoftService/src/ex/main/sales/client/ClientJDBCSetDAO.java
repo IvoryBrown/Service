@@ -1,6 +1,8 @@
 package ex.main.sales.client;
 
 import java.awt.Color;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -29,6 +31,7 @@ public class ClientJDBCSetDAO extends ClientGui implements ClientImplements {
 		setActionSalesClient();
 		showProductsInJTableClient();
 		tableRows();
+
 	}
 
 	/**
@@ -43,14 +46,14 @@ public class ClientJDBCSetDAO extends ClientGui implements ClientImplements {
 		jtblSalesClient.setModel(new javax.swing.table.DefaultTableModel(rows, columns));
 		jtblSalesClient.getColumn("ID").setMinWidth(30);
 		jtblSalesClient.getColumn("ID").setMaxWidth(30);
-		jtblSalesClient.getColumn("azonosító").setMinWidth(80);
-		jtblSalesClient.getColumn("azonosító").setMaxWidth(80);
+		jtblSalesClient.getColumn("azonosító").setMinWidth(90);
+		jtblSalesClient.getColumn("azonosító").setMaxWidth(90);
 		jtblSalesClient.getColumn("név").setMinWidth(230);
 		jtblSalesClient.getColumn("név").setMaxWidth(230);
-		jtblSalesClient.getColumn("kapcsolat").setMinWidth(100);
-		jtblSalesClient.getColumn("kapcsolat").setMaxWidth(100);
-		jtblSalesClient.getColumn("lakcím").setMinWidth(270);
-		jtblSalesClient.getColumn("lakcím").setMaxWidth(270);
+		jtblSalesClient.getColumn("kapcsolat").setMinWidth(120);
+		jtblSalesClient.getColumn("kapcsolat").setMaxWidth(120);
+		jtblSalesClient.getColumn("lakcím").setMinWidth(280);
+		jtblSalesClient.getColumn("lakcím").setMaxWidth(280);
 		jtblSalesClient.getTableHeader().setReorderingAllowed(false);
 		jtblSalesClient.addMouseListener(new java.awt.event.MouseAdapter() {
 			public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -60,12 +63,12 @@ public class ClientJDBCSetDAO extends ClientGui implements ClientImplements {
 
 		btnSalesClientNewClient.addActionListener(new java.awt.event.ActionListener() {
 			public void actionPerformed(java.awt.event.ActionEvent evt) {
-				jBtnInsertActionPerformedSalesClient(evt);
+				jBtnInsertActionPerformedSalesClient();
 			}
 		});
 		btnSalesClientEdit.addActionListener(new java.awt.event.ActionListener() {
 			public void actionPerformed(java.awt.event.ActionEvent evt) {
-				jBtnUpdateActionPerformedSalesClient(evt);
+				jBtnUpdateActionPerformedSalesClient();
 			}
 		});
 		btnSalesClientDelete.addActionListener(new java.awt.event.ActionListener() {
@@ -73,20 +76,30 @@ public class ClientJDBCSetDAO extends ClientGui implements ClientImplements {
 				int res = JOptionPane.showConfirmDialog(null, "Biztos törölni szeretnéd?", "Figyelmeztetés",
 						JOptionPane.YES_NO_OPTION);
 				if (res == JOptionPane.YES_OPTION)
-					jBtnDeleteActionPerformedSalesClient(evt);
+					jBtnDeleteActionPerformedSalesClient();
 				else
 					return;
 			}
 		});
 		btnSalesClientNull.addActionListener(new java.awt.event.ActionListener() {
 			public void actionPerformed(java.awt.event.ActionEvent evt) {
-				btnNullShowPerformed(evt);
+				btnNullShowPerformed();
 			}
 		});
+
 		btnSalesClientSearch.addMouseListener(new java.awt.event.MouseAdapter() {
 			public void mouseClicked(java.awt.event.MouseEvent evt) {
-				JTable_ProductsMouseClickeds(evt);
+				JTable_ProductsKeyClickeds();
 			}
+		});
+		txtSalesClientSearch.addKeyListener(new KeyAdapter() {
+			public void keyPressed(KeyEvent evt) {
+				if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+					JTable_ProductsKeyClickeds();
+				}
+
+			}
+
 		});
 	}
 
@@ -220,7 +233,7 @@ public class ClientJDBCSetDAO extends ClientGui implements ClientImplements {
 		txtSalesClientComment.setText(getClientProductList().get(index).getSalesClientComment());
 	}
 
-	private void jBtnInsertActionPerformedSalesClient(java.awt.event.ActionEvent evt) {
+	private void jBtnInsertActionPerformedSalesClient() {
 		if (checkInputsSalesClient()) {
 			try {
 				Connection con = DataBaseConnect.getConnection();
@@ -248,7 +261,7 @@ public class ClientJDBCSetDAO extends ClientGui implements ClientImplements {
 		}
 	}
 
-	private void jBtnUpdateActionPerformedSalesClient(java.awt.event.ActionEvent evt) {
+	private void jBtnUpdateActionPerformedSalesClient() {
 		if (checkInputsSalesClient()) {
 			String updateClient = null;
 			PreparedStatement ps = null;
@@ -280,7 +293,7 @@ public class ClientJDBCSetDAO extends ClientGui implements ClientImplements {
 		}
 	}
 
-	private void jBtnDeleteActionPerformedSalesClient(java.awt.event.ActionEvent evt) {
+	private void jBtnDeleteActionPerformedSalesClient() {
 		if (!txtSalesClientID.getText().equals("")) {
 			try {
 				Connection con = DataBaseConnect.getConnection();
@@ -299,7 +312,7 @@ public class ClientJDBCSetDAO extends ClientGui implements ClientImplements {
 		}
 	}
 
-	private void btnNullShowPerformed(java.awt.event.ActionEvent evt) {
+	private void btnNullShowPerformed() {
 		txtSalesClientID.setText(null);
 		txtSalesClientID.setBackground(new Color(245, 255, 250));
 		txtSalesClientNumber.setText(null);
@@ -317,7 +330,7 @@ public class ClientJDBCSetDAO extends ClientGui implements ClientImplements {
 		showProductsInJTableClient();
 	}
 
-	private void JTable_ProductsMouseClickeds(java.awt.event.MouseEvent evt) {
+	private void JTable_ProductsKeyClickeds() {
 		findClient();
 	}
 

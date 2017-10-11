@@ -26,6 +26,10 @@ import ex.main.service.deviceimage.gui.DeviceImageGui;
 import ex.main.setting.database.DataBaseConnect;
 
 public class DeviceImageJDBCSetDAO extends DeviceImageGui implements DeviceImageImplements {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -1391054896161829962L;
 	String ImgPath = null;
 
 	public DeviceImageJDBCSetDAO() {

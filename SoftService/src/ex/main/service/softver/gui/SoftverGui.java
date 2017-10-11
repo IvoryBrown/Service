@@ -16,8 +16,12 @@ import javax.swing.JTable;
 import javax.swing.JTextArea;
 
 public class SoftverGui extends DeviceImageJDBCSetDAO {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 4055421861917439994L;
 	protected JTextField txtSoftverID;
-	protected JComboBox cmbSoftverName;
+	protected JComboBox<Object> cmbSoftverName;
 	protected JPanel pnlSoftverSetting;
 	protected JButton btnSoftverDelete;
 	protected JButton btnSoftverEdit;
@@ -35,6 +39,7 @@ public class SoftverGui extends DeviceImageJDBCSetDAO {
 		setSoftverComponent();
 	}
 
+	
 	private void setSoftverComponent() {
 		jplSoftver.setLayout(null);
 
@@ -42,7 +47,7 @@ public class SoftverGui extends DeviceImageJDBCSetDAO {
 				"Win 8.1 64Bit Hungarian", "Win 10 32Bit Hungarian", "Win 10 64Bit Hungarian",
 				"Office 2017 32Bit Hungarian", "Office 2017 64Bit Hungarian", "Office 2016 32Bit Hungarian",
 				"Office 2016 64Bit Hungarian", "Egyéb" };
-		cmbSoftverName = new JComboBox(softverName);
+		cmbSoftverName = new JComboBox<Object>(softverName);
 		cmbSoftverName.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		cmbSoftverName.setBounds(116, 103, 294, 35);
 		cmbSoftverName.setSelectedItem(null);

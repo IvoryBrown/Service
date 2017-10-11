@@ -15,10 +15,13 @@ import javax.swing.table.DefaultTableModel;
 import ex.main.service.fixture.config.FixtureConfig;
 import ex.main.service.fixture.config.FixtureImplements;
 import ex.main.service.fixture.gui.FixtureGui;
-import ex.main.service.softver.SoftverJDBCSetDao;
 import ex.main.setting.database.DataBaseConnect;
 
 public class FixtureJDBCSetDAO extends FixtureGui implements FixtureImplements {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -1607088146574330251L;
 	String columns[];
 
 	public FixtureJDBCSetDAO() {
