@@ -2,13 +2,13 @@ package ex.main.sales.client.config;
 
 public class ClientConfig {
 	private Integer salesClientID;
-	private Integer salesClientNumber;
+	private String salesClientNumber;
 	private String salesClientName;
 	private String salesClientMobil;
 	private String salesClientHomeAddress;
 	private String salesClientComment;
 
-	public ClientConfig(Integer salesClientID, Integer salesClientNumber, String salesClientName,
+	public ClientConfig(Integer salesClientID, String salesClientNumber, String salesClientName,
 			String salesClientMobil, String salesClientHomeAddress, String salesClientComment) {
 		super();
 		this.salesClientID = salesClientID;
@@ -23,7 +23,7 @@ public class ClientConfig {
 		return salesClientID;
 	}
 
-	public Integer getSalesClientNumber() {
+	public String getSalesClientNumber() {
 		return salesClientNumber;
 	}
 
