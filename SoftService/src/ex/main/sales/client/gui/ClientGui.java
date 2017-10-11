@@ -43,7 +43,8 @@ public class ClientGui extends SalesGui {
 		jpnlClient.add(scrSalesClient);
 
 		jtblSalesClient = new JTable();
-		jtblSalesClient.setFont(new Font("Tahoma", Font.PLAIN, 13));
+		jtblSalesClient.setFont(new Font("Tahoma", Font.PLAIN, 15));
+		jtblSalesClient.setRowHeight(30);
 		scrSalesClient.setViewportView(jtblSalesClient);
 
 		panel = new JPanel();
@@ -82,6 +83,7 @@ public class ClientGui extends SalesGui {
 		panel.add(lblSalesClientComment);
 
 		txtSalesClientNumber = new JTextField();
+		txtSalesClientNumber.setEnabled(false);
 		txtSalesClientNumber.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		txtSalesClientNumber.setColumns(10);
 		txtSalesClientNumber.setBackground(new Color(245, 255, 250));

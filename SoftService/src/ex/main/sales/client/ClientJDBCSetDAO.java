@@ -25,8 +25,8 @@ import ex.main.setting.database.DataBaseConnect;
 import ex.main.setting.identification.ClientIdentificationGenerator;
 
 public class ClientJDBCSetDAO extends ClientGui implements ClientImplements {
-	Object rows[][];
-	String columns[];
+	Object columns[][];
+	String rows[];
 
 	public ClientJDBCSetDAO() {
 		setActionSalesClient();
@@ -41,10 +41,8 @@ public class ClientJDBCSetDAO extends ClientGui implements ClientImplements {
 	private static final long serialVersionUID = 1L;
 
 	private void setActionSalesClient() {
-
-		columns = new String[] { "ID", "azonosító", "név", "kapcsolat", "lakcím", "megjegyzés" };
-
-		jtblSalesClient.setModel(new javax.swing.table.DefaultTableModel(rows, columns));
+		rows = new String[] { "ID", "azonosító", "név", "kapcsolat", "lakcím", "megjegyzés" };
+		jtblSalesClient.setModel(new javax.swing.table.DefaultTableModel(columns, rows));
 		jtblSalesClient.getColumn("ID").setMinWidth(30);
 		jtblSalesClient.getColumn("ID").setMaxWidth(30);
 		jtblSalesClient.getColumn("azonosító").setMinWidth(90);
@@ -58,7 +56,7 @@ public class ClientJDBCSetDAO extends ClientGui implements ClientImplements {
 		jtblSalesClient.getTableHeader().setReorderingAllowed(false);
 		jtblSalesClient.addMouseListener(new java.awt.event.MouseAdapter() {
 			public void mouseClicked(java.awt.event.MouseEvent evt) {
-				JTable_ProductsMouseClicked(evt);
+				jTableProductsMouseClicked(evt);
 			}
 		});
 
@@ -87,20 +85,17 @@ public class ClientJDBCSetDAO extends ClientGui implements ClientImplements {
 				btnNullShowPerformed();
 			}
 		});
-
 		btnSalesClientSearch.addMouseListener(new java.awt.event.MouseAdapter() {
 			public void mouseClicked(java.awt.event.MouseEvent evt) {
-				JTable_ProductsKeyClickeds();
+				jTableClientSearch();
 			}
 		});
 		txtSalesClientSearch.addKeyListener(new KeyAdapter() {
 			public void keyPressed(KeyEvent evt) {
 				if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
-					JTable_ProductsKeyClickeds();
+					jTableClientSearch();
 				}
-
 			}
-
 		});
 	}
 
@@ -126,7 +121,6 @@ public class ClientJDBCSetDAO extends ClientGui implements ClientImplements {
 		} else {
 			return true;
 		}
-
 	}
 
 	@Override
@@ -174,13 +168,11 @@ public class ClientJDBCSetDAO extends ClientGui implements ClientImplements {
 			JOptionPane.showMessageDialog(null, "Sikertelen Keresés: " + ex.getMessage());
 		}
 		return listSearch;
-
 	}
 
-	private void findClient() {
+	private void findClientSearch() {
 		ArrayList<ClientConfig> client = getListClient();
 		DefaultTableModel model = (DefaultTableModel) jtblSalesClient.getModel();
-		;
 		model.setRowCount(0);
 		Object[] row = new Object[6];
 		for (int i = 0; i < client.size(); i++) {
@@ -192,7 +184,6 @@ public class ClientJDBCSetDAO extends ClientGui implements ClientImplements {
 			row[5] = client.get(i).getSalesClientComment();
 			model.addRow(row);
 		}
-
 	}
 
 	private void showProductsInJTableClient() {
@@ -333,8 +324,8 @@ public class ClientJDBCSetDAO extends ClientGui implements ClientImplements {
 		showProductsInJTableClient();
 	}
 
-	private void JTable_ProductsKeyClickeds() {
-		findClient();
+	private void jTableClientSearch() {
+		findClientSearch();
 	}
 
 	private void tableRows() {
@@ -356,7 +347,7 @@ public class ClientJDBCSetDAO extends ClientGui implements ClientImplements {
 		jtblSalesClient.setRowSorter(tableRowSorter);
 	}
 
-	private void JTable_ProductsMouseClicked(java.awt.event.MouseEvent evt) {
+	private void jTableProductsMouseClicked(java.awt.event.MouseEvent evt) {
 		int index = jtblSalesClient.getSelectedRow();
 		showItemClient(index);
 		showItemClientSearch(index);
