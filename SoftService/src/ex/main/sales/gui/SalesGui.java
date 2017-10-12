@@ -1,21 +1,28 @@
 package ex.main.sales.gui;
 
+import java.awt.BorderLayout;
+import java.awt.Color;
+
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
 
 import ex.main.gui.MainGuiSet;
 import ex.main.setting.centerwindow.CenterWindow;
-import java.awt.Color;
+import java.awt.FlowLayout;
 
 public class SalesGui extends JFrame {
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	protected JPanel pnl, pnlSales, jpnlClient;
+	protected JPanel pnl, pnlSales, jpnlClient, jpnlDevice,panel;
 	protected JTabbedPane tbdPnSales;
+	
+	
 
 	public SalesGui() {
 		setComponent();
@@ -52,9 +59,25 @@ public class SalesGui extends JFrame {
 			}
 		});
 
-		jpnlClient = new JPanel();
-		jpnlClient.setBackground(new Color(102, 0, 153));
+		
+		
+		jpnlClient = new JPanel(new BorderLayout());
 		tbdPnSales.addTab("Ügyfél", null, jpnlClient, null);
+		
+		
+		jpnlDevice = new JPanel();
+		jpnlDevice.setBackground(new Color(102, 0, 153));
+		tbdPnSales.addTab("Eszköz", null, jpnlDevice, null);
+		
+		panel = new JPanel();
+		
+		tbdPnSales.addTab("New tab", null, panel, null);
+		
+		
+		
+	
+		
+		 
 		new CenterWindow().centerWindow(this);
 	}
 }

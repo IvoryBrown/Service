@@ -1,5 +1,6 @@
 package ex.main.sales.client.gui;
 
+import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Font;
 
@@ -18,6 +19,9 @@ import ex.main.sales.gui.SalesGui;
 
 public class ClientGui extends SalesGui {
 	public ClientGui() {
+		
+		
+		
 		setComponentClientGui();
 
 	}
@@ -36,8 +40,9 @@ public class ClientGui extends SalesGui {
 	protected JPanel panel;
 
 	private void setComponentClientGui() {
-		jpnlClient.setLayout(null);
-
+		
+		
+		
 		JScrollPane scrSalesClient = new JScrollPane();
 		scrSalesClient.setBounds(10, 377, 1219, 235);
 		jpnlClient.add(scrSalesClient);
@@ -48,6 +53,7 @@ public class ClientGui extends SalesGui {
 		scrSalesClient.setViewportView(jtblSalesClient);
 
 		panel = new JPanel();
+		panel.setBackground(new Color(216, 191, 216));
 		panel.setLayout(null);
 		panel.setBounds(10, 11, 468, 355);
 		jpnlClient.add(panel);
@@ -100,7 +106,7 @@ public class ClientGui extends SalesGui {
 		txtSalesClientMobil = new JTextField();
 		txtSalesClientMobil.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		txtSalesClientMobil.setColumns(10);
-		txtSalesClientMobil.setBackground(new Color(245, 255, 250));
+		
 		txtSalesClientMobil.setBounds(153, 101, 294, 35);
 		panel.add(txtSalesClientMobil);
 
