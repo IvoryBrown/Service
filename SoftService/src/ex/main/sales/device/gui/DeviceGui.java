@@ -11,6 +11,7 @@ import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.SwingConstants;
+import javax.swing.ImageIcon;
 
 public class DeviceGui extends ClientJDBCSetDAO {
 	public DeviceGui() {
@@ -124,5 +125,7 @@ public class DeviceGui extends ClientJDBCSetDAO {
 		label_4.setBounds(0, 287, 140, 35);
 		panel_1.add(label_4);
 		panel.setLayout(null);
+		
+		
 	}
 }

@@ -41,6 +41,7 @@ public class ClientJDBCSetDAO extends ClientGui implements ClientImplements {
 	private static final long serialVersionUID = 1L;
 
 	private void setActionSalesClient() {
+		
 		rows = new String[] { "ID", "azonosító", "név", "kapcsolat", "lakcím", "megjegyzés" };
 		jtblSalesClient.setModel(new javax.swing.table.DefaultTableModel(columns, rows));
 		jtblSalesClient.getColumn("ID").setMinWidth(30);
@@ -57,6 +58,7 @@ public class ClientJDBCSetDAO extends ClientGui implements ClientImplements {
 		jtblSalesClient.addMouseListener(new java.awt.event.MouseAdapter() {
 			public void mouseClicked(java.awt.event.MouseEvent evt) {
 				jTableProductsMouseClicked(evt);
+			
 			}
 		});
 
@@ -101,17 +103,17 @@ public class ClientJDBCSetDAO extends ClientGui implements ClientImplements {
 
 	private boolean checkInputsSalesClient() {
 		if (txtSalesClientName.getText().trim().isEmpty()) {
-			txtSalesClientName.setBackground(new Color(255, 250, 240));
+			txtSalesClientName.setBackground(new Color(255, 0, 0));;
 		} else {
 			txtSalesClientName.setBackground(new Color(245, 255, 250));
 		}
 		if (txtSalesClientMobil.getText().trim().isEmpty()) {
-			txtSalesClientMobil.setBackground(new Color(255, 250, 240));
+			txtSalesClientMobil.setBackground(new Color(255, 0, 0));;
 		} else {
 			txtSalesClientMobil.setBackground(new Color(245, 255, 250));
 		}
 		if (txtSalesClientHomeAddress.getText().trim().isEmpty()) {
-			txtSalesClientHomeAddress.setBackground(new Color(255, 250, 240));
+			txtSalesClientHomeAddress.setBackground(new Color(255, 0, 0));;
 		} else {
 			txtSalesClientHomeAddress.setBackground(new Color(245, 255, 250));
 		}
@@ -184,6 +186,7 @@ public class ClientJDBCSetDAO extends ClientGui implements ClientImplements {
 			row[5] = client.get(i).getSalesClientComment();
 			model.addRow(row);
 		}
+		
 	}
 
 	private void showProductsInJTableClient() {
@@ -351,6 +354,6 @@ public class ClientJDBCSetDAO extends ClientGui implements ClientImplements {
 		int index = jtblSalesClient.getSelectedRow();
 		showItemClient(index);
 		showItemClientSearch(index);
-
+		
 	}
 }
