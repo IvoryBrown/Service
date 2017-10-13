@@ -29,6 +29,7 @@ public class ClientJDBCSetDAO extends ClientGui implements ClientImplements {
 	String rows[];
 
 	public ClientJDBCSetDAO() {
+		jpnlClient.setBackground(Color.RED);
 		setActionSalesClient();
 		showProductsInJTableClient();
 		tableRows();
@@ -44,6 +45,7 @@ public class ClientJDBCSetDAO extends ClientGui implements ClientImplements {
 		
 		rows = new String[] { "ID", "azonosító", "név", "kapcsolat", "lakcím", "megjegyzés" };
 		jtblSalesClient.setModel(new javax.swing.table.DefaultTableModel(columns, rows));
+		
 		jtblSalesClient.getColumn("ID").setMinWidth(30);
 		jtblSalesClient.getColumn("ID").setMaxWidth(30);
 		jtblSalesClient.getColumn("azonosító").setMinWidth(90);

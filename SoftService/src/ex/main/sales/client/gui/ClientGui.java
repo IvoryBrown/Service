@@ -35,10 +35,7 @@ public class ClientGui extends SalesGui {
 			btnSalesClientSearch;
 	protected JComboBox<?> cmbSalesClientSearch;
 	protected JPanel pnlClientSetting;
-	private JLabel lblSalesClientImage;
 	private JLabel lblSalesClientSettingImage;
-	private JLabel lblSalesClientButtonImage;
-	private JLabel lblSalesClientSearchImage;
 
 	private void setComponentClientGui() {
 
@@ -48,7 +45,8 @@ public class ClientGui extends SalesGui {
 		jpnlClient.add(scrSalesClient);
 
 		jtblSalesClient = new JTable();
-		jtblSalesClient.setBackground(new Color(0, 0, 0));
+		jtblSalesClient.setBackground(Color.BLACK);
+	
 		jtblSalesClient.setForeground(new Color(153, 0, 0));
 		jtblSalesClient.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		jtblSalesClient.setRowHeight(30);
@@ -65,7 +63,7 @@ public class ClientGui extends SalesGui {
 		panel_2.add(pnlClientSetting);
 		pnlClientSetting.setBackground(new Color(0, 255, 255));
 		pnlClientSetting.setLayout(null);
-		pnlClientSetting.setBounds(10, 11, 468, 355);
+		pnlClientSetting.setBounds(0, 11, 478, 368);
 
 		JLabel lblSalesClientID = new JLabel("azonosító: ");
 		lblSalesClientID.setForeground(new Color(153, 0, 0));
@@ -151,83 +149,61 @@ public class ClientGui extends SalesGui {
 		txtSalesClientComment.setBackground(Color.WHITE);
 		scrPSalesClientComment.setViewportView(txtSalesClientComment);
 
-		lblSalesClientSettingImage = new JLabel(new ImageIcon(((new ImageIcon(
-				"F:\\Programozás\\Vállalat#\\Exicom\\Képek\\587cede4029fa159a80142ab.jpg"))
-				.getImage()).getScaledInstance(468, 355, java.awt.Image.SCALE_SMOOTH)));
-		lblSalesClientSettingImage.setBounds(0, 0, 468, 355);
+		lblSalesClientSettingImage = new JLabel(new ImageIcon(
+				((new ImageIcon("F:\\Programozás\\Vállalat#\\Exicom\\Képek\\587cede4029fa159a80142ab.jpg")).getImage())
+						.getScaledInstance(478, 368, java.awt.Image.SCALE_SMOOTH)));
+		lblSalesClientSettingImage.setBounds(0, 0, 478, 368);
 		pnlClientSetting.add(lblSalesClientSettingImage);
-
-		JPanel panel_3 = new JPanel();
-		panel_3.setBounds(481, 11, 251, 147);
-		panel_2.add(panel_3);
-		panel_3.setLayout(null);
 		cmbSalesClientSearch = new JComboBox<Object>(clientShearch);
+		cmbSalesClientSearch.setBounds(488, 57, 231, 35);
+		panel_2.add(cmbSalesClientSearch);
 		cmbSalesClientSearch.setBackground(new Color(0, 0, 0));
 		cmbSalesClientSearch.setForeground(Color.WHITE);
-		cmbSalesClientSearch.setBounds(10, 57, 231, 35);
-		panel_3.add(cmbSalesClientSearch);
 		cmbSalesClientSearch.setFont(new Font("Tahoma", Font.BOLD, 14));
 
 		btnSalesClientSearch = new JButton("");
+		btnSalesClientSearch.setBounds(662, 11, 57, 35);
+		panel_2.add(btnSalesClientSearch);
 		btnSalesClientSearch.setBackground(new Color(51, 0, 0));
-		btnSalesClientSearch.setBounds(184, 11, 57, 35);
-		panel_3.add(btnSalesClientSearch);
 		btnSalesClientSearch.setIcon(new ImageIcon(ClientGui.class.getResource("/icon/function/24x24/search.png")));
 
 		txtSalesClientSearch = new JTextField();
-		txtSalesClientSearch.setBounds(10, 11, 173, 35);
-		panel_3.add(txtSalesClientSearch);
+		txtSalesClientSearch.setBounds(488, 11, 173, 35);
+		panel_2.add(txtSalesClientSearch);
 		txtSalesClientSearch.setForeground(Color.WHITE);
 		txtSalesClientSearch.setFont(new Font("Tahoma", Font.BOLD, 14));
 		txtSalesClientSearch.setColumns(10);
 		txtSalesClientSearch.setBackground(new Color(153, 0, 0));
 
-		lblSalesClientSearchImage = new JLabel(new ImageIcon(((new ImageIcon(
-				"F:\\Programozás\\Vállalat#\\Exicom\\Képek\\images.jpg"))
-				.getImage()).getScaledInstance(252, 147, java.awt.Image.SCALE_SMOOTH)));
-	lblSalesClientSearchImage.setBounds(0, 0, 252, 147);
-		panel_3.add(lblSalesClientSearchImage);
-
-		JPanel pnlButton = new JPanel();
-		panel_2.add(pnlButton);
-		pnlButton.setBounds(481, 161, 83, 205);
-		pnlButton.setLayout(null);
-
-		btnSalesClientDelete = new JButton("");
-		btnSalesClientDelete.setBackground(new Color(51, 0, 0));
-		btnSalesClientDelete.setIcon(new ImageIcon(ClientGui.class.getResource("/icon/function/24x24/cross.png")));
-		btnSalesClientDelete.setBounds(10, 107, 60, 37);
-		pnlButton.add(btnSalesClientDelete);
-
-		btnSalesClientEdit = new JButton("");
-		btnSalesClientEdit.setBackground(new Color(51, 0, 0));
-		btnSalesClientEdit.setIcon(new ImageIcon(ClientGui.class.getResource("/icon/function/24x24/refresh.png")));
-		btnSalesClientEdit.setBounds(10, 59, 60, 37);
-		btnSalesClientEdit.setHorizontalAlignment(SwingConstants.LEADING);
-		pnlButton.add(btnSalesClientEdit);
-
 		btnSalesClientNewClient = new JButton("");
+		btnSalesClientNewClient.setBounds(488, 103, 60, 37);
+		panel_2.add(btnSalesClientNewClient);
 		btnSalesClientNewClient.setBackground(new Color(51, 0, 0));
 		btnSalesClientNewClient.setIcon(new ImageIcon(ClientGui.class.getResource("/icon/function/24x24/add.png")));
-		btnSalesClientNewClient.setBounds(10, 11, 60, 37);
-		pnlButton.add(btnSalesClientNewClient);
+
+		btnSalesClientEdit = new JButton("");
+		btnSalesClientEdit.setBounds(488, 151, 60, 37);
+		panel_2.add(btnSalesClientEdit);
+		btnSalesClientEdit.setBackground(new Color(51, 0, 0));
+		btnSalesClientEdit.setIcon(new ImageIcon(ClientGui.class.getResource("/icon/function/24x24/refresh.png")));
+		btnSalesClientEdit.setHorizontalAlignment(SwingConstants.LEADING);
+
+		btnSalesClientDelete = new JButton("");
+		btnSalesClientDelete.setBounds(488, 199, 60, 37);
+		panel_2.add(btnSalesClientDelete);
+		btnSalesClientDelete.setBackground(new Color(51, 0, 0));
+		btnSalesClientDelete.setIcon(new ImageIcon(ClientGui.class.getResource("/icon/function/24x24/cross.png")));
 
 		btnSalesClientNull = new JButton("");
+		btnSalesClientNull.setBounds(488, 247, 60, 37);
+		panel_2.add(btnSalesClientNull);
 		btnSalesClientNull.setBackground(new Color(51, 0, 0));
 		btnSalesClientNull.setIcon(new ImageIcon(ClientGui.class.getResource("/icon/function/24x24/home.png")));
-		btnSalesClientNull.setBounds(10, 155, 60, 37);
-		pnlButton.add(btnSalesClientNull);
 
-		lblSalesClientButtonImage = new JLabel(new ImageIcon(((new ImageIcon(
-				"F:\\Programozás\\Vállalat#\\Exicom\\Képek\\lava1.jpg"))
-						.getImage()).getScaledInstance(83, 205, java.awt.Image.SCALE_SMOOTH)));
-		lblSalesClientButtonImage.setBounds(0, 0, 83, 205);
-		pnlButton.add(lblSalesClientButtonImage);
-
-		lblSalesClientImage = new JLabel((new ImageIcon(((new ImageIcon(
-				"F:\\Programozás\\Vállalat#\\Exicom\\Képek\\Red-And-Black-Abstract-Wallpaper-3.jpg"))
-						.getImage()).getScaledInstance(1239, 634, java.awt.Image.SCALE_SMOOTH))));
-		lblSalesClientImage.setBounds(0, 0, 1239, 615);
-		panel_2.add(lblSalesClientImage);
+		JLabel lblNewLabel = new JLabel(new ImageIcon(
+				((new ImageIcon("F:\\Programozás\\Vállalat#\\Exicom\\Képek\\Red-And-Black-Abstract-Wallpaper-3.jpg"))
+						.getImage()).getScaledInstance(1239, 627, java.awt.Image.SCALE_SMOOTH)));
+		lblNewLabel.setBounds(0, 0, 1239, 627);
+		panel_2.add(lblNewLabel);
 	}
 }
