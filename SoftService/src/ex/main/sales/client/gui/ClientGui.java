@@ -34,24 +34,30 @@ public class ClientGui extends SalesGui {
 	protected JButton btnSalesClientDelete, btnSalesClientNewClient, btnSalesClientEdit, btnSalesClientNull,
 			btnSalesClientSearch;
 	protected JComboBox<?> cmbSalesClientSearch;
-	protected JPanel pnlClientSetting;
+	protected JPanel pnlClientSetting, pnlSalesDevice;
 	private JLabel lblSalesClientSettingImage;
+	private JTextField txtSalesDeviceClientName;
+	private JTextField txtSalesDeviceClientID;
 
 	private void setComponentClientGui() {
 
-		JScrollPane scrSalesClient = new JScrollPane();
-		scrSalesClient.setBackground(new Color(51, 0, 0));
-		scrSalesClient.setBounds(10, 377, 1219, 235);
-		jpnlClient.add(scrSalesClient);
+		
 
+		
 		jtblSalesClient = new JTable();
 		jtblSalesClient.setBackground(Color.BLACK);
-	
+
 		jtblSalesClient.setForeground(new Color(153, 0, 0));
 		jtblSalesClient.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		jtblSalesClient.setRowHeight(30);
-		scrSalesClient.setViewportView(jtblSalesClient);
-
+		
+		
+		
+		JScrollPane scrSalesClient = new JScrollPane(jtblSalesClient);
+		scrSalesClient.setBackground(new Color(51, 0, 0));
+		scrSalesClient.setBounds(10, 377, 1219, 235);
+		jpnlClient.add(scrSalesClient);
+		
 		JPanel panel_2 = new JPanel();
 		panel_2.setBounds(483, 11, 350, 56);
 		jpnlClient.add(panel_2);
@@ -205,5 +211,34 @@ public class ClientGui extends SalesGui {
 						.getImage()).getScaledInstance(1239, 627, java.awt.Image.SCALE_SMOOTH)));
 		lblNewLabel.setBounds(0, 0, 1239, 627);
 		panel_2.add(lblNewLabel);
+		jpnlDevice.setLayout(null);
+		
+		 pnlSalesDevice = new JPanel();
+		pnlSalesDevice.setLayout(null);
+		pnlSalesDevice.setBounds(10, 11, 378, 355);
+		jpnlDevice.add(pnlSalesDevice);
+		
+		JLabel lblSalesDeviceClientName = new JLabel("Ügyfél név:");
+		lblSalesDeviceClientName.setHorizontalAlignment(SwingConstants.RIGHT);
+		lblSalesDeviceClientName.setForeground(new Color(153, 0, 0));
+		lblSalesDeviceClientName.setFont(new Font("Tahoma", Font.BOLD, 15));
+		lblSalesDeviceClientName.setBounds(0, 0, 85, 35);
+		pnlSalesDevice.add(lblSalesDeviceClientName);
+		
+		txtSalesDeviceClientName = new JTextField();
+		txtSalesDeviceClientName.setEnabled(false);
+		txtSalesDeviceClientName.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		txtSalesDeviceClientName.setColumns(10);
+		txtSalesDeviceClientName.setBackground(new Color(245, 255, 250));
+		txtSalesDeviceClientName.setBounds(88, 0, 189, 35);
+		pnlSalesDevice.add(txtSalesDeviceClientName);
+		
+		txtSalesDeviceClientID = new JTextField();
+		txtSalesDeviceClientID.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		txtSalesDeviceClientID.setEnabled(false);
+		txtSalesDeviceClientID.setColumns(10);
+		txtSalesDeviceClientID.setBackground(new Color(245, 255, 250));
+		txtSalesDeviceClientID.setBounds(283, 0, 95, 35);
+		pnlSalesDevice.add(txtSalesDeviceClientID);
 	}
 }

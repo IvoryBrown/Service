@@ -1,21 +1,26 @@
 package ex.main.sales.device.gui;
 
-import ex.main.sales.client.ClientJDBCSetDAO;
-import javax.swing.JScrollPane;
-import javax.swing.JTable;
-import javax.swing.JPanel;
-import javax.swing.JTextField;
 import java.awt.Color;
 import java.awt.Font;
-import javax.swing.JButton;
+
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
+import javax.swing.JTextArea;
+import javax.swing.JTextField;
 import javax.swing.SwingConstants;
-import javax.swing.ImageIcon;
+
+import com.toedter.calendar.JDateChooser;
+
+import ex.main.sales.client.ClientJDBCSetDAO;
 
 public class DeviceGui extends ClientJDBCSetDAO {
 	public DeviceGui() {
-		
+		jpnlDevice.setBackground(Color.DARK_GRAY);
+		pnlSalesDevice.setBackground(Color.BLACK);
+
 		setGuiDeviceClient();
 	}
 
@@ -24,11 +29,13 @@ public class DeviceGui extends ClientJDBCSetDAO {
 	 */
 	private static final long serialVersionUID = -1289447200090810218L;
 	protected JTable jtblSalesDevice;
-	protected JTextField textField;
-	protected JButton button;
-	private JPanel panel_1;
-	private JTextField textField_1;
-	private JTextField textField_2;
+	protected JTextField txtSalesDevicePassword;
+	protected JTextField txtSalesDeviceID;
+	protected JTextField txtSalesdeviceType;
+	protected JComboBox<Object> cmbSalesDeviceName, cmbSalesDeviceCondition, cmbSalesDevicePriority,
+			cmbSalesDeviceSoftver, cmbSalesDeviceCleaning;
+	protected JDateChooser dateSalesDeviceBuying, dateSalesDeviceEndDate, dateSalesDeviceAddDate;
+	protected JTextArea txtSalesDeviceComment, txtSalesDeviceInjury, txtSalesDeviceAccesssory;
 
 	private void setGuiDeviceClient() {
 		jpnlDevice.setLayout(null);
@@ -39,93 +46,202 @@ public class DeviceGui extends ClientJDBCSetDAO {
 
 		jtblSalesDevice = new JTable();
 		scrDevice.setViewportView(jtblSalesDevice);
-		
-		JPanel panel = new JPanel();
-		panel.setLayout(null);
-		panel.setBounds(879, 11, 350, 56);
-		jpnlDevice.add(panel);
-		
-		textField = new JTextField();
-		textField.setForeground(Color.WHITE);
-		textField.setFont(new Font("Tahoma", Font.BOLD, 14));
-		textField.setColumns(10);
-		textField.setBackground(new Color(204, 51, 204));
-		textField.setBounds(10, 11, 152, 35);
-		panel.add(textField);
-		
-		 button = new JButton("");
-		button.setBounds(162, 11, 51, 35);
-		panel.add(button);
-		
-		JComboBox<Object> comboBox = new JComboBox<Object>(new Object[]{});
-		comboBox.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		comboBox.setBounds(217, 11, 123, 35);
-		panel.add(comboBox);
-		
-		panel_1 = new JPanel();
-		panel_1.setBounds(10, 11, 597, 332);
-		jpnlDevice.add(panel_1);
-		panel_1.setLayout(null);
-		
-		JLabel lblNv = new JLabel("név:");
-		lblNv.setHorizontalAlignment(SwingConstants.RIGHT);
-		lblNv.setFont(new Font("Tahoma", Font.BOLD, 15));
-		lblNv.setBounds(0, 11, 140, 35);
-		panel_1.add(lblNv);
-		
-		textField_1 = new JTextField();
-		textField_1.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		textField_1.setEnabled(false);
-		textField_1.setColumns(10);
-		textField_1.setBackground(new Color(245, 255, 250));
-		textField_1.setBounds(142, 11, 189, 35);
-		panel_1.add(textField_1);
-		
-		textField_2 = new JTextField();
-		textField_2.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		textField_2.setEnabled(false);
-		textField_2.setColumns(10);
-		textField_2.setBackground(new Color(245, 255, 250));
-		textField_2.setBounds(341, 11, 95, 35);
-		panel_1.add(textField_2);
-		
-		JLabel lblEszkz = new JLabel("eszköz:");
-		lblEszkz.setHorizontalAlignment(SwingConstants.RIGHT);
-		lblEszkz.setFont(new Font("Tahoma", Font.BOLD, 15));
-		lblEszkz.setBounds(0, 57, 140, 35);
-		panel_1.add(lblEszkz);
-		
-		JLabel label = new JLabel("azonosító: ");
-		label.setHorizontalAlignment(SwingConstants.RIGHT);
-		label.setFont(new Font("Tahoma", Font.BOLD, 15));
-		label.setBounds(0, 103, 140, 35);
-		panel_1.add(label);
-		
-		JLabel label_1 = new JLabel("azonosító: ");
-		label_1.setHorizontalAlignment(SwingConstants.RIGHT);
-		label_1.setFont(new Font("Tahoma", Font.BOLD, 15));
-		label_1.setBounds(0, 149, 140, 35);
-		panel_1.add(label_1);
-		
-		JLabel label_2 = new JLabel("azonosító: ");
-		label_2.setHorizontalAlignment(SwingConstants.RIGHT);
-		label_2.setFont(new Font("Tahoma", Font.BOLD, 15));
-		label_2.setBounds(0, 195, 140, 35);
-		panel_1.add(label_2);
-		
-		JLabel label_3 = new JLabel("azonosító: ");
-		label_3.setHorizontalAlignment(SwingConstants.RIGHT);
-		label_3.setFont(new Font("Tahoma", Font.BOLD, 15));
-		label_3.setBounds(0, 241, 140, 35);
-		panel_1.add(label_3);
-		
-		JLabel label_4 = new JLabel("azonosító: ");
-		label_4.setHorizontalAlignment(SwingConstants.RIGHT);
-		label_4.setFont(new Font("Tahoma", Font.BOLD, 15));
-		label_4.setBounds(0, 287, 140, 35);
-		panel_1.add(label_4);
-		panel.setLayout(null);
-		
-		
+
+		JPanel panel_2 = new JPanel();
+		panel_2.setBackground(Color.BLACK);
+		panel_2.setLayout(null);
+		panel_2.setBounds(398, 11, 369, 355);
+		jpnlDevice.add(panel_2);
+
+		JLabel lblSalesDeviceSoftver = new JLabel("softwer telepítés:");
+		lblSalesDeviceSoftver.setHorizontalAlignment(SwingConstants.RIGHT);
+		lblSalesDeviceSoftver.setForeground(new Color(153, 0, 0));
+		lblSalesDeviceSoftver.setFont(new Font("Tahoma", Font.BOLD, 15));
+		lblSalesDeviceSoftver.setBounds(0, 0, 140, 35);
+		panel_2.add(lblSalesDeviceSoftver);
+
+		JLabel lblSalesDeviceCleaning = new JLabel("takarítás:");
+		lblSalesDeviceCleaning.setHorizontalAlignment(SwingConstants.RIGHT);
+		lblSalesDeviceCleaning.setForeground(new Color(153, 0, 0));
+		lblSalesDeviceCleaning.setFont(new Font("Tahoma", Font.BOLD, 15));
+		lblSalesDeviceCleaning.setBounds(0, 46, 140, 35);
+		panel_2.add(lblSalesDeviceCleaning);
+
+		JLabel lblSalesDevicePassword = new JLabel("jelszó:");
+		lblSalesDevicePassword.setHorizontalAlignment(SwingConstants.RIGHT);
+		lblSalesDevicePassword.setForeground(new Color(153, 0, 0));
+		lblSalesDevicePassword.setFont(new Font("Tahoma", Font.BOLD, 15));
+		lblSalesDevicePassword.setBounds(0, 90, 140, 35);
+		panel_2.add(lblSalesDevicePassword);
+
+		JLabel lblSalesDeviceAccesssory = new JLabel("tartozékok:");
+		lblSalesDeviceAccesssory.setHorizontalAlignment(SwingConstants.RIGHT);
+		lblSalesDeviceAccesssory.setForeground(new Color(153, 0, 0));
+		lblSalesDeviceAccesssory.setFont(new Font("Tahoma", Font.BOLD, 15));
+		lblSalesDeviceAccesssory.setBounds(0, 136, 140, 35);
+		panel_2.add(lblSalesDeviceAccesssory);
+
+		txtSalesDevicePassword = new JTextField();
+		txtSalesDevicePassword.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		txtSalesDevicePassword.setColumns(10);
+		txtSalesDevicePassword.setBackground(new Color(245, 255, 250));
+		txtSalesDevicePassword.setBounds(144, 90, 195, 35);
+		panel_2.add(txtSalesDevicePassword);
+
+		cmbSalesDeviceSoftver = new JComboBox<Object>(new Object[] {});
+		cmbSalesDeviceSoftver.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		cmbSalesDeviceSoftver.setBounds(144, 0, 195, 35);
+		panel_2.add(cmbSalesDeviceSoftver);
+
+		cmbSalesDeviceCleaning = new JComboBox<Object>(new Object[] {});
+		cmbSalesDeviceCleaning.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		cmbSalesDeviceCleaning.setBounds(144, 44, 195, 35);
+		panel_2.add(cmbSalesDeviceCleaning);
+
+		JScrollPane scrSalesDeviceAccesssory = new JScrollPane();
+		scrSalesDeviceAccesssory.setBounds(144, 137, 224, 60);
+		panel_2.add(scrSalesDeviceAccesssory);
+
+		txtSalesDeviceAccesssory = new JTextArea();
+		scrSalesDeviceAccesssory.setViewportView(txtSalesDeviceAccesssory);
+		txtSalesDeviceAccesssory.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		txtSalesDeviceAccesssory.setBackground(new Color(245, 255, 250));
+
+		JScrollPane scrSalesDeviceInjury = new JScrollPane();
+		scrSalesDeviceInjury.setBounds(144, 208, 224, 60);
+		panel_2.add(scrSalesDeviceInjury);
+
+		txtSalesDeviceInjury = new JTextArea();
+		txtSalesDeviceInjury.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		txtSalesDeviceInjury.setBackground(new Color(245, 255, 250));
+		scrSalesDeviceInjury.setViewportView(txtSalesDeviceInjury);
+
+		JScrollPane scrSalesDeviceComment = new JScrollPane();
+		scrSalesDeviceComment.setBounds(144, 279, 224, 76);
+		panel_2.add(scrSalesDeviceComment);
+
+		txtSalesDeviceComment = new JTextArea();
+		txtSalesDeviceComment.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		txtSalesDeviceComment.setBackground(new Color(245, 255, 250));
+		scrSalesDeviceComment.setViewportView(txtSalesDeviceComment);
+
+		JLabel lblSalesDeviceInjury = new JLabel("sérlülés:");
+		lblSalesDeviceInjury.setHorizontalAlignment(SwingConstants.RIGHT);
+		lblSalesDeviceInjury.setForeground(new Color(153, 0, 0));
+		lblSalesDeviceInjury.setFont(new Font("Tahoma", Font.BOLD, 15));
+		lblSalesDeviceInjury.setBounds(0, 208, 140, 35);
+		panel_2.add(lblSalesDeviceInjury);
+
+		JLabel lblSalesDeviceComment = new JLabel("hiba leírása:");
+		lblSalesDeviceComment.setHorizontalAlignment(SwingConstants.RIGHT);
+		lblSalesDeviceComment.setForeground(new Color(153, 0, 0));
+		lblSalesDeviceComment.setFont(new Font("Tahoma", Font.BOLD, 15));
+		lblSalesDeviceComment.setBounds(0, 279, 140, 35);
+		panel_2.add(lblSalesDeviceComment);
+		pnlSalesDevice.setLayout(null);
+
+		JLabel lblSalesDevice = new JLabel("eszköz:");
+		lblSalesDevice.setHorizontalAlignment(SwingConstants.RIGHT);
+		lblSalesDevice.setForeground(new Color(153, 0, 0));
+		lblSalesDevice.setFont(new Font("Tahoma", Font.BOLD, 15));
+		lblSalesDevice.setBounds(0, 43, 85, 35);
+		pnlSalesDevice.add(lblSalesDevice);
+
+		cmbSalesDeviceName = new JComboBox<Object>(new Object[] {});
+		cmbSalesDeviceName.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		cmbSalesDeviceName.setBounds(88, 43, 189, 35);
+		pnlSalesDevice.add(cmbSalesDeviceName);
+
+		txtSalesDeviceID = new JTextField();
+		txtSalesDeviceID.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		txtSalesDeviceID.setEnabled(false);
+		txtSalesDeviceID.setColumns(10);
+		txtSalesDeviceID.setBackground(new Color(245, 255, 250));
+		txtSalesDeviceID.setBounds(283, 43, 95, 35);
+		pnlSalesDevice.add(txtSalesDeviceID);
+
+		txtSalesdeviceType = new JTextField();
+		txtSalesdeviceType.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		txtSalesdeviceType.setColumns(10);
+		txtSalesdeviceType.setBackground(new Color(245, 255, 250));
+		txtSalesdeviceType.setBounds(88, 90, 189, 35);
+		pnlSalesDevice.add(txtSalesdeviceType);
+
+		cmbSalesDeviceCondition = new JComboBox<Object>(new Object[] {});
+		cmbSalesDeviceCondition.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		cmbSalesDeviceCondition.setBounds(88, 136, 189, 35);
+		pnlSalesDevice.add(cmbSalesDeviceCondition);
+
+		cmbSalesDevicePriority = new JComboBox<Object>(new Object[] {});
+		cmbSalesDevicePriority.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		cmbSalesDevicePriority.setBounds(88, 182, 189, 35);
+		pnlSalesDevice.add(cmbSalesDevicePriority);
+
+		dateSalesDeviceBuying = new JDateChooser();
+		dateSalesDeviceBuying.getCalendarButton().setFont(new Font("Tahoma", Font.PLAIN, 14));
+		dateSalesDeviceBuying.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		dateSalesDeviceBuying.setDateFormatString("yyyy-MM-dd");
+		dateSalesDeviceBuying.setBackground(new Color(245, 255, 250));
+		dateSalesDeviceBuying.setBounds(88, 228, 189, 35);
+		pnlSalesDevice.add(dateSalesDeviceBuying);
+
+		dateSalesDeviceAddDate = new JDateChooser();
+		dateSalesDeviceAddDate.getCalendarButton().setFont(new Font("Tahoma", Font.PLAIN, 14));
+		dateSalesDeviceAddDate.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		dateSalesDeviceAddDate.setDateFormatString("yyyy-MM-dd");
+		dateSalesDeviceAddDate.setBackground(new Color(245, 255, 250));
+		dateSalesDeviceAddDate.setBounds(88, 274, 189, 35);
+		pnlSalesDevice.add(dateSalesDeviceAddDate);
+
+		dateSalesDeviceEndDate = new JDateChooser();
+		dateSalesDeviceEndDate.getCalendarButton().setFont(new Font("Tahoma", Font.PLAIN, 14));
+		dateSalesDeviceEndDate.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		dateSalesDeviceEndDate.setDateFormatString("yyyy-MM-dd");
+		dateSalesDeviceEndDate.setBackground(new Color(245, 255, 250));
+		dateSalesDeviceEndDate.setBounds(88, 320, 189, 35);
+		pnlSalesDevice.add(dateSalesDeviceEndDate);
+
+		JLabel lblSalesdeviceType = new JLabel("típus:");
+		lblSalesdeviceType.setHorizontalAlignment(SwingConstants.RIGHT);
+		lblSalesdeviceType.setForeground(new Color(153, 0, 0));
+		lblSalesdeviceType.setFont(new Font("Tahoma", Font.BOLD, 15));
+		lblSalesdeviceType.setBounds(0, 89, 85, 35);
+		pnlSalesDevice.add(lblSalesdeviceType);
+
+		JLabel lblSalesDeviceCondition = new JLabel("állapot:");
+		lblSalesDeviceCondition.setHorizontalAlignment(SwingConstants.RIGHT);
+		lblSalesDeviceCondition.setForeground(new Color(153, 0, 0));
+		lblSalesDeviceCondition.setFont(new Font("Tahoma", Font.BOLD, 15));
+		lblSalesDeviceCondition.setBounds(0, 136, 85, 35);
+		pnlSalesDevice.add(lblSalesDeviceCondition);
+
+		JLabel lblSalesDevicePriority = new JLabel("prioritás:");
+		lblSalesDevicePriority.setHorizontalAlignment(SwingConstants.RIGHT);
+		lblSalesDevicePriority.setForeground(new Color(153, 0, 0));
+		lblSalesDevicePriority.setFont(new Font("Tahoma", Font.BOLD, 15));
+		lblSalesDevicePriority.setBounds(0, 182, 85, 35);
+		pnlSalesDevice.add(lblSalesDevicePriority);
+
+		JLabel lblSalesDeviceBuying = new JLabel("vásárlás:");
+		lblSalesDeviceBuying.setHorizontalAlignment(SwingConstants.RIGHT);
+		lblSalesDeviceBuying.setForeground(new Color(153, 0, 0));
+		lblSalesDeviceBuying.setFont(new Font("Tahoma", Font.BOLD, 15));
+		lblSalesDeviceBuying.setBounds(0, 228, 85, 35);
+		pnlSalesDevice.add(lblSalesDeviceBuying);
+
+		JLabel lblSalesDeviceAddDate = new JLabel("rögzítés:");
+		lblSalesDeviceAddDate.setHorizontalAlignment(SwingConstants.RIGHT);
+		lblSalesDeviceAddDate.setForeground(new Color(153, 0, 0));
+		lblSalesDeviceAddDate.setFont(new Font("Tahoma", Font.BOLD, 15));
+		lblSalesDeviceAddDate.setBounds(0, 274, 85, 35);
+		pnlSalesDevice.add(lblSalesDeviceAddDate);
+
+		JLabel lblSalesDeviceEndDate = new JLabel("határidő:");
+		lblSalesDeviceEndDate.setHorizontalAlignment(SwingConstants.RIGHT);
+		lblSalesDeviceEndDate.setForeground(new Color(153, 0, 0));
+		lblSalesDeviceEndDate.setFont(new Font("Tahoma", Font.BOLD, 15));
+		lblSalesDeviceEndDate.setBounds(0, 320, 85, 35);
+		pnlSalesDevice.add(lblSalesDeviceEndDate);
+
 	}
 }
