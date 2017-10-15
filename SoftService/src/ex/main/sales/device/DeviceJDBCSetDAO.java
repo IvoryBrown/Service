@@ -4,7 +4,10 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -61,7 +64,13 @@ public class DeviceJDBCSetDAO extends DeviceGui implements DeviceImplements {
 		jtblSalesDevice.getColumn("sérülés").setMaxWidth(300);
 		jtblSalesDevice.getColumn("hiba").setMinWidth(400);
 		jtblSalesDevice.getColumn("hiba").setMaxWidth(400);
-		jtblSalesClient.getTableHeader().setReorderingAllowed(false);
+		jtblSalesDevice.getTableHeader().setReorderingAllowed(false);
+		jtblSalesDevice.addMouseListener(new java.awt.event.MouseAdapter() {
+			public void mouseClicked(java.awt.event.MouseEvent evt) {
+				jTableProductsMouseClickedDevice(evt);
+
+			}
+		});
 	}
 
 	@Override
@@ -95,6 +104,7 @@ public class DeviceJDBCSetDAO extends DeviceGui implements DeviceImplements {
 		// TODO Automatikusan előállított metóduscsonk
 		return null;
 	}
+
 	private void showProductsInJTableDevice() {
 		ArrayList<DeviceConfig> listDevice = getSalesDeviceProductList();
 		DefaultTableModel modelDevice = (DefaultTableModel) jtblSalesDevice.getModel();
@@ -117,5 +127,28 @@ public class DeviceJDBCSetDAO extends DeviceGui implements DeviceImplements {
 			rowDevice[13] = listDevice.get(i).getComment();
 			modelDevice.addRow(rowDevice);
 		}
+	}
+
+	public void showItemDevice(int index) {
+		txtSalesDeviceAccesssory.setText(getSalesDeviceProductList().get(index).getSalesDeviceAccesssory());
+		txtSalesDeviceClientName.setText(getSalesDeviceProductList().get(index).getSalesDeviceClientName());
+		try {
+			Date buyingDate = null;
+
+			if (getSalesDeviceProductList().get(index).getSalesDeviceBuyingDate() != null) {
+				buyingDate = new SimpleDateFormat("yyyy-MM-dd")
+						.parse((String) getSalesDeviceProductList().get(index).getSalesDeviceBuyingDate());
+			}
+			dateSalesDeviceBuying.setDate(buyingDate);
+
+		} catch (ParseException ex) {
+			Logger.getLogger(DeviceJDBCSetDAO.class.getName()).log(Level.SEVERE, null, ex);
+		}
+	}
+
+	private void jTableProductsMouseClickedDevice(java.awt.event.MouseEvent evt) {
+		int index = jtblSalesDevice.getSelectedRow();
+		showItemDevice(index);
+
 	}
 }

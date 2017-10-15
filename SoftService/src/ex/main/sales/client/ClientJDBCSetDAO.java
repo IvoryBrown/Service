@@ -207,22 +207,29 @@ public class ClientJDBCSetDAO extends ClientGui implements ClientImplements {
 		}
 	}
 
-	public void showItemClientSearch(int index) {
+	private void showItemClientSearch(int index) {
 		txtSalesClientID.setText(Integer.toString(getListClient().get(index).getSalesClientID()));
 		txtSalesClientNumber.setText(getListClient().get(index).getSalesClientNumber());
 		txtSalesClientName.setText(getListClient().get(index).getSalesClientName());
 		txtSalesClientMobil.setText(getListClient().get(index).getSalesClientMobil());
 		txtSalesClientHomeAddress.setText(getListClient().get(index).getSalesClientHomeAddress());
 		txtSalesClientComment.setText(getListClient().get(index).getSalesClientComment());
+		// Device set
+		txtSalesDeviceClientName.setText(getListClient().get(index).getSalesClientName());
+		txtSalesDeviceClientID.setText(Integer.toString(getListClient().get(index).getSalesClientID()));
 	}
 
-	public void showItemClient(int index) {
+	private void showItemClient(int index) {
 		txtSalesClientID.setText(Integer.toString(getClientProductList().get(index).getSalesClientID()));
 		txtSalesClientNumber.setText(getClientProductList().get(index).getSalesClientNumber());
 		txtSalesClientName.setText(getClientProductList().get(index).getSalesClientName());
 		txtSalesClientMobil.setText(getClientProductList().get(index).getSalesClientMobil());
 		txtSalesClientHomeAddress.setText(getClientProductList().get(index).getSalesClientHomeAddress());
 		txtSalesClientComment.setText(getClientProductList().get(index).getSalesClientComment());
+		// device set
+		txtSalesDeviceClientName.setText(getClientProductList().get(index).getSalesClientName());
+		txtSalesDeviceClientID.setText(Integer.toString(getClientProductList().get(index).getSalesClientID()));
+		
 	}
 
 	private void jBtnInsertActionPerformedSalesClient() {

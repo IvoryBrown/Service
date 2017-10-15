@@ -93,24 +93,27 @@ public class DeviceGui extends ClientJDBCSetDAO {
 		panel_2.add(lblSalesDeviceAccesssory);
 
 		txtSalesDevicePassword = new JTextField();
+		txtSalesDevicePassword.setForeground(new Color(51, 0, 0));
 		txtSalesDevicePassword.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		txtSalesDevicePassword.setColumns(10);
-		txtSalesDevicePassword.setBackground(new Color(245, 255, 250));
+		txtSalesDevicePassword.setBackground(Color.WHITE);
 		txtSalesDevicePassword.setBounds(144, 90, 195, 35);
 		panel_2.add(txtSalesDevicePassword);
 
 		String boxDeviceSoftwer[] = { "Igen", "Nem" };
 		cmbSalesDeviceSoftver = new JComboBox<Object>(boxDeviceSoftwer);
 		cmbSalesDeviceSoftver.setBackground(Color.BLACK);
-		cmbSalesDeviceSoftver.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		cmbSalesDeviceSoftver.setFont(new Font("Tahoma", Font.BOLD, 14));
 		cmbSalesDeviceSoftver.setBounds(144, 0, 195, 35);
+		cmbSalesDeviceSoftver.setSelectedItem(null);
 		panel_2.add(cmbSalesDeviceSoftver);
 
 		String BoxCleaning[] = { "Igen", "Nem" };
 		cmbSalesDeviceCleaning = new JComboBox<Object>(BoxCleaning);
 		cmbSalesDeviceCleaning.setBackground(Color.BLACK);
-		cmbSalesDeviceCleaning.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		cmbSalesDeviceCleaning.setFont(new Font("Tahoma", Font.BOLD, 14));
 		cmbSalesDeviceCleaning.setBounds(144, 44, 195, 35);
+		cmbSalesDeviceCleaning.setSelectedItem(null);
 		panel_2.add(cmbSalesDeviceCleaning);
 
 		JScrollPane scrSalesDeviceAccesssory = new JScrollPane();
@@ -118,17 +121,19 @@ public class DeviceGui extends ClientJDBCSetDAO {
 		panel_2.add(scrSalesDeviceAccesssory);
 
 		txtSalesDeviceAccesssory = new JTextArea();
+		txtSalesDeviceAccesssory.setForeground(new Color(51, 0, 0));
 		scrSalesDeviceAccesssory.setViewportView(txtSalesDeviceAccesssory);
 		txtSalesDeviceAccesssory.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		txtSalesDeviceAccesssory.setBackground(new Color(245, 255, 250));
+		txtSalesDeviceAccesssory.setBackground(Color.WHITE);
 
 		JScrollPane scrSalesDeviceInjury = new JScrollPane();
 		scrSalesDeviceInjury.setBounds(144, 208, 224, 60);
 		panel_2.add(scrSalesDeviceInjury);
 
 		txtSalesDeviceInjury = new JTextArea();
+		txtSalesDeviceInjury.setForeground(new Color(51, 0, 0));
 		txtSalesDeviceInjury.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		txtSalesDeviceInjury.setBackground(new Color(245, 255, 250));
+		txtSalesDeviceInjury.setBackground(Color.WHITE);
 		scrSalesDeviceInjury.setViewportView(txtSalesDeviceInjury);
 
 		JScrollPane scrSalesDeviceComment = new JScrollPane();
@@ -136,8 +141,9 @@ public class DeviceGui extends ClientJDBCSetDAO {
 		panel_2.add(scrSalesDeviceComment);
 
 		txtSalesDeviceComment = new JTextArea();
+		txtSalesDeviceComment.setForeground(new Color(51, 0, 0));
 		txtSalesDeviceComment.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		txtSalesDeviceComment.setBackground(new Color(245, 255, 250));
+		txtSalesDeviceComment.setBackground(Color.WHITE);
 		scrSalesDeviceComment.setViewportView(txtSalesDeviceComment);
 
 		JLabel lblSalesDeviceInjury = new JLabel("sérlülés:");
@@ -164,9 +170,11 @@ public class DeviceGui extends ClientJDBCSetDAO {
 
 		String boxDevice[] = { "Számítógép", "Notebook", "Nyomtató", "Monitor", "Projektor", "Egyéb" };
 		cmbSalesDeviceName = new JComboBox<Object>(boxDevice);
+		cmbSalesDeviceName.setForeground(Color.BLACK);
 		cmbSalesDeviceName.setBackground(Color.BLACK);
-		cmbSalesDeviceName.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		cmbSalesDeviceName.setFont(new Font("Tahoma", Font.BOLD, 14));
 		cmbSalesDeviceName.setBounds(88, 43, 189, 35);
+		cmbSalesDeviceName.setSelectedItem(null);
 		pnlSalesDevice.add(cmbSalesDeviceName);
 
 		txtSalesDeviceID = new JTextField();
@@ -178,35 +186,40 @@ public class DeviceGui extends ClientJDBCSetDAO {
 		pnlSalesDevice.add(txtSalesDeviceID);
 
 		txtSalesdeviceType = new JTextField();
-		txtSalesdeviceType.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		txtSalesdeviceType.setForeground(new Color(51, 0, 0));
+		txtSalesdeviceType.setFont(new Font("Tahoma", Font.BOLD, 14));
 		txtSalesdeviceType.setColumns(10);
-		txtSalesdeviceType.setBackground(new Color(245, 255, 250));
+		txtSalesdeviceType.setBackground(Color.WHITE);
 		txtSalesdeviceType.setBounds(88, 90, 189, 35);
 		pnlSalesDevice.add(txtSalesdeviceType);
 
 		String boxStatus[] = { "Bevizsgálás alatt", "Alkatrészre vár", "Garanciális", "Bevizsgálva" };
 		cmbSalesDeviceCondition = new JComboBox<Object>(boxStatus);
 		cmbSalesDeviceCondition.setBackground(Color.BLACK);
-		cmbSalesDeviceCondition.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		cmbSalesDeviceCondition.setFont(new Font("Tahoma", Font.BOLD, 14));
 		cmbSalesDeviceCondition.setBounds(88, 136, 189, 35);
+		cmbSalesDeviceCondition.setSelectedItem(null);
 		pnlSalesDevice.add(cmbSalesDeviceCondition);
 
 		String boxPriority[] = { "Alap", "Szerződött", "Sűrgős" };
 		cmbSalesDevicePriority = new JComboBox<Object>(boxPriority);
 		cmbSalesDevicePriority.setBackground(Color.BLACK);
-		cmbSalesDevicePriority.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		cmbSalesDevicePriority.setFont(new Font("Tahoma", Font.BOLD, 14));
 		cmbSalesDevicePriority.setBounds(88, 182, 189, 35);
+		cmbSalesDevicePriority.setSelectedItem(null);
 		pnlSalesDevice.add(cmbSalesDevicePriority);
 
 		dateSalesDeviceBuying = new JDateChooser();
+		dateSalesDeviceBuying.setForeground(new Color(51, 0, 0));
 		dateSalesDeviceBuying.getCalendarButton().setFont(new Font("Tahoma", Font.PLAIN, 14));
-		dateSalesDeviceBuying.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		dateSalesDeviceBuying.setFont(new Font("Tahoma", Font.BOLD, 14));
 		dateSalesDeviceBuying.setDateFormatString("yyyy-MM-dd");
 		dateSalesDeviceBuying.setBackground(new Color(245, 255, 250));
 		dateSalesDeviceBuying.setBounds(88, 228, 189, 35);
 		pnlSalesDevice.add(dateSalesDeviceBuying);
 
 		dateSalesDeviceAddDate = new JDateChooser();
+		dateSalesDeviceAddDate.setForeground(new Color(51, 0, 0));
 		dateSalesDeviceAddDate.getCalendarButton().setFont(new Font("Tahoma", Font.PLAIN, 14));
 		dateSalesDeviceAddDate.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		dateSalesDeviceAddDate.setDateFormatString("yyyy-MM-dd");
@@ -215,6 +228,7 @@ public class DeviceGui extends ClientJDBCSetDAO {
 		pnlSalesDevice.add(dateSalesDeviceAddDate);
 
 		dateSalesDeviceEndDate = new JDateChooser();
+		dateSalesDeviceEndDate.setForeground(new Color(51, 0, 0));
 		dateSalesDeviceEndDate.getCalendarButton().setFont(new Font("Tahoma", Font.PLAIN, 14));
 		dateSalesDeviceEndDate.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		dateSalesDeviceEndDate.setDateFormatString("yyyy-MM-dd");

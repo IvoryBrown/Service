@@ -36,8 +36,8 @@ public class ClientGui extends SalesGui {
 	protected JComboBox<?> cmbSalesClientSearch;
 	protected JPanel pnlClientSetting, pnlSalesDevice;
 	private JLabel lblSalesClientSettingImage;
-	private JTextField txtSalesDeviceClientName;
-	private JTextField txtSalesDeviceClientID;
+	protected JTextField txtSalesDeviceClientName;
+	protected JTextField txtSalesDeviceClientID;
 
 	private void setComponentClientGui() {
 
