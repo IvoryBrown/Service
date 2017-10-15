@@ -3,6 +3,8 @@ package ex.main.sales.device.gui;
 import java.awt.Color;
 import java.awt.Font;
 
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -18,6 +20,7 @@ import ex.main.sales.client.ClientJDBCSetDAO;
 
 public class DeviceGui extends ClientJDBCSetDAO {
 	public DeviceGui() {
+		pnlSalesDevice.setBounds(10, 11, 378, 362);
 		jpnlDevice.setBackground(Color.DARK_GRAY);
 		pnlSalesDevice.setBackground(Color.BLACK);
 
@@ -33,24 +36,32 @@ public class DeviceGui extends ClientJDBCSetDAO {
 	protected JTextField txtSalesDeviceID;
 	protected JTextField txtSalesdeviceType;
 	protected JComboBox<Object> cmbSalesDeviceName, cmbSalesDeviceCondition, cmbSalesDevicePriority,
-			cmbSalesDeviceSoftver, cmbSalesDeviceCleaning;
+			cmbSalesDeviceSoftver, cmbSalesDeviceCleaning, cmbSalesDeviceSearch;
 	protected JDateChooser dateSalesDeviceBuying, dateSalesDeviceEndDate, dateSalesDeviceAddDate;
 	protected JTextArea txtSalesDeviceComment, txtSalesDeviceInjury, txtSalesDeviceAccesssory;
+	protected JTextField txtSalesDeviceSearch;
+	protected JButton btnSalesDeviceSearch, btnSalesDeviceNew, btnSalesDeviceEdit, btnSalesDeviceDelete,
+			btnSalesDeviceNull;
 
 	private void setGuiDeviceClient() {
 		jpnlDevice.setLayout(null);
 
-		JScrollPane scrDevice = new JScrollPane();
+		jtblSalesDevice = new JTable();
+		jtblSalesDevice.setBackground(Color.BLACK);
+		jtblSalesDevice.setForeground(new Color(153, 0, 0));
+		jtblSalesDevice.setFont(new Font("Tahoma", Font.PLAIN, 15));
+		jtblSalesDevice.setRowHeight(30);
+
+		JScrollPane scrDevice = new JScrollPane(jtblSalesDevice, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED,
+				JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
 		scrDevice.setBounds(10, 377, 1219, 235);
 		jpnlDevice.add(scrDevice);
-
-		jtblSalesDevice = new JTable();
-		scrDevice.setViewportView(jtblSalesDevice);
+		jtblSalesDevice.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
 
 		JPanel panel_2 = new JPanel();
 		panel_2.setBackground(Color.BLACK);
 		panel_2.setLayout(null);
-		panel_2.setBounds(398, 11, 369, 355);
+		panel_2.setBounds(398, 11, 369, 362);
 		jpnlDevice.add(panel_2);
 
 		JLabel lblSalesDeviceSoftver = new JLabel("softwer telepítés:");
@@ -88,12 +99,16 @@ public class DeviceGui extends ClientJDBCSetDAO {
 		txtSalesDevicePassword.setBounds(144, 90, 195, 35);
 		panel_2.add(txtSalesDevicePassword);
 
-		cmbSalesDeviceSoftver = new JComboBox<Object>(new Object[] {});
+		String boxDeviceSoftwer[] = { "Igen", "Nem" };
+		cmbSalesDeviceSoftver = new JComboBox<Object>(boxDeviceSoftwer);
+		cmbSalesDeviceSoftver.setBackground(Color.BLACK);
 		cmbSalesDeviceSoftver.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		cmbSalesDeviceSoftver.setBounds(144, 0, 195, 35);
 		panel_2.add(cmbSalesDeviceSoftver);
 
-		cmbSalesDeviceCleaning = new JComboBox<Object>(new Object[] {});
+		String BoxCleaning[] = { "Igen", "Nem" };
+		cmbSalesDeviceCleaning = new JComboBox<Object>(BoxCleaning);
+		cmbSalesDeviceCleaning.setBackground(Color.BLACK);
 		cmbSalesDeviceCleaning.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		cmbSalesDeviceCleaning.setBounds(144, 44, 195, 35);
 		panel_2.add(cmbSalesDeviceCleaning);
@@ -147,7 +162,9 @@ public class DeviceGui extends ClientJDBCSetDAO {
 		lblSalesDevice.setBounds(0, 43, 85, 35);
 		pnlSalesDevice.add(lblSalesDevice);
 
-		cmbSalesDeviceName = new JComboBox<Object>(new Object[] {});
+		String boxDevice[] = { "Számítógép", "Notebook", "Nyomtató", "Monitor", "Projektor", "Egyéb" };
+		cmbSalesDeviceName = new JComboBox<Object>(boxDevice);
+		cmbSalesDeviceName.setBackground(Color.BLACK);
 		cmbSalesDeviceName.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		cmbSalesDeviceName.setBounds(88, 43, 189, 35);
 		pnlSalesDevice.add(cmbSalesDeviceName);
@@ -167,12 +184,16 @@ public class DeviceGui extends ClientJDBCSetDAO {
 		txtSalesdeviceType.setBounds(88, 90, 189, 35);
 		pnlSalesDevice.add(txtSalesdeviceType);
 
-		cmbSalesDeviceCondition = new JComboBox<Object>(new Object[] {});
+		String boxStatus[] = { "Bevizsgálás alatt", "Alkatrészre vár", "Garanciális", "Bevizsgálva" };
+		cmbSalesDeviceCondition = new JComboBox<Object>(boxStatus);
+		cmbSalesDeviceCondition.setBackground(Color.BLACK);
 		cmbSalesDeviceCondition.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		cmbSalesDeviceCondition.setBounds(88, 136, 189, 35);
 		pnlSalesDevice.add(cmbSalesDeviceCondition);
 
-		cmbSalesDevicePriority = new JComboBox<Object>(new Object[] {});
+		String boxPriority[] = { "Alap", "Szerződött", "Sűrgős" };
+		cmbSalesDevicePriority = new JComboBox<Object>(boxPriority);
+		cmbSalesDevicePriority.setBackground(Color.BLACK);
 		cmbSalesDevicePriority.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		cmbSalesDevicePriority.setBounds(88, 182, 189, 35);
 		pnlSalesDevice.add(cmbSalesDevicePriority);
@@ -242,6 +263,51 @@ public class DeviceGui extends ClientJDBCSetDAO {
 		lblSalesDeviceEndDate.setFont(new Font("Tahoma", Font.BOLD, 15));
 		lblSalesDeviceEndDate.setBounds(0, 320, 85, 35);
 		pnlSalesDevice.add(lblSalesDeviceEndDate);
+
+		txtSalesDeviceSearch = new JTextField();
+		txtSalesDeviceSearch.setForeground(Color.WHITE);
+		txtSalesDeviceSearch.setFont(new Font("Tahoma", Font.BOLD, 14));
+		txtSalesDeviceSearch.setColumns(10);
+		txtSalesDeviceSearch.setBackground(new Color(153, 0, 0));
+		txtSalesDeviceSearch.setBounds(777, 11, 173, 35);
+		jpnlDevice.add(txtSalesDeviceSearch);
+
+		btnSalesDeviceSearch = new JButton("");
+		btnSalesDeviceSearch.setBackground(new Color(51, 0, 0));
+		btnSalesDeviceSearch.setBounds(954, 11, 57, 35);
+		jpnlDevice.add(btnSalesDeviceSearch);
+
+		cmbSalesDeviceSearch = new JComboBox<Object>(new Object[] {});
+		cmbSalesDeviceSearch.setForeground(Color.WHITE);
+		cmbSalesDeviceSearch.setFont(new Font("Tahoma", Font.BOLD, 14));
+		cmbSalesDeviceSearch.setBackground(Color.BLACK);
+		cmbSalesDeviceSearch.setBounds(777, 57, 234, 35);
+		jpnlDevice.add(cmbSalesDeviceSearch);
+
+		btnSalesDeviceNew = new JButton("");
+		btnSalesDeviceNew.setBackground(new Color(51, 0, 0));
+		btnSalesDeviceNew.setBounds(777, 103, 60, 37);
+		btnSalesDeviceNew.setIcon(new ImageIcon(DeviceGui.class.getResource("/icon/function/24x24/add.png")));
+		jpnlDevice.add(btnSalesDeviceNew);
+
+		btnSalesDeviceEdit = new JButton("");
+		btnSalesDeviceEdit.setHorizontalAlignment(SwingConstants.LEADING);
+		btnSalesDeviceEdit.setBackground(new Color(51, 0, 0));
+		btnSalesDeviceEdit.setBounds(777, 151, 60, 37);
+		btnSalesDeviceEdit.setIcon(new ImageIcon(DeviceGui.class.getResource("/icon/function/24x24/refresh.png")));
+		jpnlDevice.add(btnSalesDeviceEdit);
+
+		btnSalesDeviceDelete = new JButton("");
+		btnSalesDeviceDelete.setBackground(new Color(51, 0, 0));
+		btnSalesDeviceDelete.setBounds(777, 199, 60, 37);
+		btnSalesDeviceDelete.setIcon(new ImageIcon(DeviceGui.class.getResource("/icon/function/24x24/cross.png")));
+		jpnlDevice.add(btnSalesDeviceDelete);
+
+		btnSalesDeviceNull = new JButton("");
+		btnSalesDeviceNull.setBackground(new Color(51, 0, 0));
+		btnSalesDeviceNull.setBounds(777, 247, 60, 37);
+		btnSalesDeviceNull.setIcon(new ImageIcon(DeviceGui.class.getResource("/icon/function/24x24/home.png")));
+		jpnlDevice.add(btnSalesDeviceNull);
 
 	}
 }

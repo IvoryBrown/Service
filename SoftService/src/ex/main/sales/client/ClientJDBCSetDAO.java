@@ -46,8 +46,8 @@ public class ClientJDBCSetDAO extends ClientGui implements ClientImplements {
 		rows = new String[] { "ID", "azonosító", "név", "kapcsolat", "lakcím", "megjegyzés" };
 		jtblSalesClient.setModel(new javax.swing.table.DefaultTableModel(columns, rows));
 		
-		jtblSalesClient.getColumn("ID").setMinWidth(30);
-		jtblSalesClient.getColumn("ID").setMaxWidth(30);
+		jtblSalesClient.getColumn("ID").setMinWidth(50);
+		jtblSalesClient.getColumn("ID").setMaxWidth(50);
 		jtblSalesClient.getColumn("azonosító").setMinWidth(90);
 		jtblSalesClient.getColumn("azonosító").setMaxWidth(90);
 		jtblSalesClient.getColumn("név").setMinWidth(230);
