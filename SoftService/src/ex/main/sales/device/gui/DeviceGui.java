@@ -61,7 +61,7 @@ public class DeviceGui extends ClientJDBCSetDAO {
 		JPanel panel_2 = new JPanel();
 		panel_2.setBackground(Color.BLACK);
 		panel_2.setLayout(null);
-		panel_2.setBounds(398, 11, 369, 362);
+		panel_2.setBounds(398, 11, 509, 362);
 		jpnlDevice.add(panel_2);
 
 		JLabel lblSalesDeviceSoftver = new JLabel("softwer telepítés:");
@@ -92,9 +92,9 @@ public class DeviceGui extends ClientJDBCSetDAO {
 		lblSalesDeviceAccesssory.setBounds(0, 136, 140, 35);
 		panel_2.add(lblSalesDeviceAccesssory);
 
-		txtSalesDevicePassword = new JTextField();
+		txtSalesDevicePassword = new JTextField("-");
 		txtSalesDevicePassword.setForeground(new Color(51, 0, 0));
-		txtSalesDevicePassword.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		txtSalesDevicePassword.setFont(new Font("Tahoma", Font.BOLD, 14));
 		txtSalesDevicePassword.setColumns(10);
 		txtSalesDevicePassword.setBackground(Color.WHITE);
 		txtSalesDevicePassword.setBounds(144, 90, 195, 35);
@@ -117,32 +117,32 @@ public class DeviceGui extends ClientJDBCSetDAO {
 		panel_2.add(cmbSalesDeviceCleaning);
 
 		JScrollPane scrSalesDeviceAccesssory = new JScrollPane();
-		scrSalesDeviceAccesssory.setBounds(144, 137, 224, 60);
+		scrSalesDeviceAccesssory.setBounds(144, 137, 355, 60);
 		panel_2.add(scrSalesDeviceAccesssory);
 
-		txtSalesDeviceAccesssory = new JTextArea();
+		txtSalesDeviceAccesssory = new JTextArea("-");
 		txtSalesDeviceAccesssory.setForeground(new Color(51, 0, 0));
 		scrSalesDeviceAccesssory.setViewportView(txtSalesDeviceAccesssory);
-		txtSalesDeviceAccesssory.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		txtSalesDeviceAccesssory.setFont(new Font("Tahoma", Font.BOLD, 14));
 		txtSalesDeviceAccesssory.setBackground(Color.WHITE);
 
 		JScrollPane scrSalesDeviceInjury = new JScrollPane();
-		scrSalesDeviceInjury.setBounds(144, 208, 224, 60);
+		scrSalesDeviceInjury.setBounds(144, 208, 355, 60);
 		panel_2.add(scrSalesDeviceInjury);
 
-		txtSalesDeviceInjury = new JTextArea();
+		txtSalesDeviceInjury = new JTextArea("-");
 		txtSalesDeviceInjury.setForeground(new Color(51, 0, 0));
-		txtSalesDeviceInjury.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		txtSalesDeviceInjury.setFont(new Font("Tahoma", Font.BOLD, 14));
 		txtSalesDeviceInjury.setBackground(Color.WHITE);
 		scrSalesDeviceInjury.setViewportView(txtSalesDeviceInjury);
 
 		JScrollPane scrSalesDeviceComment = new JScrollPane();
-		scrSalesDeviceComment.setBounds(144, 279, 224, 76);
+		scrSalesDeviceComment.setBounds(144, 279, 355, 76);
 		panel_2.add(scrSalesDeviceComment);
 
 		txtSalesDeviceComment = new JTextArea();
 		txtSalesDeviceComment.setForeground(new Color(51, 0, 0));
-		txtSalesDeviceComment.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		txtSalesDeviceComment.setFont(new Font("Tahoma", Font.BOLD, 14));
 		txtSalesDeviceComment.setBackground(Color.WHITE);
 		scrSalesDeviceComment.setViewportView(txtSalesDeviceComment);
 
@@ -221,7 +221,7 @@ public class DeviceGui extends ClientJDBCSetDAO {
 		dateSalesDeviceAddDate = new JDateChooser();
 		dateSalesDeviceAddDate.setForeground(new Color(51, 0, 0));
 		dateSalesDeviceAddDate.getCalendarButton().setFont(new Font("Tahoma", Font.PLAIN, 14));
-		dateSalesDeviceAddDate.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		dateSalesDeviceAddDate.setFont(new Font("Tahoma", Font.BOLD, 14));
 		dateSalesDeviceAddDate.setDateFormatString("yyyy-MM-dd");
 		dateSalesDeviceAddDate.setBackground(new Color(245, 255, 250));
 		dateSalesDeviceAddDate.setBounds(88, 274, 189, 35);
@@ -230,7 +230,7 @@ public class DeviceGui extends ClientJDBCSetDAO {
 		dateSalesDeviceEndDate = new JDateChooser();
 		dateSalesDeviceEndDate.setForeground(new Color(51, 0, 0));
 		dateSalesDeviceEndDate.getCalendarButton().setFont(new Font("Tahoma", Font.PLAIN, 14));
-		dateSalesDeviceEndDate.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		dateSalesDeviceEndDate.setFont(new Font("Tahoma", Font.BOLD, 14));
 		dateSalesDeviceEndDate.setDateFormatString("yyyy-MM-dd");
 		dateSalesDeviceEndDate.setBackground(new Color(245, 255, 250));
 		dateSalesDeviceEndDate.setBounds(88, 320, 189, 35);
@@ -283,43 +283,43 @@ public class DeviceGui extends ClientJDBCSetDAO {
 		txtSalesDeviceSearch.setFont(new Font("Tahoma", Font.BOLD, 14));
 		txtSalesDeviceSearch.setColumns(10);
 		txtSalesDeviceSearch.setBackground(new Color(153, 0, 0));
-		txtSalesDeviceSearch.setBounds(777, 11, 173, 35);
+		txtSalesDeviceSearch.setBounds(917, 11, 173, 35);
 		jpnlDevice.add(txtSalesDeviceSearch);
 
 		btnSalesDeviceSearch = new JButton("");
 		btnSalesDeviceSearch.setBackground(new Color(51, 0, 0));
-		btnSalesDeviceSearch.setBounds(954, 11, 57, 35);
+		btnSalesDeviceSearch.setBounds(1100, 11, 57, 35);
 		jpnlDevice.add(btnSalesDeviceSearch);
 
 		cmbSalesDeviceSearch = new JComboBox<Object>(new Object[] {});
 		cmbSalesDeviceSearch.setForeground(Color.WHITE);
 		cmbSalesDeviceSearch.setFont(new Font("Tahoma", Font.BOLD, 14));
 		cmbSalesDeviceSearch.setBackground(Color.BLACK);
-		cmbSalesDeviceSearch.setBounds(777, 57, 234, 35);
+		cmbSalesDeviceSearch.setBounds(917, 56, 234, 35);
 		jpnlDevice.add(cmbSalesDeviceSearch);
 
 		btnSalesDeviceNew = new JButton("");
 		btnSalesDeviceNew.setBackground(new Color(51, 0, 0));
-		btnSalesDeviceNew.setBounds(777, 103, 60, 37);
+		btnSalesDeviceNew.setBounds(917, 102, 60, 37);
 		btnSalesDeviceNew.setIcon(new ImageIcon(DeviceGui.class.getResource("/icon/function/24x24/add.png")));
 		jpnlDevice.add(btnSalesDeviceNew);
 
 		btnSalesDeviceEdit = new JButton("");
 		btnSalesDeviceEdit.setHorizontalAlignment(SwingConstants.LEADING);
 		btnSalesDeviceEdit.setBackground(new Color(51, 0, 0));
-		btnSalesDeviceEdit.setBounds(777, 151, 60, 37);
+		btnSalesDeviceEdit.setBounds(917, 150, 60, 37);
 		btnSalesDeviceEdit.setIcon(new ImageIcon(DeviceGui.class.getResource("/icon/function/24x24/refresh.png")));
 		jpnlDevice.add(btnSalesDeviceEdit);
 
 		btnSalesDeviceDelete = new JButton("");
 		btnSalesDeviceDelete.setBackground(new Color(51, 0, 0));
-		btnSalesDeviceDelete.setBounds(777, 199, 60, 37);
+		btnSalesDeviceDelete.setBounds(917, 198, 60, 37);
 		btnSalesDeviceDelete.setIcon(new ImageIcon(DeviceGui.class.getResource("/icon/function/24x24/cross.png")));
 		jpnlDevice.add(btnSalesDeviceDelete);
 
 		btnSalesDeviceNull = new JButton("");
 		btnSalesDeviceNull.setBackground(new Color(51, 0, 0));
-		btnSalesDeviceNull.setBounds(777, 247, 60, 37);
+		btnSalesDeviceNull.setBounds(917, 246, 60, 37);
 		btnSalesDeviceNull.setIcon(new ImageIcon(DeviceGui.class.getResource("/icon/function/24x24/home.png")));
 		jpnlDevice.add(btnSalesDeviceNull);
 
