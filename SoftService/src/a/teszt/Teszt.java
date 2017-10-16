@@ -1,7 +1,7 @@
 package a.teszt;
 
 import ex.main.MainProgram;
-import ex.main.sales.device.DeviceJDBCSetDAO;
+import ex.main.sales.worksheet.WorkSheetJDBCSetDAO;
 
 public class Teszt {
 	public static void main(String[] args) {
@@ -27,7 +27,7 @@ public class Teszt {
 		}
 		java.awt.EventQueue.invokeLater(new Runnable() {
 			public void run() {
-				new DeviceJDBCSetDAO().setVisible(true);
+				new WorkSheetJDBCSetDAO().setVisible(true);
 			}
 		});
 	}

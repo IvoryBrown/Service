@@ -3,15 +3,13 @@ package ex.main.sales.gui;
 import java.awt.BorderLayout;
 import java.awt.Color;
 
-import javax.swing.JButton;
+import javax.swing.ImageIcon;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
 
-import ex.main.gui.MainGuiSet;
 import ex.main.setting.centerwindow.CenterWindow;
-import javax.swing.JLabel;
-import javax.swing.ImageIcon;
 
 public class SalesGui extends JFrame {
 	/**
@@ -45,21 +43,13 @@ public class SalesGui extends JFrame {
 		pnlSales.add(tbdPnSales);
 
 		pnl = new JPanel();
-		pnl.setBackground(new Color(102, 0, 153));
+		pnl.setBackground(Color.BLACK);
 		tbdPnSales.addTab("", new ImageIcon(SalesGui.class.getResource("/icon/tulliana/22x22/actions/text_block.png")), pnl, null);
 		tbdPnSales.setForegroundAt(0, new Color(51, 0, 0));
 		tbdPnSales.setBackgroundAt(0, new Color(102, 0, 0));
 		pnl.setLayout(null);
 
-		JButton btnNewButton = new JButton("New button");
-		btnNewButton.setBounds(10, 589, 89, 23);
-		pnl.add(btnNewButton);
-		btnNewButton.addActionListener(new java.awt.event.ActionListener() {
-			public void actionPerformed(java.awt.event.ActionEvent evt) {
-				new MainGuiSet().setVisible(true);
-				dispose();
-			}
-		});
+		
 
 		jpnlClient = new JPanel(new BorderLayout());
 		jpnlClient.setForeground(new Color(153, 0, 0));
@@ -68,7 +58,7 @@ public class SalesGui extends JFrame {
 		tbdPnSales.setForegroundAt(1, new Color(153, 0, 0));
 		
 		jpnlDevice = new JPanel();
-		jpnlDevice.setBackground(new Color(102, 0, 153));
+		jpnlDevice.setBackground(Color.BLACK);
 		tbdPnSales.addTab("", new ImageIcon(SalesGui.class.getResource("/icon/tulliana/22x22/apps/systemtray.png")), jpnlDevice, null);
 		
 		lblNewLabel = new JLabel("New label");
