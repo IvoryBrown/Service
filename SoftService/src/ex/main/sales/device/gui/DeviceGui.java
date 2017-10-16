@@ -17,6 +17,7 @@ import javax.swing.SwingConstants;
 import com.toedter.calendar.JDateChooser;
 
 import ex.main.sales.client.ClientJDBCSetDAO;
+import ex.main.sales.client.gui.ClientGui;
 
 public class DeviceGui extends ClientJDBCSetDAO {
 	public DeviceGui() {
@@ -42,6 +43,8 @@ public class DeviceGui extends ClientJDBCSetDAO {
 	protected JTextField txtSalesDeviceSearch;
 	protected JButton btnSalesDeviceSearch, btnSalesDeviceNew, btnSalesDeviceEdit, btnSalesDeviceDelete,
 			btnSalesDeviceNull;
+	private JLabel lblNewLabel_1;
+	private JLabel lblNewLabel_2;
 
 	private void setGuiDeviceClient() {
 		jpnlDevice.setLayout(null);
@@ -159,6 +162,12 @@ public class DeviceGui extends ClientJDBCSetDAO {
 		lblSalesDeviceComment.setFont(new Font("Tahoma", Font.BOLD, 15));
 		lblSalesDeviceComment.setBounds(0, 279, 140, 35);
 		panel_2.add(lblSalesDeviceComment);
+
+		lblNewLabel_2 = new JLabel(new ImageIcon(
+				((new ImageIcon("F:\\Programozás\\Vállalat#\\Exicom\\Képek\\587cede4029fa159a80142ab.jpg")).getImage())
+						.getScaledInstance(509, 362, java.awt.Image.SCALE_SMOOTH)));
+		lblNewLabel_2.setBounds(0, 0, 509, 362);
+		panel_2.add(lblNewLabel_2);
 		pnlSalesDevice.setLayout(null);
 
 		JLabel lblSalesDevice = new JLabel("eszköz:");
@@ -214,7 +223,7 @@ public class DeviceGui extends ClientJDBCSetDAO {
 		dateSalesDeviceBuying.getCalendarButton().setFont(new Font("Tahoma", Font.PLAIN, 14));
 		dateSalesDeviceBuying.setFont(new Font("Tahoma", Font.BOLD, 14));
 		dateSalesDeviceBuying.setDateFormatString("yyyy-MM-dd");
-		dateSalesDeviceBuying.setBackground(new Color(245, 255, 250));
+		dateSalesDeviceBuying.setBackground(Color.LIGHT_GRAY);
 		dateSalesDeviceBuying.setBounds(88, 228, 189, 35);
 		pnlSalesDevice.add(dateSalesDeviceBuying);
 
@@ -223,7 +232,7 @@ public class DeviceGui extends ClientJDBCSetDAO {
 		dateSalesDeviceAddDate.getCalendarButton().setFont(new Font("Tahoma", Font.PLAIN, 14));
 		dateSalesDeviceAddDate.setFont(new Font("Tahoma", Font.BOLD, 14));
 		dateSalesDeviceAddDate.setDateFormatString("yyyy-MM-dd");
-		dateSalesDeviceAddDate.setBackground(new Color(245, 255, 250));
+		dateSalesDeviceAddDate.setBackground(Color.LIGHT_GRAY);
 		dateSalesDeviceAddDate.setBounds(88, 274, 189, 35);
 		pnlSalesDevice.add(dateSalesDeviceAddDate);
 
@@ -232,7 +241,7 @@ public class DeviceGui extends ClientJDBCSetDAO {
 		dateSalesDeviceEndDate.getCalendarButton().setFont(new Font("Tahoma", Font.PLAIN, 14));
 		dateSalesDeviceEndDate.setFont(new Font("Tahoma", Font.BOLD, 14));
 		dateSalesDeviceEndDate.setDateFormatString("yyyy-MM-dd");
-		dateSalesDeviceEndDate.setBackground(new Color(245, 255, 250));
+		dateSalesDeviceEndDate.setBackground(Color.LIGHT_GRAY);
 		dateSalesDeviceEndDate.setBounds(88, 320, 189, 35);
 		pnlSalesDevice.add(dateSalesDeviceEndDate);
 
@@ -278,6 +287,12 @@ public class DeviceGui extends ClientJDBCSetDAO {
 		lblSalesDeviceEndDate.setBounds(0, 320, 85, 35);
 		pnlSalesDevice.add(lblSalesDeviceEndDate);
 
+		lblNewLabel_1 = new JLabel(new ImageIcon(
+				((new ImageIcon("F:\\Programozás\\Vállalat#\\Exicom\\Képek\\587cede4029fa159a80142ab.jpg")).getImage())
+						.getScaledInstance(378, 362, java.awt.Image.SCALE_SMOOTH)));
+		lblNewLabel_1.setBounds(0, 0, 378, 362);
+		pnlSalesDevice.add(lblNewLabel_1);
+
 		txtSalesDeviceSearch = new JTextField();
 		txtSalesDeviceSearch.setForeground(Color.WHITE);
 		txtSalesDeviceSearch.setFont(new Font("Tahoma", Font.BOLD, 14));
@@ -290,8 +305,10 @@ public class DeviceGui extends ClientJDBCSetDAO {
 		btnSalesDeviceSearch.setBackground(new Color(51, 0, 0));
 		btnSalesDeviceSearch.setBounds(1100, 11, 57, 35);
 		jpnlDevice.add(btnSalesDeviceSearch);
+		btnSalesDeviceSearch.setIcon(new ImageIcon(ClientGui.class.getResource("/icon/function/24x24/search.png")));
 
-		cmbSalesDeviceSearch = new JComboBox<Object>(new Object[] {});
+		String salesDeviceSearch[] = { "ugyfel_nev", "tipus", "rogzites" };
+		cmbSalesDeviceSearch = new JComboBox<Object>(salesDeviceSearch);
 		cmbSalesDeviceSearch.setForeground(Color.WHITE);
 		cmbSalesDeviceSearch.setFont(new Font("Tahoma", Font.BOLD, 14));
 		cmbSalesDeviceSearch.setBackground(Color.BLACK);
@@ -322,6 +339,12 @@ public class DeviceGui extends ClientJDBCSetDAO {
 		btnSalesDeviceNull.setBounds(917, 246, 60, 37);
 		btnSalesDeviceNull.setIcon(new ImageIcon(DeviceGui.class.getResource("/icon/function/24x24/home.png")));
 		jpnlDevice.add(btnSalesDeviceNull);
+
+		JLabel lblNewLabel = new JLabel(new ImageIcon(
+				((new ImageIcon("F:\\Programozás\\Vállalat#\\Exicom\\Képek\\Red-And-Black-Abstract-Wallpaper-3.jpg"))
+						.getImage()).getScaledInstance(1239, 627, java.awt.Image.SCALE_SMOOTH)));
+		lblNewLabel.setBounds(0, 0, 1239, 627);
+		jpnlDevice.add(lblNewLabel);
 
 	}
 }
