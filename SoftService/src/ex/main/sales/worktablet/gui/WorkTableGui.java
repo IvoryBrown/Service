@@ -3,6 +3,8 @@ package ex.main.sales.worktablet.gui;
 import ex.main.sales.orderlist.OrderListJDBCSetDAO;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
+import java.awt.Font;
+import java.awt.Color;
 
 public class WorkTableGui extends OrderListJDBCSetDAO {
 	protected JTable jtblSalesWorkTable;
@@ -20,6 +22,10 @@ public class WorkTableGui extends OrderListJDBCSetDAO {
 
 	private void setComponet() {
 		jtblSalesWorkTable = new JTable();
+		jtblSalesWorkTable.setForeground(new Color(153, 0, 0));
+		jtblSalesWorkTable.setBackground(Color.BLACK);
+		jtblSalesWorkTable.setFont(new Font("Tahoma", Font.BOLD, 14));
+		jtblSalesWorkTable.setRowHeight(30);
 		
 		scrSalesWorkTable = new JScrollPane(jtblSalesWorkTable, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED,
 				JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
