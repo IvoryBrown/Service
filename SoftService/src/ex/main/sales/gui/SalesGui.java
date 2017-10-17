@@ -31,6 +31,7 @@ public class SalesGui extends JFrame {
 		this.setSize(1250, 680);
 		this.setResizable(false);
 		getContentPane().setLayout(null);
+		
 
 		pnlSales = new JPanel();
 		pnlSales.setBackground(Color.BLACK);

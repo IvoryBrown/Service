@@ -270,7 +270,7 @@ public class ClientJDBCSetDAO extends ClientGui implements ClientImplements {
 				updateClient = "UPDATE megrendelo SET azonosito_m = ?, nev = ?"
 						+ ", kapcsolat = ?, lakcim = ?, megjegyzes_m = ? WHERE ID_m = ?";
 				ps = con.prepareStatement(updateClient);
-				ps.setInt(1, Integer.parseInt(txtSalesClientNumber.getText()));
+				ps.setString(1, txtSalesClientNumber.getText());
 				ps.setString(2, txtSalesClientName.getText());
 				ps.setString(3, txtSalesClientMobil.getText());
 				ps.setString(4, txtSalesClientHomeAddress.getText());

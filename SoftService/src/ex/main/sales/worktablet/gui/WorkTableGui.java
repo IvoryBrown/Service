@@ -1,10 +1,12 @@
 package ex.main.sales.worktablet.gui;
 
-import ex.main.sales.orderlist.OrderListJDBCSetDAO;
+import java.awt.Color;
+import java.awt.Font;
+
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
-import java.awt.Font;
-import java.awt.Color;
+
+import ex.main.sales.orderlist.OrderListJDBCSetDAO;
 
 public class WorkTableGui extends OrderListJDBCSetDAO {
 	protected JTable jtblSalesWorkTable;
@@ -12,8 +14,8 @@ public class WorkTableGui extends OrderListJDBCSetDAO {
 
 	public WorkTableGui() {
 		setComponet();
-
-	}
+		
+}
 
 	/**
 	 * 
@@ -34,4 +36,5 @@ public class WorkTableGui extends OrderListJDBCSetDAO {
 		jtblSalesWorkTable.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
 		
 	}
+	
 }

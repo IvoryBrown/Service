@@ -177,7 +177,7 @@ public class DeviceGui extends ClientJDBCSetDAO {
 		lblSalesDevice.setBounds(0, 43, 85, 35);
 		pnlSalesDevice.add(lblSalesDevice);
 
-		String boxDevice[] = { "Számítógép", "Notebook", "Nyomtató", "Monitor", "Projektor", "Egyéb" };
+		String boxDevice[] = { "Asztali PC", "Notebook", "Nyomtató", "Monitor", "Projektor", "Egyéb" };
 		cmbSalesDeviceName = new JComboBox<Object>(boxDevice);
 		cmbSalesDeviceName.setForeground(Color.BLACK);
 		cmbSalesDeviceName.setBackground(Color.BLACK);

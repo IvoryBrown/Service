@@ -300,7 +300,7 @@ public class DeviceJDBCSetDAO extends DeviceGui implements DeviceImplements {
 		}
 	}
 
-	public void showItemDevice(int index) {
+	private void showItemDevice(int index) {
 		txtSalesDeviceClientID.setText(Integer.toString(getSalesDeviceProductList().get(index).getClientId()));
 		txtSalesDeviceClientName.setText(getSalesDeviceProductList().get(index).getSalesDeviceClientName());
 		cmbSalesDeviceName.setSelectedItem(getSalesDeviceProductList().get(index).getSalesDeviceName());
@@ -334,7 +334,7 @@ public class DeviceJDBCSetDAO extends DeviceGui implements DeviceImplements {
 		txtSalesDeviceComment.setText(getSalesDeviceProductList().get(index).getComment());
 	}
 
-	public void showItemDeviceSearch(int index) {
+	private void showItemDeviceSearch(int index) {
 		txtSalesDeviceClientID.setText(Integer.toString(getSalesDeviceProductList().get(index).getClientId()));
 		txtSalesDeviceClientName.setText(getSalesDeviceProductList().get(index).getSalesDeviceClientName());
 		cmbSalesDeviceName.setSelectedItem(getSalesDeviceProductList().get(index).getSalesDeviceName());
@@ -379,7 +379,6 @@ public class DeviceJDBCSetDAO extends DeviceGui implements DeviceImplements {
 								+ "hatarido, softwer, takaritas, jelszo, tartozekok, serules, hiba_leiras,"
 								+ " megrendelo_ID_m)" + "values(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?) ");
 				txtSalesDeviceID.setText(DeviceIdentificationGenereator.random());
-				System.out.println(txtSalesDeviceID.getText());
 				insertDevice.setString(1, txtSalesDeviceID.getText());
 				insertDevice.setString(2, txtSalesDeviceClientName.getText());
 				insertDevice.setString(3, (String) cmbSalesDeviceName.getItemAt(cmbSalesDeviceName.getSelectedIndex()));
@@ -411,23 +410,35 @@ public class DeviceJDBCSetDAO extends DeviceGui implements DeviceImplements {
 				insertDevice.setString(15, txtSalesDeviceComment.getText());
 				insertDevice.setString(16, txtSalesDeviceClientID.getText());
 				insertDevice.executeUpdate();
-
 				PreparedStatement insertDeviceImage = con
 						.prepareStatement("INSERT INTO image_gep(gepadatok_ID_g)" + "values(?)");
 				insertDeviceImage.setString(1, txtSalesDeviceID.getText());
 				insertDeviceImage.executeUpdate();
-
 				PreparedStatement insertDeviceSoftver = con
 						.prepareStatement("INSERT INTO software(gepadatok_ID_gs)" + "values(?)");
 				insertDeviceSoftver.setString(1, txtSalesDeviceID.getText());
 				insertDeviceSoftver.executeUpdate();
-
 				PreparedStatement insertDeviceHardver = con
 						.prepareStatement("INSERT INTO alkatresz(gepadatok_ID_ga)" + "values(?)");
 				insertDeviceHardver.setString(1, txtSalesDeviceID.getText());
 				insertDeviceHardver.executeUpdate();
-
 				showProductsInJTableDevice();
+				txtSalesDeviceClientID.setText(null);
+				txtSalesDeviceClientName.setText(null);
+				cmbSalesDeviceName.setSelectedItem(null);
+				txtSalesDeviceID.setText(null);
+				txtSalesdeviceType.setText(null);
+				cmbSalesDeviceCondition.setSelectedItem(null);
+				cmbSalesDevicePriority.setSelectedItem(null);
+				dateSalesDeviceBuying.setDate(null);
+				dateSalesDeviceAddDate.setDate(null);
+				dateSalesDeviceEndDate.setDate(null);
+				cmbSalesDeviceSoftver.setSelectedItem(null);
+				cmbSalesDeviceCleaning.setSelectedItem(null);
+				txtSalesDevicePassword.setText("-");
+				txtSalesDeviceAccesssory.setText("-");
+				txtSalesDeviceInjury.setText("-");
+				txtSalesDeviceComment.setText(null);
 				JOptionPane.showMessageDialog(null, "Adatok beillesztve");
 			} catch (SQLException ex) {
 				JOptionPane.showMessageDialog(null, "Sikertelen beillesztés: " + ex.getMessage());
