@@ -202,7 +202,7 @@ public class DeviceGui extends ClientJDBCSetDAO {
 		txtSalesdeviceType.setBounds(88, 90, 189, 35);
 		pnlSalesDevice.add(txtSalesdeviceType);
 
-		String boxStatus[] = { "Bevizsgálás alatt", "Alkatrészre vár", "Garanciális", "Bevizsgálva" };
+		String boxStatus[] = { "Bevételezve", "Kiadva" };
 		cmbSalesDeviceCondition = new JComboBox<Object>(boxStatus);
 		cmbSalesDeviceCondition.setBackground(Color.BLACK);
 		cmbSalesDeviceCondition.setFont(new Font("Tahoma", Font.BOLD, 14));

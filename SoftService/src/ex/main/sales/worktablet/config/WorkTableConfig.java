@@ -9,6 +9,7 @@ public class WorkTableConfig {
 	private String workTableClientHomeAddress;
 	private String workTableClientComment;
 	// eszköz
+	private Integer workTableDeviceID;
 	private String workTableDeviceName;
 	private String workTableDeviceType;
 	private String workTableDeviceSerial;
@@ -28,13 +29,13 @@ public class WorkTableConfig {
 	private String workTableDeviceError;
 
 	public WorkTableConfig(String workTableClientNumber, String workTableClientName, String workTableClientMobil,
-			String workTableClientHomeAddress, String workTableClientComment, String workTableDeviceName,
-			String workTableDeviceType, String workTableDeviceSerial, String workTableDeviceStatus,
-			String workTableDevicePriorit, String workTableDeviceBuyingDate, String workTableDeviceAddDate,
-			String workTableDeviceExitDate, String workTableDeviceCompletedDate, String workTableDeviceSoftwer,
-			String workTableDeviceHardver, String workTableDeviceCleaning, String workTableDevicePassword,
-			String workTableDeviceAccesssory, String workTableDeviceInjury, String workTableDeviceFault,
-			String workTableDeviceError) {
+			String workTableClientHomeAddress, String workTableClientComment, Integer workTableDeviceID,
+			String workTableDeviceName, String workTableDeviceType, String workTableDeviceSerial,
+			String workTableDeviceStatus, String workTableDevicePriorit, String workTableDeviceBuyingDate,
+			String workTableDeviceAddDate, String workTableDeviceExitDate, String workTableDeviceCompletedDate,
+			String workTableDeviceSoftwer, String workTableDeviceHardver, String workTableDeviceCleaning,
+			String workTableDevicePassword, String workTableDeviceAccesssory, String workTableDeviceInjury,
+			String workTableDeviceFault, String workTableDeviceError) {
 		super();
 
 		this.workTableClientNumber = workTableClientNumber;
@@ -42,6 +43,7 @@ public class WorkTableConfig {
 		this.workTableClientMobil = workTableClientMobil;
 		this.workTableClientHomeAddress = workTableClientHomeAddress;
 		this.workTableClientComment = workTableClientComment;
+		this.workTableDeviceID = workTableDeviceID;
 		this.workTableDeviceName = workTableDeviceName;
 		this.workTableDeviceType = workTableDeviceType;
 		this.workTableDeviceSerial = workTableDeviceSerial;
@@ -79,6 +81,10 @@ public class WorkTableConfig {
 
 	public String getWorkTableClientComment() {
 		return workTableClientComment;
+	}
+
+	public Integer getWorkTableDeviceID() {
+		return workTableDeviceID;
 	}
 
 	public String getWorkTableDeviceName() {

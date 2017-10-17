@@ -30,9 +30,9 @@ public class WorkTableJDBCSetDAO extends WorkTableGui implements WorkTableImplem
 	private static final long serialVersionUID = -7705930576442305488L;
 
 	private void setComponent() {
-		rows = new String[] { "azonosító", "ügyfél", "kapcsolat", "lakcím", "megjegyzés", "eszköz", "típus",
-				"sorozatszám", "állapot", "prioritás", "vásárlás", "rögzítés", "határidő", "teljesítve", "softver",
-				"hardver", "takarítás", "jelszó", "tartozékok", "sérülés", "hiba leírás", "valós hiba" };
+		rows = new String[] { "azonosító", "ügyfél", "kapcsolat", "lakcím", "megjegyzés", "e. azonosító", "eszköz",
+				"típus", "sorozatszám", "állapot", "prioritás", "vásárlás", "rögzítés", "határidő", "teljesítve",
+				"softver", "hardver", "takarítás", "jelszó", "tartozékok", "sérülés", "hiba leírás", "valós hiba" };
 		jtblSalesWorkTable.setModel(new javax.swing.table.DefaultTableModel(columns, rows));
 		jtblSalesWorkTable.getColumn("azonosító").setMinWidth(100);
 		jtblSalesWorkTable.getColumn("azonosító").setMaxWidth(100);
@@ -46,28 +46,30 @@ public class WorkTableJDBCSetDAO extends WorkTableGui implements WorkTableImplem
 		jtblSalesWorkTable.getColumn("megjegyzés").setMaxWidth(260);
 		jtblSalesWorkTable.getColumn("eszköz").setMinWidth(120);
 		jtblSalesWorkTable.getColumn("eszköz").setMaxWidth(120);
+		jtblSalesWorkTable.getColumn("e. azonosító").setMinWidth(120);
+		jtblSalesWorkTable.getColumn("e. azonosító").setMaxWidth(120);
 		jtblSalesWorkTable.getColumn("típus").setMinWidth(130);
 		jtblSalesWorkTable.getColumn("típus").setMaxWidth(130);
 		jtblSalesWorkTable.getColumn("sorozatszám").setMinWidth(90);
 		jtblSalesWorkTable.getColumn("sorozatszám").setMaxWidth(90);
 		jtblSalesWorkTable.getColumn("típus").setMinWidth(190);
 		jtblSalesWorkTable.getColumn("típus").setMaxWidth(190);
-		jtblSalesWorkTable.getColumn("állapot").setMinWidth(120);
-		jtblSalesWorkTable.getColumn("állapot").setMaxWidth(120);
+		jtblSalesWorkTable.getColumn("állapot").setMinWidth(150);
+		jtblSalesWorkTable.getColumn("állapot").setMaxWidth(150);
 		jtblSalesWorkTable.getColumn("prioritás").setMinWidth(90);
 		jtblSalesWorkTable.getColumn("prioritás").setMaxWidth(90);
-		jtblSalesWorkTable.getColumn("vásárlás").setMinWidth(90);
-		jtblSalesWorkTable.getColumn("vásárlás").setMaxWidth(90);
-		jtblSalesWorkTable.getColumn("rögzítés").setMinWidth(90);
-		jtblSalesWorkTable.getColumn("rögzítés").setMaxWidth(90);
-		jtblSalesWorkTable.getColumn("határidő").setMinWidth(90);
-		jtblSalesWorkTable.getColumn("határidő").setMaxWidth(90);
-		jtblSalesWorkTable.getColumn("teljesítve").setMinWidth(90);
-		jtblSalesWorkTable.getColumn("teljesítve").setMaxWidth(90);
+		jtblSalesWorkTable.getColumn("vásárlás").setMinWidth(120);
+		jtblSalesWorkTable.getColumn("vásárlás").setMaxWidth(120);
+		jtblSalesWorkTable.getColumn("rögzítés").setMinWidth(120);
+		jtblSalesWorkTable.getColumn("rögzítés").setMaxWidth(120);
+		jtblSalesWorkTable.getColumn("határidő").setMinWidth(120);
+		jtblSalesWorkTable.getColumn("határidő").setMaxWidth(120);
+		jtblSalesWorkTable.getColumn("teljesítve").setMinWidth(120);
+		jtblSalesWorkTable.getColumn("teljesítve").setMaxWidth(120);
 		jtblSalesWorkTable.getColumn("softver").setMinWidth(50);
 		jtblSalesWorkTable.getColumn("softver").setMaxWidth(50);
-		jtblSalesWorkTable.getColumn("hardver").setMinWidth(50);
-		jtblSalesWorkTable.getColumn("hardver").setMaxWidth(50);
+		jtblSalesWorkTable.getColumn("hardver").setMinWidth(60);
+		jtblSalesWorkTable.getColumn("hardver").setMaxWidth(60);
 		jtblSalesWorkTable.getColumn("takarítás").setMinWidth(60);
 		jtblSalesWorkTable.getColumn("takarítás").setMaxWidth(60);
 		jtblSalesWorkTable.getColumn("jelszó").setMinWidth(120);
@@ -97,12 +99,12 @@ public class WorkTableJDBCSetDAO extends WorkTableGui implements WorkTableImplem
 			while (rs.next()) {
 				product = new WorkTableConfig(rs.getString("azonosito_m"), rs.getString("nev"),
 						rs.getString("kapcsolat"), rs.getString("lakcim"), rs.getString("megjegyzes_m"),
-						rs.getString("eszkoz_g"), rs.getString("tipus"), rs.getString("sorozatszam_g"),
-						rs.getString("allapot"), rs.getString("prioritas"), rs.getString("vasarlas_ido"),
-						rs.getString("rogzites"), rs.getString("hatarido"), rs.getString("teljesitve"),
-						rs.getString("softwer"), rs.getString("hardwer"), rs.getString("takaritas"),
-						rs.getString("jelszo"), rs.getString("tartozekok"), rs.getString("serules"),
-						rs.getString("hiba_leiras"), rs.getString("valos_hiba"));
+						rs.getInt("ID_g"), rs.getString("eszkoz_g"), rs.getString("tipus"),
+						rs.getString("sorozatszam_g"), rs.getString("allapot"), rs.getString("prioritas"),
+						rs.getString("vasarlas_ido"), rs.getString("rogzites"), rs.getString("hatarido"),
+						rs.getString("teljesitve"), rs.getString("softwer"), rs.getString("hardwer"),
+						rs.getString("takaritas"), rs.getString("jelszo"), rs.getString("tartozekok"),
+						rs.getString("serules"), rs.getString("hiba_leiras"), rs.getString("valos_hiba"));
 				productListDevice.add(product);
 			}
 		} catch (SQLException ex) {
@@ -121,30 +123,31 @@ public class WorkTableJDBCSetDAO extends WorkTableGui implements WorkTableImplem
 		ArrayList<WorkTableConfig> list = getWorktableProductList();
 		DefaultTableModel model = (DefaultTableModel) jtblSalesWorkTable.getModel();
 		model.setRowCount(0);
-		Object[] row = new Object[22];
+		Object[] row = new Object[23];
 		for (int i = 0; i < list.size(); i++) {
 			row[0] = list.get(i).getWorkTableClientNumber();
 			row[1] = list.get(i).getWorkTableClientName();
 			row[2] = list.get(i).getWorkTableClientMobil();
 			row[3] = list.get(i).getWorkTableClientHomeAddress();
 			row[4] = list.get(i).getWorkTableClientComment();
-			row[5] = list.get(i).getWorkTableDeviceName();
-			row[6] = list.get(i).getWorkTableDeviceType();
-			row[7] = list.get(i).getWorkTableDeviceSerial();
-			row[8] = list.get(i).getWorkTableDeviceStatus();
-			row[9] = list.get(i).getWorkTableDevicePriorit();
-			row[10] = list.get(i).getWorkTableDeviceBuyingDate();
-			row[11] = list.get(i).getWorkTableDeviceAddDate();
-			row[12] = list.get(i).getWorkTableDeviceExitDate();
-			row[13] = list.get(i).getWorkTableDeviceCompletedDate();
-			row[14] = list.get(i).getWorkTableDeviceSoftwer();
-			row[15] = list.get(i).getWorkTableDeviceHardver();
-			row[16] = list.get(i).getWorkTableDeviceCleaning();
-			row[17] = list.get(i).getWorkTableDevicePassword();
-			row[18] = list.get(i).getWorkTableDeviceAccesssory();
-			row[19] = list.get(i).getWorkTableDeviceInjury();
-			row[20] = list.get(i).getWorkTableDeviceFault();
-			row[21] = list.get(i).getWorkTableDeviceError();
+			row[5] = list.get(i).getWorkTableDeviceID();
+			row[6] = list.get(i).getWorkTableDeviceName();
+			row[7] = list.get(i).getWorkTableDeviceType();
+			row[8] = list.get(i).getWorkTableDeviceSerial();
+			row[9] = list.get(i).getWorkTableDeviceStatus();
+			row[10] = list.get(i).getWorkTableDevicePriorit();
+			row[11] = list.get(i).getWorkTableDeviceBuyingDate();
+			row[12] = list.get(i).getWorkTableDeviceAddDate();
+			row[13] = list.get(i).getWorkTableDeviceExitDate();
+			row[14] = list.get(i).getWorkTableDeviceCompletedDate();
+			row[15] = list.get(i).getWorkTableDeviceSoftwer();
+			row[16] = list.get(i).getWorkTableDeviceHardver();
+			row[17] = list.get(i).getWorkTableDeviceCleaning();
+			row[18] = list.get(i).getWorkTableDevicePassword();
+			row[19] = list.get(i).getWorkTableDeviceAccesssory();
+			row[20] = list.get(i).getWorkTableDeviceInjury();
+			row[21] = list.get(i).getWorkTableDeviceFault();
+			row[22] = list.get(i).getWorkTableDeviceError();
 			model.addRow(row);
 		}
 	}
