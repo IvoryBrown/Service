@@ -14,7 +14,7 @@ import java.awt.Color;
 
 public class WorkSheetGui extends DeviceJDBCSetDAO {
 	protected JButton btnBack, btnWorkPrint, btnWorkSearch, btnWorkUpdate;
-	protected JPanel pnlOrderList, panel_1;
+	protected JPanel pnlOrderList, pnlWorkTable,pnlWorkPrint;
 	protected JTabbedPane tbdPanel;
 	protected JComboBox<?> cmbWorkSearch;
 	protected JTextField txtWorkSearch;
@@ -28,20 +28,24 @@ public class WorkSheetGui extends DeviceJDBCSetDAO {
 	 * 
 	 */
 	private static final long serialVersionUID = -6544483758378225794L;
+	
 
 	private void setActivity() {
 		tbdPanel = new JTabbedPane(JTabbedPane.TOP);
 		tbdPanel.setBounds(10, 59, 1219, 545);
 		pnl.add(tbdPanel);
 
-		panel_1 = new JPanel();
-		tbdPanel.addTab("", new ImageIcon(WorkSheetGui.class.getResource("/icon/function/22x22/table.png")), panel_1,
+		pnlWorkTable = new JPanel();
+		tbdPanel.addTab("", new ImageIcon(WorkSheetGui.class.getResource("/icon/function/22x22/table.png")), pnlWorkTable,
 				null);
-		panel_1.setLayout(null);
+		pnlWorkTable.setLayout(null);
 
 		pnlOrderList = new JPanel();
 		tbdPanel.addTab("", new ImageIcon(WorkSheetGui.class.getResource("/icon/general/22/partners.png")),
 				pnlOrderList, null);
+		
+		pnlWorkPrint = new JPanel();
+		tbdPanel.addTab("", new ImageIcon(WorkSheetGui.class.getResource("/icon/tango/22x22/actions/document-print.png")), pnlWorkPrint, null);
 
 		btnBack = new JButton("");
 		btnBack.setBackground(new Color(51, 0, 0));

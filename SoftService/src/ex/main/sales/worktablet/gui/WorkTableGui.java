@@ -32,7 +32,7 @@ public class WorkTableGui extends OrderListJDBCSetDAO {
 		scrSalesWorkTable = new JScrollPane(jtblSalesWorkTable, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED,
 				JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
 		scrSalesWorkTable.setBounds(0, 0, 1214, 509);
-		panel_1.add(scrSalesWorkTable);
+		pnlWorkTable.add(scrSalesWorkTable);
 		jtblSalesWorkTable.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
 		
 	}

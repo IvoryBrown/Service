@@ -1,9 +1,9 @@
 package ex.main.sales.workprint;
 
-import ex.main.sales.worktablet.WorkTableJDBCSetDAO;
+import ex.main.sales.workprint.gui.WorkPrintGui;
 import ex.main.setting.printing.SetPrinting;
 
-public class WorkPrint extends WorkTableJDBCSetDAO  {
+public class WorkPrint extends WorkPrintGui  {
 
 	/**
 	 * 
@@ -23,11 +23,15 @@ public class WorkPrint extends WorkTableJDBCSetDAO  {
 			
 			}
 		});
+		
 	}
+	
+	 
 	public void btnPrinting() {
 		SetPrinting print = new SetPrinting();
-		print.setComponent(sss);
+		print.setComponent(panel);
 		print.print();
 	}
+	
 	
 }
