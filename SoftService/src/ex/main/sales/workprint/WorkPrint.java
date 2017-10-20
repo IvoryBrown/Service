@@ -19,6 +19,8 @@ public class WorkPrint extends WorkPrintGui  {
 		
 		btnWorkPrint.addMouseListener(new java.awt.event.MouseAdapter() {
 			public void mouseClicked(java.awt.event.MouseEvent evt) {
+				lblWorkPrintSalesName.setText(txtWorkPrintSalesName.getText());
+				lblWorkPrintSalesName0.setText(txtWorkPrintSalesName.getText());
 				btnPrinting();
 			
 			}

@@ -3,7 +3,7 @@ package ex.main.gui;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-import ex.main.sales.client.ClientJDBCSetDAO;
+import ex.main.sales.worktablet.WorkTableJDBCSetDAO;
 import ex.main.service.worksheet.WorkSheetJDBCSetDao;
 
 public class MainGuiSet extends MainGui implements ActionListener {
@@ -27,7 +27,7 @@ public class MainGuiSet extends MainGui implements ActionListener {
 			new WorkSheetJDBCSetDao().setVisible(true);
 		dispose();
 		if (e.getSource() == btnSales)
-			new ClientJDBCSetDAO().setVisible(true);
+			new WorkTableJDBCSetDAO().setVisible(true);
 		dispose();
 
 	}

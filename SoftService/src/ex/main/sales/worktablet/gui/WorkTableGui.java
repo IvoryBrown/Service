@@ -6,9 +6,9 @@ import java.awt.Font;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 
-import ex.main.sales.orderlist.OrderListJDBCSetDAO;
+import ex.main.sales.workprint.WorkPrint;
 
-public class WorkTableGui extends OrderListJDBCSetDAO {
+public class WorkTableGui extends WorkPrint {
 	protected JTable jtblSalesWorkTable;
 	protected JScrollPane scrSalesWorkTable;
 
