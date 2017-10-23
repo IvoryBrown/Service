@@ -115,8 +115,8 @@ public class WorkTableJDBCSetDAO extends WorkTableGui implements WorkTableImplem
 		String query = "SELECT * FROM megrendelo " + " JOIN gepadatok ON megrendelo_ID_m = ID_m";
 		Statement st;
 		ResultSet rs;
+		Connection con = DataBaseConnect.getConnection();
 		try {
-			Connection con = DataBaseConnect.getConnection();
 			st = con.createStatement();
 			rs = st.executeQuery(query);
 			WorkTableConfig product;
@@ -133,6 +133,12 @@ public class WorkTableJDBCSetDAO extends WorkTableGui implements WorkTableImplem
 			}
 		} catch (SQLException ex) {
 			Logger.getLogger(WorkTableJDBCSetDAO.class.getName()).log(Level.SEVERE, null, ex);
+		} finally {
+			try {
+				con.close();
+			} catch (SQLException e) {
+				Logger.getLogger(WorkTableJDBCSetDAO.class.getName()).log(Level.SEVERE, null, e);
+			}
 		}
 		return productListDevice;
 	}
@@ -142,9 +148,9 @@ public class WorkTableJDBCSetDAO extends WorkTableGui implements WorkTableImplem
 		ArrayList<WorkTableConfig> listSearch = new ArrayList<WorkTableConfig>();
 		ResultSet rs;
 		Statement insertWork;
+		Connection con = DataBaseConnect.getConnection();
 		try {
 
-			Connection con = DataBaseConnect.getConnection();
 			insertWork = con.createStatement();
 			String searchQuery = "SELECT * FROM `megrendelo` JOIN gepadatok ON megrendelo_ID_m = ID_m  WHERE CONCAT (`"
 					+ cmbWorkSearch.getItemAt(cmbWorkSearch.getSelectedIndex()) + "`) LIKE '%" + txtWorkSearch.getText()
@@ -164,6 +170,12 @@ public class WorkTableJDBCSetDAO extends WorkTableGui implements WorkTableImplem
 			}
 		} catch (SQLException ex) {
 			JOptionPane.showMessageDialog(null, "Sikertelen Keresés: " + ex.getMessage());
+		}finally {
+			try {
+				con.close();
+			} catch (SQLException e) {
+				Logger.getLogger(WorkTableJDBCSetDAO.class.getName()).log(Level.SEVERE, null, e);
+			}
 		}
 		return listSearch;
 	}
@@ -264,7 +276,9 @@ public class WorkTableJDBCSetDAO extends WorkTableGui implements WorkTableImplem
 		lblWorkPrintDeviceAccessory0.setText(getWorktableProductList().get(index).getWorkTableDeviceAccesssory());
 		lblWorkPrintDevicePassword0.setText(getWorktableProductList().get(index).getWorkTableDevicePassword());
 		lblWorkPrintDeviceInjury0.setText(getWorktableProductList().get(index).getWorkTableDeviceInjury());
-		lblWorkPrintDeviceFault0.setText(getWorktableProductList().get(index).getWorkTableDeviceFault());
+		// folyt
+		String sWorkPrintDeviceFault0 = getWorktableProductList().get(index).getWorkTableDeviceFault();
+		lblWorkPrintDeviceFault0.setText("<html>" + sWorkPrintDeviceFault0 + "<br /> </html>");
 		lblWorkPrintEndDate0.setText(getWorktableProductList().get(index).getWorkTableDeviceExitDate());
 	}
 
@@ -293,7 +307,7 @@ public class WorkTableJDBCSetDAO extends WorkTableGui implements WorkTableImplem
 		lblOrderListDeviceInjury.setText(getWorktableProductList().get(index).getWorkTableDeviceInjury());
 		lblOrderListDeviceFault.setText(getWorktableProductList().get(index).getWorkTableDeviceFault());
 		lblOrderListDeviceError.setText(getWorktableProductList().get(index).getWorkTableDeviceError());
-		//nyomtatás
+		// nyomtatás
 		lblWorkPrintClientName.setText(getWorktableProductList().get(index).getWorkTableClientName());
 		lblWorkPrintClientHomeAndress.setText(getWorktableProductList().get(index).getWorkTableClientHomeAddress());
 		lblWorkPrintClientMobil.setText(getWorktableProductList().get(index).getWorkTableClientMobil());
@@ -318,7 +332,7 @@ public class WorkTableJDBCSetDAO extends WorkTableGui implements WorkTableImplem
 		lblWorkPrintDeviceAccessory0.setText(getWorktableProductList().get(index).getWorkTableDeviceAccesssory());
 		lblWorkPrintDevicePassword0.setText(getWorktableProductList().get(index).getWorkTableDevicePassword());
 		lblWorkPrintDeviceInjury0.setText(getWorktableProductList().get(index).getWorkTableDeviceInjury());
-		lblWorkPrintDeviceFault0.setText(getWorktableProductList().get(index).getWorkTableDeviceFault());
+		// lblWorkPrintDeviceFault0.setText(getWorktableProductList().get(index).getWorkTableDeviceFault());
 		lblWorkPrintEndDate0.setText(getWorktableProductList().get(index).getWorkTableDeviceExitDate());
 	}
 

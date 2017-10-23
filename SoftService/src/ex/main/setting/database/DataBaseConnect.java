@@ -36,7 +36,7 @@ public class DataBaseConnect {
 			try {
 				if (conn != null)
 					conn.close();
-					new MainProgram();
+				new MainProgram();
 			} catch (SQLException se) {
 				se.printStackTrace();
 			}
@@ -56,7 +56,7 @@ public class DataBaseConnect {
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
 			return null;
-		}
+		} 
 	}
 
 	public JLabel getSubtitle() {

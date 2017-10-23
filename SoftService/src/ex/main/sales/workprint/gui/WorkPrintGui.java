@@ -126,11 +126,11 @@ public class WorkPrintGui extends OrderListJDBCSetDAO {
 		lblWorkPrintClientIdentification.setBounds(123, 137, 280, 11);
 		panel_1.add(lblWorkPrintClientIdentification);
 
-		JLabel label_4 = new JLabel("");
-		label_4.setBorder(new TitledBorder(new LineBorder(new Color(192, 192, 192), 2), "Munkalap Adatai",
-				TitledBorder.LEFT, TitledBorder.TOP, null, new Color(0, 0, 0)));
-		label_4.setBounds(10, 168, 402, 220);
-		panel_1.add(label_4);
+//		JLabel label_4 = new JLabel("");
+//		label_4.setBorder(new TitledBorder(new LineBorder(new Color(192, 192, 192), 2), "Munkalap Adatai",
+//				TitledBorder.LEFT, TitledBorder.TOP, null, new Color(0, 0, 0)));
+//		label_4.setBounds(10, 168, 402, 220);
+//		panel_1.add(label_4);
 
 		JLabel lblMegnevezs = new JLabel("Megnevezés: ");
 		lblMegnevezs.setHorizontalAlignment(SwingConstants.RIGHT);
@@ -556,7 +556,7 @@ public class WorkPrintGui extends OrderListJDBCSetDAO {
 		scrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
 		scrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 		pnlWorkPrint.add(scrollPane);
-		
+
 		txtWorkPrintSalesName = new JTextField();
 		txtWorkPrintSalesName.setHorizontalAlignment(SwingConstants.CENTER);
 		txtWorkPrintSalesName.setForeground(new Color(51, 0, 0));
@@ -564,7 +564,7 @@ public class WorkPrintGui extends OrderListJDBCSetDAO {
 		txtWorkPrintSalesName.setColumns(10);
 		txtWorkPrintSalesName.setBounds(10, 51, 310, 35);
 		pnlWorkPrint.add(txtWorkPrintSalesName);
-		
+
 		JLabel lblgyintz = new JLabel("Ügyintéző");
 		lblgyintz.setHorizontalAlignment(SwingConstants.CENTER);
 		lblgyintz.setForeground(new Color(153, 0, 0));
