@@ -29,8 +29,6 @@ public class WorkPrint extends WorkPrintGui {
 					lblWorkPrintSalesName0.setText(txtWorkPrintSalesName.getText());
 					btnPrinting();
 
-				} else {
-					JOptionPane.showMessageDialog(null, "Egy mező üres");
 				}
 			}
 		});
@@ -40,10 +38,19 @@ public class WorkPrint extends WorkPrintGui {
 	private boolean checkInputsWorkPrint() {
 		if (txtWorkPrintSalesName.getText().trim().isEmpty()) {
 			txtWorkPrintSalesName.setBackground(new Color(255, 0, 0));
+			JOptionPane.showMessageDialog(null, "nincs ügyintéző neve!");
 		} else {
 			txtWorkPrintSalesName.setBackground(Color.WHITE);
 		}
-		if (txtWorkPrintSalesName.getText().trim().isEmpty()) {
+		if (lblWorkPrintClientName.getText().trim().isEmpty()) {
+			JOptionPane.showMessageDialog(null, "Nincs munkalap kiválasztva!");
+			jpnlWorkPrintTakeover0.setBackground(new Color(255, 0, 0));
+			jpnlWorkPrintTakeover.setBackground(new Color(255, 0, 0));
+		}else{
+			jpnlWorkPrintTakeover0.setBackground(Color.WHITE);
+			jpnlWorkPrintTakeover.setBackground(Color.WHITE);
+		}
+		if (txtWorkPrintSalesName.getText().trim().isEmpty() || lblWorkPrintClientName.getText().trim().isEmpty()) {
 			return false;
 		} else {
 			return true;
@@ -53,7 +60,7 @@ public class WorkPrint extends WorkPrintGui {
 	public void btnPrinting() {
 		SetPrinting print = new SetPrinting();
 		// panel.setBackground(Color.WHITE); ez még kell
-		print.setComponent(panel);
+		print.setComponent(jpnlWorkPrint);
 		print.print();
 	}
 

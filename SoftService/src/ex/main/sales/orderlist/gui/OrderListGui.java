@@ -36,6 +36,7 @@ public class OrderListGui extends WorkSheetJDBCSetDAO {
 		pnlOrderList.setLayout(null);
 
 		 sss = new JPanel();
+		 sss.setBackground(Color.BLACK);
 		// sss.setBackground(Color.BLACK);
 
 		sss.setPreferredSize(new Dimension(1190, 5000));
@@ -148,14 +149,14 @@ public class OrderListGui extends WorkSheetJDBCSetDAO {
 
 		JLabel lblKszlk = new JLabel("KÉSZÜLÉK");
 		lblKszlk.setHorizontalAlignment(SwingConstants.CENTER);
-		lblKszlk.setForeground(Color.BLUE);
+		lblKszlk.setForeground(new Color(153, 0, 0));
 		lblKszlk.setFont(new Font("Arial", Font.BOLD, 26));
 		lblKszlk.setBounds(144, 287, 842, 35);
 		sss.add(lblKszlk);
 
 		JLabel lblMegrendel = new JLabel("MEGRENDELŐ");
 		lblMegrendel.setHorizontalAlignment(SwingConstants.CENTER);
-		lblMegrendel.setForeground(Color.BLUE);
+		lblMegrendel.setForeground(new Color(153, 0, 0));
 		lblMegrendel.setFont(new Font("Arial", Font.BOLD, 26));
 		lblMegrendel.setBounds(144, 11, 842, 35);
 		sss.add(lblMegrendel);

@@ -24,7 +24,6 @@ public class DeviceGui extends ClientJDBCSetDAO {
 		pnlSalesDevice.setBounds(10, 11, 378, 362);
 		jpnlDevice.setBackground(Color.DARK_GRAY);
 		pnlSalesDevice.setBackground(Color.BLACK);
-
 		setGuiDeviceClient();
 	}
 
@@ -163,9 +162,8 @@ public class DeviceGui extends ClientJDBCSetDAO {
 		lblSalesDeviceComment.setBounds(0, 279, 140, 35);
 		panel_2.add(lblSalesDeviceComment);
 
-		lblNewLabel_2 = new JLabel(new ImageIcon(
-				((new ImageIcon("F:\\Programozás\\Vállalat#\\Exicom\\Képek\\587cede4029fa159a80142ab.jpg")).getImage())
-						.getScaledInstance(509, 362, java.awt.Image.SCALE_SMOOTH)));
+		lblNewLabel_2 = new JLabel(new ImageIcon(((new ImageIcon("Image\\587cede4029fa159a80142ab.jpg")).getImage())
+				.getScaledInstance(509, 362, java.awt.Image.SCALE_SMOOTH)));
 		lblNewLabel_2.setBounds(0, 0, 509, 362);
 		panel_2.add(lblNewLabel_2);
 		pnlSalesDevice.setLayout(null);
@@ -287,9 +285,8 @@ public class DeviceGui extends ClientJDBCSetDAO {
 		lblSalesDeviceEndDate.setBounds(0, 320, 85, 35);
 		pnlSalesDevice.add(lblSalesDeviceEndDate);
 
-		lblNewLabel_1 = new JLabel(new ImageIcon(
-				((new ImageIcon("F:\\Programozás\\Vállalat#\\Exicom\\Képek\\587cede4029fa159a80142ab.jpg")).getImage())
-						.getScaledInstance(378, 362, java.awt.Image.SCALE_SMOOTH)));
+		lblNewLabel_1 = new JLabel(new ImageIcon(((new ImageIcon("Image\\587cede4029fa159a80142ab.jpg")).getImage())
+				.getScaledInstance(378, 362, java.awt.Image.SCALE_SMOOTH)));
 		lblNewLabel_1.setBounds(0, 0, 378, 362);
 		pnlSalesDevice.add(lblNewLabel_1);
 
@@ -340,9 +337,9 @@ public class DeviceGui extends ClientJDBCSetDAO {
 		btnSalesDeviceNull.setIcon(new ImageIcon(DeviceGui.class.getResource("/icon/function/24x24/home.png")));
 		jpnlDevice.add(btnSalesDeviceNull);
 
-		JLabel lblNewLabel = new JLabel(new ImageIcon(
-				((new ImageIcon("F:\\Programozás\\Vállalat#\\Exicom\\Képek\\Red-And-Black-Abstract-Wallpaper-3.jpg"))
-						.getImage()).getScaledInstance(1239, 627, java.awt.Image.SCALE_SMOOTH)));
+		JLabel lblNewLabel = new JLabel(
+				new ImageIcon(((new ImageIcon("Image\\Red-And-Black-Abstract-Wallpaper-3.jpg")).getImage())
+						.getScaledInstance(1239, 627, java.awt.Image.SCALE_SMOOTH)));
 		lblNewLabel.setBounds(0, 0, 1239, 627);
 		jpnlDevice.add(lblNewLabel);
 

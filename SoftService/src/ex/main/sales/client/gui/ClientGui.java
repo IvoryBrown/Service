@@ -40,24 +40,18 @@ public class ClientGui extends SalesGui {
 	protected JTextField txtSalesDeviceClientID;
 
 	private void setComponentClientGui() {
-
-		
-
-		
 		jtblSalesClient = new JTable();
 		jtblSalesClient.setBackground(Color.BLACK);
 
 		jtblSalesClient.setForeground(new Color(153, 0, 0));
 		jtblSalesClient.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		jtblSalesClient.setRowHeight(30);
-		
-		
-		
+
 		JScrollPane scrSalesClient = new JScrollPane(jtblSalesClient);
 		scrSalesClient.setBackground(new Color(51, 0, 0));
 		scrSalesClient.setBounds(10, 377, 1219, 235);
 		jpnlClient.add(scrSalesClient);
-		
+
 		JPanel panel_2 = new JPanel();
 		panel_2.setBounds(483, 11, 350, 56);
 		jpnlClient.add(panel_2);
@@ -67,7 +61,7 @@ public class ClientGui extends SalesGui {
 
 		pnlClientSetting = new JPanel();
 		panel_2.add(pnlClientSetting);
-		pnlClientSetting.setBackground(new Color(0, 255, 255));
+		pnlClientSetting.setBackground(Color.BLACK);
 		pnlClientSetting.setLayout(null);
 		pnlClientSetting.setBounds(0, 11, 478, 368);
 
@@ -158,9 +152,9 @@ public class ClientGui extends SalesGui {
 		txtSalesClientComment.setBackground(Color.WHITE);
 		scrPSalesClientComment.setViewportView(txtSalesClientComment);
 
-		lblSalesClientSettingImage = new JLabel(new ImageIcon(
-				((new ImageIcon("F:\\Programozás\\Vállalat#\\Exicom\\Képek\\587cede4029fa159a80142ab.jpg")).getImage())
-						.getScaledInstance(478, 368, java.awt.Image.SCALE_SMOOTH)));
+		lblSalesClientSettingImage = new JLabel(
+				new ImageIcon(((new ImageIcon("Image\\587cede4029fa159a80142ab.jpg")).getImage()).getScaledInstance(478,
+						368, java.awt.Image.SCALE_SMOOTH)));
 		lblSalesClientSettingImage.setBounds(0, 0, 478, 368);
 		pnlClientSetting.add(lblSalesClientSettingImage);
 		cmbSalesClientSearch = new JComboBox<Object>(clientShearch);
@@ -209,25 +203,25 @@ public class ClientGui extends SalesGui {
 		btnSalesClientNull.setBackground(new Color(51, 0, 0));
 		btnSalesClientNull.setIcon(new ImageIcon(ClientGui.class.getResource("/icon/function/24x24/home.png")));
 
-		JLabel lblNewLabel = new JLabel(new ImageIcon(
-				((new ImageIcon("F:\\Programozás\\Vállalat#\\Exicom\\Képek\\Red-And-Black-Abstract-Wallpaper-3.jpg"))
-						.getImage()).getScaledInstance(1239, 627, java.awt.Image.SCALE_SMOOTH)));
+		JLabel lblNewLabel = new JLabel(
+				new ImageIcon(((new ImageIcon("Image\\Red-And-Black-Abstract-Wallpaper-3.jpg")).getImage())
+						.getScaledInstance(1239, 627, java.awt.Image.SCALE_SMOOTH)));
 		lblNewLabel.setBounds(0, 0, 1239, 627);
 		panel_2.add(lblNewLabel);
 		jpnlDevice.setLayout(null);
-		
-		 pnlSalesDevice = new JPanel();
+
+		pnlSalesDevice = new JPanel();
 		pnlSalesDevice.setLayout(null);
 		pnlSalesDevice.setBounds(10, 11, 378, 355);
 		jpnlDevice.add(pnlSalesDevice);
-		
+
 		JLabel lblSalesDeviceClientName = new JLabel("Ügyfél név:");
 		lblSalesDeviceClientName.setHorizontalAlignment(SwingConstants.RIGHT);
 		lblSalesDeviceClientName.setForeground(new Color(153, 0, 0));
 		lblSalesDeviceClientName.setFont(new Font("Tahoma", Font.BOLD, 15));
 		lblSalesDeviceClientName.setBounds(0, 0, 85, 35);
 		pnlSalesDevice.add(lblSalesDeviceClientName);
-		
+
 		txtSalesDeviceClientName = new JTextField();
 		txtSalesDeviceClientName.setEnabled(false);
 		txtSalesDeviceClientName.setFont(new Font("Tahoma", Font.PLAIN, 14));
@@ -235,7 +229,7 @@ public class ClientGui extends SalesGui {
 		txtSalesDeviceClientName.setBackground(new Color(245, 255, 250));
 		txtSalesDeviceClientName.setBounds(88, 0, 189, 35);
 		pnlSalesDevice.add(txtSalesDeviceClientName);
-		
+
 		txtSalesDeviceClientID = new JTextField();
 		txtSalesDeviceClientID.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		txtSalesDeviceClientID.setEnabled(false);

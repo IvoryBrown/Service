@@ -11,10 +11,11 @@ import javax.swing.JComboBox;
 import javax.swing.JTextField;
 import java.awt.Font;
 import java.awt.Color;
+import javax.swing.JLabel;
 
 public class WorkSheetGui extends DeviceJDBCSetDAO {
 	protected JButton btnBack, btnWorkPrint, btnWorkSearch, btnWorkUpdate;
-	protected JPanel pnlOrderList, pnlWorkTable,pnlWorkPrint;
+	protected JPanel pnlOrderList, pnlWorkTable, pnlWorkPrint;
 	protected JTabbedPane tbdPanel;
 	protected JComboBox<?> cmbWorkSearch;
 	protected JTextField txtWorkSearch;
@@ -28,7 +29,6 @@ public class WorkSheetGui extends DeviceJDBCSetDAO {
 	 * 
 	 */
 	private static final long serialVersionUID = -6544483758378225794L;
-	
 
 	private void setActivity() {
 		tbdPanel = new JTabbedPane(JTabbedPane.TOP);
@@ -36,16 +36,18 @@ public class WorkSheetGui extends DeviceJDBCSetDAO {
 		pnl.add(tbdPanel);
 
 		pnlWorkTable = new JPanel();
-		tbdPanel.addTab("", new ImageIcon(WorkSheetGui.class.getResource("/icon/function/22x22/table.png")), pnlWorkTable,
-				null);
+		tbdPanel.addTab("", new ImageIcon(WorkSheetGui.class.getResource("/icon/function/22x22/table.png")),
+				pnlWorkTable, null);
 		pnlWorkTable.setLayout(null);
 
 		pnlOrderList = new JPanel();
 		tbdPanel.addTab("", new ImageIcon(WorkSheetGui.class.getResource("/icon/general/22/partners.png")),
 				pnlOrderList, null);
-		
+
 		pnlWorkPrint = new JPanel();
-		tbdPanel.addTab("", new ImageIcon(WorkSheetGui.class.getResource("/icon/tango/22x22/actions/document-print.png")), pnlWorkPrint, null);
+		tbdPanel.addTab("",
+				new ImageIcon(WorkSheetGui.class.getResource("/icon/tango/22x22/actions/document-print.png")),
+				pnlWorkPrint, null);
 
 		btnBack = new JButton("");
 		btnBack.setBackground(new Color(51, 0, 0));
@@ -84,6 +86,12 @@ public class WorkSheetGui extends DeviceJDBCSetDAO {
 				.setIcon(new ImageIcon(WorkSheetGui.class.getResource("/icon/tango/22x22/actions/view-refresh.png")));
 		btnWorkUpdate.setBounds(766, 11, 60, 37);
 		pnl.add(btnWorkUpdate);
+
+		JLabel lblNewLabel = new JLabel(
+				new ImageIcon(((new ImageIcon("Image\\Red-And-Black-Abstract-Wallpaper-3.jpg")).getImage())
+						.getScaledInstance(1239, 615, java.awt.Image.SCALE_SMOOTH)));
+		lblNewLabel.setBounds(0, 0, 1239, 615);
+		pnl.add(lblNewLabel);
 
 	}
 }

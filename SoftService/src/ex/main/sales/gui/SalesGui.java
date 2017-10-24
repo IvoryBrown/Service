@@ -63,7 +63,7 @@ public class SalesGui extends JFrame {
 		tbdPnSales.addTab("", new ImageIcon(SalesGui.class.getResource("/icon/tulliana/22x22/apps/systemtray.png")), jpnlDevice, null);
 		
 		lblNewLabel = new JLabel("New label");
-		lblNewLabel.setIcon(new ImageIcon("F:\\Programozás\\Vállalat#\\Exicom\\Képek\\Red-And-Black-Abstract-Wallpaper-3.jpg"));
+		lblNewLabel.setIcon(new ImageIcon("Image\\Red-And-Black-Abstract-Wallpaper-3.jpg"));
 		lblNewLabel.setBackground(Color.RED);
 		lblNewLabel.setBounds(0, 0, 1244, 62);
 		pnlSales.add(lblNewLabel);
