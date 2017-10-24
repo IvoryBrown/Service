@@ -118,61 +118,57 @@ public class DeviceJDBCSetDAO extends DeviceGui implements DeviceImplements {
 		if (cmbSalesDeviceName.getSelectedItem() == null) {
 			cmbSalesDeviceName.setBackground(new Color(255, 0, 0));
 		} else {
-			cmbSalesDeviceName.setBackground(Color.BLACK);
+			cmbSalesDeviceName.setBackground(Color.WHITE);
 		}
 		if (cmbSalesDeviceCondition.getSelectedItem() == null) {
 			cmbSalesDeviceCondition.setBackground(new Color(255, 0, 0));
 		} else {
-			cmbSalesDeviceCondition.setBackground(Color.BLACK);
+			cmbSalesDeviceCondition.setBackground(Color.WHITE);
 		}
 		if (cmbSalesDevicePriority.getSelectedItem() == null) {
 			cmbSalesDevicePriority.setBackground(new Color(255, 0, 0));
 		} else {
-			cmbSalesDevicePriority.setBackground(Color.BLACK);
+			cmbSalesDevicePriority.setBackground(Color.WHITE);
 		}
 		if (cmbSalesDeviceSoftver.getSelectedItem() == null) {
 			cmbSalesDeviceSoftver.setBackground(new Color(255, 0, 0));
 		} else {
-			cmbSalesDeviceSoftver.setBackground(Color.BLACK);
+			cmbSalesDeviceSoftver.setBackground(Color.WHITE);
 		}
 		if (cmbSalesDeviceCleaning.getSelectedItem() == null) {
 			cmbSalesDeviceCleaning.setBackground(new Color(255, 0, 0));
 		} else {
-			cmbSalesDeviceCleaning.setBackground(Color.BLACK);
+			cmbSalesDeviceCleaning.setBackground(Color.WHITE);
 		}
 		if (cmbSalesDeviceCleaning.getSelectedItem() == null) {
 			cmbSalesDeviceCleaning.setBackground(new Color(255, 0, 0));
 		} else {
-			cmbSalesDeviceCleaning.setBackground(Color.BLACK);
+			cmbSalesDeviceCleaning.setBackground(Color.WHITE);
 		}
 		if (txtSalesdeviceType.getText().trim().isEmpty()) {
 			txtSalesdeviceType.setBackground(new Color(255, 0, 0));
-			;
 		} else {
-			txtSalesdeviceType.setBackground(new Color(245, 255, 250));
+			txtSalesdeviceType.setBackground(Color.WHITE);
 		}
 		if (txtSalesDevicePassword.getText().trim().isEmpty()) {
 			txtSalesDevicePassword.setBackground(new Color(255, 0, 0));
-			;
 		} else {
-			txtSalesDevicePassword.setBackground(new Color(245, 255, 250));
+			txtSalesDevicePassword.setBackground(Color.WHITE);
 		}
 		if (txtSalesDeviceAccesssory.getText().trim().isEmpty()) {
 			txtSalesDeviceAccesssory.setBackground(new Color(255, 0, 0));
-			;
 		} else {
-			txtSalesDeviceAccesssory.setBackground(new Color(245, 255, 250));
+			txtSalesDeviceAccesssory.setBackground(Color.WHITE);
 		}
 		if (txtSalesDeviceInjury.getText().trim().isEmpty()) {
 			txtSalesDeviceInjury.setBackground(new Color(255, 0, 0));
-			;
 		} else {
-			txtSalesDeviceInjury.setBackground(new Color(245, 255, 250));
+			txtSalesDeviceInjury.setBackground(Color.WHITE);
 		}
 		if (txtSalesDeviceComment.getText().trim().isEmpty()) {
 			txtSalesDeviceComment.setBackground(new Color(255, 0, 0));
 		} else {
-			txtSalesDeviceComment.setBackground(new Color(245, 255, 250));
+			txtSalesDeviceComment.setBackground(Color.WHITE);
 		}
 		if (dateSalesDeviceEndDate.getDate() == null) {
 			dateSalesDeviceEndDate.setBackground(new Color(255, 0, 0));
@@ -203,8 +199,8 @@ public class DeviceJDBCSetDAO extends DeviceGui implements DeviceImplements {
 		String query = "SELECT * FROM gepadatok ";
 		Statement st;
 		ResultSet rs;
+		Connection con = DataBaseConnect.getConnection();
 		try {
-			Connection con = DataBaseConnect.getConnection();
 			st = con.createStatement();
 			rs = st.executeQuery(query);
 			DeviceConfig product;
@@ -219,6 +215,12 @@ public class DeviceJDBCSetDAO extends DeviceGui implements DeviceImplements {
 			}
 		} catch (SQLException ex) {
 			Logger.getLogger(DeviceJDBCSetDAO.class.getName()).log(Level.SEVERE, null, ex);
+		} finally {
+			try {
+				con.close();
+			} catch (SQLException e) {
+				Logger.getLogger(DeviceJDBCSetDAO.class.getName()).log(Level.SEVERE, null, e);
+			}
 		}
 		return productListDevice;
 	}
@@ -228,8 +230,8 @@ public class DeviceJDBCSetDAO extends DeviceGui implements DeviceImplements {
 		ArrayList<DeviceConfig> listSearch = new ArrayList<DeviceConfig>();
 		ResultSet rs;
 		Statement insertDevice;
+		Connection con = DataBaseConnect.getConnection();
 		try {
-			Connection con = DataBaseConnect.getConnection();
 			insertDevice = con.createStatement();
 			String searchQuery = "SELECT * FROM `gepadatok` WHERE CONCAT (`"
 					+ cmbSalesDeviceSearch.getItemAt(cmbSalesDeviceSearch.getSelectedIndex()) + "`) LIKE '%"
@@ -247,6 +249,12 @@ public class DeviceJDBCSetDAO extends DeviceGui implements DeviceImplements {
 			}
 		} catch (SQLException ex) {
 			JOptionPane.showMessageDialog(null, "Sikertelen Keresés: " + ex.getMessage());
+		} finally {
+			try {
+				con.close();
+			} catch (SQLException e) {
+				Logger.getLogger(DeviceJDBCSetDAO.class.getName()).log(Level.SEVERE, null, e);
+			}
 		}
 		return listSearch;
 	}
@@ -549,22 +557,35 @@ public class DeviceJDBCSetDAO extends DeviceGui implements DeviceImplements {
 	}
 
 	private void btnNullShowPerformed() {
-		txtSalesDeviceClientID.setText(null);
-		txtSalesDeviceClientName.setText(null);
+		txtSalesDeviceClientID.setText(null); // fix
+		txtSalesDeviceClientName.setText(null); // fix
 		cmbSalesDeviceName.setSelectedItem(null);
-		txtSalesDeviceID.setText(null);
+		cmbSalesDeviceName.setBackground(Color.BLACK);
+		txtSalesDeviceID.setText(null); // fix
 		txtSalesdeviceType.setText(null);
+		txtSalesdeviceType.setBackground(Color.WHITE);
 		cmbSalesDeviceCondition.setSelectedItem(null);
+		cmbSalesDeviceCondition.setBackground(Color.BLACK);
 		cmbSalesDevicePriority.setSelectedItem(null);
+		cmbSalesDevicePriority.setBackground(Color.BLACK);
 		dateSalesDeviceBuying.setDate(null);
+		dateSalesDeviceBuying.setBackground(Color.LIGHT_GRAY);
 		dateSalesDeviceAddDate.setDate(null);
+		dateSalesDeviceAddDate.setBackground(Color.LIGHT_GRAY);
 		dateSalesDeviceEndDate.setDate(null);
+		dateSalesDeviceEndDate.setBackground(Color.LIGHT_GRAY);
 		cmbSalesDeviceSoftver.setSelectedItem(null);
+		cmbSalesDeviceSoftver.setBackground(Color.BLACK);
 		cmbSalesDeviceCleaning.setSelectedItem(null);
+		cmbSalesDeviceCleaning.setBackground(Color.BLACK);
 		txtSalesDevicePassword.setText("-");
+		txtSalesDevicePassword.setBackground(Color.WHITE);
 		txtSalesDeviceAccesssory.setText("-");
+		txtSalesDeviceAccesssory.setBackground(Color.WHITE);
 		txtSalesDeviceInjury.setText("-");
+		txtSalesDeviceInjury.setBackground(Color.WHITE);
 		txtSalesDeviceComment.setText(null);
+		txtSalesDeviceComment.setBackground(Color.WHITE);
 		showProductsInJTableDevice();
 	}
 

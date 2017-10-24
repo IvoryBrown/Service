@@ -42,10 +42,10 @@ public class ClientJDBCSetDAO extends ClientGui implements ClientImplements {
 	private static final long serialVersionUID = 1L;
 
 	private void setActionSalesClient() {
-		
+
 		rows = new String[] { "ID", "azonosító", "név", "kapcsolat", "lakcím", "megjegyzés" };
 		jtblSalesClient.setModel(new javax.swing.table.DefaultTableModel(columns, rows));
-		
+
 		jtblSalesClient.getColumn("ID").setMinWidth(50);
 		jtblSalesClient.getColumn("ID").setMaxWidth(50);
 		jtblSalesClient.getColumn("azonosító").setMinWidth(90);
@@ -60,7 +60,7 @@ public class ClientJDBCSetDAO extends ClientGui implements ClientImplements {
 		jtblSalesClient.addMouseListener(new java.awt.event.MouseAdapter() {
 			public void mouseClicked(java.awt.event.MouseEvent evt) {
 				jTableProductsMouseClicked(evt);
-			
+
 			}
 		});
 
@@ -105,19 +105,22 @@ public class ClientJDBCSetDAO extends ClientGui implements ClientImplements {
 
 	private boolean checkInputsSalesClient() {
 		if (txtSalesClientName.getText().trim().isEmpty()) {
-			txtSalesClientName.setBackground(new Color(255, 0, 0));;
+			txtSalesClientName.setBackground(new Color(255, 0, 0));
+			;
 		} else {
-			txtSalesClientName.setBackground(new Color(245, 255, 250));
+			txtSalesClientName.setBackground(Color.WHITE);
 		}
 		if (txtSalesClientMobil.getText().trim().isEmpty()) {
-			txtSalesClientMobil.setBackground(new Color(255, 0, 0));;
+			txtSalesClientMobil.setBackground(new Color(255, 0, 0));
+			;
 		} else {
-			txtSalesClientMobil.setBackground(new Color(245, 255, 250));
+			txtSalesClientMobil.setBackground(Color.WHITE);
 		}
 		if (txtSalesClientHomeAddress.getText().trim().isEmpty()) {
-			txtSalesClientHomeAddress.setBackground(new Color(255, 0, 0));;
+			txtSalesClientHomeAddress.setBackground(new Color(255, 0, 0));
+			;
 		} else {
-			txtSalesClientHomeAddress.setBackground(new Color(245, 255, 250));
+			txtSalesClientHomeAddress.setBackground(Color.WHITE);
 		}
 		if (txtSalesClientName.getText().trim().isEmpty() || txtSalesClientMobil.getText().trim().isEmpty()
 				|| txtSalesClientHomeAddress.getText().trim().isEmpty()) {
@@ -145,6 +148,12 @@ public class ClientJDBCSetDAO extends ClientGui implements ClientImplements {
 			}
 		} catch (SQLException ex) {
 			Logger.getLogger(ClientJDBCSetDAO.class.getName()).log(Level.SEVERE, null, ex);
+		} finally {
+			try {
+				con.close();
+			} catch (SQLException e) {
+				Logger.getLogger(ClientJDBCSetDAO.class.getName()).log(Level.SEVERE, null, e);
+			}
 		}
 		return productList;
 	}
@@ -154,9 +163,9 @@ public class ClientJDBCSetDAO extends ClientGui implements ClientImplements {
 		ArrayList<ClientConfig> listSearch = new ArrayList<ClientConfig>();
 		ResultSet rs;
 		Statement insertClient;
+		Connection con = DataBaseConnect.getConnection();
 		try {
 
-			Connection con = DataBaseConnect.getConnection();
 			insertClient = con.createStatement();
 			String searchQuery = "SELECT * FROM `megrendelo` WHERE CONCAT (`"
 					+ cmbSalesClientSearch.getItemAt(cmbSalesClientSearch.getSelectedIndex()) + "`) LIKE '%"
@@ -170,6 +179,12 @@ public class ClientJDBCSetDAO extends ClientGui implements ClientImplements {
 			}
 		} catch (SQLException ex) {
 			JOptionPane.showMessageDialog(null, "Sikertelen Keresés: " + ex.getMessage());
+		} finally {
+			try {
+				con.close();
+			} catch (SQLException e) {
+				Logger.getLogger(ClientJDBCSetDAO.class.getName()).log(Level.SEVERE, null, e);
+			}
 		}
 		return listSearch;
 	}
@@ -188,7 +203,7 @@ public class ClientJDBCSetDAO extends ClientGui implements ClientImplements {
 			row[5] = client.get(i).getSalesClientComment();
 			model.addRow(row);
 		}
-		
+
 	}
 
 	private void showProductsInJTableClient() {
@@ -205,6 +220,7 @@ public class ClientJDBCSetDAO extends ClientGui implements ClientImplements {
 			row[5] = list.get(i).getSalesClientComment();
 			model.addRow(row);
 		}
+		
 	}
 
 	private void showItemClientSearch(int index) {
@@ -229,7 +245,7 @@ public class ClientJDBCSetDAO extends ClientGui implements ClientImplements {
 		// device set
 		txtSalesDeviceClientName.setText(getClientProductList().get(index).getSalesClientName());
 		txtSalesDeviceClientID.setText(Integer.toString(getClientProductList().get(index).getSalesClientID()));
-		
+
 	}
 
 	private void jBtnInsertActionPerformedSalesClient() {
@@ -247,12 +263,7 @@ public class ClientJDBCSetDAO extends ClientGui implements ClientImplements {
 				insertClient.executeUpdate();
 				showProductsInJTableClient();
 				JOptionPane.showMessageDialog(null, "Adatok beillesztve");
-				txtSalesClientID.setText(null);
-				txtSalesClientNumber.setText(null);
-				txtSalesClientName.setText(null);
-				txtSalesClientMobil.setText(null);
-				txtSalesClientHomeAddress.setText(null);
-				txtSalesClientComment.setText(null);
+				btnNullShowPerformed();
 			} catch (SQLException ex) {
 				JOptionPane.showMessageDialog(null, "Sikertelen beillesztés: " + ex.getMessage());
 			}
@@ -279,12 +290,7 @@ public class ClientJDBCSetDAO extends ClientGui implements ClientImplements {
 				ps.executeUpdate();
 				showProductsInJTableClient();
 				JOptionPane.showMessageDialog(null, "Sikeres Frissítés");
-				txtSalesClientID.setText(null);
-				txtSalesClientNumber.setText(null);
-				txtSalesClientName.setText(null);
-				txtSalesClientMobil.setText(null);
-				txtSalesClientHomeAddress.setText(null);
-				txtSalesClientComment.setText(null);
+				btnNullShowPerformed();
 			} catch (SQLException ex) {
 				Logger.getLogger(ClientJDBCSetDAO.class.getName()).log(Level.SEVERE, null, ex);
 			}
@@ -303,12 +309,7 @@ public class ClientJDBCSetDAO extends ClientGui implements ClientImplements {
 				deleteClient.executeUpdate();
 				showProductsInJTableClient();
 				JOptionPane.showMessageDialog(null, "Sikeres törlés");
-				txtSalesClientID.setText(null);
-				txtSalesClientNumber.setText(null);
-				txtSalesClientName.setText(null);
-				txtSalesClientMobil.setText(null);
-				txtSalesClientHomeAddress.setText(null);
-				txtSalesClientComment.setText(null);
+				btnNullShowPerformed();
 			} catch (SQLException ex) {
 				Logger.getLogger(ClientJDBCSetDAO.class.getName()).log(Level.SEVERE, null, ex);
 				JOptionPane.showMessageDialog(null, "Sikertelen törlés");
@@ -320,17 +321,17 @@ public class ClientJDBCSetDAO extends ClientGui implements ClientImplements {
 
 	private void btnNullShowPerformed() {
 		txtSalesClientID.setText(null);
-		txtSalesClientID.setBackground(new Color(245, 255, 250));
+		txtSalesClientID.setBackground(Color.WHITE);
 		txtSalesClientNumber.setText(null);
-		txtSalesClientNumber.setBackground(new Color(245, 255, 250));
+		txtSalesClientNumber.setBackground(Color.WHITE);
 		txtSalesClientName.setText(null);
-		txtSalesClientName.setBackground(new Color(245, 255, 250));
+		txtSalesClientName.setBackground(Color.WHITE);
 		txtSalesClientMobil.setText(null);
-		txtSalesClientMobil.setBackground(new Color(245, 255, 250));
+		txtSalesClientMobil.setBackground(Color.WHITE);
 		txtSalesClientHomeAddress.setText(null);
-		txtSalesClientHomeAddress.setBackground(new Color(245, 255, 250));
+		txtSalesClientHomeAddress.setBackground(Color.WHITE);
 		txtSalesClientComment.setText(null);
-		txtSalesClientComment.setBackground(new Color(245, 255, 250));
+		txtSalesClientComment.setBackground(Color.WHITE);
 		txtSalesClientSearch.setText(null);
 		cmbSalesClientSearch.setSelectedIndex(0);
 		showProductsInJTableClient();
@@ -363,6 +364,6 @@ public class ClientJDBCSetDAO extends ClientGui implements ClientImplements {
 		int index = jtblSalesClient.getSelectedRow();
 		showItemClient(index);
 		showItemClientSearch(index);
-		
+
 	}
 }

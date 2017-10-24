@@ -115,6 +115,7 @@ public class ClientGui extends SalesGui {
 		pnlClientSetting.add(txtSalesClientNumber);
 
 		txtSalesClientName = new JTextField();
+		txtSalesClientName.setBackground(Color.WHITE);
 		txtSalesClientName.setForeground(new Color(51, 0, 0));
 		txtSalesClientName.setFont(new Font("Tahoma", Font.BOLD, 14));
 		txtSalesClientName.setColumns(10);
@@ -122,6 +123,7 @@ public class ClientGui extends SalesGui {
 		pnlClientSetting.add(txtSalesClientName);
 
 		txtSalesClientMobil = new JTextField();
+		txtSalesClientMobil.setBackground(Color.WHITE);
 		txtSalesClientMobil.setForeground(new Color(51, 0, 0));
 		txtSalesClientMobil.setFont(new Font("Tahoma", Font.BOLD, 14));
 		txtSalesClientMobil.setColumns(10);
@@ -146,6 +148,7 @@ public class ClientGui extends SalesGui {
 		pnlClientSetting.add(txtSalesClientID);
 
 		JScrollPane scrPSalesClientComment = new JScrollPane();
+		scrPSalesClientComment.setBackground(Color.WHITE);
 		scrPSalesClientComment.setBounds(153, 198, 294, 146);
 		pnlClientSetting.add(scrPSalesClientComment);
 

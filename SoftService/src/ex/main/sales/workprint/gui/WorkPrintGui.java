@@ -142,7 +142,7 @@ public class WorkPrintGui extends OrderListJDBCSetDAO {
 		lblWorkPrintDeviceName.setBounds(123, 209, 280, 11);
 		panel_1.add(lblWorkPrintDeviceName);
 		
-		JLabel lblSorozatszm = new JLabel("Sorozatszám: ");
+		JLabel lblSorozatszm = new JLabel("Típus: ");
 		lblSorozatszm.setHorizontalAlignment(SwingConstants.RIGHT);
 		lblSorozatszm.setFont(new Font("Tahoma", Font.BOLD, 9));
 		lblSorozatszm.setBounds(21, 224, 97, 11);
@@ -403,7 +403,7 @@ public class WorkPrintGui extends OrderListJDBCSetDAO {
 		lblWorkPrintDeviceName0.setBounds(123, 209, 280, 11);
 		panel_2.add(lblWorkPrintDeviceName0);
 		
-		JLabel label_19 = new JLabel("Sorozatszám: ");
+		JLabel label_19 = new JLabel("Típus: ");
 		label_19.setHorizontalAlignment(SwingConstants.RIGHT);
 		label_19.setFont(new Font("Tahoma", Font.BOLD, 9));
 		label_19.setBounds(21, 224, 97, 11);

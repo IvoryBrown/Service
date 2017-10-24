@@ -170,7 +170,7 @@ public class WorkTableJDBCSetDAO extends WorkTableGui implements WorkTableImplem
 			}
 		} catch (SQLException ex) {
 			JOptionPane.showMessageDialog(null, "Sikertelen Keresés: " + ex.getMessage());
-		}finally {
+		} finally {
 			try {
 				con.close();
 			} catch (SQLException e) {
@@ -266,8 +266,10 @@ public class WorkTableJDBCSetDAO extends WorkTableGui implements WorkTableImplem
 		lblWorkPrintDeviceAddDate.setText(getWorktableProductList().get(index).getWorkTableDeviceAddDate());
 		lblWorkPrintDeviceAccessory.setText(getWorktableProductList().get(index).getWorkTableDeviceAccesssory());
 		lblWorkPrintDevicePassword.setText(getWorktableProductList().get(index).getWorkTableDevicePassword());
-		lblWorkPrintDeviceInjury.setText(getWorktableProductList().get(index).getWorkTableDeviceInjury());
-		lblWorkPrintDeviceFault.setText(getWorktableProductList().get(index).getWorkTableDeviceFault());
+		String sWorkPrintDeviceInjury = getWorktableProductList().get(index).getWorkTableDeviceInjury();
+		lblWorkPrintDeviceInjury.setText("<html>" + sWorkPrintDeviceInjury + "<br /> </html>");
+		String sWorkPrintDeviceFault = getWorktableProductList().get(index).getWorkTableDeviceFault();
+		lblWorkPrintDeviceFault.setText("<html>" + sWorkPrintDeviceFault + "<br /> </html>");
 		lblWorkPrintEndDate.setText(getWorktableProductList().get(index).getWorkTableDeviceExitDate());
 		lblWorkPrintDeviceName0.setText(getWorktableProductList().get(index).getWorkTableDeviceName());
 		lblWorkPrintDeviceSerial0.setText(getWorktableProductList().get(index).getWorkTableDeviceType());
@@ -275,8 +277,8 @@ public class WorkTableJDBCSetDAO extends WorkTableGui implements WorkTableImplem
 		lblWorkPrintDeviceAddDate0.setText(getWorktableProductList().get(index).getWorkTableDeviceAddDate());
 		lblWorkPrintDeviceAccessory0.setText(getWorktableProductList().get(index).getWorkTableDeviceAccesssory());
 		lblWorkPrintDevicePassword0.setText(getWorktableProductList().get(index).getWorkTableDevicePassword());
-		lblWorkPrintDeviceInjury0.setText(getWorktableProductList().get(index).getWorkTableDeviceInjury());
-		// folyt
+		String sWorkPrintDeviceInjury0 = getWorktableProductList().get(index).getWorkTableDeviceInjury();
+		lblWorkPrintDeviceInjury0.setText("<html>" + sWorkPrintDeviceInjury0 + "<br /> </html>");
 		String sWorkPrintDeviceFault0 = getWorktableProductList().get(index).getWorkTableDeviceFault();
 		lblWorkPrintDeviceFault0.setText("<html>" + sWorkPrintDeviceFault0 + "<br /> </html>");
 		lblWorkPrintEndDate0.setText(getWorktableProductList().get(index).getWorkTableDeviceExitDate());
@@ -322,8 +324,6 @@ public class WorkTableJDBCSetDAO extends WorkTableGui implements WorkTableImplem
 		lblWorkPrintDeviceAddDate.setText(getWorktableProductList().get(index).getWorkTableDeviceAddDate());
 		lblWorkPrintDeviceAccessory.setText(getWorktableProductList().get(index).getWorkTableDeviceAccesssory());
 		lblWorkPrintDevicePassword.setText(getWorktableProductList().get(index).getWorkTableDevicePassword());
-		lblWorkPrintDeviceInjury.setText(getWorktableProductList().get(index).getWorkTableDeviceInjury());
-		lblWorkPrintDeviceFault.setText(getWorktableProductList().get(index).getWorkTableDeviceFault());
 		lblWorkPrintEndDate.setText(getWorktableProductList().get(index).getWorkTableDeviceExitDate());
 		lblWorkPrintDeviceName0.setText(getWorktableProductList().get(index).getWorkTableDeviceName());
 		lblWorkPrintDeviceSerial0.setText(getWorktableProductList().get(index).getWorkTableDeviceType());
@@ -331,9 +331,15 @@ public class WorkTableJDBCSetDAO extends WorkTableGui implements WorkTableImplem
 		lblWorkPrintDeviceAddDate0.setText(getWorktableProductList().get(index).getWorkTableDeviceAddDate());
 		lblWorkPrintDeviceAccessory0.setText(getWorktableProductList().get(index).getWorkTableDeviceAccesssory());
 		lblWorkPrintDevicePassword0.setText(getWorktableProductList().get(index).getWorkTableDevicePassword());
-		lblWorkPrintDeviceInjury0.setText(getWorktableProductList().get(index).getWorkTableDeviceInjury());
-		// lblWorkPrintDeviceFault0.setText(getWorktableProductList().get(index).getWorkTableDeviceFault());
 		lblWorkPrintEndDate0.setText(getWorktableProductList().get(index).getWorkTableDeviceExitDate());
+		String sWorkPrintDeviceInjury = getWorktableProductList().get(index).getWorkTableDeviceInjury();
+		lblWorkPrintDeviceInjury.setText("<html>" + sWorkPrintDeviceInjury + "<br /> </html>");
+		String sWorkPrintDeviceFault = getWorktableProductList().get(index).getWorkTableDeviceFault();
+		lblWorkPrintDeviceFault.setText("<html>" + sWorkPrintDeviceFault + "<br /> </html>");
+		String sWorkPrintDeviceInjury0 = getWorktableProductList().get(index).getWorkTableDeviceInjury();
+		lblWorkPrintDeviceInjury0.setText("<html>" + sWorkPrintDeviceInjury0 + "<br /> </html>");
+		String sWorkPrintDeviceFault0 = getWorktableProductList().get(index).getWorkTableDeviceFault();
+		lblWorkPrintDeviceFault0.setText("<html>" + sWorkPrintDeviceFault0 + "<br /> </html>");
 	}
 
 	private void jTableProductsMouseClickedDevice(java.awt.event.MouseEvent evt) {
