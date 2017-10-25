@@ -422,13 +422,19 @@ public class DeviceJDBCSetDAO extends DeviceGui implements DeviceImplements {
 						.prepareStatement("INSERT INTO image_gep(gepadatok_ID_g)" + "values(?)");
 				insertDeviceImage.setString(1, txtSalesDeviceID.getText());
 				insertDeviceImage.executeUpdate();
-				PreparedStatement insertDeviceSoftver = con
-						.prepareStatement("INSERT INTO software(gepadatok_ID_gs)" + "values(?)");
+				PreparedStatement insertDeviceSoftver = con.prepareStatement(
+						"INSERT INTO software(gepadatok_ID_gs, eszkoz_nev_s, serial)" + "values(?,?,?)");
 				insertDeviceSoftver.setString(1, txtSalesDeviceID.getText());
+				insertDeviceSoftver.setString(2,
+						(String) cmbSalesDeviceName.getItemAt(cmbSalesDeviceName.getSelectedIndex()));
+				insertDeviceSoftver.setString(3, txtSalesdeviceType.getText());
 				insertDeviceSoftver.executeUpdate();
-				PreparedStatement insertDeviceHardver = con
-						.prepareStatement("INSERT INTO alkatresz(gepadatok_ID_ga)" + "values(?)");
+				PreparedStatement insertDeviceHardver = con.prepareStatement(
+						"INSERT INTO alkatresz(gepadatok_ID_ga, eszkoz_nev_a, eszkoz_serial_a)" + "values(?,?,?)");
 				insertDeviceHardver.setString(1, txtSalesDeviceID.getText());
+				insertDeviceHardver.setString(2,
+						(String) cmbSalesDeviceName.getItemAt(cmbSalesDeviceName.getSelectedIndex()));
+				insertDeviceHardver.setString(3, txtSalesdeviceType.getText());
 				insertDeviceHardver.executeUpdate();
 				showProductsInJTableDevice();
 				txtSalesDeviceClientID.setText(null);
