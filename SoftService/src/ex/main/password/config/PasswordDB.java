@@ -38,10 +38,17 @@ public class PasswordDB {
 			}
 		} catch (Exception e) {
 			return false;
-		}finally {
+		} finally {
 			try {
-				con.close();
-				
+				if (rs != null) {
+					rs.close();
+				}
+				if (pst != null) {
+					pst.close();
+				}
+				if (con != null) {
+					con.close();
+				}
 			} catch (SQLException e) {
 				Logger.getLogger(PasswordDB.class.getName()).log(Level.SEVERE, null, e);
 			}

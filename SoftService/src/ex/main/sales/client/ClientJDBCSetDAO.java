@@ -135,8 +135,8 @@ public class ClientJDBCSetDAO extends ClientGui implements ClientImplements {
 		ArrayList<ClientConfig> productList = new ArrayList<ClientConfig>();
 		Connection con = DataBaseConnect.getConnection();
 		String query = "SELECT * FROM megrendelo ";
-		Statement st;
-		ResultSet rs;
+		Statement st = null;
+		ResultSet rs = null;
 		try {
 			st = con.createStatement();
 			rs = st.executeQuery(query);
@@ -150,7 +150,15 @@ public class ClientJDBCSetDAO extends ClientGui implements ClientImplements {
 			Logger.getLogger(ClientJDBCSetDAO.class.getName()).log(Level.SEVERE, null, ex);
 		} finally {
 			try {
-				con.close();
+				if (rs != null) {
+					rs.close();
+				}
+				if (st != null) {
+					st.close();
+				}
+				if (con != null) {
+					con.close();
+				}
 			} catch (SQLException e) {
 				Logger.getLogger(ClientJDBCSetDAO.class.getName()).log(Level.SEVERE, null, e);
 			}
@@ -161,11 +169,10 @@ public class ClientJDBCSetDAO extends ClientGui implements ClientImplements {
 	@Override
 	public ArrayList<ClientConfig> getListClient() {
 		ArrayList<ClientConfig> listSearch = new ArrayList<ClientConfig>();
-		ResultSet rs;
-		Statement insertClient;
+		ResultSet rs = null;
+		Statement insertClient = null;
 		Connection con = DataBaseConnect.getConnection();
 		try {
-
 			insertClient = con.createStatement();
 			String searchQuery = "SELECT * FROM `megrendelo` WHERE CONCAT (`"
 					+ cmbSalesClientSearch.getItemAt(cmbSalesClientSearch.getSelectedIndex()) + "`) LIKE '%"
@@ -181,7 +188,15 @@ public class ClientJDBCSetDAO extends ClientGui implements ClientImplements {
 			JOptionPane.showMessageDialog(null, "Sikertelen Keresés: " + ex.getMessage());
 		} finally {
 			try {
-				con.close();
+				if (rs != null) {
+					rs.close();
+				}
+				if (insertClient != null) {
+					insertClient.close();
+				}
+				if (con != null) {
+					con.close();
+				}
 			} catch (SQLException e) {
 				Logger.getLogger(ClientJDBCSetDAO.class.getName()).log(Level.SEVERE, null, e);
 			}
@@ -220,7 +235,7 @@ public class ClientJDBCSetDAO extends ClientGui implements ClientImplements {
 			row[5] = list.get(i).getSalesClientComment();
 			model.addRow(row);
 		}
-		
+
 	}
 
 	private void showItemClientSearch(int index) {

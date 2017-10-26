@@ -113,8 +113,8 @@ public class WorkTableJDBCSetDAO extends WorkTableGui implements WorkTableImplem
 	public ArrayList<WorkTableConfig> getWorktableProductList() {
 		ArrayList<WorkTableConfig> productListDevice = new ArrayList<WorkTableConfig>();
 		String query = "SELECT * FROM megrendelo " + " JOIN gepadatok ON megrendelo_ID_m = ID_m";
-		Statement st;
-		ResultSet rs;
+		Statement st = null;
+		ResultSet rs = null;
 		Connection con = DataBaseConnect.getConnection();
 		try {
 			st = con.createStatement();
@@ -135,7 +135,15 @@ public class WorkTableJDBCSetDAO extends WorkTableGui implements WorkTableImplem
 			Logger.getLogger(WorkTableJDBCSetDAO.class.getName()).log(Level.SEVERE, null, ex);
 		} finally {
 			try {
-				con.close();
+				if (rs != null) {
+					rs.close();
+				}
+				if (st != null) {
+					st.close();
+				}
+				if (con != null) {
+					con.close();
+				}
 			} catch (SQLException e) {
 				Logger.getLogger(WorkTableJDBCSetDAO.class.getName()).log(Level.SEVERE, null, e);
 			}
@@ -146,8 +154,8 @@ public class WorkTableJDBCSetDAO extends WorkTableGui implements WorkTableImplem
 	@Override
 	public ArrayList<WorkTableConfig> getWorktableSearchProductList() {
 		ArrayList<WorkTableConfig> listSearch = new ArrayList<WorkTableConfig>();
-		ResultSet rs;
-		Statement insertWork;
+		ResultSet rs = null;
+		Statement insertWork = null;
 		Connection con = DataBaseConnect.getConnection();
 		try {
 
@@ -172,7 +180,15 @@ public class WorkTableJDBCSetDAO extends WorkTableGui implements WorkTableImplem
 			JOptionPane.showMessageDialog(null, "Sikertelen Keresés: " + ex.getMessage());
 		} finally {
 			try {
-				con.close();
+				if (rs != null) {
+					rs.close();
+				}
+				if (insertWork != null) {
+					insertWork.close();
+				}
+				if (con != null) {
+					con.close();
+				}
 			} catch (SQLException e) {
 				Logger.getLogger(WorkTableJDBCSetDAO.class.getName()).log(Level.SEVERE, null, e);
 			}

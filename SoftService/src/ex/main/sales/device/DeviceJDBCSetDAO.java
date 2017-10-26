@@ -197,8 +197,8 @@ public class DeviceJDBCSetDAO extends DeviceGui implements DeviceImplements {
 	public ArrayList<DeviceConfig> getSalesDeviceProductList() {
 		ArrayList<DeviceConfig> productListDevice = new ArrayList<DeviceConfig>();
 		String query = "SELECT * FROM gepadatok ";
-		Statement st;
-		ResultSet rs;
+		Statement st = null;
+		ResultSet rs = null;
 		Connection con = DataBaseConnect.getConnection();
 		try {
 			st = con.createStatement();
@@ -217,7 +217,15 @@ public class DeviceJDBCSetDAO extends DeviceGui implements DeviceImplements {
 			Logger.getLogger(DeviceJDBCSetDAO.class.getName()).log(Level.SEVERE, null, ex);
 		} finally {
 			try {
-				con.close();
+				if (rs != null) {
+					rs.close();
+				}
+				if (st != null) {
+					st.close();
+				}
+				if (con != null) {
+					con.close();
+				}
 			} catch (SQLException e) {
 				Logger.getLogger(DeviceJDBCSetDAO.class.getName()).log(Level.SEVERE, null, e);
 			}
@@ -228,8 +236,8 @@ public class DeviceJDBCSetDAO extends DeviceGui implements DeviceImplements {
 	@Override
 	public ArrayList<DeviceConfig> getListDevice() {
 		ArrayList<DeviceConfig> listSearch = new ArrayList<DeviceConfig>();
-		ResultSet rs;
-		Statement insertDevice;
+		ResultSet rs = null;
+		Statement insertDevice = null;
 		Connection con = DataBaseConnect.getConnection();
 		try {
 			insertDevice = con.createStatement();
@@ -251,7 +259,15 @@ public class DeviceJDBCSetDAO extends DeviceGui implements DeviceImplements {
 			JOptionPane.showMessageDialog(null, "Sikertelen Keresés: " + ex.getMessage());
 		} finally {
 			try {
-				con.close();
+				if (rs != null) {
+					rs.close();
+				}
+				if (insertDevice != null) {
+					insertDevice.close();
+				}
+				if (con != null) {
+					con.close();
+				}
 			} catch (SQLException e) {
 				Logger.getLogger(DeviceJDBCSetDAO.class.getName()).log(Level.SEVERE, null, e);
 			}
@@ -422,12 +438,12 @@ public class DeviceJDBCSetDAO extends DeviceGui implements DeviceImplements {
 						.prepareStatement("INSERT INTO image_gep(gepadatok_ID_g)" + "values(?)");
 				insertDeviceImage.setString(1, txtSalesDeviceID.getText());
 				insertDeviceImage.executeUpdate();
-				PreparedStatement insertDeviceSoftver = con.prepareStatement(
-						"INSERT INTO software(gepadatok_ID_gs)" + "values(?)");
+				PreparedStatement insertDeviceSoftver = con
+						.prepareStatement("INSERT INTO software(gepadatok_ID_gs)" + "values(?)");
 				insertDeviceSoftver.setString(1, txtSalesDeviceID.getText());
 				insertDeviceSoftver.executeUpdate();
-				PreparedStatement insertDeviceHardver = con.prepareStatement(
-						"INSERT INTO alkatresz(gepadatok_ID_ga)" + "values(?)");
+				PreparedStatement insertDeviceHardver = con
+						.prepareStatement("INSERT INTO alkatresz(gepadatok_ID_ga)" + "values(?)");
 				insertDeviceHardver.setString(1, txtSalesDeviceID.getText());
 				insertDeviceHardver.executeUpdate();
 				showProductsInJTableDevice();
