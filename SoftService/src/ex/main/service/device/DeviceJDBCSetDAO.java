@@ -16,6 +16,7 @@ import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
+import ex.main.service.client.ClientJDBCSetDAO;
 import ex.main.service.device.config.DeviceConfig;
 import ex.main.service.device.config.DeviceImplements;
 import ex.main.service.device.gui.DeviceGui;
@@ -94,8 +95,8 @@ public class DeviceJDBCSetDAO extends DeviceGui implements DeviceImplements {
 		ArrayList<DeviceConfig> productListDevice = new ArrayList<DeviceConfig>();
 		Connection con = DataBaseConnect.getConnection();
 		String query = "SELECT * FROM gepadatok ";
-		Statement st;
-		ResultSet rs;
+		Statement st = null;
+		ResultSet rs = null;
 		try {
 			st = con.createStatement();
 			rs = st.executeQuery(query);
@@ -112,6 +113,20 @@ public class DeviceJDBCSetDAO extends DeviceGui implements DeviceImplements {
 			}
 		} catch (SQLException ex) {
 			Logger.getLogger(DeviceJDBCSetDAO.class.getName()).log(Level.SEVERE, null, ex);
+		} finally {
+			try {
+				if (rs != null) {
+					rs.close();
+				}
+				if (st != null) {
+					st.close();
+				}
+				if (con != null) {
+					con.close();
+				}
+			} catch (SQLException e) {
+				Logger.getLogger(ClientJDBCSetDAO.class.getName()).log(Level.SEVERE, null, e);
+			}
 		}
 		return productListDevice;
 	}

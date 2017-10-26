@@ -141,7 +141,6 @@ public class DeviceGui extends ClientJDBCSetDAO {
 		setComponent();
 	}
 
-	
 	private void setComponent() {
 		jplDevice.setLayout(null);
 
@@ -300,7 +299,7 @@ public class DeviceGui extends ClientJDBCSetDAO {
 		jTableDevice = new JTable();
 		jScpDevice.setViewportView(jTableDevice);
 
-		String boxStatus[] = { "Bevizsgálás alatt", "Alkatrészre vár", "Garanciális", "Bevizsgálva" };
+		String boxStatus[] = { "Bevizsgálás alatt", "Alkatrészre vár", "Garanciális", "Továbbküldve", "Bevizsgálva" };
 		cmBoxStatusdevice = new JComboBox<Object>(boxStatus);
 		cmBoxStatusdevice.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		cmBoxStatusdevice.setBounds(103, 199, 189, 35);

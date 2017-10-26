@@ -14,6 +14,7 @@ import javax.swing.table.TableModel;
 import javax.swing.table.TableRowSorter;
 
 import ex.main.gui.MainGuiSet;
+import ex.main.service.client.ClientJDBCSetDAO;
 import ex.main.service.worksheet.config.WorkSheetConfig;
 import ex.main.service.worksheet.config.WorkSheetImplements;
 import ex.main.service.worksheet.gui.WorksheetGui;
@@ -35,7 +36,8 @@ public class WorkSheetJDBCSetDao extends WorksheetGui implements WorkSheetImplem
 
 	private void setComponentJdbc() {
 
-		columns = new String[] { "ügyfél", "eszköz", "állapot", "prioritás", "rögzítés", "határidő", "lezárva" };
+		columns = new String[] { "azonosító", "ügyfél", "eszköz", "állapot", "prioritás", "rögzítés", "határidő",
+				"lezárva" };
 		tblWorksheet.setModel(new javax.swing.table.DefaultTableModel(new Object[][] {}, columns));
 		// oszlop méretezés
 		// tblWorksheet.getColumn("ID").setMaxWidth(36);
@@ -59,21 +61,35 @@ public class WorkSheetJDBCSetDao extends WorksheetGui implements WorkSheetImplem
 	public ArrayList<WorkSheetConfig> getWorkShettProductList() {
 		ArrayList<WorkSheetConfig> productList = new ArrayList<WorkSheetConfig>();
 		Connection con = DataBaseConnect.getConnection();
-		String query = "SELECT * FROM gepadatok ";
-		Statement st;
-		ResultSet rs;
+		String query = "SELECT * FROM megrendelo " + " JOIN gepadatok ON megrendelo_ID_m = ID_m";
+		Statement st = null;
+		ResultSet rs = null;
 		try {
 			st = con.createStatement();
 			rs = st.executeQuery(query);
 			WorkSheetConfig product;
 			while (rs.next()) {
-				product = new WorkSheetConfig(rs.getString("ugyfel_nev"), rs.getString("eszkoz_g"),
-						rs.getString("allapot"), rs.getString("prioritas"), rs.getString("rogzites"),
-						rs.getString("hatarido"), rs.getString("teljesitve"));
+				product = new WorkSheetConfig(rs.getString("azonosito_m"), rs.getString("ugyfel_nev"),
+						rs.getString("eszkoz_g"), rs.getString("allapot"), rs.getString("prioritas"),
+						rs.getString("rogzites"), rs.getString("hatarido"), rs.getString("teljesitve"));
 				productList.add(product);
 			}
 		} catch (SQLException ex) {
 			Logger.getLogger(WorkSheetJDBCSetDao.class.getName()).log(Level.SEVERE, null, ex);
+		} finally {
+			try {
+				if (rs != null) {
+					rs.close();
+				}
+				if (st != null) {
+					st.close();
+				}
+				if (con != null) {
+					con.close();
+				}
+			} catch (SQLException e) {
+				Logger.getLogger(ClientJDBCSetDAO.class.getName()).log(Level.SEVERE, null, e);
+			}
 		}
 		return productList;
 	}
@@ -82,15 +98,16 @@ public class WorkSheetJDBCSetDao extends WorksheetGui implements WorkSheetImplem
 		ArrayList<WorkSheetConfig> list = getWorkShettProductList();
 		DefaultTableModel model = (DefaultTableModel) tblWorksheet.getModel();
 		model.setRowCount(0);
-		Object[] row = new Object[7];
+		Object[] row = new Object[8];
 		for (int i = 0; i < list.size(); i++) {
-			row[0] = list.get(i).getClientNameWorkSheet();
-			row[1] = list.get(i).getDeviceNameWorkSheet();
-			row[2] = list.get(i).getStatusWorkSheet();
-			row[3] = list.get(i).getPrioritWorkSheet();
-			row[4] = list.get(i).getAddDateWorkSheet();
-			row[5] = list.get(i).getEndDateWorkSheet();
-			row[6] = list.get(i).getCompleteDateWorkSheet();
+			row[0] = list.get(i).getClientNameNumber();
+			row[1] = list.get(i).getClientNameWorkSheet();
+			row[2] = list.get(i).getDeviceNameWorkSheet();
+			row[3] = list.get(i).getStatusWorkSheet();
+			row[4] = list.get(i).getPrioritWorkSheet();
+			row[5] = list.get(i).getAddDateWorkSheet();
+			row[6] = list.get(i).getEndDateWorkSheet();
+			row[7] = list.get(i).getCompleteDateWorkSheet();
 			model.addRow(row);
 		}
 	}

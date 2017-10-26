@@ -103,19 +103,33 @@ public class ClientJDBCSetDAO extends ClientGui implements ClientImplements {
 		ArrayList<ClientConfig> productList = new ArrayList<ClientConfig>();
 		Connection con = DataBaseConnect.getConnection();
 		String query = "SELECT * FROM megrendelo ";
-		Statement st;
-		ResultSet rs;
+		Statement st = null;
+		ResultSet rs = null;
 		try {
 			st = con.createStatement();
 			rs = st.executeQuery(query);
 			ClientConfig product;
 			while (rs.next()) {
-				product = new ClientConfig(rs.getInt("ID_m"), rs.getInt("azonosito_m"), rs.getString("nev"),
+				product = new ClientConfig(rs.getInt("ID_m"), rs.getString("azonosito_m"), rs.getString("nev"),
 						rs.getString("kapcsolat"), rs.getString("lakcim"), rs.getString("megjegyzes_m"));
 				productList.add(product);
 			}
 		} catch (SQLException ex) {
 			Logger.getLogger(ClientJDBCSetDAO.class.getName()).log(Level.SEVERE, null, ex);
+		} finally {
+			try {
+				if (rs != null) {
+					rs.close();
+				}
+				if (st != null) {
+					st.close();
+				}
+				if (con != null) {
+					con.close();
+				}
+			} catch (SQLException e) {
+				Logger.getLogger(ClientJDBCSetDAO.class.getName()).log(Level.SEVERE, null, e);
+			}
 		}
 		return productList;
 	}
@@ -136,7 +150,7 @@ public class ClientJDBCSetDAO extends ClientGui implements ClientImplements {
 	public void ShowItem(int index) {
 		txtIdClient.setText(Integer.toString(getClientProductList().get(index).getiDm()));
 		txtClientDeviceId.setText(Integer.toString(getClientProductList().get(index).getiDm()));
-		txtIDClient.setText(Integer.toString(getClientProductList().get(index).getiD()));
+		txtIDClient.setText((getClientProductList().get(index).getiD()));
 		txtNameClient.setText(getClientProductList().get(index).getName());
 		txtClientDeviceName.setText(getClientProductList().get(index).getName());
 		txtMobilClient.setText(getClientProductList().get(index).getMobil());

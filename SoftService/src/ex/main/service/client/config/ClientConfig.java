@@ -2,13 +2,13 @@ package ex.main.service.client.config;
 
 public class ClientConfig {
 	private Integer iDm;
-	private Integer iD;
+	private String iD;
 	private String name;
 	private String mobil;
 	private String homeAddress;
 	private String comment;
 
-	public ClientConfig(Integer cIdm,Integer cID, String cName, String cMobil, String cHomeAddress, String cComment) {
+	public ClientConfig(Integer cIdm,String cID, String cName, String cMobil, String cHomeAddress, String cComment) {
 		this.iDm= cIdm;
 		this.iD = cID;
 		this.name = cName;
@@ -21,7 +21,7 @@ public class ClientConfig {
 		return iDm;
 	}
 
-	public Integer getiD() {
+	public String getiD() {
 		return iD;
 	}
 
