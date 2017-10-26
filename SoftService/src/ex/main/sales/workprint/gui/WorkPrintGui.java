@@ -62,22 +62,16 @@ public class WorkPrintGui extends OrderListJDBCSetDAO {
 		lblSzkhelylevcmSzeged.setBounds(0, 29, 421, 11);
 		jpnlWorkPrintTakeover.add(lblSzkhelylevcmSzeged);
 
-		JLabel lblAdszm = new JLabel("Adószám: 24313698-2- 41 Bankszámlaszám: 10402805-50526766- 87491031");
-		lblAdszm.setHorizontalAlignment(SwingConstants.CENTER);
-		lblAdszm.setFont(new Font("Tahoma", Font.PLAIN, 9));
-		lblAdszm.setBounds(0, 74, 421, 11);
-		jpnlWorkPrintTakeover.add(lblAdszm);
-
 		JLabel lbltvteliElismervny = new JLabel("ÁTVÉTELI ELISMERVÉNY");
 		lbltvteliElismervny.setHorizontalAlignment(SwingConstants.CENTER);
 		lbltvteliElismervny.setFont(new Font("Tahoma", Font.BOLD, 14));
-		lbltvteliElismervny.setBounds(0, 93, 421, 16);
+		lbltvteliElismervny.setBounds(0, 81, 421, 16);
 		jpnlWorkPrintTakeover.add(lbltvteliElismervny);
 
 		JLabel label = new JLabel("");
 		label.setBorder(new TitledBorder(new LineBorder(new Color(192, 192, 192), 2), "Megrendel\u0151 Adatai",
 				TitledBorder.CENTER, TitledBorder.TOP, null, new Color(0, 0, 0)));
-		label.setBounds(10, 112, 402, 77);
+		label.setBounds(20, 108, 392, 81);
 		jpnlWorkPrintTakeover.add(label);
 
 		JLabel lblMegrendelNeve = new JLabel("Megrendelő neve: ");
@@ -131,7 +125,7 @@ public class WorkPrintGui extends OrderListJDBCSetDAO {
 		JLabel label_4 = new JLabel("");
 		label_4.setBorder(new TitledBorder(new LineBorder(new Color(192, 192, 192), 2), "Munkalap Adatai",
 				TitledBorder.CENTER, TitledBorder.TOP, null, new Color(0, 0, 0)));
-		label_4.setBounds(10, 197, 402, 270);
+		label_4.setBounds(20, 192, 392, 275);
 		jpnlWorkPrintTakeover.add(label_4);
 
 		JLabel lblMegnevezs = new JLabel("Megnevezés: ");
@@ -201,7 +195,7 @@ public class WorkPrintGui extends OrderListJDBCSetDAO {
 		jpnlWorkPrintTakeover.add(lblFelvette);
 
 		JLabel label_6 = new JLabel("");
-		label_6.setBounds(10, 478, 402, 31);
+		label_6.setBounds(20, 478, 392, 31);
 		jpnlWorkPrintTakeover.add(label_6);
 		label_6.setBorder(new TitledBorder(new LineBorder(new Color(192, 192, 192), 2), "", TitledBorder.LEFT,
 				TitledBorder.TOP, null, new Color(0, 0, 0)));
@@ -221,26 +215,26 @@ public class WorkPrintGui extends OrderListJDBCSetDAO {
 		JLabel lblEztAzElismervnyt = new JLabel("Ezt az elismervényt kérjük őrizze meg,");
 		lblEztAzElismervnyt.setHorizontalAlignment(SwingConstants.CENTER);
 		lblEztAzElismervnyt.setFont(new Font("Tahoma", Font.PLAIN, 9));
-		lblEztAzElismervnyt.setBounds(0, 532, 421, 11);
+		lblEztAzElismervnyt.setBounds(0, 525, 421, 11);
 		jpnlWorkPrintTakeover.add(lblEztAzElismervnyt);
 
 		JLabel lblCsakEnnekEllenben = new JLabel("csak ennek ellenében áll módunkban a javított készüléket kiadni!");
 		lblCsakEnnekEllenben.setHorizontalAlignment(SwingConstants.CENTER);
 		lblCsakEnnekEllenben.setFont(new Font("Tahoma", Font.PLAIN, 9));
-		lblCsakEnnekEllenben.setBounds(0, 547, 421, 11);
+		lblCsakEnnekEllenben.setBounds(0, 540, 421, 11);
 		jpnlWorkPrintTakeover.add(lblCsakEnnekEllenben);
 
 		JLabel lblAMerevlemezenLv = new JLabel(
 				"A merevlemezen lévő adatok tartalmáért, adatvesztésekért az Ügyfél vállalja a felelősséget!");
 		lblAMerevlemezenLv.setHorizontalAlignment(SwingConstants.CENTER);
 		lblAMerevlemezenLv.setFont(new Font("Tahoma", Font.PLAIN, 9));
-		lblAMerevlemezenLv.setBounds(0, 562, 421, 11);
+		lblAMerevlemezenLv.setBounds(0, 555, 421, 11);
 		jpnlWorkPrintTakeover.add(lblAMerevlemezenLv);
 
 		JLabel lblKrjkMindigKsztsen = new JLabel("Kérjük mindig készítsen biztonsági másolatot adatairól.");
 		lblKrjkMindigKsztsen.setHorizontalAlignment(SwingConstants.CENTER);
 		lblKrjkMindigKsztsen.setFont(new Font("Tahoma", Font.PLAIN, 9));
-		lblKrjkMindigKsztsen.setBounds(0, 577, 421, 11);
+		lblKrjkMindigKsztsen.setBounds(0, 570, 421, 11);
 		jpnlWorkPrintTakeover.add(lblKrjkMindigKsztsen);
 
 		lblWorkPrintDeviceSerial = new JLabel("");
@@ -304,7 +298,7 @@ public class WorkPrintGui extends OrderListJDBCSetDAO {
 		lblTelephelySzeged.setBounds(0, 44, 421, 11);
 		jpnlWorkPrintTakeover.add(lblTelephelySzeged);
 
-		JLabel lblEmail = new JLabel("E-mail: uzletszeged@iriszholding.hu, Tel: 62/541-651");
+		JLabel lblEmail = new JLabel("E-mail: uzletszeged@iriszholding.hu, Tel: 30/640-5949");
 		lblEmail.setHorizontalAlignment(SwingConstants.CENTER);
 		lblEmail.setFont(new Font("Tahoma", Font.PLAIN, 9));
 		lblEmail.setBounds(0, 59, 421, 11);
@@ -328,22 +322,16 @@ public class WorkPrintGui extends OrderListJDBCSetDAO {
 		label_2.setBounds(0, 29, 421, 11);
 		jpnlWorkPrintTakeover0.add(label_2);
 
-		JLabel label_3 = new JLabel("Adószám: 24313698-2- 41 Bankszámlaszám: 10402805-50526766- 87491031");
-		label_3.setHorizontalAlignment(SwingConstants.CENTER);
-		label_3.setFont(new Font("Tahoma", Font.PLAIN, 9));
-		label_3.setBounds(0, 74, 421, 11);
-		jpnlWorkPrintTakeover0.add(label_3);
-
 		JLabel label_5 = new JLabel("ÁTVÉTELI ELISMERVÉNY");
 		label_5.setHorizontalAlignment(SwingConstants.CENTER);
 		label_5.setFont(new Font("Tahoma", Font.BOLD, 14));
-		label_5.setBounds(0, 93, 421, 16);
+		label_5.setBounds(0, 81, 421, 16);
 		jpnlWorkPrintTakeover0.add(label_5);
 
 		JLabel label_7 = new JLabel("");
 		label_7.setBorder(new TitledBorder(new LineBorder(new Color(192, 192, 192), 2), "Megrendel\u0151 Adatai",
 				TitledBorder.CENTER, TitledBorder.TOP, null, new Color(0, 0, 0)));
-		label_7.setBounds(10, 112, 402, 77);
+		label_7.setBounds(10, 108, 392, 81);
 		jpnlWorkPrintTakeover0.add(label_7);
 
 		JLabel label_8 = new JLabel("Megrendelő neve: ");
@@ -397,7 +385,7 @@ public class WorkPrintGui extends OrderListJDBCSetDAO {
 		JLabel label_16 = new JLabel("");
 		label_16.setBorder(new TitledBorder(new LineBorder(new Color(192, 192, 192), 2), "Munkalap Adatai",
 				TitledBorder.CENTER, TitledBorder.TOP, null, new Color(0, 0, 0)));
-		label_16.setBounds(10, 197, 402, 270);
+		label_16.setBounds(10, 192, 392, 275);
 		jpnlWorkPrintTakeover0.add(label_16);
 
 		JLabel label_17 = new JLabel("Megnevezés: ");
@@ -469,7 +457,7 @@ public class WorkPrintGui extends OrderListJDBCSetDAO {
 		JLabel label_28 = new JLabel("");
 		label_28.setBorder(new TitledBorder(new LineBorder(new Color(192, 192, 192), 2), "", TitledBorder.LEFT,
 				TitledBorder.TOP, null, new Color(0, 0, 0)));
-		label_28.setBounds(10, 478, 402, 31);
+		label_28.setBounds(10, 478, 392, 31);
 		jpnlWorkPrintTakeover0.add(label_28);
 
 		JLabel label_29 = new JLabel("Írisz Holding Kft.");
@@ -487,26 +475,26 @@ public class WorkPrintGui extends OrderListJDBCSetDAO {
 		JLabel label_31 = new JLabel("Ezt az elismervényt kérjük őrizze meg,");
 		label_31.setHorizontalAlignment(SwingConstants.CENTER);
 		label_31.setFont(new Font("Tahoma", Font.PLAIN, 9));
-		label_31.setBounds(0, 532, 421, 11);
+		label_31.setBounds(0, 525, 421, 11);
 		jpnlWorkPrintTakeover0.add(label_31);
 
 		JLabel label_32 = new JLabel("csak ennek ellenében áll módunkban a javított készüléket kiadni!");
 		label_32.setHorizontalAlignment(SwingConstants.CENTER);
 		label_32.setFont(new Font("Tahoma", Font.PLAIN, 9));
-		label_32.setBounds(0, 547, 421, 11);
+		label_32.setBounds(0, 540, 421, 11);
 		jpnlWorkPrintTakeover0.add(label_32);
 
 		JLabel label_33 = new JLabel(
 				"A merevlemezen lévő adatok tartalmáért, adatvesztésekért az Ügyfél vállalja a felelősséget!");
 		label_33.setHorizontalAlignment(SwingConstants.CENTER);
 		label_33.setFont(new Font("Tahoma", Font.PLAIN, 9));
-		label_33.setBounds(0, 562, 421, 11);
+		label_33.setBounds(0, 555, 421, 11);
 		jpnlWorkPrintTakeover0.add(label_33);
 
 		JLabel label_34 = new JLabel("Kérjük mindig készítsen biztonsági másolatot adatairól.");
 		label_34.setHorizontalAlignment(SwingConstants.CENTER);
 		label_34.setFont(new Font("Tahoma", Font.PLAIN, 9));
-		label_34.setBounds(0, 577, 421, 11);
+		label_34.setBounds(0, 570, 421, 11);
 		jpnlWorkPrintTakeover0.add(label_34);
 
 		lblWorkPrintDeviceSerial0 = new JLabel("");
@@ -570,11 +558,12 @@ public class WorkPrintGui extends OrderListJDBCSetDAO {
 		label_44.setBounds(0, 44, 421, 11);
 		jpnlWorkPrintTakeover0.add(label_44);
 
-		JLabel label_45 = new JLabel("E-mail: uzletszeged@iriszholding.hu, Tel: 62/541-651");
-		label_45.setHorizontalAlignment(SwingConstants.CENTER);
-		label_45.setFont(new Font("Tahoma", Font.PLAIN, 9));
-		label_45.setBounds(0, 59, 421, 11);
-		jpnlWorkPrintTakeover0.add(label_45);
+		JLabel lblEmailUzletszegediriszholdinghuTel = new JLabel(
+				"E-mail: uzletszeged@iriszholding.hu, Tel: 30/640-5949");
+		lblEmailUzletszegediriszholdinghuTel.setHorizontalAlignment(SwingConstants.CENTER);
+		lblEmailUzletszegediriszholdinghuTel.setFont(new Font("Tahoma", Font.PLAIN, 9));
+		lblEmailUzletszegediriszholdinghuTel.setBounds(0, 59, 421, 11);
+		jpnlWorkPrintTakeover0.add(lblEmailUzletszegediriszholdinghuTel);
 
 		JScrollPane scrollPane = new JScrollPane(jpnlWorkPrint, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED,
 				JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
@@ -597,7 +586,7 @@ public class WorkPrintGui extends OrderListJDBCSetDAO {
 		lblgyintz.setFont(new Font("Tahoma", Font.BOLD, 15));
 		lblgyintz.setBounds(10, 97, 310, 35);
 		pnlWorkPrint.add(lblgyintz);
-		
+
 		JLabel label_12 = new JLabel(
 				new ImageIcon(((new ImageIcon("Image\\red-and-black-background-6050.jpg")).getImage())
 						.getScaledInstance(1220, 509, java.awt.Image.SCALE_SMOOTH)));
