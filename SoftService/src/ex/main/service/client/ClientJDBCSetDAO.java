@@ -235,7 +235,7 @@ public class ClientJDBCSetDAO extends ClientGui implements ClientImplements {
 		txtMobilClient.setText(null);
 		txtMobilClient.setBackground(new Color(245, 255, 250));
 		txtCommentClient.setText(null);
-
+		showProductsInJTableClient();
 	}
 
 	private void JTable_ProductsMouseClicked(java.awt.event.MouseEvent evt) {

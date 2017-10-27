@@ -19,7 +19,7 @@ USE `Service` ;
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `Service`.`megrendelo` (
   `ID_m` INT NOT NULL AUTO_INCREMENT,
-  `azonosito_m` INT NOT NULL,
+  `azonosito_m` VARCHAR(255) NOT NULL,
   `nev` VARCHAR(255) NOT NULL,
   `kapcsolat` VARCHAR(255) NOT NULL,
   `lakcim` VARCHAR(255) NULL,
@@ -34,11 +34,11 @@ COLLATE = utf8_hungarian_ci;
 -- Table `Service`.`gepadatok`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `Service`.`gepadatok` (
-  `ID_g` INT NOT NULL AUTO_INCREMENT,
+  `ID_g` INT(55) NOT NULL,
   `ugyfel_nev` VARCHAR(255) NOT NULL,
   `eszkoz_g` VARCHAR(255) NOT NULL,
   `tipus` VARCHAR(255) NOT NULL,
-  `sorozatszam_g` VARCHAR(255) NOT NULL,
+  `sorozatszam_g` VARCHAR(255) NULL,
   `allapot` VARCHAR(255) NOT NULL,
   `prioritas` VARCHAR(60) NULL,
   `vasarlas_ido` DATE NULL,
@@ -46,13 +46,13 @@ CREATE TABLE IF NOT EXISTS `Service`.`gepadatok` (
   `hatarido` DATE NOT NULL,
   `teljesitve` DATE NULL,
   `softwer` VARCHAR(255) NOT NULL,
-  `hardwer` VARCHAR(255) NOT NULL,
+  `hardwer` VARCHAR(255) NULL,
   `takaritas` VARCHAR(255) NOT NULL,
   `jelszo` VARCHAR(45) NULL,
   `tartozekok` VARCHAR(255) NULL,
   `serules` VARCHAR(255) NULL,
   `hiba_leiras` VARCHAR(255) NOT NULL,
-  `valos_hiba` VARCHAR(255) NOT NULL,
+  `valos_hiba` VARCHAR(255) NULL,
   `megrendelo_ID_m` INT NOT NULL,
   PRIMARY KEY (`ID_g`),
   INDEX `fk_gepadatok_megrendelo_idx` (`megrendelo_ID_m` ASC),
@@ -71,11 +71,9 @@ COLLATE = utf8_hungarian_ci;
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `Service`.`software` (
   `ID_sofware` INT NOT NULL AUTO_INCREMENT,
-  `eszkoz_nev_s` VARCHAR(255) NULL,
-  `serial` VARCHAR(255) NULL,
   `software` VARCHAR(255) NULL,
   `megjegyzes_s` VARCHAR(255) NULL,
-  `gepadatok_ID_gs` INT NOT NULL,
+  `gepadatok_ID_gs` INT(55) NOT NULL,
   PRIMARY KEY (`ID_sofware`),
   INDEX `fk_software_gepadatok1_idx` (`gepadatok_ID_gs` ASC),
   CONSTRAINT `fk_software_gepadatok1`
@@ -93,10 +91,7 @@ COLLATE = utf8_hungarian_ci;
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `Service`.`image_gep` (
   `ID_image_gep` INT NOT NULL AUTO_INCREMENT,
-  `ugyfel_nev_i` VARCHAR(255) NOT NULL,
-  `eszkoz_nev` VARCHAR(255) NULL,
-  `sorozatszam_i` VARCHAR(255) NOT NULL,
-  `gepadatok_ID_g` INT NOT NULL,
+  `gepadatok_ID_g` INT(55) NOT NULL,
   `Image_i` LONGBLOB NULL,
   INDEX `fk_image_gep_gepadatok1_idx` (`gepadatok_ID_g` ASC),
   PRIMARY KEY (`ID_image_gep`),
@@ -114,13 +109,11 @@ COLLATE = utf8_hungarian_ci;
 -- Table `Service`.`alkatresz`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `Service`.`alkatresz` (
-  `ID_a` INT NOT NULL,
-  `eszkoz_nev_a` VARCHAR(255) NULL,
-  `eszkoz_serial_a` VARCHAR(255) NULL,
+  `ID_a` INT NOT NULL AUTO_INCREMENT,
   `alkatresz_tipus` VARCHAR(255) NULL,
   `alkatresz_serial` VARCHAR(255) NULL,
   `megjegyzes_a` VARCHAR(255) NULL,
-  `gepadatok_ID_ga` INT NOT NULL,
+  `gepadatok_ID_ga` INT(55) NOT NULL,
   PRIMARY KEY (`ID_a`),
   INDEX `fk_alkatresz_gepadatok1_idx` (`gepadatok_ID_ga` ASC),
   CONSTRAINT `fk_alkatresz_gepadatok1`
@@ -128,6 +121,16 @@ CREATE TABLE IF NOT EXISTS `Service`.`alkatresz` (
     REFERENCES `Service`.`gepadatok` (`ID_g`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION);
+
+
+-- -----------------------------------------------------
+-- Table `Service`.`user`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `Service`.`user` (
+  `username` VARCHAR(16) NOT NULL,
+  `password` VARCHAR(32) NULL,
+  `jog` INT NULL,
+  PRIMARY KEY (`username`));
 
 
 SET SQL_MODE=@OLD_SQL_MODE;

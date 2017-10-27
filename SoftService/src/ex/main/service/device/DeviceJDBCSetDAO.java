@@ -364,6 +364,7 @@ public class DeviceJDBCSetDAO extends DeviceGui implements DeviceImplements {
 		txtDevicePassword.setText(null);
 		txtAreaDeviceAccessory.setText(null);
 		txtAreaInjury.setText(null);
+		showProductsInJTableDevice();
 	}
 
 	private void JTable_ProductsMouseClickedDevice(java.awt.event.MouseEvent evt) {

@@ -388,7 +388,7 @@ public class DeviceGui extends ClientJDBCSetDAO {
 		lblCompletedDate.setFont(new Font("Tahoma", Font.BOLD, 15));
 		pnlDevice.add(lblCompletedDate);
 
-		String boxDevice[] = { "Számítógép", "Notebook", "Nyomtató", "Monitor", "Projektor", "Egyéb" };
+		String boxDevice[] = { "Asztali PC", "Notebook", "Nyomtató", "Monitor", "Projektor", "Egyéb" };
 		cmBoxDevice = new JComboBox<Object>(boxDevice);
 		cmBoxDevice.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		cmBoxDevice.setBounds(103, 59, 189, 35);
