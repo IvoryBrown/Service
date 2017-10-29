@@ -3,16 +3,18 @@ package ex.main.sales.client.config;
 public class ClientConfig {
 	private Integer salesClientID;
 	private String salesClientNumber;
+	private String salesClientCompanyName;
 	private String salesClientName;
 	private String salesClientMobil;
 	private String salesClientHomeAddress;
 	private String salesClientComment;
 
-	public ClientConfig(Integer salesClientID, String salesClientNumber, String salesClientName,
-			String salesClientMobil, String salesClientHomeAddress, String salesClientComment) {
+	public ClientConfig(Integer salesClientID, String salesClientNumber, String salesClientCompanyName,
+			String salesClientName, String salesClientMobil, String salesClientHomeAddress, String salesClientComment) {
 		super();
 		this.salesClientID = salesClientID;
 		this.salesClientNumber = salesClientNumber;
+		this.salesClientCompanyName = salesClientCompanyName;
 		this.salesClientName = salesClientName;
 		this.salesClientMobil = salesClientMobil;
 		this.salesClientHomeAddress = salesClientHomeAddress;
@@ -25,6 +27,10 @@ public class ClientConfig {
 
 	public String getSalesClientNumber() {
 		return salesClientNumber;
+	}
+
+	public String getSalesClientCompanyName() {
+		return salesClientCompanyName;
 	}
 
 	public String getSalesClientName() {

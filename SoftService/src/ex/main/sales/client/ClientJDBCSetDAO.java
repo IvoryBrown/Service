@@ -43,13 +43,15 @@ public class ClientJDBCSetDAO extends ClientGui implements ClientImplements {
 
 	private void setActionSalesClient() {
 
-		rows = new String[] { "ID", "azonosító", "név", "kapcsolat", "lakcím", "megjegyzés" };
+		rows = new String[] { "ID", "azonosító", "cég", "név", "kapcsolat", "lakcím", "megjegyzés" };
 		jtblSalesClient.setModel(new javax.swing.table.DefaultTableModel(columns, rows));
 
 		jtblSalesClient.getColumn("ID").setMinWidth(50);
 		jtblSalesClient.getColumn("ID").setMaxWidth(50);
 		jtblSalesClient.getColumn("azonosító").setMinWidth(90);
 		jtblSalesClient.getColumn("azonosító").setMaxWidth(90);
+		jtblSalesClient.getColumn("cég").setMinWidth(230);
+		jtblSalesClient.getColumn("cég").setMaxWidth(230);
 		jtblSalesClient.getColumn("név").setMinWidth(230);
 		jtblSalesClient.getColumn("név").setMaxWidth(230);
 		jtblSalesClient.getColumn("kapcsolat").setMinWidth(120);
@@ -142,8 +144,9 @@ public class ClientJDBCSetDAO extends ClientGui implements ClientImplements {
 			rs = st.executeQuery(query);
 			ClientConfig product;
 			while (rs.next()) {
-				product = new ClientConfig(rs.getInt("ID_m"), rs.getString("azonosito_m"), rs.getString("nev"),
-						rs.getString("kapcsolat"), rs.getString("lakcim"), rs.getString("megjegyzes_m"));
+				product = new ClientConfig(rs.getInt("ID_m"), rs.getString("azonosito_m"), rs.getString("ceg"),
+						rs.getString("nev"), rs.getString("kapcsolat"), rs.getString("lakcim"),
+						rs.getString("megjegyzes_m"));
 				productList.add(product);
 			}
 		} catch (SQLException ex) {
@@ -180,8 +183,9 @@ public class ClientJDBCSetDAO extends ClientGui implements ClientImplements {
 			rs = insertClient.executeQuery(searchQuery);
 			ClientConfig clientSearch;
 			while (rs.next()) {
-				clientSearch = new ClientConfig(rs.getInt("ID_m"), rs.getString("azonosito_m"), rs.getString("nev"),
-						rs.getString("kapcsolat"), rs.getString("lakcim"), rs.getString("megjegyzes_m"));
+				clientSearch = new ClientConfig(rs.getInt("ID_m"), rs.getString("azonosito_m"), rs.getString("ceg"),
+						rs.getString("nev"), rs.getString("kapcsolat"), rs.getString("lakcim"),
+						rs.getString("megjegyzes_m"));
 				listSearch.add(clientSearch);
 			}
 		} catch (SQLException ex) {
@@ -208,14 +212,15 @@ public class ClientJDBCSetDAO extends ClientGui implements ClientImplements {
 		ArrayList<ClientConfig> client = getListClient();
 		DefaultTableModel model = (DefaultTableModel) jtblSalesClient.getModel();
 		model.setRowCount(0);
-		Object[] row = new Object[6];
+		Object[] row = new Object[7];
 		for (int i = 0; i < client.size(); i++) {
 			row[0] = client.get(i).getSalesClientID();
 			row[1] = client.get(i).getSalesClientNumber();
-			row[2] = client.get(i).getSalesClientName();
-			row[3] = client.get(i).getSalesClientMobil();
-			row[4] = client.get(i).getSalesClientHomeAddress();
-			row[5] = client.get(i).getSalesClientComment();
+			row[2] = client.get(i).getSalesClientCompanyName();
+			row[3] = client.get(i).getSalesClientName();
+			row[4] = client.get(i).getSalesClientMobil();
+			row[5] = client.get(i).getSalesClientHomeAddress();
+			row[6] = client.get(i).getSalesClientComment();
 			model.addRow(row);
 		}
 
@@ -225,14 +230,15 @@ public class ClientJDBCSetDAO extends ClientGui implements ClientImplements {
 		ArrayList<ClientConfig> list = getClientProductList();
 		DefaultTableModel model = (DefaultTableModel) jtblSalesClient.getModel();
 		model.setRowCount(0);
-		Object[] row = new Object[6];
+		Object[] row = new Object[7];
 		for (int i = 0; i < list.size(); i++) {
 			row[0] = list.get(i).getSalesClientID();
 			row[1] = list.get(i).getSalesClientNumber();
-			row[2] = list.get(i).getSalesClientName();
-			row[3] = list.get(i).getSalesClientMobil();
-			row[4] = list.get(i).getSalesClientHomeAddress();
-			row[5] = list.get(i).getSalesClientComment();
+			row[2] = list.get(i).getSalesClientCompanyName();
+			row[3] = list.get(i).getSalesClientName();
+			row[4] = list.get(i).getSalesClientMobil();
+			row[5] = list.get(i).getSalesClientHomeAddress();
+			row[6] = list.get(i).getSalesClientComment();
 			model.addRow(row);
 		}
 
@@ -241,6 +247,7 @@ public class ClientJDBCSetDAO extends ClientGui implements ClientImplements {
 	private void showItemClientSearch(int index) {
 		txtSalesClientID.setText(Integer.toString(getListClient().get(index).getSalesClientID()));
 		txtSalesClientNumber.setText(getListClient().get(index).getSalesClientNumber());
+		txtSalesClientCompanyName.setText(getListClient().get(index).getSalesClientCompanyName());
 		txtSalesClientName.setText(getListClient().get(index).getSalesClientName());
 		txtSalesClientMobil.setText(getListClient().get(index).getSalesClientMobil());
 		txtSalesClientHomeAddress.setText(getListClient().get(index).getSalesClientHomeAddress());
@@ -253,6 +260,7 @@ public class ClientJDBCSetDAO extends ClientGui implements ClientImplements {
 	private void showItemClient(int index) {
 		txtSalesClientID.setText(Integer.toString(getClientProductList().get(index).getSalesClientID()));
 		txtSalesClientNumber.setText(getClientProductList().get(index).getSalesClientNumber());
+		txtSalesClientCompanyName.setText(getClientProductList().get(index).getSalesClientCompanyName());
 		txtSalesClientName.setText(getClientProductList().get(index).getSalesClientName());
 		txtSalesClientMobil.setText(getClientProductList().get(index).getSalesClientMobil());
 		txtSalesClientHomeAddress.setText(getClientProductList().get(index).getSalesClientHomeAddress());
@@ -267,16 +275,19 @@ public class ClientJDBCSetDAO extends ClientGui implements ClientImplements {
 		if (checkInputsSalesClient()) {
 			try {
 				Connection con = DataBaseConnect.getConnection();
-				PreparedStatement insertClient = con.prepareStatement("INSERT INTO megrendelo(azonosito_m, nev,"
-						+ "kapcsolat, lakcim, megjegyzes_m)" + "values(?,?,?,?,?) ");
+				PreparedStatement insertClient = con.prepareStatement("INSERT INTO megrendelo(azonosito_m, ceg, nev,"
+						+ "kapcsolat, lakcim, megjegyzes_m)" + "values(?,?,?,?,?,?) ");
 				txtSalesClientNumber.setText(ClientIdentificationGenerator.random());
 				insertClient.setString(1, txtSalesClientNumber.getText());
-				insertClient.setString(2, txtSalesClientName.getText());
-				insertClient.setString(3, txtSalesClientMobil.getText());
-				insertClient.setString(4, txtSalesClientHomeAddress.getText());
-				insertClient.setString(5, txtSalesClientComment.getText());
+				insertClient.setString(2, txtSalesClientCompanyName.getText());
+				insertClient.setString(3, txtSalesClientName.getText());
+				insertClient.setString(4, txtSalesClientMobil.getText());
+				insertClient.setString(5, txtSalesClientHomeAddress.getText());
+				insertClient.setString(6, txtSalesClientComment.getText());
 				insertClient.executeUpdate();
 				showProductsInJTableClient();
+				txtSalesDeviceClientName.setText(txtSalesClientName.getText());
+				txtSalesDeviceClientID.setText(txtSalesClientNumber.getText());
 				JOptionPane.showMessageDialog(null, "Adatok beillesztve");
 				btnNullShowPerformed();
 			} catch (SQLException ex) {
@@ -293,15 +304,16 @@ public class ClientJDBCSetDAO extends ClientGui implements ClientImplements {
 			PreparedStatement ps = null;
 			Connection con = DataBaseConnect.getConnection();
 			try {
-				updateClient = "UPDATE megrendelo SET azonosito_m = ?, nev = ?"
+				updateClient = "UPDATE megrendelo SET azonosito_m = ?, ceg = ?, nev = ?"
 						+ ", kapcsolat = ?, lakcim = ?, megjegyzes_m = ? WHERE ID_m = ?";
 				ps = con.prepareStatement(updateClient);
 				ps.setString(1, txtSalesClientNumber.getText());
-				ps.setString(2, txtSalesClientName.getText());
-				ps.setString(3, txtSalesClientMobil.getText());
-				ps.setString(4, txtSalesClientHomeAddress.getText());
-				ps.setString(5, txtSalesClientComment.getText());
-				ps.setInt(6, Integer.parseInt(txtSalesClientID.getText()));
+				ps.setString(2, txtSalesClientCompanyName.getText());
+				ps.setString(3, txtSalesClientName.getText());
+				ps.setString(4, txtSalesClientMobil.getText());
+				ps.setString(5, txtSalesClientHomeAddress.getText());
+				ps.setString(6, txtSalesClientComment.getText());
+				ps.setInt(7, Integer.parseInt(txtSalesClientID.getText()));
 				ps.executeUpdate();
 				showProductsInJTableClient();
 				JOptionPane.showMessageDialog(null, "Sikeres Frissítés");
@@ -339,6 +351,7 @@ public class ClientJDBCSetDAO extends ClientGui implements ClientImplements {
 		txtSalesClientID.setBackground(Color.WHITE);
 		txtSalesClientNumber.setText(null);
 		txtSalesClientNumber.setBackground(Color.WHITE);
+		txtSalesClientCompanyName.setText(null);
 		txtSalesClientName.setText(null);
 		txtSalesClientName.setBackground(Color.WHITE);
 		txtSalesClientMobil.setText(null);

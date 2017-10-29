@@ -28,16 +28,16 @@ public class ClientGui extends SalesGui {
 	 */
 	private static final long serialVersionUID = 1L;
 	protected JTable jtblSalesClient;
-	protected JTextField txtSalesClientNumber, txtSalesClientName, txtSalesClientMobil, txtSalesClientHomeAddress,
+	protected JTextField txtSalesClientNumber, txtSalesClientCompanyName,txtSalesClientName, txtSalesClientMobil, txtSalesClientHomeAddress,
 			txtSalesClientID, txtSalesClientSearch;
 	protected JTextArea txtSalesClientComment;
 	protected JButton btnSalesClientDelete, btnSalesClientNewClient, btnSalesClientEdit, btnSalesClientNull,
 			btnSalesClientSearch;
+	protected JTextField txtSalesDeviceClientName,txtSalesDeviceClientID;
 	protected JComboBox<?> cmbSalesClientSearch;
 	protected JPanel pnlClientSetting, pnlSalesDevice;
 	private JLabel lblSalesClientSettingImage;
-	protected JTextField txtSalesDeviceClientName;
-	protected JTextField txtSalesDeviceClientID;
+	
 
 	private void setComponentClientGui() {
 		jtblSalesClient = new JTable();
@@ -71,19 +71,26 @@ public class ClientGui extends SalesGui {
 		lblSalesClientID.setFont(new Font("Tahoma", Font.BOLD, 15));
 		lblSalesClientID.setBounds(10, 11, 140, 35);
 		pnlClientSetting.add(lblSalesClientID);
+		
+		JLabel lblSalesClientCompanyName = new JLabel("cég: ");
+		lblSalesClientCompanyName.setHorizontalAlignment(SwingConstants.RIGHT);
+		lblSalesClientCompanyName.setForeground(new Color(153, 0, 0));
+		lblSalesClientCompanyName.setFont(new Font("Tahoma", Font.BOLD, 15));
+		lblSalesClientCompanyName.setBounds(10, 57, 140, 35);
+		pnlClientSetting.add(lblSalesClientCompanyName);
 
-		JLabel lblSalesClientName = new JLabel("név: ");
+		JLabel lblSalesClientName = new JLabel("kapcsolattartó: ");
 		lblSalesClientName.setForeground(new Color(153, 0, 0));
 		lblSalesClientName.setHorizontalAlignment(SwingConstants.RIGHT);
 		lblSalesClientName.setFont(new Font("Tahoma", Font.BOLD, 15));
-		lblSalesClientName.setBounds(10, 55, 140, 35);
+		lblSalesClientName.setBounds(10, 101, 140, 35);
 		pnlClientSetting.add(lblSalesClientName);
 
 		JLabel lblSalesClientMobil = new JLabel("telefon: ");
 		lblSalesClientMobil.setForeground(new Color(153, 0, 0));
 		lblSalesClientMobil.setHorizontalAlignment(SwingConstants.RIGHT);
 		lblSalesClientMobil.setFont(new Font("Tahoma", Font.BOLD, 15));
-		lblSalesClientMobil.setBounds(10, 99, 140, 35);
+		lblSalesClientMobil.setBounds(10, 189, 140, 35);
 		pnlClientSetting.add(lblSalesClientMobil);
 
 		JLabel lblSalesClientHomeAddress = new JLabel("lakcím: ");
@@ -97,7 +104,7 @@ public class ClientGui extends SalesGui {
 		lblSalesClientComment.setForeground(new Color(153, 0, 0));
 		lblSalesClientComment.setHorizontalAlignment(SwingConstants.RIGHT);
 		lblSalesClientComment.setFont(new Font("Tahoma", Font.BOLD, 15));
-		lblSalesClientComment.setBounds(10, 187, 140, 35);
+		lblSalesClientComment.setBounds(10, 235, 140, 35);
 		pnlClientSetting.add(lblSalesClientComment);
 
 		txtSalesClientNumber = new JTextField();
@@ -107,14 +114,30 @@ public class ClientGui extends SalesGui {
 		txtSalesClientNumber.setBackground(Color.WHITE);
 		txtSalesClientNumber.setBounds(153, 13, 189, 35);
 		pnlClientSetting.add(txtSalesClientNumber);
+		
+		txtSalesClientCompanyName = new JTextField();
+		txtSalesClientCompanyName.setForeground(new Color(51, 0, 0));
+		txtSalesClientCompanyName.setFont(new Font("Tahoma", Font.BOLD, 14));
+		txtSalesClientCompanyName.setColumns(10);
+		txtSalesClientCompanyName.setBackground(Color.WHITE);
+		txtSalesClientCompanyName.setBounds(153, 57, 294, 35);
+		pnlClientSetting.add(txtSalesClientCompanyName);
 
 		txtSalesClientName = new JTextField();
 		txtSalesClientName.setBackground(Color.WHITE);
 		txtSalesClientName.setForeground(new Color(51, 0, 0));
 		txtSalesClientName.setFont(new Font("Tahoma", Font.BOLD, 14));
 		txtSalesClientName.setColumns(10);
-		txtSalesClientName.setBounds(153, 57, 294, 35);
+		txtSalesClientName.setBounds(153, 101, 294, 35);
 		pnlClientSetting.add(txtSalesClientName);
+		
+				txtSalesClientHomeAddress = new JTextField();
+				txtSalesClientHomeAddress.setBounds(153, 145, 294, 35);
+				pnlClientSetting.add(txtSalesClientHomeAddress);
+				txtSalesClientHomeAddress.setForeground(new Color(51, 0, 0));
+				txtSalesClientHomeAddress.setFont(new Font("Tahoma", Font.BOLD, 14));
+				txtSalesClientHomeAddress.setColumns(10);
+				txtSalesClientHomeAddress.setBackground(Color.WHITE);
 
 		txtSalesClientMobil = new JTextField();
 		txtSalesClientMobil.setBackground(Color.WHITE);
@@ -122,16 +145,8 @@ public class ClientGui extends SalesGui {
 		txtSalesClientMobil.setFont(new Font("Tahoma", Font.BOLD, 14));
 		txtSalesClientMobil.setColumns(10);
 
-		txtSalesClientMobil.setBounds(153, 101, 294, 35);
+		txtSalesClientMobil.setBounds(153, 189, 294, 35);
 		pnlClientSetting.add(txtSalesClientMobil);
-
-		txtSalesClientHomeAddress = new JTextField();
-		txtSalesClientHomeAddress.setForeground(new Color(51, 0, 0));
-		txtSalesClientHomeAddress.setFont(new Font("Tahoma", Font.BOLD, 14));
-		txtSalesClientHomeAddress.setColumns(10);
-		txtSalesClientHomeAddress.setBackground(Color.WHITE);
-		txtSalesClientHomeAddress.setBounds(153, 152, 294, 35);
-		pnlClientSetting.add(txtSalesClientHomeAddress);
 
 		txtSalesClientID = new JTextField();
 		txtSalesClientID.setFont(new Font("Tahoma", Font.PLAIN, 14));
@@ -143,7 +158,7 @@ public class ClientGui extends SalesGui {
 
 		JScrollPane scrPSalesClientComment = new JScrollPane();
 		scrPSalesClientComment.setBackground(Color.WHITE);
-		scrPSalesClientComment.setBounds(153, 198, 294, 146);
+		scrPSalesClientComment.setBounds(153, 235, 294, 109);
 		pnlClientSetting.add(scrPSalesClientComment);
 
 		txtSalesClientComment = new JTextArea();
