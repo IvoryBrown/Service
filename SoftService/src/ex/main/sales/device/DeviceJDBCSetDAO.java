@@ -118,32 +118,32 @@ public class DeviceJDBCSetDAO extends DeviceGui implements DeviceImplements {
 		if (cmbSalesDeviceName.getSelectedItem() == null) {
 			cmbSalesDeviceName.setBackground(new Color(255, 0, 0));
 		} else {
-			cmbSalesDeviceName.setBackground(Color.WHITE);
+			cmbSalesDeviceName.setBackground(Color.BLACK);
 		}
 		if (cmbSalesDeviceCondition.getSelectedItem() == null) {
 			cmbSalesDeviceCondition.setBackground(new Color(255, 0, 0));
 		} else {
-			cmbSalesDeviceCondition.setBackground(Color.WHITE);
+			cmbSalesDeviceCondition.setBackground(Color.BLACK);
 		}
 		if (cmbSalesDevicePriority.getSelectedItem() == null) {
 			cmbSalesDevicePriority.setBackground(new Color(255, 0, 0));
 		} else {
-			cmbSalesDevicePriority.setBackground(Color.WHITE);
+			cmbSalesDevicePriority.setBackground(Color.BLACK);
 		}
 		if (cmbSalesDeviceSoftver.getSelectedItem() == null) {
 			cmbSalesDeviceSoftver.setBackground(new Color(255, 0, 0));
 		} else {
-			cmbSalesDeviceSoftver.setBackground(Color.WHITE);
+			cmbSalesDeviceSoftver.setBackground(Color.BLACK);
 		}
 		if (cmbSalesDeviceCleaning.getSelectedItem() == null) {
 			cmbSalesDeviceCleaning.setBackground(new Color(255, 0, 0));
 		} else {
-			cmbSalesDeviceCleaning.setBackground(Color.WHITE);
+			cmbSalesDeviceCleaning.setBackground(Color.BLACK);
 		}
 		if (cmbSalesDeviceCleaning.getSelectedItem() == null) {
 			cmbSalesDeviceCleaning.setBackground(new Color(255, 0, 0));
 		} else {
-			cmbSalesDeviceCleaning.setBackground(Color.WHITE);
+			cmbSalesDeviceCleaning.setBackground(Color.BLACK);
 		}
 		if (txtSalesdeviceType.getText().trim().isEmpty()) {
 			txtSalesdeviceType.setBackground(new Color(255, 0, 0));
