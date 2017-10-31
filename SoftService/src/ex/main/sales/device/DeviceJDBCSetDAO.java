@@ -1,6 +1,8 @@
 package ex.main.sales.device;
 
 import java.awt.Color;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -14,6 +16,7 @@ import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
@@ -112,6 +115,38 @@ public class DeviceJDBCSetDAO extends DeviceGui implements DeviceImplements {
 				jTableClientSearch();
 			}
 		});
+		cmbSalesDeviceName.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				txtSalesdeviceType.setEditable(false);
+				String strngSalesDeviceName = (String) cmbSalesDeviceName.getSelectedItem();
+				if (strngSalesDeviceName == "Asztali PC") {
+					String[] deviceType = { "NO NAME", "Acer", "Alza", "Apple", "ASBIS", "ASRock", "ASUS", "CHS",
+							"Dell", "DigitalWeb", "Elo", "EXOZA", "Expert", "Foramax", "Fujitsu", "GABA", "GIGABYTE",
+							"Golden PC", "HP", "iggual", "InFocus", "Intel", "Intensa", "Iris", "JTC", "Kiano",
+							"Leadtek", "Lenovo", "LG", "MeLE", "Mentor", "Microsoft", "MINIX", "MODECOM", "MSI",
+							"NComputing", "PC FACTORY", "PCX", "PEAQ", "RADIUM", "Raspberry", "Rikomagic",
+							"Royal Hardwer", "SAPPHIRE", "Serioux", "Shuttle", "SmartPC", "X-X", "ZOTAC", "Egyéb" };
+					DefaultComboBoxModel<Object> cbm = new DefaultComboBoxModel<Object>(deviceType);
+					txtSalesdeviceType.setModel(cbm);
+					txtSalesdeviceType.setSelectedItem(null);
+				} else if (strngSalesDeviceName == "Notebook") {
+					String[] device = { "Acer", "Alcor", "Allview", "Apple", "ASUS", "Dell", "Fujitsu", "Getac",
+							"GIGABYTE", "GOCLEVER", "HP", "Kiano", "Lenovo", "Microsoft", "MSI", "Navon",
+							"Packard Bell", "PEAQ", "Porsche Desing", "Samsung", "Teclast", "Toshiba", "UMAX" };
+					DefaultComboBoxModel<Object> cbm = new DefaultComboBoxModel<Object>(device);
+					txtSalesdeviceType.setModel(cbm);
+					txtSalesdeviceType.setSelectedItem(null);
+				} else if (strngSalesDeviceName == "Nyomtató") {
+					String[] device1 = { "Argox", "Bolle", "Brother" };
+					DefaultComboBoxModel<Object> cbm = new DefaultComboBoxModel<Object>(device1);
+					txtSalesdeviceType.setModel(cbm);
+					txtSalesdeviceType.setSelectedItem(null);
+				} else if (strngSalesDeviceName == "Egyéb") {
+					txtSalesdeviceType.setEditable(true);
+
+				}
+			}
+		});
 	}
 
 	private boolean checkInputsDevice() {
@@ -145,10 +180,10 @@ public class DeviceJDBCSetDAO extends DeviceGui implements DeviceImplements {
 		} else {
 			cmbSalesDeviceCleaning.setBackground(Color.BLACK);
 		}
-		if (txtSalesdeviceType.getText().trim().isEmpty()) {
+		if (txtSalesdeviceType.getSelectedItem() == null) {
 			txtSalesdeviceType.setBackground(new Color(255, 0, 0));
 		} else {
-			txtSalesdeviceType.setBackground(Color.WHITE);
+			txtSalesdeviceType.setBackground(Color.BLACK);
 		}
 		if (txtSalesDevicePassword.getText().trim().isEmpty()) {
 			txtSalesDevicePassword.setBackground(new Color(255, 0, 0));
@@ -180,7 +215,7 @@ public class DeviceJDBCSetDAO extends DeviceGui implements DeviceImplements {
 		} else {
 			dateSalesDeviceAddDate.setBackground(Color.LIGHT_GRAY);
 		}
-		if (txtSalesdeviceType.getText().trim().isEmpty() || txtSalesDevicePassword.getText().trim().isEmpty()
+		if (txtSalesdeviceType.getSelectedItem() == null || txtSalesDevicePassword.getText().trim().isEmpty()
 				|| txtSalesDeviceAccesssory.getText().trim().isEmpty()
 				|| txtSalesDeviceInjury.getText().trim().isEmpty() || txtSalesDeviceComment.getText().trim().isEmpty()
 				|| dateSalesDeviceAddDate.getDate() == null || dateSalesDeviceEndDate.getDate() == null
@@ -329,7 +364,7 @@ public class DeviceJDBCSetDAO extends DeviceGui implements DeviceImplements {
 		txtSalesDeviceClientName.setText(getSalesDeviceProductList().get(index).getSalesDeviceClientName());
 		cmbSalesDeviceName.setSelectedItem(getSalesDeviceProductList().get(index).getSalesDeviceName());
 		txtSalesDeviceID.setText(Integer.toString(getSalesDeviceProductList().get(index).getSalesDeviceID()));
-		txtSalesdeviceType.setText(getSalesDeviceProductList().get(index).getSalesDevicdetType());
+		txtSalesdeviceType.setSelectedItem(getSalesDeviceProductList().get(index).getSalesDevicdetType());
 		cmbSalesDeviceCondition.setSelectedItem(getSalesDeviceProductList().get(index).getSalesDeviceStatus());
 		cmbSalesDevicePriority.setSelectedItem(getSalesDeviceProductList().get(index).getSalesDevicePriorit());
 		try {
@@ -363,7 +398,7 @@ public class DeviceJDBCSetDAO extends DeviceGui implements DeviceImplements {
 		txtSalesDeviceClientName.setText(getSalesDeviceProductList().get(index).getSalesDeviceClientName());
 		cmbSalesDeviceName.setSelectedItem(getSalesDeviceProductList().get(index).getSalesDeviceName());
 		txtSalesDeviceID.setText(Integer.toString(getSalesDeviceProductList().get(index).getSalesDeviceID()));
-		txtSalesdeviceType.setText(getSalesDeviceProductList().get(index).getSalesDevicdetType());
+		txtSalesdeviceType.setSelectedItem(getSalesDeviceProductList().get(index).getSalesDevicdetType());
 		cmbSalesDeviceCondition.setSelectedItem(getSalesDeviceProductList().get(index).getSalesDeviceStatus());
 		cmbSalesDevicePriority.setSelectedItem(getSalesDeviceProductList().get(index).getSalesDevicePriorit());
 		try {
@@ -405,12 +440,10 @@ public class DeviceJDBCSetDAO extends DeviceGui implements DeviceImplements {
 				txtSalesDeviceID.setText(DeviceIdentificationGenereator.random());
 				insertDevice.setString(1, txtSalesDeviceID.getText());
 				insertDevice.setString(2, txtSalesDeviceClientName.getText());
-				insertDevice.setString(3, (String) cmbSalesDeviceName.getItemAt(cmbSalesDeviceName.getSelectedIndex()));
-				insertDevice.setString(4, txtSalesdeviceType.getText());
-				insertDevice.setString(5,
-						(String) cmbSalesDeviceCondition.getItemAt(cmbSalesDeviceCondition.getSelectedIndex()));
-				insertDevice.setString(6,
-						(String) cmbSalesDevicePriority.getItemAt(cmbSalesDevicePriority.getSelectedIndex()));
+				insertDevice.setString(3, (String) cmbSalesDeviceName.getSelectedItem());
+				insertDevice.setString(4, (String) txtSalesdeviceType.getSelectedItem());
+				insertDevice.setString(5, (String) cmbSalesDeviceCondition.getSelectedItem());
+				insertDevice.setString(6, (String) cmbSalesDevicePriority.getSelectedItem());
 				SimpleDateFormat buyingDateFormat = new SimpleDateFormat("yyyy-MM-dd");
 				try {
 					buyingDateFormat.setLenient(false);
@@ -424,10 +457,8 @@ public class DeviceJDBCSetDAO extends DeviceGui implements DeviceImplements {
 				SimpleDateFormat endDateFormat = new SimpleDateFormat("yyyy-MM-dd");
 				String endDate = endDateFormat.format(dateSalesDeviceEndDate.getDate());
 				insertDevice.setString(9, endDate);
-				insertDevice.setString(10,
-						(String) cmbSalesDeviceSoftver.getItemAt(cmbSalesDeviceSoftver.getSelectedIndex()));
-				insertDevice.setString(11,
-						(String) cmbSalesDeviceCleaning.getItemAt(cmbSalesDeviceCleaning.getSelectedIndex()));
+				insertDevice.setString(10, (String) cmbSalesDeviceSoftver.getSelectedItem());
+				insertDevice.setString(11, (String) cmbSalesDeviceCleaning.getSelectedItem());
 				insertDevice.setString(12, txtSalesDevicePassword.getText());
 				insertDevice.setString(13, txtSalesDeviceAccesssory.getText());
 				insertDevice.setString(14, txtSalesDeviceInjury.getText());
@@ -447,22 +478,6 @@ public class DeviceJDBCSetDAO extends DeviceGui implements DeviceImplements {
 				insertDeviceHardver.setString(1, txtSalesDeviceID.getText());
 				insertDeviceHardver.executeUpdate();
 				showProductsInJTableDevice();
-				txtSalesDeviceClientID.setText(null);
-				txtSalesDeviceClientName.setText(null);
-				cmbSalesDeviceName.setSelectedItem(null);
-				txtSalesDeviceID.setText(null);
-				txtSalesdeviceType.setText(null);
-				cmbSalesDeviceCondition.setSelectedItem(null);
-				cmbSalesDevicePriority.setSelectedItem(null);
-				dateSalesDeviceBuying.setDate(null);
-				dateSalesDeviceAddDate.setDate(null);
-				dateSalesDeviceEndDate.setDate(null);
-				cmbSalesDeviceSoftver.setSelectedItem(null);
-				cmbSalesDeviceCleaning.setSelectedItem(null);
-				txtSalesDevicePassword.setText("-");
-				txtSalesDeviceAccesssory.setText("-");
-				txtSalesDeviceInjury.setText("-");
-				txtSalesDeviceComment.setText(null);
 				JOptionPane.showMessageDialog(null, "Adatok beillesztve");
 			} catch (SQLException ex) {
 				JOptionPane.showMessageDialog(null, "Sikertelen beillesztés: " + ex.getMessage());
@@ -486,7 +501,7 @@ public class DeviceJDBCSetDAO extends DeviceGui implements DeviceImplements {
 				ps = con.prepareStatement(updateDevice);
 				ps.setString(1, txtSalesDeviceClientName.getText());
 				ps.setString(2, (String) cmbSalesDeviceName.getItemAt(cmbSalesDeviceName.getSelectedIndex()));
-				ps.setString(3, txtSalesdeviceType.getText());
+				ps.setString(3, (String) txtSalesdeviceType.getItemAt(txtSalesdeviceType.getSelectedIndex()));
 				ps.setString(4, (String) cmbSalesDeviceCondition.getItemAt(cmbSalesDeviceCondition.getSelectedIndex()));
 				ps.setString(5, (String) cmbSalesDevicePriority.getItemAt(cmbSalesDevicePriority.getSelectedIndex()));
 				SimpleDateFormat buyingDateFormat = new SimpleDateFormat("yyyy-MM-dd");
@@ -517,7 +532,7 @@ public class DeviceJDBCSetDAO extends DeviceGui implements DeviceImplements {
 				txtSalesDeviceClientName.setText(null);
 				cmbSalesDeviceName.setSelectedItem(null);
 				txtSalesDeviceID.setText(null);
-				txtSalesdeviceType.setText(null);
+				txtSalesdeviceType.setSelectedItem(null);
 				cmbSalesDeviceCondition.setSelectedItem(null);
 				cmbSalesDevicePriority.setSelectedItem(null);
 				dateSalesDeviceBuying.setDate(null);
@@ -551,7 +566,7 @@ public class DeviceJDBCSetDAO extends DeviceGui implements DeviceImplements {
 				txtSalesDeviceClientName.setText(null);
 				cmbSalesDeviceName.setSelectedItem(null);
 				txtSalesDeviceID.setText(null);
-				txtSalesdeviceType.setText(null);
+				txtSalesdeviceType.setSelectedItem(null);
 				cmbSalesDeviceCondition.setSelectedItem(null);
 				cmbSalesDevicePriority.setSelectedItem(null);
 				dateSalesDeviceBuying.setDate(null);
@@ -573,13 +588,14 @@ public class DeviceJDBCSetDAO extends DeviceGui implements DeviceImplements {
 	}
 
 	private void btnNullShowPerformed() {
+		txtSalesdeviceType.setSelectedItem(null);
+		txtSalesdeviceType.setBackground(Color.BLACK);
 		txtSalesDeviceClientID.setText(null); // fix
 		txtSalesDeviceClientName.setText(null); // fix
-		cmbSalesDeviceName.setSelectedItem(null);
+		cmbSalesDeviceName.setSelectedIndex(-1);
 		cmbSalesDeviceName.setBackground(Color.BLACK);
 		txtSalesDeviceID.setText(null); // fix
-		txtSalesdeviceType.setText(null);
-		txtSalesdeviceType.setBackground(Color.WHITE);
+
 		cmbSalesDeviceCondition.setSelectedItem(null);
 		cmbSalesDeviceCondition.setBackground(Color.BLACK);
 		cmbSalesDevicePriority.setSelectedItem(null);
