@@ -32,7 +32,7 @@ public class DeviceGui extends ClientJDBCSetDAO {
 	 */
 	private static final long serialVersionUID = -1289447200090810218L;
 	protected JTable jtblSalesDevice;
-	protected JTextField txtSalesDevicePassword,txtSalesDeviceSerialNumber;
+	protected JTextField txtSalesDevicePassword, txtSalesDeviceSerialNumber;
 	protected JTextField txtSalesDeviceID;
 	protected JComboBox<Object> cmbSalesDeviceName, txtSalesdeviceType, cmbSalesDeviceCondition, cmbSalesDevicePriority,
 			cmbSalesDeviceSoftver, cmbSalesDeviceCleaning, cmbSalesDeviceSearch, cmbSalesDeviceHardver;
@@ -44,7 +44,6 @@ public class DeviceGui extends ClientJDBCSetDAO {
 	private JLabel lblNewLabel_1;
 	private JLabel lblNewLabel_2;
 	protected JPanel panel_2, panel;
-	 
 
 	private void setGuiDeviceClient() {
 		jpnlDevice.setLayout(null);
@@ -95,14 +94,7 @@ public class DeviceGui extends ClientJDBCSetDAO {
 		txtSalesDeviceID.setBounds(283, 43, 95, 35);
 		pnlSalesDevice.add(txtSalesDeviceID);
 
-		// txtSalesdeviceType1 = new JTextField();
-		// txtSalesdeviceType1.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		// txtSalesdeviceType1.setColumns(10);
-		// txtSalesdeviceType1.setBackground(new Color(245, 255, 250));
-		// txtSalesdeviceType1.setBounds(88, 90, 189, 35);
-		// pnlSalesDevice.add(txtSalesdeviceType1);
-
-		String boxStatus[] = { "Bevételezve", "Kiadva" };
+		String boxStatus[] = { "Bevételezve", "Kiadva", "Új gép" };
 		cmbSalesDeviceCondition = new JComboBox<Object>(boxStatus);
 		cmbSalesDeviceCondition.setBackground(Color.BLACK);
 		cmbSalesDeviceCondition.setFont(new Font("Tahoma", Font.BOLD, 14));
@@ -197,6 +189,7 @@ public class DeviceGui extends ClientJDBCSetDAO {
 		panel_2.setLayout(null);
 		panel_2.setBounds(398, 11, 509, 362);
 		jpnlDevice.add(panel_2);
+		panel_2.setVisible(false);
 
 		JLabel lblSalesDeviceCleaning = new JLabel("takarítás:");
 		lblSalesDeviceCleaning.setHorizontalAlignment(SwingConstants.RIGHT);

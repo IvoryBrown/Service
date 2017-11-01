@@ -118,114 +118,283 @@ public class DeviceJDBCSetDAO extends DeviceGui implements DeviceImplements {
 		cmbSalesDeviceName.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				txtSalesdeviceType.setEditable(false);
+
 				String strngSalesDeviceName = (String) cmbSalesDeviceName.getSelectedItem();
 				if (strngSalesDeviceName == "Asztali PC") {
-					String[] deviceType = { "NO NAME", "Acer", "Alza", "Apple", "ASBIS", "ASRock", "ASUS", "CHS",
-							"Dell", "DigitalWeb", "Elo", "EXOZA", "Expert", "Foramax", "Fujitsu", "GABA", "GIGABYTE",
+					String[] deviceType = { "Acer", "Alza", "Apple", "ASBIS", "ASRock", "ASUS", "CHS", "Dell",
+							"DigitalWeb", "Elo", "EXOZA", "Expert", "Foramax", "Fujitsu", "GABA", "GIGABYTE",
 							"Golden PC", "HP", "iggual", "InFocus", "Intel", "Intensa", "Iris", "JTC", "Kiano",
 							"Leadtek", "Lenovo", "LG", "MeLE", "Mentor", "Microsoft", "MINIX", "MODECOM", "MSI",
 							"NComputing", "PC FACTORY", "PCX", "PEAQ", "RADIUM", "Raspberry", "Rikomagic",
-							"Royal Hardwer", "SAPPHIRE", "Serioux", "Shuttle", "SmartPC", "X-X", "ZOTAC", "Egyéb" };
+							"Royal Hardwer", "SAPPHIRE", "Serioux", "Shuttle", "SmartPC", "X-X", "ZOTAC", "NO NAME",
+							"Egyéb" };
 					DefaultComboBoxModel<Object> cbm = new DefaultComboBoxModel<Object>(deviceType);
 					txtSalesdeviceType.setModel(cbm);
 					txtSalesdeviceType.setSelectedItem(null);
+
+					txtSalesdeviceType.addActionListener(new ActionListener() {
+						public void actionPerformed(ActionEvent e) {
+							String txtSalesdeviceTyp = (String) txtSalesdeviceType.getSelectedItem();
+							if (txtSalesdeviceTyp == "Egyéb") {
+								txtSalesdeviceType.setSelectedItem(null);
+								txtSalesdeviceType.setEditable(true);
+							}
+						}
+					});
+
 				} else if (strngSalesDeviceName == "Notebook") {
 					String[] device = { "Acer", "Alcor", "Allview", "Apple", "ASUS", "Dell", "Fujitsu", "Getac",
 							"GIGABYTE", "GOCLEVER", "HP", "Kiano", "Lenovo", "Microsoft", "MSI", "Navon",
-							"Packard Bell", "PEAQ", "Porsche Desing", "Samsung", "Teclast", "Toshiba", "UMAX" };
+							"Packard Bell", "PEAQ", "Porsche Desing", "Samsung", "Teclast", "Toshiba", "UMAX",
+							"NO NAME", "Egyéb" };
 					DefaultComboBoxModel<Object> cbm = new DefaultComboBoxModel<Object>(device);
 					txtSalesdeviceType.setModel(cbm);
 					txtSalesdeviceType.setSelectedItem(null);
+
+					txtSalesdeviceType.addActionListener(new ActionListener() {
+						public void actionPerformed(ActionEvent e) {
+							String txtSalesdeviceTyp = (String) txtSalesdeviceType.getSelectedItem();
+							if (txtSalesdeviceTyp == "Egyéb") {
+								txtSalesdeviceType.setSelectedItem(null);
+								txtSalesdeviceType.setEditable(true);
+							}
+						}
+					});
+
 				} else if (strngSalesDeviceName == "Nyomtató") {
-					String[] device1 = { "Argox", "Bolle", "Brother" };
+					String[] device1 = { "Argox", "Bolle", "Brother", "Canon", "Citizen", "CoLiDo", "CraftUnique",
+							"Datamax-O'Neil", "Develop", "DNP", "Epson", "Evolis", "Fomei", "Fujifilm", "Fujitsu",
+							"Gembird", "HiTi", "HP", "I.R.I.S", "INFINUM", "Konica Minolta", "Kyocera", "Leapfrog",
+							"Lexmark", "MakerBot", "Mitsubishi", "Monkeyfab", "OKI", "Polaroid", "Prusa", "Ricoh",
+							"ROBO 3D", "Samsung", "Sharp", "SUNEN", "Tally", "TEVO", "Velleman", "Xerox", "XYZprinting",
+							"Zebra", "NO NAME", "Egyéb" };
+
 					DefaultComboBoxModel<Object> cbm = new DefaultComboBoxModel<Object>(device1);
 					txtSalesdeviceType.setModel(cbm);
 					txtSalesdeviceType.setSelectedItem(null);
+
+					txtSalesdeviceType.addActionListener(new ActionListener() {
+						public void actionPerformed(ActionEvent e) {
+							String txtSalesdeviceTyp = (String) txtSalesdeviceType.getSelectedItem();
+							if (txtSalesdeviceTyp == "Egyéb") {
+								txtSalesdeviceType.setSelectedItem(null);
+								txtSalesdeviceType.setEditable(true);
+							}
+						}
+					});
+				} else if (strngSalesDeviceName == "Monitor") {
+					String[] device1 = { "3M", "Acer", "AG Neovo", "AOC", "ASUS", "BenQ", "Canon", "Computar", "Dell",
+							"EIZO", "Elo", "Fujitsu", "Fujitsu-Siemens", "GABA", "Grundig", "Hannspree", "Hikvision",
+							"HP", "Hyundai", "liyama", "Lenovo", "LG", "MSI", "NEC", "Orava", "Panasonic", "Philips",
+							"Samsung", "SMART", "Sony", "V7", "ViewSonic", "Vortex", "NO NAME", "Egyéb" };
+
+					DefaultComboBoxModel<Object> cbm = new DefaultComboBoxModel<Object>(device1);
+					txtSalesdeviceType.setModel(cbm);
+					txtSalesdeviceType.setSelectedItem(null);
+
+					txtSalesdeviceType.addActionListener(new ActionListener() {
+						public void actionPerformed(ActionEvent e) {
+							String txtSalesdeviceTyp = (String) txtSalesdeviceType.getSelectedItem();
+							if (txtSalesdeviceTyp == "Egyéb") {
+								txtSalesdeviceType.setSelectedItem(null);
+								txtSalesdeviceType.setEditable(true);
+							}
+						}
+					});
+				} else if (strngSalesDeviceName == "Projektor") {
+					String[] device1 = { "Acer", "AIPTEK", "ASUS", "Auna", "BenQ", "Canon", "Cheerlux", "Dell",
+							"DreamVision", "Epson", "GOCLEVER", "Hitachi", "InFocus", "JVC", "LG", "LuxCine", "NEC",
+							"Optoma", "Overmax", "Panasonic", "Philips", "Ricoh", "Rigal Electronics", "Rikomagic",
+							"Safako", "Skytronic", "Sony", "ViewSonic", "Vivitek", "XGIMI", "NO NAME", "Egyéb" };
+
+					DefaultComboBoxModel<Object> cbm = new DefaultComboBoxModel<Object>(device1);
+					txtSalesdeviceType.setModel(cbm);
+					txtSalesdeviceType.setSelectedItem(null);
+
+					txtSalesdeviceType.addActionListener(new ActionListener() {
+						public void actionPerformed(ActionEvent e) {
+							String txtSalesdeviceTyp = (String) txtSalesdeviceType.getSelectedItem();
+							if (txtSalesdeviceTyp == "Egyéb") {
+								txtSalesdeviceType.setSelectedItem(null);
+								txtSalesdeviceType.setEditable(true);
+							}
+						}
+					});
 				} else if (strngSalesDeviceName == "Egyéb") {
 					txtSalesdeviceType.setEditable(true);
 
 				}
 			}
 		});
+		cmbSalesDeviceCondition.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				panel_2.setVisible(false);
+				String newDevice = (String) cmbSalesDeviceCondition.getSelectedItem();
+				if (newDevice != "Új gép") {
+					panel_2.setVisible(true);
+				}
+			}
+		});
+
+	}
+
+	private boolean checkInputsNewDevice() {
+		colorSetText();
+		String newDevice = (String) cmbSalesDeviceCondition.getSelectedItem();
+		if (newDevice == "Új gép") {
+			if (cmbSalesDeviceName.getSelectedItem() == null) {
+				cmbSalesDeviceName.setBackground(new Color(255, 0, 0));
+			} else {
+				cmbSalesDeviceName.setBackground(Color.BLACK);
+			}
+			if (cmbSalesDeviceHardver.getSelectedItem() == null) {
+				cmbSalesDeviceHardver.setBackground(new Color(255, 0, 0));
+			} else {
+				cmbSalesDeviceHardver.setBackground(Color.BLACK);
+			}
+			if (cmbSalesDeviceCondition.getSelectedItem() == null) {
+				cmbSalesDeviceCondition.setBackground(new Color(255, 0, 0));
+			} else {
+				cmbSalesDeviceCondition.setBackground(Color.BLACK);
+			}
+			if (cmbSalesDevicePriority.getSelectedItem() == null) {
+				cmbSalesDevicePriority.setBackground(new Color(255, 0, 0));
+			} else {
+				cmbSalesDevicePriority.setBackground(Color.BLACK);
+			}
+			if (cmbSalesDeviceSoftver.getSelectedItem() == null) {
+				cmbSalesDeviceSoftver.setBackground(new Color(255, 0, 0));
+			} else {
+				cmbSalesDeviceSoftver.setBackground(Color.BLACK);
+			}
+			if (txtSalesdeviceType.getSelectedItem() == null) {
+				txtSalesdeviceType.setBackground(new Color(255, 0, 0));
+			} else {
+				txtSalesdeviceType.setBackground(Color.BLACK);
+			}
+			if (txtSalesDeviceSerialNumber.getText().trim().isEmpty()) {
+				txtSalesDeviceSerialNumber.setBackground(new Color(255, 0, 0));
+			} else {
+				txtSalesDeviceSerialNumber.setBackground(Color.WHITE);
+			}
+			if (dateSalesDeviceEndDate.getDate() == null) {
+				dateSalesDeviceEndDate.setBackground(new Color(255, 0, 0));
+			} else {
+				dateSalesDeviceEndDate.setBackground(Color.LIGHT_GRAY);
+			}
+			if (dateSalesDeviceAddDate.getDate() == null) {
+				dateSalesDeviceAddDate.setBackground(new Color(255, 0, 0));
+			} else {
+				dateSalesDeviceAddDate.setBackground(Color.LIGHT_GRAY);
+			}
+			if (txtSalesdeviceType.getSelectedItem() == null || dateSalesDeviceAddDate.getDate() == null
+					|| dateSalesDeviceEndDate.getDate() == null || cmbSalesDeviceName.getSelectedItem() == null
+					|| cmbSalesDeviceCondition.getSelectedItem() == null
+					|| cmbSalesDevicePriority.getSelectedItem() == null
+					|| cmbSalesDeviceSoftver.getSelectedItem() == null) {
+				return false;
+			} else {
+				return true;
+			}
+		}
+		return true;
 	}
 
 	private boolean checkInputsDevice() {
-		if (cmbSalesDeviceName.getSelectedItem() == null) {
-			cmbSalesDeviceName.setBackground(new Color(255, 0, 0));
-		} else {
-			cmbSalesDeviceName.setBackground(Color.BLACK);
+		colorSetText();
+		String newDevice = (String) cmbSalesDeviceCondition.getSelectedItem();
+		if (newDevice != "Új gép") {
+
+			if (cmbSalesDeviceName.getSelectedItem() == null) {
+				cmbSalesDeviceName.setBackground(new Color(255, 0, 0));
+			} else {
+				cmbSalesDeviceName.setBackground(Color.BLACK);
+			}
+			if (cmbSalesDeviceHardver.getSelectedItem() == null) {
+				cmbSalesDeviceHardver.setBackground(new Color(255, 0, 0));
+			} else {
+				cmbSalesDeviceHardver.setBackground(Color.BLACK);
+			}
+			if (cmbSalesDeviceCondition.getSelectedItem() == null) {
+				cmbSalesDeviceCondition.setBackground(new Color(255, 0, 0));
+			} else {
+				cmbSalesDeviceCondition.setBackground(Color.BLACK);
+			}
+			if (cmbSalesDevicePriority.getSelectedItem() == null) {
+				cmbSalesDevicePriority.setBackground(new Color(255, 0, 0));
+			} else {
+				cmbSalesDevicePriority.setBackground(Color.BLACK);
+			}
+			if (cmbSalesDeviceSoftver.getSelectedItem() == null) {
+				cmbSalesDeviceSoftver.setBackground(new Color(255, 0, 0));
+			} else {
+				cmbSalesDeviceSoftver.setBackground(Color.BLACK);
+			}
+			if (cmbSalesDeviceCleaning.getSelectedItem() == null) {
+				cmbSalesDeviceCleaning.setBackground(new Color(255, 0, 0));
+			} else {
+				cmbSalesDeviceCleaning.setBackground(Color.BLACK);
+			}
+			if (cmbSalesDeviceCleaning.getSelectedItem() == null) {
+				cmbSalesDeviceCleaning.setBackground(new Color(255, 0, 0));
+			} else {
+				cmbSalesDeviceCleaning.setBackground(Color.BLACK);
+			}
+			if (txtSalesdeviceType.getSelectedItem() == null) {
+				txtSalesdeviceType.setBackground(new Color(255, 0, 0));
+			} else {
+				txtSalesdeviceType.setBackground(Color.BLACK);
+			}
+			if (txtSalesDevicePassword.getText().trim().isEmpty()) {
+				txtSalesDevicePassword.setBackground(new Color(255, 0, 0));
+			} else {
+				txtSalesDevicePassword.setBackground(Color.WHITE);
+			}
+			if (txtSalesDeviceAccesssory.getText().trim().isEmpty()) {
+				txtSalesDeviceAccesssory.setBackground(new Color(255, 0, 0));
+			} else {
+				txtSalesDeviceAccesssory.setBackground(Color.WHITE);
+			}
+			if (txtSalesDeviceSerialNumber.getText().trim().isEmpty()) {
+				txtSalesDeviceSerialNumber.setBackground(new Color(255, 0, 0));
+			} else {
+				txtSalesDeviceSerialNumber.setBackground(Color.WHITE);
+			}
+			if (txtSalesDeviceInjury.getText().trim().isEmpty()) {
+				txtSalesDeviceInjury.setBackground(new Color(255, 0, 0));
+			} else {
+				txtSalesDeviceInjury.setBackground(Color.WHITE);
+			}
+			if (txtSalesDeviceComment.getText().trim().isEmpty()) {
+				txtSalesDeviceComment.setBackground(new Color(255, 0, 0));
+			} else {
+				txtSalesDeviceComment.setBackground(Color.WHITE);
+			}
+			if (dateSalesDeviceEndDate.getDate() == null) {
+				dateSalesDeviceEndDate.setBackground(new Color(255, 0, 0));
+			} else {
+				dateSalesDeviceEndDate.setBackground(Color.LIGHT_GRAY);
+			}
+			if (dateSalesDeviceAddDate.getDate() == null) {
+				dateSalesDeviceAddDate.setBackground(new Color(255, 0, 0));
+			} else {
+				dateSalesDeviceAddDate.setBackground(Color.LIGHT_GRAY);
+			}
+			if (txtSalesdeviceType.getSelectedItem() == null || txtSalesDevicePassword.getText().trim().isEmpty()
+					|| txtSalesDeviceAccesssory.getText().trim().isEmpty()
+					|| txtSalesDeviceInjury.getText().trim().isEmpty()
+					|| txtSalesDeviceComment.getText().trim().isEmpty() || dateSalesDeviceAddDate.getDate() == null
+					|| dateSalesDeviceEndDate.getDate() == null || cmbSalesDeviceName.getSelectedItem() == null
+					|| cmbSalesDeviceCondition.getSelectedItem() == null
+					|| cmbSalesDevicePriority.getSelectedItem() == null
+					|| cmbSalesDeviceSoftver.getSelectedItem() == null
+					|| cmbSalesDeviceCleaning.getSelectedItem() == null) {
+				return false;
+			} else {
+				return true;
+			}
 		}
-		if (cmbSalesDeviceCondition.getSelectedItem() == null) {
-			cmbSalesDeviceCondition.setBackground(new Color(255, 0, 0));
-		} else {
-			cmbSalesDeviceCondition.setBackground(Color.BLACK);
-		}
-		if (cmbSalesDevicePriority.getSelectedItem() == null) {
-			cmbSalesDevicePriority.setBackground(new Color(255, 0, 0));
-		} else {
-			cmbSalesDevicePriority.setBackground(Color.BLACK);
-		}
-		if (cmbSalesDeviceSoftver.getSelectedItem() == null) {
-			cmbSalesDeviceSoftver.setBackground(new Color(255, 0, 0));
-		} else {
-			cmbSalesDeviceSoftver.setBackground(Color.BLACK);
-		}
-		if (cmbSalesDeviceCleaning.getSelectedItem() == null) {
-			cmbSalesDeviceCleaning.setBackground(new Color(255, 0, 0));
-		} else {
-			cmbSalesDeviceCleaning.setBackground(Color.BLACK);
-		}
-		if (cmbSalesDeviceCleaning.getSelectedItem() == null) {
-			cmbSalesDeviceCleaning.setBackground(new Color(255, 0, 0));
-		} else {
-			cmbSalesDeviceCleaning.setBackground(Color.BLACK);
-		}
-		if (txtSalesdeviceType.getSelectedItem() == null) {
-			txtSalesdeviceType.setBackground(new Color(255, 0, 0));
-		} else {
-			txtSalesdeviceType.setBackground(Color.BLACK);
-		}
-		if (txtSalesDevicePassword.getText().trim().isEmpty()) {
-			txtSalesDevicePassword.setBackground(new Color(255, 0, 0));
-		} else {
-			txtSalesDevicePassword.setBackground(Color.WHITE);
-		}
-		if (txtSalesDeviceAccesssory.getText().trim().isEmpty()) {
-			txtSalesDeviceAccesssory.setBackground(new Color(255, 0, 0));
-		} else {
-			txtSalesDeviceAccesssory.setBackground(Color.WHITE);
-		}
-		if (txtSalesDeviceInjury.getText().trim().isEmpty()) {
-			txtSalesDeviceInjury.setBackground(new Color(255, 0, 0));
-		} else {
-			txtSalesDeviceInjury.setBackground(Color.WHITE);
-		}
-		if (txtSalesDeviceComment.getText().trim().isEmpty()) {
-			txtSalesDeviceComment.setBackground(new Color(255, 0, 0));
-		} else {
-			txtSalesDeviceComment.setBackground(Color.WHITE);
-		}
-		if (dateSalesDeviceEndDate.getDate() == null) {
-			dateSalesDeviceEndDate.setBackground(new Color(255, 0, 0));
-		} else {
-			dateSalesDeviceEndDate.setBackground(Color.LIGHT_GRAY);
-		}
-		if (dateSalesDeviceAddDate.getDate() == null) {
-			dateSalesDeviceAddDate.setBackground(new Color(255, 0, 0));
-		} else {
-			dateSalesDeviceAddDate.setBackground(Color.LIGHT_GRAY);
-		}
-		if (txtSalesdeviceType.getSelectedItem() == null || txtSalesDevicePassword.getText().trim().isEmpty()
-				|| txtSalesDeviceAccesssory.getText().trim().isEmpty()
-				|| txtSalesDeviceInjury.getText().trim().isEmpty() || txtSalesDeviceComment.getText().trim().isEmpty()
-				|| dateSalesDeviceAddDate.getDate() == null || dateSalesDeviceEndDate.getDate() == null
-				|| cmbSalesDeviceName.getSelectedItem() == null || cmbSalesDeviceCondition.getSelectedItem() == null
-				|| cmbSalesDevicePriority.getSelectedItem() == null || cmbSalesDeviceSoftver.getSelectedItem() == null
-				|| cmbSalesDeviceCleaning.getSelectedItem() == null) {
-			return false;
-		} else {
-			return true;
-		}
+		return true;
 	}
 
 	@Override
@@ -429,61 +598,115 @@ public class DeviceJDBCSetDAO extends DeviceGui implements DeviceImplements {
 
 	private void jBtnInsertActionPerformedDevice(java.awt.event.ActionEvent evt) {
 		String buyingDate = null;
-		if (checkInputsDevice()) {
-			try {
-				Connection con = DataBaseConnect.getConnection();
-				PreparedStatement insertDevice = con
-						.prepareStatement("INSERT INTO gepadatok(ID_g, ugyfel_nev, eszkoz_g, tipus,"
-								+ "allapot, prioritas, vasarlas_ido, rogzites,"
-								+ "hatarido, softwer, takaritas, jelszo, tartozekok, serules, hiba_leiras,"
-								+ " megrendelo_ID_m)" + "values(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?) ");
-				txtSalesDeviceID.setText(DeviceIdentificationGenereator.random());
-				insertDevice.setString(1, txtSalesDeviceID.getText());
-				insertDevice.setString(2, txtSalesDeviceClientName.getText());
-				insertDevice.setString(3, (String) cmbSalesDeviceName.getSelectedItem());
-				insertDevice.setString(4, (String) txtSalesdeviceType.getSelectedItem());
-				insertDevice.setString(5, (String) cmbSalesDeviceCondition.getSelectedItem());
-				insertDevice.setString(6, (String) cmbSalesDevicePriority.getSelectedItem());
-				SimpleDateFormat buyingDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+		String newDevice = (String) cmbSalesDeviceCondition.getSelectedItem();
+		if (newDevice != "Új gép") {
+			if (checkInputsDevice()) {
 				try {
-					buyingDateFormat.setLenient(false);
-					buyingDate = buyingDateFormat.format(dateSalesDeviceBuying.getDate());
-				} catch (Exception e) {
+					Connection con = DataBaseConnect.getConnection();
+					PreparedStatement insertDevice = con
+							.prepareStatement("INSERT INTO gepadatok(ID_g, ugyfel_nev, eszkoz_g, tipus,"
+									+ "allapot, prioritas, vasarlas_ido, rogzites,"
+									+ "hatarido, softwer, takaritas, jelszo, tartozekok, serules, hiba_leiras,"
+									+ " megrendelo_ID_m)" + "values(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?) ");
+					txtSalesDeviceID.setText(DeviceIdentificationGenereator.random());
+					insertDevice.setString(1, txtSalesDeviceID.getText());
+					insertDevice.setString(2, txtSalesDeviceClientName.getText());
+					insertDevice.setString(3, (String) cmbSalesDeviceName.getSelectedItem());
+					insertDevice.setString(4, (String) txtSalesdeviceType.getSelectedItem());
+					insertDevice.setString(5, (String) cmbSalesDeviceCondition.getSelectedItem());
+					insertDevice.setString(6, (String) cmbSalesDevicePriority.getSelectedItem());
+					SimpleDateFormat buyingDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+					try {
+						buyingDateFormat.setLenient(false);
+						buyingDate = buyingDateFormat.format(dateSalesDeviceBuying.getDate());
+					} catch (Exception e) {
+					}
+					insertDevice.setString(7, buyingDate);
+					SimpleDateFormat addDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+					addDate = addDateFormat.format(dateSalesDeviceAddDate.getDate());
+					insertDevice.setString(8, addDate);
+					SimpleDateFormat endDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+					String endDate = endDateFormat.format(dateSalesDeviceEndDate.getDate());
+					insertDevice.setString(9, endDate);
+					insertDevice.setString(10, (String) cmbSalesDeviceSoftver.getSelectedItem());
+					insertDevice.setString(11, (String) cmbSalesDeviceCleaning.getSelectedItem());
+					insertDevice.setString(12, txtSalesDevicePassword.getText());
+					insertDevice.setString(13, txtSalesDeviceAccesssory.getText());
+					insertDevice.setString(14, txtSalesDeviceInjury.getText());
+					insertDevice.setString(15, txtSalesDeviceComment.getText());
+					insertDevice.setString(16, txtSalesDeviceClientID.getText());
+					insertDevice.executeUpdate();
+					PreparedStatement insertDeviceImage = con
+							.prepareStatement("INSERT INTO image_gep(gepadatok_ID_g)" + "values(?)");
+					insertDeviceImage.setString(1, txtSalesDeviceID.getText());
+					insertDeviceImage.executeUpdate();
+					PreparedStatement insertDeviceSoftver = con
+							.prepareStatement("INSERT INTO software(gepadatok_ID_gs)" + "values(?)");
+					insertDeviceSoftver.setString(1, txtSalesDeviceID.getText());
+					insertDeviceSoftver.executeUpdate();
+					PreparedStatement insertDeviceHardver = con
+							.prepareStatement("INSERT INTO alkatresz(gepadatok_ID_ga)" + "values(?)");
+					insertDeviceHardver.setString(1, txtSalesDeviceID.getText());
+					insertDeviceHardver.executeUpdate();
+					showProductsInJTableDevice();
+					JOptionPane.showMessageDialog(null, "Adatok beillesztve");
+				} catch (SQLException ex) {
+					JOptionPane.showMessageDialog(null, "Sikertelen beillesztés: " + ex.getMessage());
 				}
-				insertDevice.setString(7, buyingDate);
-				SimpleDateFormat addDateFormat = new SimpleDateFormat("yyyy-MM-dd");
-				addDate = addDateFormat.format(dateSalesDeviceAddDate.getDate());
-				insertDevice.setString(8, addDate);
-				SimpleDateFormat endDateFormat = new SimpleDateFormat("yyyy-MM-dd");
-				String endDate = endDateFormat.format(dateSalesDeviceEndDate.getDate());
-				insertDevice.setString(9, endDate);
-				insertDevice.setString(10, (String) cmbSalesDeviceSoftver.getSelectedItem());
-				insertDevice.setString(11, (String) cmbSalesDeviceCleaning.getSelectedItem());
-				insertDevice.setString(12, txtSalesDevicePassword.getText());
-				insertDevice.setString(13, txtSalesDeviceAccesssory.getText());
-				insertDevice.setString(14, txtSalesDeviceInjury.getText());
-				insertDevice.setString(15, txtSalesDeviceComment.getText());
-				insertDevice.setString(16, txtSalesDeviceClientID.getText());
-				insertDevice.executeUpdate();
-				PreparedStatement insertDeviceImage = con
-						.prepareStatement("INSERT INTO image_gep(gepadatok_ID_g)" + "values(?)");
-				insertDeviceImage.setString(1, txtSalesDeviceID.getText());
-				insertDeviceImage.executeUpdate();
-				PreparedStatement insertDeviceSoftver = con
-						.prepareStatement("INSERT INTO software(gepadatok_ID_gs)" + "values(?)");
-				insertDeviceSoftver.setString(1, txtSalesDeviceID.getText());
-				insertDeviceSoftver.executeUpdate();
-				PreparedStatement insertDeviceHardver = con
-						.prepareStatement("INSERT INTO alkatresz(gepadatok_ID_ga)" + "values(?)");
-				insertDeviceHardver.setString(1, txtSalesDeviceID.getText());
-				insertDeviceHardver.executeUpdate();
-				showProductsInJTableDevice();
-				JOptionPane.showMessageDialog(null, "Adatok beillesztve");
-			} catch (SQLException ex) {
-				JOptionPane.showMessageDialog(null, "Sikertelen beillesztés: " + ex.getMessage());
+			} else {
+				JOptionPane.showMessageDialog(null, "Egy vagy több mező üres");
 			}
-		} else {
-			JOptionPane.showMessageDialog(null, "Egy vagy több mező üres");
+		} else if (newDevice == "Új gép") {
+			if (checkInputsNewDevice()) {
+				try {
+					Connection con = DataBaseConnect.getConnection();
+					PreparedStatement insertDevice = con
+							.prepareStatement("INSERT INTO gepadatok(ID_g, ugyfel_nev, eszkoz_g, tipus,"
+									+ "allapot, prioritas, vasarlas_ido, rogzites," + "hatarido, softwer,"
+									+ " megrendelo_ID_m)" + "values(?,?,?,?,?,?,?,?,?,?,?) ");
+					txtSalesDeviceID.setText(DeviceIdentificationGenereator.random());
+					insertDevice.setString(1, txtSalesDeviceID.getText());
+					insertDevice.setString(2, txtSalesDeviceClientName.getText());
+					insertDevice.setString(3, (String) cmbSalesDeviceName.getSelectedItem());
+					insertDevice.setString(4, (String) txtSalesdeviceType.getSelectedItem());
+					insertDevice.setString(5, (String) cmbSalesDeviceCondition.getSelectedItem());
+					insertDevice.setString(6, (String) cmbSalesDevicePriority.getSelectedItem());
+					SimpleDateFormat buyingDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+					try {
+						buyingDateFormat.setLenient(false);
+						buyingDate = buyingDateFormat.format(dateSalesDeviceBuying.getDate());
+					} catch (Exception e) {
+					}
+					insertDevice.setString(7, buyingDate);
+					SimpleDateFormat addDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+					addDate = addDateFormat.format(dateSalesDeviceAddDate.getDate());
+					insertDevice.setString(8, addDate);
+					SimpleDateFormat endDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+					String endDate = endDateFormat.format(dateSalesDeviceEndDate.getDate());
+					insertDevice.setString(9, endDate);
+					insertDevice.setString(10, (String) cmbSalesDeviceSoftver.getSelectedItem());
+					insertDevice.setString(11, txtSalesDeviceClientID.getText());
+					insertDevice.executeUpdate();
+					PreparedStatement insertDeviceImage = con
+							.prepareStatement("INSERT INTO image_gep(gepadatok_ID_g)" + "values(?)");
+					insertDeviceImage.setString(1, txtSalesDeviceID.getText());
+					insertDeviceImage.executeUpdate();
+					PreparedStatement insertDeviceSoftver = con
+							.prepareStatement("INSERT INTO software(gepadatok_ID_gs)" + "values(?)");
+					insertDeviceSoftver.setString(1, txtSalesDeviceID.getText());
+					insertDeviceSoftver.executeUpdate();
+					PreparedStatement insertDeviceHardver = con
+							.prepareStatement("INSERT INTO alkatresz(gepadatok_ID_ga)" + "values(?)");
+					insertDeviceHardver.setString(1, txtSalesDeviceID.getText());
+					insertDeviceHardver.executeUpdate();
+					showProductsInJTableDevice();
+					JOptionPane.showMessageDialog(null, "Adatok beillesztve");
+				} catch (SQLException ex) {
+					JOptionPane.showMessageDialog(null, "Sikertelen beillesztés: " + ex.getMessage());
+				}
+			} else {
+				JOptionPane.showMessageDialog(null, "Egy vagy több mező üres");
+			}
 		}
 	}
 
@@ -528,22 +751,6 @@ public class DeviceJDBCSetDAO extends DeviceGui implements DeviceImplements {
 				ps.executeUpdate();
 				showProductsInJTableDevice();
 				JOptionPane.showMessageDialog(null, "Sikeres Frissítés");
-				txtSalesDeviceClientID.setText(null);
-				txtSalesDeviceClientName.setText(null);
-				cmbSalesDeviceName.setSelectedItem(null);
-				txtSalesDeviceID.setText(null);
-				txtSalesdeviceType.setSelectedItem(null);
-				cmbSalesDeviceCondition.setSelectedItem(null);
-				cmbSalesDevicePriority.setSelectedItem(null);
-				dateSalesDeviceBuying.setDate(null);
-				dateSalesDeviceAddDate.setDate(null);
-				dateSalesDeviceEndDate.setDate(null);
-				cmbSalesDeviceSoftver.setSelectedItem(null);
-				cmbSalesDeviceCleaning.setSelectedItem(null);
-				txtSalesDevicePassword.setText("-");
-				txtSalesDeviceAccesssory.setText("-");
-				txtSalesDeviceInjury.setText("-");
-				txtSalesDeviceComment.setText(null);
 			} catch (SQLException ex) {
 				Logger.getLogger(DeviceJDBCSetDAO.class.getName()).log(Level.SEVERE, null, ex);
 			}
@@ -586,7 +793,22 @@ public class DeviceJDBCSetDAO extends DeviceGui implements DeviceImplements {
 			JOptionPane.showMessageDialog(null, "Sikertelen törlés : Nincs ID a törléshez");
 		}
 	}
-
+	private void colorSetText() {
+		txtSalesdeviceType.setBackground(Color.BLACK);
+		cmbSalesDeviceName.setBackground(Color.BLACK);
+		cmbSalesDeviceCondition.setBackground(Color.BLACK);
+		cmbSalesDevicePriority.setBackground(Color.BLACK);
+		dateSalesDeviceBuying.setBackground(Color.LIGHT_GRAY);
+		dateSalesDeviceAddDate.setBackground(Color.LIGHT_GRAY);
+		dateSalesDeviceEndDate.setBackground(Color.LIGHT_GRAY);
+		cmbSalesDeviceSoftver.setBackground(Color.BLACK);
+		cmbSalesDeviceCleaning.setBackground(Color.BLACK);
+		txtSalesDevicePassword.setBackground(Color.WHITE);
+		txtSalesDeviceAccesssory.setBackground(Color.WHITE);
+		txtSalesDeviceInjury.setBackground(Color.WHITE);
+		txtSalesDeviceComment.setBackground(Color.WHITE);
+	}
+	
 	private void btnNullShowPerformed() {
 		txtSalesdeviceType.setSelectedItem(null);
 		txtSalesdeviceType.setBackground(Color.BLACK);
@@ -595,7 +817,6 @@ public class DeviceJDBCSetDAO extends DeviceGui implements DeviceImplements {
 		cmbSalesDeviceName.setSelectedIndex(-1);
 		cmbSalesDeviceName.setBackground(Color.BLACK);
 		txtSalesDeviceID.setText(null); // fix
-
 		cmbSalesDeviceCondition.setSelectedItem(null);
 		cmbSalesDeviceCondition.setBackground(Color.BLACK);
 		cmbSalesDevicePriority.setSelectedItem(null);
