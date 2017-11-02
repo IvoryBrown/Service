@@ -115,117 +115,74 @@ public class DeviceJDBCSetDAO extends DeviceGui implements DeviceImplements {
 				jTableClientSearch();
 			}
 		});
+		String[] desktopPc = { "Acer", "Alza", "Apple", "ASBIS", "ASRock", "ASUS", "CHS", "Dell", "DigitalWeb", "Elo",
+				"EXOZA", "Expert", "Foramax", "Fujitsu", "GABA", "GIGABYTE", "Golden PC", "HP", "iggual", "InFocus",
+				"Intel", "Intensa", "Iris", "JTC", "Kiano", "Leadtek", "Lenovo", "LG", "MeLE", "Mentor", "Microsoft",
+				"MINIX", "MODECOM", "MSI", "NComputing", "PC FACTORY", "PCX", "PEAQ", "RADIUM", "Raspberry",
+				"Rikomagic", "Royal Hardwer", "SAPPHIRE", "Serioux", "Shuttle", "SmartPC", "X-X", "ZOTAC", "NO NAME",
+				"Egyéb" };
+
+		String[] notebook = { "Acer", "Alcor", "Allview", "Apple", "ASUS", "Dell", "Fujitsu", "Getac", "GIGABYTE",
+				"GOCLEVER", "HP", "Kiano", "Lenovo", "Microsoft", "MSI", "Navon", "Packard Bell", "PEAQ",
+				"Porsche Desing", "Samsung", "Teclast", "Toshiba", "UMAX", "NO NAME", "Egyéb" };
+
+		String[] printer = { "Argox", "Bolle", "Brother", "Canon", "Citizen", "CoLiDo", "CraftUnique", "Datamax-O'Neil",
+				"Develop", "DNP", "Epson", "Evolis", "Fomei", "Fujifilm", "Fujitsu", "Gembird", "HiTi", "HP", "I.R.I.S",
+				"INFINUM", "Konica Minolta", "Kyocera", "Leapfrog", "Lexmark", "MakerBot", "Mitsubishi", "Monkeyfab",
+				"OKI", "Polaroid", "Prusa", "Ricoh", "ROBO 3D", "Samsung", "Sharp", "SUNEN", "Tally", "TEVO",
+				"Velleman", "Xerox", "XYZprinting", "Zebra", "NO NAME", "Egyéb" };
+
+		String[] monitor = { "3M", "Acer", "AG Neovo", "AOC", "ASUS", "BenQ", "Canon", "Computar", "Dell", "EIZO",
+				"Elo", "Fujitsu", "Fujitsu-Siemens", "GABA", "Grundig", "Hannspree", "Hikvision", "HP", "Hyundai",
+				"liyama", "Lenovo", "LG", "MSI", "NEC", "Orava", "Panasonic", "Philips", "Samsung", "SMART", "Sony",
+				"V7", "ViewSonic", "Vortex", "NO NAME", "Egyéb" };
+
+		String[] projector = { "Acer", "AIPTEK", "ASUS", "Auna", "BenQ", "Canon", "Cheerlux", "Dell", "DreamVision",
+				"Epson", "GOCLEVER", "Hitachi", "InFocus", "JVC", "LG", "LuxCine", "NEC", "Optoma", "Overmax",
+				"Panasonic", "Philips", "Ricoh", "Rigal Electronics", "Rikomagic", "Safako", "Skytronic", "Sony",
+				"ViewSonic", "Vivitek", "XGIMI", "NO NAME", "Egyéb" };
+
 		cmbSalesDeviceName.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				txtSalesdeviceType.setEditable(false);
-
 				String strngSalesDeviceName = (String) cmbSalesDeviceName.getSelectedItem();
 				if (strngSalesDeviceName == "Asztali PC") {
-					String[] deviceType = { "Acer", "Alza", "Apple", "ASBIS", "ASRock", "ASUS", "CHS", "Dell",
-							"DigitalWeb", "Elo", "EXOZA", "Expert", "Foramax", "Fujitsu", "GABA", "GIGABYTE",
-							"Golden PC", "HP", "iggual", "InFocus", "Intel", "Intensa", "Iris", "JTC", "Kiano",
-							"Leadtek", "Lenovo", "LG", "MeLE", "Mentor", "Microsoft", "MINIX", "MODECOM", "MSI",
-							"NComputing", "PC FACTORY", "PCX", "PEAQ", "RADIUM", "Raspberry", "Rikomagic",
-							"Royal Hardwer", "SAPPHIRE", "Serioux", "Shuttle", "SmartPC", "X-X", "ZOTAC", "NO NAME",
-							"Egyéb" };
-					DefaultComboBoxModel<Object> cbm = new DefaultComboBoxModel<Object>(deviceType);
+					DefaultComboBoxModel<Object> cbm = new DefaultComboBoxModel<Object>(desktopPc);
 					txtSalesdeviceType.setModel(cbm);
 					txtSalesdeviceType.setSelectedItem(null);
-
-					txtSalesdeviceType.addActionListener(new ActionListener() {
-						public void actionPerformed(ActionEvent e) {
-							String txtSalesdeviceTyp = (String) txtSalesdeviceType.getSelectedItem();
-							if (txtSalesdeviceTyp == "Egyéb") {
-								txtSalesdeviceType.setSelectedItem(null);
-								txtSalesdeviceType.setEditable(true);
-							}
-						}
-					});
-
 				} else if (strngSalesDeviceName == "Notebook") {
-					String[] device = { "Acer", "Alcor", "Allview", "Apple", "ASUS", "Dell", "Fujitsu", "Getac",
-							"GIGABYTE", "GOCLEVER", "HP", "Kiano", "Lenovo", "Microsoft", "MSI", "Navon",
-							"Packard Bell", "PEAQ", "Porsche Desing", "Samsung", "Teclast", "Toshiba", "UMAX",
-							"NO NAME", "Egyéb" };
-					DefaultComboBoxModel<Object> cbm = new DefaultComboBoxModel<Object>(device);
+					DefaultComboBoxModel<Object> cbm = new DefaultComboBoxModel<Object>(notebook);
 					txtSalesdeviceType.setModel(cbm);
 					txtSalesdeviceType.setSelectedItem(null);
-
-					txtSalesdeviceType.addActionListener(new ActionListener() {
-						public void actionPerformed(ActionEvent e) {
-							String txtSalesdeviceTyp = (String) txtSalesdeviceType.getSelectedItem();
-							if (txtSalesdeviceTyp == "Egyéb") {
-								txtSalesdeviceType.setSelectedItem(null);
-								txtSalesdeviceType.setEditable(true);
-							}
-						}
-					});
-
 				} else if (strngSalesDeviceName == "Nyomtató") {
-					String[] device1 = { "Argox", "Bolle", "Brother", "Canon", "Citizen", "CoLiDo", "CraftUnique",
-							"Datamax-O'Neil", "Develop", "DNP", "Epson", "Evolis", "Fomei", "Fujifilm", "Fujitsu",
-							"Gembird", "HiTi", "HP", "I.R.I.S", "INFINUM", "Konica Minolta", "Kyocera", "Leapfrog",
-							"Lexmark", "MakerBot", "Mitsubishi", "Monkeyfab", "OKI", "Polaroid", "Prusa", "Ricoh",
-							"ROBO 3D", "Samsung", "Sharp", "SUNEN", "Tally", "TEVO", "Velleman", "Xerox", "XYZprinting",
-							"Zebra", "NO NAME", "Egyéb" };
-
-					DefaultComboBoxModel<Object> cbm = new DefaultComboBoxModel<Object>(device1);
+					DefaultComboBoxModel<Object> cbm = new DefaultComboBoxModel<Object>(printer);
 					txtSalesdeviceType.setModel(cbm);
 					txtSalesdeviceType.setSelectedItem(null);
-
-					txtSalesdeviceType.addActionListener(new ActionListener() {
-						public void actionPerformed(ActionEvent e) {
-							String txtSalesdeviceTyp = (String) txtSalesdeviceType.getSelectedItem();
-							if (txtSalesdeviceTyp == "Egyéb") {
-								txtSalesdeviceType.setSelectedItem(null);
-								txtSalesdeviceType.setEditable(true);
-							}
-						}
-					});
 				} else if (strngSalesDeviceName == "Monitor") {
-					String[] device1 = { "3M", "Acer", "AG Neovo", "AOC", "ASUS", "BenQ", "Canon", "Computar", "Dell",
-							"EIZO", "Elo", "Fujitsu", "Fujitsu-Siemens", "GABA", "Grundig", "Hannspree", "Hikvision",
-							"HP", "Hyundai", "liyama", "Lenovo", "LG", "MSI", "NEC", "Orava", "Panasonic", "Philips",
-							"Samsung", "SMART", "Sony", "V7", "ViewSonic", "Vortex", "NO NAME", "Egyéb" };
-
-					DefaultComboBoxModel<Object> cbm = new DefaultComboBoxModel<Object>(device1);
+					DefaultComboBoxModel<Object> cbm = new DefaultComboBoxModel<Object>(monitor);
 					txtSalesdeviceType.setModel(cbm);
 					txtSalesdeviceType.setSelectedItem(null);
-
-					txtSalesdeviceType.addActionListener(new ActionListener() {
-						public void actionPerformed(ActionEvent e) {
-							String txtSalesdeviceTyp = (String) txtSalesdeviceType.getSelectedItem();
-							if (txtSalesdeviceTyp == "Egyéb") {
-								txtSalesdeviceType.setSelectedItem(null);
-								txtSalesdeviceType.setEditable(true);
-							}
-						}
-					});
 				} else if (strngSalesDeviceName == "Projektor") {
-					String[] device1 = { "Acer", "AIPTEK", "ASUS", "Auna", "BenQ", "Canon", "Cheerlux", "Dell",
-							"DreamVision", "Epson", "GOCLEVER", "Hitachi", "InFocus", "JVC", "LG", "LuxCine", "NEC",
-							"Optoma", "Overmax", "Panasonic", "Philips", "Ricoh", "Rigal Electronics", "Rikomagic",
-							"Safako", "Skytronic", "Sony", "ViewSonic", "Vivitek", "XGIMI", "NO NAME", "Egyéb" };
-
-					DefaultComboBoxModel<Object> cbm = new DefaultComboBoxModel<Object>(device1);
+					DefaultComboBoxModel<Object> cbm = new DefaultComboBoxModel<Object>(projector);
 					txtSalesdeviceType.setModel(cbm);
 					txtSalesdeviceType.setSelectedItem(null);
-
-					txtSalesdeviceType.addActionListener(new ActionListener() {
-						public void actionPerformed(ActionEvent e) {
-							String txtSalesdeviceTyp = (String) txtSalesdeviceType.getSelectedItem();
-							if (txtSalesdeviceTyp == "Egyéb") {
-								txtSalesdeviceType.setSelectedItem(null);
-								txtSalesdeviceType.setEditable(true);
-							}
-						}
-					});
 				} else if (strngSalesDeviceName == "Egyéb") {
+					txtSalesdeviceType.setSelectedItem(null);
 					txtSalesdeviceType.setEditable(true);
-
+					System.out.println("3");
 				}
 			}
 		});
+		txtSalesdeviceType.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				String txtSalesdeviceTyp = (String) txtSalesdeviceType.getSelectedItem();
+				if (txtSalesdeviceTyp == "Egyéb") {
+					txtSalesdeviceType.setSelectedItem(null);
+					txtSalesdeviceType.setEditable(true);
+				}
+			}
+		});
+
 		cmbSalesDeviceCondition.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				panel_2.setVisible(true);
@@ -854,6 +811,7 @@ public class DeviceJDBCSetDAO extends DeviceGui implements DeviceImplements {
 		txtSalesdeviceType.setBackground(Color.BLACK);
 		txtSalesDeviceClientID.setText(null); // fix
 		txtSalesDeviceClientName.setText(null); // fix
+		txtSalesDeviceSerialNumber.setText("Nincs");
 		cmbSalesDeviceName.setSelectedIndex(-1);
 		cmbSalesDeviceName.setBackground(Color.BLACK);
 		txtSalesDeviceID.setText(null); // fix
@@ -869,6 +827,8 @@ public class DeviceJDBCSetDAO extends DeviceGui implements DeviceImplements {
 		dateSalesDeviceEndDate.setBackground(Color.LIGHT_GRAY);
 		cmbSalesDeviceSoftver.setSelectedItem(null);
 		cmbSalesDeviceSoftver.setBackground(Color.BLACK);
+		cmbSalesDeviceHardver.setSelectedItem(null);
+		cmbSalesDeviceHardver.setBackground(Color.BLACK);
 		cmbSalesDeviceCleaning.setSelectedItem(null);
 		cmbSalesDeviceCleaning.setBackground(Color.BLACK);
 		txtSalesDevicePassword.setText("-");
