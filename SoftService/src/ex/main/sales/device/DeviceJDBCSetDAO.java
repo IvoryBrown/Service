@@ -228,10 +228,10 @@ public class DeviceJDBCSetDAO extends DeviceGui implements DeviceImplements {
 		});
 		cmbSalesDeviceCondition.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				panel_2.setVisible(false);
+				panel_2.setVisible(true);
 				String newDevice = (String) cmbSalesDeviceCondition.getSelectedItem();
-				if (newDevice != "Új gép") {
-					panel_2.setVisible(true);
+				if (newDevice == "Új gép") {
+					panel_2.setVisible(false);
 				}
 			}
 		});

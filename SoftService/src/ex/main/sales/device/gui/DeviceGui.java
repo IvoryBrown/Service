@@ -189,7 +189,7 @@ public class DeviceGui extends ClientJDBCSetDAO {
 		panel_2.setLayout(null);
 		panel_2.setBounds(398, 11, 509, 362);
 		jpnlDevice.add(panel_2);
-		panel_2.setVisible(false);
+		panel_2.setVisible(true);
 
 		JLabel lblSalesDeviceCleaning = new JLabel("takarítás:");
 		lblSalesDeviceCleaning.setHorizontalAlignment(SwingConstants.RIGHT);
