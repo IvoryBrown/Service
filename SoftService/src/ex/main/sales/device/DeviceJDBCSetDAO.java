@@ -41,7 +41,7 @@ public class DeviceJDBCSetDAO extends DeviceGui implements DeviceImplements {
 	public DeviceJDBCSetDAO() {
 		setActionDevice();
 		showProductsInJTableDevice();
-		tableRowsDevice();
+		//tableRowsDevice();
 	}
 
 	private void setActionDevice() {
@@ -169,7 +169,6 @@ public class DeviceJDBCSetDAO extends DeviceGui implements DeviceImplements {
 				} else if (strngSalesDeviceName == "Egyéb") {
 					txtSalesdeviceType.setSelectedItem(null);
 					txtSalesdeviceType.setEditable(true);
-					System.out.println("3");
 				}
 			}
 		});
