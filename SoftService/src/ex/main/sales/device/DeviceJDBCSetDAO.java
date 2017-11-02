@@ -41,7 +41,7 @@ public class DeviceJDBCSetDAO extends DeviceGui implements DeviceImplements {
 	public DeviceJDBCSetDAO() {
 		setActionDevice();
 		showProductsInJTableDevice();
-		//tableRowsDevice();
+		// tableRowsDevice();
 	}
 
 	private void setActionDevice() {
@@ -186,7 +186,7 @@ public class DeviceJDBCSetDAO extends DeviceGui implements DeviceImplements {
 			public void actionPerformed(ActionEvent e) {
 				panel_2.setVisible(true);
 				String newDevice = (String) cmbSalesDeviceCondition.getSelectedItem();
-				if (newDevice == "Új gép") {
+				if (newDevice != "Bevételezve") {
 					panel_2.setVisible(false);
 				}
 			}
@@ -197,7 +197,7 @@ public class DeviceJDBCSetDAO extends DeviceGui implements DeviceImplements {
 	private boolean checkInputsNewDevice() {
 		colorSetText();
 		String newDevice = (String) cmbSalesDeviceCondition.getSelectedItem();
-		if (newDevice == "Új gép") {
+		if (newDevice != "Bevételezve") {
 			if (cmbSalesDeviceName.getSelectedItem() == null) {
 				cmbSalesDeviceName.setBackground(new Color(255, 0, 0));
 			} else {
@@ -259,7 +259,7 @@ public class DeviceJDBCSetDAO extends DeviceGui implements DeviceImplements {
 	private boolean checkInputsDevice() {
 		colorSetText();
 		String newDevice = (String) cmbSalesDeviceCondition.getSelectedItem();
-		if (newDevice != "Új gép") {
+		if (newDevice == "Bevételezve") {
 
 			if (cmbSalesDeviceName.getSelectedItem() == null) {
 				cmbSalesDeviceName.setBackground(new Color(255, 0, 0));
@@ -558,7 +558,7 @@ public class DeviceJDBCSetDAO extends DeviceGui implements DeviceImplements {
 	private void jBtnInsertActionPerformedDevice(java.awt.event.ActionEvent evt) {
 		String buyingDate = null;
 		String newDevice = (String) cmbSalesDeviceCondition.getSelectedItem();
-		if (newDevice != "Új gép") {
+		if (newDevice == "Bevételezve") {
 			if (checkInputsDevice()) {
 				try {
 					Connection con = DataBaseConnect.getConnection();
@@ -617,7 +617,7 @@ public class DeviceJDBCSetDAO extends DeviceGui implements DeviceImplements {
 			} else {
 				JOptionPane.showMessageDialog(null, "Egy vagy több mező üres");
 			}
-		} else if (newDevice == "Új gép") {
+		} else if (newDevice != "Bevételezve") {
 			if (checkInputsNewDevice()) {
 				try {
 					Connection con = DataBaseConnect.getConnection();
@@ -676,7 +676,7 @@ public class DeviceJDBCSetDAO extends DeviceGui implements DeviceImplements {
 	private void jBtnUpdateActionPerformedDevice(java.awt.event.ActionEvent evt) {
 		String buyingDate = null;
 		String newDevice = (String) cmbSalesDeviceCondition.getSelectedItem();
-		if (newDevice != "Új gép") {
+		if (newDevice == "Bevételezve") {
 			if (checkInputsDevice()) {
 				String updateDevice = null;
 				PreparedStatement ps = null;
@@ -725,7 +725,7 @@ public class DeviceJDBCSetDAO extends DeviceGui implements DeviceImplements {
 			} else {
 				JOptionPane.showMessageDialog(null, "Egy vagy több mező üres vagy rossz");
 			}
-		} else if (newDevice == "Új gép") {
+		} else if (newDevice != "Bevételezve") {
 			if (checkInputsNewDevice()) {
 				String updateDevice = null;
 				PreparedStatement ps = null;

@@ -1,5 +1,8 @@
 package ex.main.sales.worktablet;
 
+import java.awt.Color;
+import java.awt.Component;
+import java.awt.SystemColor;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.sql.Connection;
@@ -12,6 +15,8 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import javax.swing.JOptionPane;
+import javax.swing.JTable;
+import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 import javax.swing.table.TableRowSorter;
@@ -24,11 +29,14 @@ import ex.main.setting.database.DataBaseConnect;
 public class WorkTableJDBCSetDAO extends WorkTableGui implements WorkTableImplements {
 	private String[] rows;
 	private Object columns[][];
+	private static final int ENDDATE_COL = 11;
+	private static final int PRIORYT_COL = 6;
 
 	public WorkTableJDBCSetDAO() {
 		setComponent();
 		showProductsInJTable();
-		tableRows();
+		getNewRenderedTable(jtblSalesWorkTable);
+		// tableRows();
 	}
 
 	/**
@@ -71,6 +79,7 @@ public class WorkTableJDBCSetDAO extends WorkTableGui implements WorkTableImplem
 
 			}
 		});
+
 		btnWorkUpdate.addMouseListener(new java.awt.event.MouseAdapter() {
 			public void mouseClicked(java.awt.event.MouseEvent evt) {
 				JTableProductsMouseClicked(evt);
@@ -107,6 +116,38 @@ public class WorkTableJDBCSetDAO extends WorkTableGui implements WorkTableImplem
 			}
 		});
 		jtblSalesWorkTable.setRowSorter(tableRowSorter);
+	}
+
+	@SuppressWarnings("serial")
+	private JTable getNewRenderedTable(JTable table) {
+		table.setDefaultRenderer(Object.class, new DefaultTableCellRenderer() {
+			@Override
+			public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected,
+					boolean hasFocus, int row, int col) {
+				super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, col);
+				String endDate = (String) table.getModel().getValueAt(row, ENDDATE_COL);
+				String pryorit = (String) table.getModel().getValueAt(row, PRIORYT_COL);
+				if (endDate == null && "Új gép".equals(pryorit)) {
+					setForeground(Color.WHITE);
+				} else if (endDate == null && "Bevizgálás alatt".equals(pryorit)) {
+					setForeground(Color.WHITE);
+				} else if (endDate == null && "Alkatrészre vár".equals(pryorit)) {
+					setForeground(Color.WHITE);
+				} else if (endDate == null && "Garanciális".equals(pryorit)) {
+					setForeground(Color.WHITE);
+				} else if (endDate == null && "Továbbküldve".equals(pryorit)) {
+					setForeground(Color.WHITE);
+				} else if ("Kiadva".equals(pryorit) && endDate != null) {
+					setForeground(new Color(153, 0, 0));
+				} else if ("Bevételezve".equals(pryorit) && endDate == null) {
+					setForeground(Color.ORANGE);
+				} else {
+					setForeground(new Color(102, 153, 204));
+				}
+				return this;
+			}
+		});
+		return table;
 	}
 
 	@Override
@@ -200,7 +241,7 @@ public class WorkTableJDBCSetDAO extends WorkTableGui implements WorkTableImplem
 		ArrayList<WorkTableConfig> list = getWorktableSearchProductList();
 		DefaultTableModel model = (DefaultTableModel) jtblSalesWorkTable.getModel();
 		model.setRowCount(0);
-		Object[] row = new Object[23];
+		Object[] row = new Object[12];
 		for (int i = 0; i < list.size(); i++) {
 			row[0] = list.get(i).getWorkTableClientNumber();
 			row[1] = list.get(i).getWorkTableClientName();
@@ -223,7 +264,7 @@ public class WorkTableJDBCSetDAO extends WorkTableGui implements WorkTableImplem
 		ArrayList<WorkTableConfig> list = getWorktableProductList();
 		DefaultTableModel model = (DefaultTableModel) jtblSalesWorkTable.getModel();
 		model.setRowCount(0);
-		Object[] row = new Object[23];
+		Object[] row = new Object[12];
 		for (int i = 0; i < list.size(); i++) {
 			row[0] = list.get(i).getWorkTableClientNumber();
 			row[1] = list.get(i).getWorkTableClientName();
@@ -369,6 +410,7 @@ public class WorkTableJDBCSetDAO extends WorkTableGui implements WorkTableImplem
 		lblWorkPrintSalesName0.setText(null);
 		txtWorkPrintSalesName.setText(null);
 		showProductsInJTable();
+
 	}
 
 	private void jTableWorkSearch() {
