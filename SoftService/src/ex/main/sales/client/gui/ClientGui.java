@@ -207,6 +207,7 @@ public class ClientGui extends SalesGui {
 		btnSalesClientEdit.setHorizontalAlignment(SwingConstants.LEADING);
 
 		btnSalesClientDelete = new JButton("");
+		btnSalesClientDelete.setEnabled(false);
 		btnSalesClientDelete.setBounds(488, 199, 60, 37);
 		panel_2.add(btnSalesClientDelete);
 		btnSalesClientDelete.setBackground(new Color(51, 0, 0));

@@ -313,6 +313,7 @@ public class DeviceGui extends ClientJDBCSetDAO {
 		jpnlDevice.add(btnSalesDeviceEdit);
 
 		btnSalesDeviceDelete = new JButton("");
+		btnSalesDeviceDelete.setEnabled(false);
 		btnSalesDeviceDelete.setBackground(new Color(51, 0, 0));
 		btnSalesDeviceDelete.setBounds(1057, 336, 60, 37);
 		btnSalesDeviceDelete.setIcon(new ImageIcon(DeviceGui.class.getResource("/icon/function/24x24/cross.png")));

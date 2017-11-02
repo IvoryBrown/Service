@@ -287,9 +287,9 @@ public class DeviceJDBCSetDAO extends DeviceGui implements DeviceImplements {
 			} else {
 				dateSalesDeviceAddDate.setBackground(Color.LIGHT_GRAY);
 			}
-			if (txtSalesdeviceType.getSelectedItem() == null || dateSalesDeviceAddDate.getDate() == null
-					|| dateSalesDeviceEndDate.getDate() == null || cmbSalesDeviceName.getSelectedItem() == null
-					|| cmbSalesDeviceCondition.getSelectedItem() == null
+			if (txtSalesdeviceType.getSelectedItem() == null || txtSalesDeviceSerialNumber.getText().trim().isEmpty()
+					|| dateSalesDeviceAddDate.getDate() == null || dateSalesDeviceEndDate.getDate() == null
+					|| cmbSalesDeviceName.getSelectedItem() == null || cmbSalesDeviceCondition.getSelectedItem() == null
 					|| cmbSalesDevicePriority.getSelectedItem() == null
 					|| cmbSalesDeviceSoftver.getSelectedItem() == null) {
 				return false;
@@ -382,6 +382,7 @@ public class DeviceJDBCSetDAO extends DeviceGui implements DeviceImplements {
 			}
 			if (txtSalesdeviceType.getSelectedItem() == null || txtSalesDevicePassword.getText().trim().isEmpty()
 					|| txtSalesDeviceAccesssory.getText().trim().isEmpty()
+					|| txtSalesDeviceSerialNumber.getText().trim().isEmpty()
 					|| txtSalesDeviceInjury.getText().trim().isEmpty()
 					|| txtSalesDeviceComment.getText().trim().isEmpty() || dateSalesDeviceAddDate.getDate() == null
 					|| dateSalesDeviceEndDate.getDate() == null || cmbSalesDeviceName.getSelectedItem() == null
@@ -412,9 +413,9 @@ public class DeviceJDBCSetDAO extends DeviceGui implements DeviceImplements {
 				product = new DeviceConfig(rs.getInt("ID_g"), rs.getString("ugyfel_nev"), rs.getString("eszkoz_g"),
 						rs.getString("tipus"), rs.getString("allapot"), rs.getString("prioritas"),
 						rs.getString("vasarlas_ido"), rs.getString("rogzites"), rs.getString("hatarido"),
-						rs.getString("softwer"), rs.getString("takaritas"), rs.getString("jelszo"),
-						rs.getString("tartozekok"), rs.getString("serules"), rs.getString("hiba_leiras"),
-						rs.getInt("megrendelo_ID_m"));
+						rs.getString("softwer"), rs.getString("hardwer"), rs.getString("takaritas"),
+						rs.getString("jelszo"), rs.getString("tartozekok"), rs.getString("serules"),
+						rs.getString("hiba_leiras"), rs.getInt("megrendelo_ID_m"));
 				productListDevice.add(product);
 			}
 		} catch (SQLException ex) {
@@ -454,9 +455,9 @@ public class DeviceJDBCSetDAO extends DeviceGui implements DeviceImplements {
 				deviceSearch = new DeviceConfig(rs.getInt("ID_g"), rs.getString("ugyfel_nev"), rs.getString("eszkoz_g"),
 						rs.getString("tipus"), rs.getString("allapot"), rs.getString("prioritas"),
 						rs.getString("vasarlas_ido"), rs.getString("rogzites"), rs.getString("hatarido"),
-						rs.getString("softwer"), rs.getString("takaritas"), rs.getString("jelszo"),
-						rs.getString("tartozekok"), rs.getString("serules"), rs.getString("hiba_leiras"),
-						rs.getInt("megrendelo_ID_m"));
+						rs.getString("softwer"), rs.getString("hardwer"), rs.getString("takaritas"),
+						rs.getString("jelszo"), rs.getString("tartozekok"), rs.getString("serules"),
+						rs.getString("hiba_leiras"), rs.getInt("megrendelo_ID_m"));
 				listSearch.add(deviceSearch);
 			}
 		} catch (SQLException ex) {
@@ -555,6 +556,7 @@ public class DeviceJDBCSetDAO extends DeviceGui implements DeviceImplements {
 			Logger.getLogger(DeviceJDBCSetDAO.class.getName()).log(Level.SEVERE, null, ex);
 		}
 		cmbSalesDeviceSoftver.setSelectedItem(getSalesDeviceProductList().get(index).getSalesDeviceSoftwer());
+		cmbSalesDeviceHardver.setSelectedItem(getSalesDeviceProductList().get(index).getSalesDeviceHardver());
 		cmbSalesDeviceCleaning.setSelectedItem(getSalesDeviceProductList().get(index).getSalesDeviceCleaning());
 		txtSalesDevicePassword.setText(getSalesDeviceProductList().get(index).getSalesDevicePassword());
 		txtSalesDeviceAccesssory.setText(getSalesDeviceProductList().get(index).getSalesDeviceAccesssory());
@@ -589,6 +591,7 @@ public class DeviceJDBCSetDAO extends DeviceGui implements DeviceImplements {
 			Logger.getLogger(DeviceJDBCSetDAO.class.getName()).log(Level.SEVERE, null, ex);
 		}
 		cmbSalesDeviceSoftver.setSelectedItem(getSalesDeviceProductList().get(index).getSalesDeviceSoftwer());
+		cmbSalesDeviceHardver.setSelectedItem(getSalesDeviceProductList().get(index).getSalesDeviceHardver());
 		cmbSalesDeviceCleaning.setSelectedItem(getSalesDeviceProductList().get(index).getSalesDeviceCleaning());
 		txtSalesDevicePassword.setText(getSalesDeviceProductList().get(index).getSalesDevicePassword());
 		txtSalesDeviceAccesssory.setText(getSalesDeviceProductList().get(index).getSalesDeviceAccesssory());
@@ -604,37 +607,39 @@ public class DeviceJDBCSetDAO extends DeviceGui implements DeviceImplements {
 				try {
 					Connection con = DataBaseConnect.getConnection();
 					PreparedStatement insertDevice = con
-							.prepareStatement("INSERT INTO gepadatok(ID_g, ugyfel_nev, eszkoz_g, tipus,"
+							.prepareStatement("INSERT INTO gepadatok(ID_g, ugyfel_nev, eszkoz_g, tipus, sorozatszam_g,"
 									+ "allapot, prioritas, vasarlas_ido, rogzites,"
-									+ "hatarido, softwer, takaritas, jelszo, tartozekok, serules, hiba_leiras,"
-									+ " megrendelo_ID_m)" + "values(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?) ");
+									+ "hatarido, softwer, hardwer, takaritas, jelszo, tartozekok, serules, hiba_leiras,"
+									+ " megrendelo_ID_m)" + "values(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?) ");
 					txtSalesDeviceID.setText(DeviceIdentificationGenereator.random());
 					insertDevice.setString(1, txtSalesDeviceID.getText());
 					insertDevice.setString(2, txtSalesDeviceClientName.getText());
 					insertDevice.setString(3, (String) cmbSalesDeviceName.getSelectedItem());
 					insertDevice.setString(4, (String) txtSalesdeviceType.getSelectedItem());
-					insertDevice.setString(5, (String) cmbSalesDeviceCondition.getSelectedItem());
-					insertDevice.setString(6, (String) cmbSalesDevicePriority.getSelectedItem());
+					insertDevice.setString(5, txtSalesDeviceSerialNumber.getText());
+					insertDevice.setString(6, (String) cmbSalesDeviceCondition.getSelectedItem());
+					insertDevice.setString(7, (String) cmbSalesDevicePriority.getSelectedItem());
 					SimpleDateFormat buyingDateFormat = new SimpleDateFormat("yyyy-MM-dd");
 					try {
 						buyingDateFormat.setLenient(false);
 						buyingDate = buyingDateFormat.format(dateSalesDeviceBuying.getDate());
 					} catch (Exception e) {
 					}
-					insertDevice.setString(7, buyingDate);
+					insertDevice.setString(8, buyingDate);
 					SimpleDateFormat addDateFormat = new SimpleDateFormat("yyyy-MM-dd");
 					addDate = addDateFormat.format(dateSalesDeviceAddDate.getDate());
-					insertDevice.setString(8, addDate);
+					insertDevice.setString(9, addDate);
 					SimpleDateFormat endDateFormat = new SimpleDateFormat("yyyy-MM-dd");
 					String endDate = endDateFormat.format(dateSalesDeviceEndDate.getDate());
-					insertDevice.setString(9, endDate);
-					insertDevice.setString(10, (String) cmbSalesDeviceSoftver.getSelectedItem());
-					insertDevice.setString(11, (String) cmbSalesDeviceCleaning.getSelectedItem());
-					insertDevice.setString(12, txtSalesDevicePassword.getText());
-					insertDevice.setString(13, txtSalesDeviceAccesssory.getText());
-					insertDevice.setString(14, txtSalesDeviceInjury.getText());
-					insertDevice.setString(15, txtSalesDeviceComment.getText());
-					insertDevice.setString(16, txtSalesDeviceClientID.getText());
+					insertDevice.setString(10, endDate);
+					insertDevice.setString(11, (String) cmbSalesDeviceSoftver.getSelectedItem());
+					insertDevice.setString(12, (String) cmbSalesDeviceHardver.getSelectedItem());
+					insertDevice.setString(13, (String) cmbSalesDeviceCleaning.getSelectedItem());
+					insertDevice.setString(14, txtSalesDevicePassword.getText());
+					insertDevice.setString(15, txtSalesDeviceAccesssory.getText());
+					insertDevice.setString(16, txtSalesDeviceInjury.getText());
+					insertDevice.setString(17, txtSalesDeviceComment.getText());
+					insertDevice.setString(18, txtSalesDeviceClientID.getText());
 					insertDevice.executeUpdate();
 					PreparedStatement insertDeviceImage = con
 							.prepareStatement("INSERT INTO image_gep(gepadatok_ID_g)" + "values(?)");
@@ -661,31 +666,33 @@ public class DeviceJDBCSetDAO extends DeviceGui implements DeviceImplements {
 				try {
 					Connection con = DataBaseConnect.getConnection();
 					PreparedStatement insertDevice = con
-							.prepareStatement("INSERT INTO gepadatok(ID_g, ugyfel_nev, eszkoz_g, tipus,"
-									+ "allapot, prioritas, vasarlas_ido, rogzites," + "hatarido, softwer,"
-									+ " megrendelo_ID_m)" + "values(?,?,?,?,?,?,?,?,?,?,?) ");
+							.prepareStatement("INSERT INTO gepadatok(ID_g, ugyfel_nev, eszkoz_g, tipus, sorozatszam_g,"
+									+ "allapot, prioritas, vasarlas_ido, rogzites," + "hatarido, softwer, hardwer,"
+									+ " megrendelo_ID_m)" + "values(?,?,?,?,?,?,?,?,?,?,?,?,?) ");
 					txtSalesDeviceID.setText(DeviceIdentificationGenereator.random());
 					insertDevice.setString(1, txtSalesDeviceID.getText());
 					insertDevice.setString(2, txtSalesDeviceClientName.getText());
 					insertDevice.setString(3, (String) cmbSalesDeviceName.getSelectedItem());
 					insertDevice.setString(4, (String) txtSalesdeviceType.getSelectedItem());
-					insertDevice.setString(5, (String) cmbSalesDeviceCondition.getSelectedItem());
-					insertDevice.setString(6, (String) cmbSalesDevicePriority.getSelectedItem());
+					insertDevice.setString(5, txtSalesDeviceSerialNumber.getText());
+					insertDevice.setString(6, (String) cmbSalesDeviceCondition.getSelectedItem());
+					insertDevice.setString(7, (String) cmbSalesDevicePriority.getSelectedItem());
 					SimpleDateFormat buyingDateFormat = new SimpleDateFormat("yyyy-MM-dd");
 					try {
 						buyingDateFormat.setLenient(false);
 						buyingDate = buyingDateFormat.format(dateSalesDeviceBuying.getDate());
 					} catch (Exception e) {
 					}
-					insertDevice.setString(7, buyingDate);
+					insertDevice.setString(8, buyingDate);
 					SimpleDateFormat addDateFormat = new SimpleDateFormat("yyyy-MM-dd");
 					addDate = addDateFormat.format(dateSalesDeviceAddDate.getDate());
-					insertDevice.setString(8, addDate);
+					insertDevice.setString(9, addDate);
 					SimpleDateFormat endDateFormat = new SimpleDateFormat("yyyy-MM-dd");
 					String endDate = endDateFormat.format(dateSalesDeviceEndDate.getDate());
-					insertDevice.setString(9, endDate);
-					insertDevice.setString(10, (String) cmbSalesDeviceSoftver.getSelectedItem());
-					insertDevice.setString(11, txtSalesDeviceClientID.getText());
+					insertDevice.setString(10, endDate);
+					insertDevice.setString(11, (String) cmbSalesDeviceSoftver.getSelectedItem());
+					insertDevice.setString(12, (String) cmbSalesDeviceHardver.getSelectedItem());
+					insertDevice.setString(13, txtSalesDeviceClientID.getText());
 					insertDevice.executeUpdate();
 					PreparedStatement insertDeviceImage = con
 							.prepareStatement("INSERT INTO image_gep(gepadatok_ID_g)" + "values(?)");
@@ -712,50 +719,98 @@ public class DeviceJDBCSetDAO extends DeviceGui implements DeviceImplements {
 
 	private void jBtnUpdateActionPerformedDevice(java.awt.event.ActionEvent evt) {
 		String buyingDate = null;
-		if (checkInputsDevice()) {
-			String updateDevice = null;
-			PreparedStatement ps = null;
-			Connection con = DataBaseConnect.getConnection();
-			try {
-				updateDevice = "UPDATE gepadatok SET ugyfel_nev = ?, eszkoz_g = ?, tipus = ?"
-						+ ", allapot = ?, prioritas = ?, vasarlas_ido = ?, rogzites = ?"
-						+ ", hatarido = ?, softwer = ?, takaritas = ?" + ", jelszo = ?, tartozekok = ?, serules = ?"
-						+ ", hiba_leiras = ?, megrendelo_ID_m = ? WHERE ID_g = ?";
-				ps = con.prepareStatement(updateDevice);
-				ps.setString(1, txtSalesDeviceClientName.getText());
-				ps.setString(2, (String) cmbSalesDeviceName.getItemAt(cmbSalesDeviceName.getSelectedIndex()));
-				ps.setString(3, (String) txtSalesdeviceType.getItemAt(txtSalesdeviceType.getSelectedIndex()));
-				ps.setString(4, (String) cmbSalesDeviceCondition.getItemAt(cmbSalesDeviceCondition.getSelectedIndex()));
-				ps.setString(5, (String) cmbSalesDevicePriority.getItemAt(cmbSalesDevicePriority.getSelectedIndex()));
-				SimpleDateFormat buyingDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+		String newDevice = (String) cmbSalesDeviceCondition.getSelectedItem();
+		if (newDevice != "Új gép") {
+			if (checkInputsDevice()) {
+				String updateDevice = null;
+				PreparedStatement ps = null;
+				Connection con = DataBaseConnect.getConnection();
 				try {
-					buyingDateFormat.setLenient(false);
-					buyingDate = buyingDateFormat.format(dateSalesDeviceBuying.getDate());
-				} catch (Exception e) {
+					updateDevice = "UPDATE gepadatok SET ugyfel_nev = ?, eszkoz_g = ?, tipus = ?, sorozatszam_g = ?"
+							+ ", allapot = ?, prioritas = ?, vasarlas_ido = ?, rogzites = ?"
+							+ ", hatarido = ?, softwer = ?, hardwer = ?, takaritas = ?"
+							+ ", jelszo = ?, tartozekok = ?, serules = ?"
+							+ ", hiba_leiras = ?, megrendelo_ID_m = ? WHERE ID_g = ?";
+					ps = con.prepareStatement(updateDevice);
+					ps.setString(1, txtSalesDeviceClientName.getText());
+					ps.setString(2, (String) cmbSalesDeviceName.getSelectedItem());
+					ps.setString(3, (String) txtSalesdeviceType.getSelectedItem());
+					ps.setString(4, txtSalesDeviceSerialNumber.getText());
+					ps.setString(5, (String) cmbSalesDeviceCondition.getSelectedItem());
+					ps.setString(6, (String) cmbSalesDevicePriority.getSelectedItem());
+					SimpleDateFormat buyingDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+					try {
+						buyingDateFormat.setLenient(false);
+						buyingDate = buyingDateFormat.format(dateSalesDeviceBuying.getDate());
+					} catch (Exception e) {
+					}
+					ps.setString(7, buyingDate);
+					SimpleDateFormat addDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+					addDate = addDateFormat.format(dateSalesDeviceAddDate.getDate());
+					ps.setString(8, addDate);
+					SimpleDateFormat endDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+					String endDate = endDateFormat.format(dateSalesDeviceEndDate.getDate());
+					ps.setString(9, endDate);
+					ps.setString(10, (String) cmbSalesDeviceSoftver.getSelectedItem());
+					ps.setString(11, (String) cmbSalesDeviceHardver.getSelectedItem());
+					ps.setString(12, (String) cmbSalesDeviceCleaning.getSelectedItem());
+					ps.setString(13, txtSalesDevicePassword.getText());
+					ps.setString(14, txtSalesDeviceAccesssory.getText());
+					ps.setString(15, txtSalesDeviceInjury.getText());
+					ps.setString(16, txtSalesDeviceComment.getText());
+					ps.setString(17, txtSalesDeviceClientID.getText());
+					ps.setInt(18, Integer.parseInt(txtSalesDeviceID.getText()));
+					ps.executeUpdate();
+					showProductsInJTableDevice();
+					JOptionPane.showMessageDialog(null, "Sikeres Frissítés");
+				} catch (SQLException ex) {
+					Logger.getLogger(DeviceJDBCSetDAO.class.getName()).log(Level.SEVERE, null, ex);
 				}
-				ps.setString(6, buyingDate);
-				SimpleDateFormat addDateFormat = new SimpleDateFormat("yyyy-MM-dd");
-				addDate = addDateFormat.format(dateSalesDeviceAddDate.getDate());
-				ps.setString(7, addDate);
-				SimpleDateFormat endDateFormat = new SimpleDateFormat("yyyy-MM-dd");
-				String endDate = endDateFormat.format(dateSalesDeviceEndDate.getDate());
-				ps.setString(8, endDate);
-				ps.setString(9, (String) cmbSalesDeviceSoftver.getItemAt(cmbSalesDeviceSoftver.getSelectedIndex()));
-				ps.setString(10, (String) cmbSalesDeviceCleaning.getItemAt(cmbSalesDeviceCleaning.getSelectedIndex()));
-				ps.setString(11, txtSalesDevicePassword.getText());
-				ps.setString(12, txtSalesDeviceAccesssory.getText());
-				ps.setString(13, txtSalesDeviceInjury.getText());
-				ps.setString(14, txtSalesDeviceComment.getText());
-				ps.setString(15, txtSalesDeviceClientID.getText());
-				ps.setInt(16, Integer.parseInt(txtSalesDeviceID.getText()));
-				ps.executeUpdate();
-				showProductsInJTableDevice();
-				JOptionPane.showMessageDialog(null, "Sikeres Frissítés");
-			} catch (SQLException ex) {
-				Logger.getLogger(DeviceJDBCSetDAO.class.getName()).log(Level.SEVERE, null, ex);
+			} else {
+				JOptionPane.showMessageDialog(null, "Egy vagy több mező üres vagy rossz");
 			}
-		} else {
-			JOptionPane.showMessageDialog(null, "Egy vagy több mező üres vagy rossz");
+		} else if (newDevice == "Új gép") {
+			if (checkInputsNewDevice()) {
+				String updateDevice = null;
+				PreparedStatement ps = null;
+				Connection con = DataBaseConnect.getConnection();
+				try {
+					updateDevice = "UPDATE gepadatok SET ugyfel_nev = ?, eszkoz_g = ?, tipus = ?, sorozatszam_g = ?,"
+							+ "allapot = ?, prioritas = ?, vasarlas_ido = ?, rogzites = ?,"
+							+ "hatarido = ?, softwer = ?, hardwer = ?," + " megrendelo_ID_m = ? WHERE ID_g = ?";
+					ps = con.prepareStatement(updateDevice);
+					ps.setString(1, txtSalesDeviceClientName.getText());
+					ps.setString(2, (String) cmbSalesDeviceName.getSelectedItem());
+					ps.setString(3, (String) txtSalesdeviceType.getSelectedItem());
+					ps.setString(4, txtSalesDeviceSerialNumber.getText());
+					ps.setString(5, (String) cmbSalesDeviceCondition.getSelectedItem());
+					ps.setString(6, (String) cmbSalesDevicePriority.getSelectedItem());
+					SimpleDateFormat buyingDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+					try {
+						buyingDateFormat.setLenient(false);
+						buyingDate = buyingDateFormat.format(dateSalesDeviceBuying.getDate());
+					} catch (Exception e) {
+					}
+					ps.setString(7, buyingDate);
+					SimpleDateFormat addDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+					addDate = addDateFormat.format(dateSalesDeviceAddDate.getDate());
+					ps.setString(8, addDate);
+					SimpleDateFormat endDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+					String endDate = endDateFormat.format(dateSalesDeviceEndDate.getDate());
+					ps.setString(9, endDate);
+					ps.setString(10, (String) cmbSalesDeviceSoftver.getSelectedItem());
+					ps.setString(11, (String) cmbSalesDeviceHardver.getSelectedItem());
+					ps.setString(12, txtSalesDeviceClientID.getText());
+					ps.setInt(13, Integer.parseInt(txtSalesDeviceID.getText()));
+					ps.executeUpdate();
+					showProductsInJTableDevice();
+					JOptionPane.showMessageDialog(null, "Sikeres Frissítés");
+				} catch (SQLException ex) {
+					Logger.getLogger(DeviceJDBCSetDAO.class.getName()).log(Level.SEVERE, null, ex);
+				}
+			} else {
+				JOptionPane.showMessageDialog(null, "Egy vagy több mező üres vagy rossz");
+			}
 		}
 	}
 
@@ -769,22 +824,6 @@ public class DeviceJDBCSetDAO extends DeviceGui implements DeviceImplements {
 				deleteDevice.executeUpdate();
 				showProductsInJTableDevice();
 				JOptionPane.showMessageDialog(null, "Sikeres törlés");
-				txtSalesDeviceClientID.setText(null);
-				txtSalesDeviceClientName.setText(null);
-				cmbSalesDeviceName.setSelectedItem(null);
-				txtSalesDeviceID.setText(null);
-				txtSalesdeviceType.setSelectedItem(null);
-				cmbSalesDeviceCondition.setSelectedItem(null);
-				cmbSalesDevicePriority.setSelectedItem(null);
-				dateSalesDeviceBuying.setDate(null);
-				dateSalesDeviceAddDate.setDate(null);
-				dateSalesDeviceEndDate.setDate(null);
-				cmbSalesDeviceSoftver.setSelectedItem(null);
-				cmbSalesDeviceCleaning.setSelectedItem(null);
-				txtSalesDevicePassword.setText("-");
-				txtSalesDeviceAccesssory.setText("-");
-				txtSalesDeviceInjury.setText("-");
-				txtSalesDeviceComment.setText(null);
 			} catch (SQLException ex) {
 				Logger.getLogger(DeviceJDBCSetDAO.class.getName()).log(Level.SEVERE, null, ex);
 				JOptionPane.showMessageDialog(null, "Sikertelen törlés");
@@ -793,6 +832,7 @@ public class DeviceJDBCSetDAO extends DeviceGui implements DeviceImplements {
 			JOptionPane.showMessageDialog(null, "Sikertelen törlés : Nincs ID a törléshez");
 		}
 	}
+
 	private void colorSetText() {
 		txtSalesdeviceType.setBackground(Color.BLACK);
 		cmbSalesDeviceName.setBackground(Color.BLACK);
@@ -808,7 +848,7 @@ public class DeviceJDBCSetDAO extends DeviceGui implements DeviceImplements {
 		txtSalesDeviceInjury.setBackground(Color.WHITE);
 		txtSalesDeviceComment.setBackground(Color.WHITE);
 	}
-	
+
 	private void btnNullShowPerformed() {
 		txtSalesdeviceType.setSelectedItem(null);
 		txtSalesdeviceType.setBackground(Color.BLACK);

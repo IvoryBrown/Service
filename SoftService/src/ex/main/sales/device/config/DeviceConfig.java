@@ -11,6 +11,7 @@ public class DeviceConfig {
 	private String salesDeviceAddDate; // rögzités
 	private String salesDeviceExitDate;// határidő
 	private String salesDeviceSoftwer; // softver
+	private String salesDeviceHardver; //hardver
 	private String salesDeviceCleaning;// takarítás
 	private String salesDevicePassword; // jelszó
 	private String salesDeviceAccesssory; // Tartozék
@@ -20,7 +21,7 @@ public class DeviceConfig {
 
 	public DeviceConfig(Integer salesDeviceID, String salesDeviceClientName, String salesDeviceName,
 			String salesDevicdetType, String salesDeviceStatus, String salesDevicePriorit, String salesDeviceBuyingDate,
-			String salesDeviceAddDate, String salesDeviceExitDate, String salesDeviceSoftwer,
+			String salesDeviceAddDate, String salesDeviceExitDate, String salesDeviceSoftwer,String salesDeviceHardver,
 			String salesDeviceCleaning, String salesDevicePassword, String salesDeviceAccesssory,
 			String salesDeviceInjury, String comment, Integer clientId) {
 		super();
@@ -34,6 +35,7 @@ public class DeviceConfig {
 		this.salesDeviceAddDate = salesDeviceAddDate;
 		this.salesDeviceExitDate = salesDeviceExitDate;
 		this.salesDeviceSoftwer = salesDeviceSoftwer;
+		this.salesDeviceHardver=salesDeviceHardver;
 		this.salesDeviceCleaning = salesDeviceCleaning;
 		this.salesDevicePassword = salesDevicePassword;
 		this.salesDeviceAccesssory = salesDeviceAccesssory;
@@ -80,6 +82,10 @@ public class DeviceConfig {
 
 	public String getSalesDeviceSoftwer() {
 		return salesDeviceSoftwer;
+	}
+
+	public String getSalesDeviceHardver() {
+		return salesDeviceHardver;
 	}
 
 	public String getSalesDeviceCleaning() {
