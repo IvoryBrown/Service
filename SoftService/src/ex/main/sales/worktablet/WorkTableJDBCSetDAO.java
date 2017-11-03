@@ -31,12 +31,14 @@ public class WorkTableJDBCSetDAO extends WorkTableGui implements WorkTableImplem
 	private Object columns[][];
 	private static final int ENDDATE_COL = 11;
 	private static final int PRIORYT_COL = 6;
+	private int pos;
 
 	public WorkTableJDBCSetDAO() {
 		setComponent();
 		showProductsInJTable();
+		jTableWorkSearch();
 		getNewRenderedTable(jtblSalesWorkTable);
-		// tableRows();
+		 tableRows();
 	}
 
 	/**
