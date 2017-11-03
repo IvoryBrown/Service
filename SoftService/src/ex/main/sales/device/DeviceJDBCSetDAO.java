@@ -3,6 +3,8 @@ package ex.main.sales.device;
 import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -11,7 +13,6 @@ import java.sql.Statement;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Comparator;
 import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -19,8 +20,6 @@ import java.util.logging.Logger;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
-import javax.swing.table.TableModel;
-import javax.swing.table.TableRowSorter;
 
 import ex.main.sales.device.config.DeviceConfig;
 import ex.main.sales.device.config.DeviceImplements;
@@ -112,9 +111,17 @@ public class DeviceJDBCSetDAO extends DeviceGui implements DeviceImplements {
 		});
 		btnSalesDeviceSearch.addMouseListener(new java.awt.event.MouseAdapter() {
 			public void mouseClicked(java.awt.event.MouseEvent evt) {
-				jTableClientSearch();
+				showProductsInJTableDevice();
 			}
 		});
+		txtSalesDeviceSearch.addKeyListener(new KeyAdapter() {
+			public void keyPressed(KeyEvent evt) {
+				if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+					showProductsInJTableDevice();
+				}
+			}
+		});
+
 		String[] desktopPc = { "Acer", "Alza", "Apple", "ASBIS", "ASRock", "ASUS", "CHS", "Dell", "DigitalWeb", "Elo",
 				"EXOZA", "Expert", "Foramax", "Fujitsu", "GABA", "GIGABYTE", "Golden PC", "HP", "iggual", "InFocus",
 				"Intel", "Intensa", "Iris", "JTC", "Kiano", "Leadtek", "Lenovo", "LG", "MeLE", "Mentor", "Microsoft",
@@ -355,46 +362,6 @@ public class DeviceJDBCSetDAO extends DeviceGui implements DeviceImplements {
 	}
 
 	@Override
-	public ArrayList<DeviceConfig> getSalesDeviceProductList() {
-		ArrayList<DeviceConfig> productListDevice = new ArrayList<DeviceConfig>();
-		String query = "SELECT * FROM gepadatok ";
-		Statement st = null;
-		ResultSet rs = null;
-		Connection con = DataBaseConnect.getConnection();
-		try {
-			st = con.createStatement();
-			rs = st.executeQuery(query);
-			DeviceConfig product;
-			while (rs.next()) {
-				product = new DeviceConfig(rs.getInt("ID_g"), rs.getString("ugyfel_nev"), rs.getString("eszkoz_g"),
-						rs.getString("tipus"), rs.getString("allapot"), rs.getString("prioritas"),
-						rs.getString("vasarlas_ido"), rs.getString("rogzites"), rs.getString("hatarido"),
-						rs.getString("softwer"), rs.getString("hardwer"), rs.getString("takaritas"),
-						rs.getString("jelszo"), rs.getString("tartozekok"), rs.getString("serules"),
-						rs.getString("hiba_leiras"), rs.getInt("megrendelo_ID_m"));
-				productListDevice.add(product);
-			}
-		} catch (SQLException ex) {
-			Logger.getLogger(DeviceJDBCSetDAO.class.getName()).log(Level.SEVERE, null, ex);
-		} finally {
-			try {
-				if (rs != null) {
-					rs.close();
-				}
-				if (st != null) {
-					st.close();
-				}
-				if (con != null) {
-					con.close();
-				}
-			} catch (SQLException e) {
-				Logger.getLogger(DeviceJDBCSetDAO.class.getName()).log(Level.SEVERE, null, e);
-			}
-		}
-		return productListDevice;
-	}
-
-	@Override
 	public ArrayList<DeviceConfig> getListDevice() {
 		ArrayList<DeviceConfig> listSearch = new ArrayList<DeviceConfig>();
 		ResultSet rs = null;
@@ -437,7 +404,7 @@ public class DeviceJDBCSetDAO extends DeviceGui implements DeviceImplements {
 	}
 
 	private void showProductsInJTableDevice() {
-		ArrayList<DeviceConfig> listDevice = getSalesDeviceProductList();
+		ArrayList<DeviceConfig> listDevice = getListDevice();
 		DefaultTableModel modelDevice = (DefaultTableModel) jtblSalesDevice.getModel();
 		modelDevice.setRowCount(0);
 		Object[] rowDevice = new Object[15];
@@ -461,98 +428,39 @@ public class DeviceJDBCSetDAO extends DeviceGui implements DeviceImplements {
 		}
 	}
 
-	private void findDeviceSearch() {
-		ArrayList<DeviceConfig> listDevice = getListDevice();
-		DefaultTableModel modelDevice = (DefaultTableModel) jtblSalesDevice.getModel();
-		modelDevice.setRowCount(0);
-		Object[] rowDevice = new Object[14];
-		for (int i = 0; i < listDevice.size(); i++) {
-			rowDevice[0] = listDevice.get(i).getSalesDeviceClientName();
-			rowDevice[1] = listDevice.get(i).getSalesDeviceName();
-			rowDevice[2] = listDevice.get(i).getSalesDevicdetType();
-			rowDevice[3] = listDevice.get(i).getSalesDeviceStatus();
-			rowDevice[4] = listDevice.get(i).getSalesDevicePriorit();
-			rowDevice[5] = listDevice.get(i).getSalesDeviceBuyingDate();
-			rowDevice[6] = listDevice.get(i).getSalesDeviceAddDate();
-			rowDevice[7] = listDevice.get(i).getSalesDeviceExitDate();
-			rowDevice[8] = listDevice.get(i).getSalesDeviceSoftwer();
-			rowDevice[9] = listDevice.get(i).getSalesDeviceCleaning();
-			rowDevice[10] = listDevice.get(i).getSalesDevicePassword();
-			rowDevice[11] = listDevice.get(i).getSalesDeviceAccesssory();
-			rowDevice[12] = listDevice.get(i).getSalesDeviceInjury();
-			rowDevice[13] = listDevice.get(i).getComment();
-			modelDevice.addRow(rowDevice);
-		}
-	}
-
 	private void showItemDevice(int index) {
-		txtSalesDeviceClientID.setText(Integer.toString(getSalesDeviceProductList().get(index).getClientId()));
-		txtSalesDeviceClientName.setText(getSalesDeviceProductList().get(index).getSalesDeviceClientName());
-		cmbSalesDeviceName.setSelectedItem(getSalesDeviceProductList().get(index).getSalesDeviceName());
-		txtSalesDeviceID.setText(Integer.toString(getSalesDeviceProductList().get(index).getSalesDeviceID()));
-		txtSalesdeviceType.setSelectedItem(getSalesDeviceProductList().get(index).getSalesDevicdetType());
-		cmbSalesDeviceCondition.setSelectedItem(getSalesDeviceProductList().get(index).getSalesDeviceStatus());
-		cmbSalesDevicePriority.setSelectedItem(getSalesDeviceProductList().get(index).getSalesDevicePriorit());
+		txtSalesDeviceClientID.setText(Integer.toString(getListDevice().get(index).getClientId()));
+		txtSalesDeviceClientName.setText(getListDevice().get(index).getSalesDeviceClientName());
+		cmbSalesDeviceName.setSelectedItem(getListDevice().get(index).getSalesDeviceName());
+		txtSalesDeviceID.setText(Integer.toString(getListDevice().get(index).getSalesDeviceID()));
+		txtSalesdeviceType.setSelectedItem(getListDevice().get(index).getSalesDevicdetType());
+		cmbSalesDeviceCondition.setSelectedItem(getListDevice().get(index).getSalesDeviceStatus());
+		cmbSalesDevicePriority.setSelectedItem(getListDevice().get(index).getSalesDevicePriorit());
 		try {
 			Date buyingDate = null;
 			Date addDate = null;
 			Date endDate = null;
-			if (getSalesDeviceProductList().get(index).getSalesDeviceBuyingDate() != null) {
+			if (getListDevice().get(index).getSalesDeviceBuyingDate() != null) {
 				buyingDate = new SimpleDateFormat("yyyy-MM-dd")
-						.parse((String) getSalesDeviceProductList().get(index).getSalesDeviceBuyingDate());
+						.parse((String) getListDevice().get(index).getSalesDeviceBuyingDate());
 			}
 			dateSalesDeviceBuying.setDate(buyingDate);
 			addDate = new SimpleDateFormat("yyyy-MM-dd")
-					.parse((String) getSalesDeviceProductList().get(index).getSalesDeviceAddDate());
+					.parse((String) getListDevice().get(index).getSalesDeviceAddDate());
 			dateSalesDeviceAddDate.setDate(addDate);
 			endDate = new SimpleDateFormat("yyyy-MM-dd")
-					.parse((String) getSalesDeviceProductList().get(index).getSalesDeviceExitDate());
+					.parse((String) getListDevice().get(index).getSalesDeviceExitDate());
 			dateSalesDeviceEndDate.setDate(endDate);
 		} catch (ParseException ex) {
 			Logger.getLogger(DeviceJDBCSetDAO.class.getName()).log(Level.SEVERE, null, ex);
 		}
-		cmbSalesDeviceSoftver.setSelectedItem(getSalesDeviceProductList().get(index).getSalesDeviceSoftwer());
-		cmbSalesDeviceHardver.setSelectedItem(getSalesDeviceProductList().get(index).getSalesDeviceHardver());
-		cmbSalesDeviceCleaning.setSelectedItem(getSalesDeviceProductList().get(index).getSalesDeviceCleaning());
-		txtSalesDevicePassword.setText(getSalesDeviceProductList().get(index).getSalesDevicePassword());
-		txtSalesDeviceAccesssory.setText(getSalesDeviceProductList().get(index).getSalesDeviceAccesssory());
-		txtSalesDeviceInjury.setText(getSalesDeviceProductList().get(index).getSalesDeviceInjury());
-		txtSalesDeviceComment.setText(getSalesDeviceProductList().get(index).getComment());
-	}
-
-	private void showItemDeviceSearch(int index) {
-		txtSalesDeviceClientID.setText(Integer.toString(getSalesDeviceProductList().get(index).getClientId()));
-		txtSalesDeviceClientName.setText(getSalesDeviceProductList().get(index).getSalesDeviceClientName());
-		cmbSalesDeviceName.setSelectedItem(getSalesDeviceProductList().get(index).getSalesDeviceName());
-		txtSalesDeviceID.setText(Integer.toString(getSalesDeviceProductList().get(index).getSalesDeviceID()));
-		txtSalesdeviceType.setSelectedItem(getSalesDeviceProductList().get(index).getSalesDevicdetType());
-		cmbSalesDeviceCondition.setSelectedItem(getSalesDeviceProductList().get(index).getSalesDeviceStatus());
-		cmbSalesDevicePriority.setSelectedItem(getSalesDeviceProductList().get(index).getSalesDevicePriorit());
-		try {
-			Date buyingDate = null;
-			Date addDate = null;
-			Date endDate = null;
-			if (getSalesDeviceProductList().get(index).getSalesDeviceBuyingDate() != null) {
-				buyingDate = new SimpleDateFormat("yyyy-MM-dd")
-						.parse((String) getSalesDeviceProductList().get(index).getSalesDeviceBuyingDate());
-			}
-			dateSalesDeviceBuying.setDate(buyingDate);
-			addDate = new SimpleDateFormat("yyyy-MM-dd")
-					.parse((String) getSalesDeviceProductList().get(index).getSalesDeviceAddDate());
-			dateSalesDeviceAddDate.setDate(addDate);
-			endDate = new SimpleDateFormat("yyyy-MM-dd")
-					.parse((String) getSalesDeviceProductList().get(index).getSalesDeviceExitDate());
-			dateSalesDeviceEndDate.setDate(endDate);
-		} catch (ParseException ex) {
-			Logger.getLogger(DeviceJDBCSetDAO.class.getName()).log(Level.SEVERE, null, ex);
-		}
-		cmbSalesDeviceSoftver.setSelectedItem(getSalesDeviceProductList().get(index).getSalesDeviceSoftwer());
-		cmbSalesDeviceHardver.setSelectedItem(getSalesDeviceProductList().get(index).getSalesDeviceHardver());
-		cmbSalesDeviceCleaning.setSelectedItem(getSalesDeviceProductList().get(index).getSalesDeviceCleaning());
-		txtSalesDevicePassword.setText(getSalesDeviceProductList().get(index).getSalesDevicePassword());
-		txtSalesDeviceAccesssory.setText(getSalesDeviceProductList().get(index).getSalesDeviceAccesssory());
-		txtSalesDeviceInjury.setText(getSalesDeviceProductList().get(index).getSalesDeviceInjury());
-		txtSalesDeviceComment.setText(getSalesDeviceProductList().get(index).getComment());
+		cmbSalesDeviceSoftver.setSelectedItem(getListDevice().get(index).getSalesDeviceSoftwer());
+		cmbSalesDeviceHardver.setSelectedItem(getListDevice().get(index).getSalesDeviceHardver());
+		cmbSalesDeviceCleaning.setSelectedItem(getListDevice().get(index).getSalesDeviceCleaning());
+		txtSalesDevicePassword.setText(getListDevice().get(index).getSalesDevicePassword());
+		txtSalesDeviceAccesssory.setText(getListDevice().get(index).getSalesDeviceAccesssory());
+		txtSalesDeviceInjury.setText(getListDevice().get(index).getSalesDeviceInjury());
+		txtSalesDeviceComment.setText(getListDevice().get(index).getComment());
 	}
 
 	private void jBtnInsertActionPerformedDevice(java.awt.event.ActionEvent evt) {
@@ -838,36 +746,32 @@ public class DeviceJDBCSetDAO extends DeviceGui implements DeviceImplements {
 		txtSalesDeviceInjury.setBackground(Color.WHITE);
 		txtSalesDeviceComment.setText(null);
 		txtSalesDeviceComment.setBackground(Color.WHITE);
+		txtSalesDeviceSearch.setText(null);
 		showProductsInJTableDevice();
 	}
 
-	private void tableRowsDevice() {
-		TableRowSorter<TableModel> tableRowSorter = new TableRowSorter<TableModel>(jtblSalesDevice.getModel());
-		tableRowSorter.setComparator(0, new Comparator<String>() {
-
-			@Override
-			public int compare(String s1, String s2) {
-				if (s1.isEmpty() && s2.isEmpty()) {
-					return 0;
-				} else if (s1.isEmpty() && !s2.isEmpty()) {
-					return 1;
-				} else if (!s1.isEmpty() && s2.isEmpty()) {
-					return -1;
-				}
-				return s1.compareTo(s2);
-			}
-		});
-		jtblSalesDevice.setRowSorter(tableRowSorter);
-	}
-
-	private void jTableClientSearch() {
-		findDeviceSearch();
-	}
+	// private void tableRowsDevice() {
+	// TableRowSorter<TableModel> tableRowSorter = new
+	// TableRowSorter<TableModel>(jtblSalesDevice.getModel());
+	// tableRowSorter.setComparator(0, new Comparator<String>() {
+	//
+	// @Override
+	// public int compare(String s1, String s2) {
+	// if (s1.isEmpty() && s2.isEmpty()) {
+	// return 0;
+	// } else if (s1.isEmpty() && !s2.isEmpty()) {
+	// return 1;
+	// } else if (!s1.isEmpty() && s2.isEmpty()) {
+	// return -1;
+	// }
+	// return s1.compareTo(s2);
+	// }
+	// });
+	// jtblSalesDevice.setRowSorter(tableRowSorter);
+	// }
 
 	private void jTableProductsMouseClickedDevice(java.awt.event.MouseEvent evt) {
 		int index = jtblSalesDevice.getSelectedRow();
 		showItemDevice(index);
-		showItemDeviceSearch(index);
-
 	}
 }

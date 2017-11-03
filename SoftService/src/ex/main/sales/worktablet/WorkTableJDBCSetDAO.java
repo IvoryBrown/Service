@@ -2,7 +2,6 @@ package ex.main.sales.worktablet;
 
 import java.awt.Color;
 import java.awt.Component;
-import java.awt.SystemColor;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.sql.Connection;
@@ -10,7 +9,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
-import java.util.Comparator;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -18,8 +16,6 @@ import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
-import javax.swing.table.TableModel;
-import javax.swing.table.TableRowSorter;
 
 import ex.main.sales.worktablet.config.WorkTableConfig;
 import ex.main.sales.worktablet.config.WorkTableImplements;
@@ -31,14 +27,12 @@ public class WorkTableJDBCSetDAO extends WorkTableGui implements WorkTableImplem
 	private Object columns[][];
 	private static final int ENDDATE_COL = 11;
 	private static final int PRIORYT_COL = 6;
-	private int pos;
 
 	public WorkTableJDBCSetDAO() {
 		setComponent();
 		showProductsInJTable();
-		jTableWorkSearch();
 		getNewRenderedTable(jtblSalesWorkTable);
-		 tableRows();
+		// tableRows();
 	}
 
 	/**
@@ -89,36 +83,37 @@ public class WorkTableJDBCSetDAO extends WorkTableGui implements WorkTableImplem
 		});
 		btnWorkSearch.addMouseListener(new java.awt.event.MouseAdapter() {
 			public void mouseClicked(java.awt.event.MouseEvent evt) {
-				jTableWorkSearch();
+				showProductsInJTable();
 			}
 		});
 		txtWorkSearch.addKeyListener(new KeyAdapter() {
 			public void keyPressed(KeyEvent evt) {
 				if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
-					jTableWorkSearch();
+					showProductsInJTable();
 				}
 			}
 		});
 	}
 
-	private void tableRows() {
-		TableRowSorter<TableModel> tableRowSorter = new TableRowSorter<TableModel>(jtblSalesWorkTable.getModel());
-		tableRowSorter.setComparator(0, new Comparator<String>() {
-
-			@Override
-			public int compare(String s1, String s2) {
-				if (s1.isEmpty() && s2.isEmpty()) {
-					return 0;
-				} else if (s1.isEmpty() && !s2.isEmpty()) {
-					return 1;
-				} else if (!s1.isEmpty() && s2.isEmpty()) {
-					return -1;
-				}
-				return s1.compareTo(s2);
-			}
-		});
-		jtblSalesWorkTable.setRowSorter(tableRowSorter);
-	}
+	// private void tableRows() {
+	// TableRowSorter<TableModel> tableRowSorter = new
+	// TableRowSorter<TableModel>(jtblSalesWorkTable.getModel());
+	// tableRowSorter.setComparator(0, new Comparator<String>() {
+	//
+	// @Override
+	// public int compare(String s1, String s2) {
+	// if (s1.isEmpty() && s2.isEmpty()) {
+	// return 0;
+	// } else if (s1.isEmpty() && !s2.isEmpty()) {
+	// return 1;
+	// } else if (!s1.isEmpty() && s2.isEmpty()) {
+	// return -1;
+	// }
+	// return s1.compareTo(s2);
+	// }
+	// });
+	// jtblSalesWorkTable.setRowSorter(tableRowSorter);
+	// }
 
 	@SuppressWarnings("serial")
 	private JTable getNewRenderedTable(JTable table) {
@@ -150,48 +145,6 @@ public class WorkTableJDBCSetDAO extends WorkTableGui implements WorkTableImplem
 			}
 		});
 		return table;
-	}
-
-	@Override
-	public ArrayList<WorkTableConfig> getWorktableProductList() {
-		ArrayList<WorkTableConfig> productListDevice = new ArrayList<WorkTableConfig>();
-		String query = "SELECT * FROM megrendelo " + " JOIN gepadatok ON megrendelo_ID_m = ID_m";
-		Statement st = null;
-		ResultSet rs = null;
-		Connection con = DataBaseConnect.getConnection();
-		try {
-			st = con.createStatement();
-			rs = st.executeQuery(query);
-			WorkTableConfig product;
-			while (rs.next()) {
-				product = new WorkTableConfig(rs.getString("azonosito_m"), rs.getString("nev"),
-						rs.getString("kapcsolat"), rs.getString("lakcim"), rs.getString("megjegyzes_m"),
-						rs.getInt("ID_g"), rs.getString("eszkoz_g"), rs.getString("tipus"),
-						rs.getString("sorozatszam_g"), rs.getString("allapot"), rs.getString("prioritas"),
-						rs.getString("vasarlas_ido"), rs.getString("rogzites"), rs.getString("hatarido"),
-						rs.getString("teljesitve"), rs.getString("softwer"), rs.getString("hardwer"),
-						rs.getString("takaritas"), rs.getString("jelszo"), rs.getString("tartozekok"),
-						rs.getString("serules"), rs.getString("hiba_leiras"), rs.getString("valos_hiba"));
-				productListDevice.add(product);
-			}
-		} catch (SQLException ex) {
-			Logger.getLogger(WorkTableJDBCSetDAO.class.getName()).log(Level.SEVERE, null, ex);
-		} finally {
-			try {
-				if (rs != null) {
-					rs.close();
-				}
-				if (st != null) {
-					st.close();
-				}
-				if (con != null) {
-					con.close();
-				}
-			} catch (SQLException e) {
-				Logger.getLogger(WorkTableJDBCSetDAO.class.getName()).log(Level.SEVERE, null, e);
-			}
-		}
-		return productListDevice;
 	}
 
 	@Override
@@ -239,7 +192,7 @@ public class WorkTableJDBCSetDAO extends WorkTableGui implements WorkTableImplem
 		return listSearch;
 	}
 
-	public void searchProductsInJTable() {
+	public void showProductsInJTable() {
 		ArrayList<WorkTableConfig> list = getWorktableSearchProductList();
 		DefaultTableModel model = (DefaultTableModel) jtblSalesWorkTable.getModel();
 		model.setRowCount(0);
@@ -262,160 +215,81 @@ public class WorkTableJDBCSetDAO extends WorkTableGui implements WorkTableImplem
 		}
 	}
 
-	public void showProductsInJTable() {
-		ArrayList<WorkTableConfig> list = getWorktableProductList();
-		DefaultTableModel model = (DefaultTableModel) jtblSalesWorkTable.getModel();
-		model.setRowCount(0);
-		Object[] row = new Object[12];
-		for (int i = 0; i < list.size(); i++) {
-			row[0] = list.get(i).getWorkTableClientNumber();
-			row[1] = list.get(i).getWorkTableClientName();
-			row[2] = list.get(i).getWorkTableClientMobil();
-			row[3] = list.get(i).getWorkTableClientHomeAddress();
-			row[4] = list.get(i).getWorkTableDeviceID();
-			row[5] = list.get(i).getWorkTableDeviceName();
-			row[6] = list.get(i).getWorkTableDeviceStatus();
-			row[7] = list.get(i).getWorkTableDevicePriorit();
-			row[8] = list.get(i).getWorkTableDeviceBuyingDate();
-			row[9] = list.get(i).getWorkTableDeviceAddDate();
-			row[10] = list.get(i).getWorkTableDeviceExitDate();
-			row[11] = list.get(i).getWorkTableDeviceCompletedDate();
-
-			model.addRow(row);
-		}
-	}
-
 	private void showItemWorkTabel(int index) {
-		lblOrderListClientID.setText(getWorktableProductList().get(index).getWorkTableClientNumber());
-		lblOrderListClientName.setText(getWorktableProductList().get(index).getWorkTableClientName());
-		lblOrderListClientMobil.setText(getWorktableProductList().get(index).getWorkTableClientMobil());
-		lblOrderListHomeAndress.setText(getWorktableProductList().get(index).getWorkTableClientHomeAddress());
-		lblOrderListClientComment.setText(getWorktableProductList().get(index).getWorkTableClientComment());
+		lblOrderListClientID.setText(getWorktableSearchProductList().get(index).getWorkTableClientNumber());
+		lblOrderListClientName.setText(getWorktableSearchProductList().get(index).getWorkTableClientName());
+		lblOrderListClientMobil.setText(getWorktableSearchProductList().get(index).getWorkTableClientMobil());
+		lblOrderListHomeAndress.setText(getWorktableSearchProductList().get(index).getWorkTableClientHomeAddress());
+		lblOrderListClientComment.setText(getWorktableSearchProductList().get(index).getWorkTableClientComment());
 		// eszköz
-		lblOrderClientDeviceID.setText(Integer.toString(getWorktableProductList().get(index).getWorkTableDeviceID()));
-		lblOrderListDeviceName.setText(getWorktableProductList().get(index).getWorkTableDeviceName());
-		lblOrderListDeviceType.setText(getWorktableProductList().get(index).getWorkTableDeviceType());
-		lblOrderListDeviceSerialNumber.setText(getWorktableProductList().get(index).getWorkTableDeviceSerial());
-		lblOrderListDeviceStatus.setText(getWorktableProductList().get(index).getWorkTableDeviceStatus());
-		lblOrderListDevicePriorit.setText(getWorktableProductList().get(index).getWorkTableDevicePriorit());
-		lblOrderListDeviceBuyDate.setText(getWorktableProductList().get(index).getWorkTableDeviceBuyingDate());
-		lblOrderListDeviceAddDate.setText(getWorktableProductList().get(index).getWorkTableDeviceAddDate());
-		lblOrderListDeviceEndDate.setText(getWorktableProductList().get(index).getWorkTableDeviceExitDate());
-		lblOrderListDeviceCompletDate.setText(getWorktableProductList().get(index).getWorkTableDeviceCompletedDate());
-		lblOrderListDeviceSoftver.setText(getWorktableProductList().get(index).getWorkTableDeviceSoftwer());
-		lblOrderListDeviceHardver.setText(getWorktableProductList().get(index).getWorkTableDeviceHardver());
-		lblOrderListDeviceCliening.setText(getWorktableProductList().get(index).getWorkTableDeviceCleaning());
-		lblOrderListDevicePassword.setText(getWorktableProductList().get(index).getWorkTableDevicePassword());
-		lblOrderListDeviceAccessories.setText(getWorktableProductList().get(index).getWorkTableDeviceAccesssory());
-		lblOrderListDeviceInjury.setText(getWorktableProductList().get(index).getWorkTableDeviceInjury());
-		lblOrderListDeviceFault.setText(getWorktableProductList().get(index).getWorkTableDeviceFault());
-		lblOrderListDeviceError.setText(getWorktableProductList().get(index).getWorkTableDeviceError());
+		lblOrderClientDeviceID
+				.setText(Integer.toString(getWorktableSearchProductList().get(index).getWorkTableDeviceID()));
+		lblOrderListDeviceName.setText(getWorktableSearchProductList().get(index).getWorkTableDeviceName());
+		lblOrderListDeviceType.setText(getWorktableSearchProductList().get(index).getWorkTableDeviceType());
+		lblOrderListDeviceSerialNumber.setText(getWorktableSearchProductList().get(index).getWorkTableDeviceSerial());
+		lblOrderListDeviceStatus.setText(getWorktableSearchProductList().get(index).getWorkTableDeviceStatus());
+		lblOrderListDevicePriorit.setText(getWorktableSearchProductList().get(index).getWorkTableDevicePriorit());
+		lblOrderListDeviceBuyDate.setText(getWorktableSearchProductList().get(index).getWorkTableDeviceBuyingDate());
+		lblOrderListDeviceAddDate.setText(getWorktableSearchProductList().get(index).getWorkTableDeviceAddDate());
+		lblOrderListDeviceEndDate.setText(getWorktableSearchProductList().get(index).getWorkTableDeviceExitDate());
+		lblOrderListDeviceCompletDate
+				.setText(getWorktableSearchProductList().get(index).getWorkTableDeviceCompletedDate());
+		lblOrderListDeviceSoftver.setText(getWorktableSearchProductList().get(index).getWorkTableDeviceSoftwer());
+		lblOrderListDeviceHardver.setText(getWorktableSearchProductList().get(index).getWorkTableDeviceHardver());
+		lblOrderListDeviceCliening.setText(getWorktableSearchProductList().get(index).getWorkTableDeviceCleaning());
+		lblOrderListDevicePassword.setText(getWorktableSearchProductList().get(index).getWorkTableDevicePassword());
+		lblOrderListDeviceAccessories
+				.setText(getWorktableSearchProductList().get(index).getWorkTableDeviceAccesssory());
+		lblOrderListDeviceInjury.setText(getWorktableSearchProductList().get(index).getWorkTableDeviceInjury());
+		lblOrderListDeviceFault.setText(getWorktableSearchProductList().get(index).getWorkTableDeviceFault());
+		lblOrderListDeviceError.setText(getWorktableSearchProductList().get(index).getWorkTableDeviceError());
 		// Nyomtatás
-		lblWorkPrintClientName.setText(getWorktableProductList().get(index).getWorkTableClientName());
-		lblWorkPrintClientHomeAndress.setText(getWorktableProductList().get(index).getWorkTableClientHomeAddress());
-		lblWorkPrintClientMobil.setText(getWorktableProductList().get(index).getWorkTableClientMobil());
-		lblWorkPrintClientIdentification.setText(getWorktableProductList().get(index).getWorkTableClientNumber());
-		lblWorkPrintClientName0.setText(getWorktableProductList().get(index).getWorkTableClientName());
-		lblWorkPrintClientHomeAndress0.setText(getWorktableProductList().get(index).getWorkTableClientHomeAddress());
-		lblWorkPrintClientMobil0.setText(getWorktableProductList().get(index).getWorkTableClientMobil());
-		lblWorkPrintClientIdentification0.setText(getWorktableProductList().get(index).getWorkTableClientNumber());
-		lblWorkPrintDeviceName.setText(getWorktableProductList().get(index).getWorkTableDeviceName());
-		lblWorkPrintDeviceSerial.setText(getWorktableProductList().get(index).getWorkTableDeviceType());
-		lblWorkPrintDeviceBuys.setText(getWorktableProductList().get(index).getWorkTableDeviceBuyingDate());
-		lblWorkPrintDeviceAddDate.setText(getWorktableProductList().get(index).getWorkTableDeviceAddDate());
-		lblWorkPrintDeviceAccessory.setText(getWorktableProductList().get(index).getWorkTableDeviceAccesssory());
-		lblWorkPrintDevicePassword.setText(getWorktableProductList().get(index).getWorkTableDevicePassword());
-		String sWorkPrintDeviceInjury = getWorktableProductList().get(index).getWorkTableDeviceInjury();
+		lblWorkPrintClientName.setText(getWorktableSearchProductList().get(index).getWorkTableClientName());
+		lblWorkPrintClientHomeAndress
+				.setText(getWorktableSearchProductList().get(index).getWorkTableClientHomeAddress());
+		lblWorkPrintClientMobil.setText(getWorktableSearchProductList().get(index).getWorkTableClientMobil());
+		lblWorkPrintClientIdentification.setText(getWorktableSearchProductList().get(index).getWorkTableClientNumber());
+		lblWorkPrintClientName0.setText(getWorktableSearchProductList().get(index).getWorkTableClientName());
+		lblWorkPrintClientHomeAndress0
+				.setText(getWorktableSearchProductList().get(index).getWorkTableClientHomeAddress());
+		lblWorkPrintClientMobil0.setText(getWorktableSearchProductList().get(index).getWorkTableClientMobil());
+		lblWorkPrintClientIdentification0
+				.setText(getWorktableSearchProductList().get(index).getWorkTableClientNumber());
+		lblWorkPrintDeviceName.setText(getWorktableSearchProductList().get(index).getWorkTableDeviceName());
+		lblWorkPrintDeviceSerial.setText(getWorktableSearchProductList().get(index).getWorkTableDeviceType());
+		lblWorkPrintDeviceBuys.setText(getWorktableSearchProductList().get(index).getWorkTableDeviceBuyingDate());
+		lblWorkPrintDeviceAddDate.setText(getWorktableSearchProductList().get(index).getWorkTableDeviceAddDate());
+		lblWorkPrintDeviceAccessory.setText(getWorktableSearchProductList().get(index).getWorkTableDeviceAccesssory());
+		lblWorkPrintDevicePassword.setText(getWorktableSearchProductList().get(index).getWorkTableDevicePassword());
+		String sWorkPrintDeviceInjury = getWorktableSearchProductList().get(index).getWorkTableDeviceInjury();
 		lblWorkPrintDeviceInjury.setText("<html>" + sWorkPrintDeviceInjury + "<br /> </html>");
-		String sWorkPrintDeviceFault = getWorktableProductList().get(index).getWorkTableDeviceFault();
+		String sWorkPrintDeviceFault = getWorktableSearchProductList().get(index).getWorkTableDeviceFault();
 		lblWorkPrintDeviceFault.setText("<html>" + sWorkPrintDeviceFault + "<br /> </html>");
-		lblWorkPrintEndDate.setText(getWorktableProductList().get(index).getWorkTableDeviceExitDate());
-		lblWorkPrintDeviceName0.setText(getWorktableProductList().get(index).getWorkTableDeviceName());
-		lblWorkPrintDeviceSerial0.setText(getWorktableProductList().get(index).getWorkTableDeviceType());
-		lblWorkPrintDeviceBuys0.setText(getWorktableProductList().get(index).getWorkTableDeviceBuyingDate());
-		lblWorkPrintDeviceAddDate0.setText(getWorktableProductList().get(index).getWorkTableDeviceAddDate());
-		lblWorkPrintDeviceAccessory0.setText(getWorktableProductList().get(index).getWorkTableDeviceAccesssory());
-		lblWorkPrintDevicePassword0.setText(getWorktableProductList().get(index).getWorkTableDevicePassword());
-		String sWorkPrintDeviceInjury0 = getWorktableProductList().get(index).getWorkTableDeviceInjury();
+		lblWorkPrintEndDate.setText(getWorktableSearchProductList().get(index).getWorkTableDeviceExitDate());
+		lblWorkPrintDeviceName0.setText(getWorktableSearchProductList().get(index).getWorkTableDeviceName());
+		lblWorkPrintDeviceSerial0.setText(getWorktableSearchProductList().get(index).getWorkTableDeviceType());
+		lblWorkPrintDeviceBuys0.setText(getWorktableSearchProductList().get(index).getWorkTableDeviceBuyingDate());
+		lblWorkPrintDeviceAddDate0.setText(getWorktableSearchProductList().get(index).getWorkTableDeviceAddDate());
+		lblWorkPrintDeviceAccessory0.setText(getWorktableSearchProductList().get(index).getWorkTableDeviceAccesssory());
+		lblWorkPrintDevicePassword0.setText(getWorktableSearchProductList().get(index).getWorkTableDevicePassword());
+		String sWorkPrintDeviceInjury0 = getWorktableSearchProductList().get(index).getWorkTableDeviceInjury();
 		lblWorkPrintDeviceInjury0.setText("<html>" + sWorkPrintDeviceInjury0 + "<br /> </html>");
-		String sWorkPrintDeviceFault0 = getWorktableProductList().get(index).getWorkTableDeviceFault();
+		String sWorkPrintDeviceFault0 = getWorktableSearchProductList().get(index).getWorkTableDeviceFault();
 		lblWorkPrintDeviceFault0.setText("<html>" + sWorkPrintDeviceFault0 + "<br /> </html>");
-		lblWorkPrintEndDate0.setText(getWorktableProductList().get(index).getWorkTableDeviceExitDate());
-	}
-
-	private void searchItemWorkTabel(int index) {
-		lblOrderListClientID.setText(getWorktableProductList().get(index).getWorkTableClientNumber());
-		lblOrderListClientName.setText(getWorktableProductList().get(index).getWorkTableClientName());
-		lblOrderListClientMobil.setText(getWorktableProductList().get(index).getWorkTableClientMobil());
-		lblOrderListHomeAndress.setText(getWorktableProductList().get(index).getWorkTableClientHomeAddress());
-		lblOrderListClientComment.setText(getWorktableProductList().get(index).getWorkTableClientComment());
-		// eszköz
-		lblOrderClientDeviceID.setText(Integer.toString(getWorktableProductList().get(index).getWorkTableDeviceID()));
-		lblOrderListDeviceName.setText(getWorktableProductList().get(index).getWorkTableDeviceName());
-		lblOrderListDeviceType.setText(getWorktableProductList().get(index).getWorkTableDeviceType());
-		lblOrderListDeviceSerialNumber.setText(getWorktableProductList().get(index).getWorkTableDeviceSerial());
-		lblOrderListDeviceStatus.setText(getWorktableProductList().get(index).getWorkTableDeviceStatus());
-		lblOrderListDevicePriorit.setText(getWorktableProductList().get(index).getWorkTableDevicePriorit());
-		lblOrderListDeviceBuyDate.setText(getWorktableProductList().get(index).getWorkTableDeviceBuyingDate());
-		lblOrderListDeviceAddDate.setText(getWorktableProductList().get(index).getWorkTableDeviceAddDate());
-		lblOrderListDeviceEndDate.setText(getWorktableProductList().get(index).getWorkTableDeviceExitDate());
-		lblOrderListDeviceCompletDate.setText(getWorktableProductList().get(index).getWorkTableDeviceCompletedDate());
-		lblOrderListDeviceSoftver.setText(getWorktableProductList().get(index).getWorkTableDeviceSoftwer());
-		lblOrderListDeviceHardver.setText(getWorktableProductList().get(index).getWorkTableDeviceHardver());
-		lblOrderListDeviceCliening.setText(getWorktableProductList().get(index).getWorkTableDeviceCleaning());
-		lblOrderListDevicePassword.setText(getWorktableProductList().get(index).getWorkTableDevicePassword());
-		lblOrderListDeviceAccessories.setText(getWorktableProductList().get(index).getWorkTableDeviceAccesssory());
-		lblOrderListDeviceInjury.setText(getWorktableProductList().get(index).getWorkTableDeviceInjury());
-		lblOrderListDeviceFault.setText(getWorktableProductList().get(index).getWorkTableDeviceFault());
-		lblOrderListDeviceError.setText(getWorktableProductList().get(index).getWorkTableDeviceError());
-		// nyomtatás
-		lblWorkPrintClientName.setText(getWorktableProductList().get(index).getWorkTableClientName());
-		lblWorkPrintClientHomeAndress.setText(getWorktableProductList().get(index).getWorkTableClientHomeAddress());
-		lblWorkPrintClientMobil.setText(getWorktableProductList().get(index).getWorkTableClientMobil());
-		lblWorkPrintClientIdentification.setText(getWorktableProductList().get(index).getWorkTableClientNumber());
-		lblWorkPrintClientName0.setText(getWorktableProductList().get(index).getWorkTableClientName());
-		lblWorkPrintClientHomeAndress0.setText(getWorktableProductList().get(index).getWorkTableClientHomeAddress());
-		lblWorkPrintClientMobil0.setText(getWorktableProductList().get(index).getWorkTableClientMobil());
-		lblWorkPrintClientIdentification0.setText(getWorktableProductList().get(index).getWorkTableClientNumber());
-		lblWorkPrintDeviceName.setText(getWorktableProductList().get(index).getWorkTableDeviceName());
-		lblWorkPrintDeviceSerial.setText(getWorktableProductList().get(index).getWorkTableDeviceType());
-		lblWorkPrintDeviceBuys.setText(getWorktableProductList().get(index).getWorkTableDeviceBuyingDate());
-		lblWorkPrintDeviceAddDate.setText(getWorktableProductList().get(index).getWorkTableDeviceAddDate());
-		lblWorkPrintDeviceAccessory.setText(getWorktableProductList().get(index).getWorkTableDeviceAccesssory());
-		lblWorkPrintDevicePassword.setText(getWorktableProductList().get(index).getWorkTableDevicePassword());
-		lblWorkPrintEndDate.setText(getWorktableProductList().get(index).getWorkTableDeviceExitDate());
-		lblWorkPrintDeviceName0.setText(getWorktableProductList().get(index).getWorkTableDeviceName());
-		lblWorkPrintDeviceSerial0.setText(getWorktableProductList().get(index).getWorkTableDeviceType());
-		lblWorkPrintDeviceBuys0.setText(getWorktableProductList().get(index).getWorkTableDeviceBuyingDate());
-		lblWorkPrintDeviceAddDate0.setText(getWorktableProductList().get(index).getWorkTableDeviceAddDate());
-		lblWorkPrintDeviceAccessory0.setText(getWorktableProductList().get(index).getWorkTableDeviceAccesssory());
-		lblWorkPrintDevicePassword0.setText(getWorktableProductList().get(index).getWorkTableDevicePassword());
-		lblWorkPrintEndDate0.setText(getWorktableProductList().get(index).getWorkTableDeviceExitDate());
-		String sWorkPrintDeviceInjury = getWorktableProductList().get(index).getWorkTableDeviceInjury();
-		lblWorkPrintDeviceInjury.setText("<html>" + sWorkPrintDeviceInjury + "<br /> </html>");
-		String sWorkPrintDeviceFault = getWorktableProductList().get(index).getWorkTableDeviceFault();
-		lblWorkPrintDeviceFault.setText("<html>" + sWorkPrintDeviceFault + "<br /> </html>");
-		String sWorkPrintDeviceInjury0 = getWorktableProductList().get(index).getWorkTableDeviceInjury();
-		lblWorkPrintDeviceInjury0.setText("<html>" + sWorkPrintDeviceInjury0 + "<br /> </html>");
-		String sWorkPrintDeviceFault0 = getWorktableProductList().get(index).getWorkTableDeviceFault();
-		lblWorkPrintDeviceFault0.setText("<html>" + sWorkPrintDeviceFault0 + "<br /> </html>");
+		lblWorkPrintEndDate0.setText(getWorktableSearchProductList().get(index).getWorkTableDeviceExitDate());
 	}
 
 	private void jTableProductsMouseClickedDevice(java.awt.event.MouseEvent evt) {
 		int index = jtblSalesWorkTable.getSelectedRow();
 		showItemWorkTabel(index);
-		searchItemWorkTabel(index);
 	}
 
 	private void JTableProductsMouseClicked(java.awt.event.MouseEvent evt) {
 		lblWorkPrintSalesName.setText(null);
 		lblWorkPrintSalesName0.setText(null);
 		txtWorkPrintSalesName.setText(null);
+		txtWorkSearch.setText(null);
 		showProductsInJTable();
-
 	}
 
-	private void jTableWorkSearch() {
-		searchProductsInJTable();
-	}
 }

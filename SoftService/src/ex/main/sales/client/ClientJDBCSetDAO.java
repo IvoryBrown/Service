@@ -9,14 +9,11 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
-import java.util.Comparator;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
-import javax.swing.table.TableModel;
-import javax.swing.table.TableRowSorter;
 
 import ex.main.sales.client.config.ClientConfig;
 import ex.main.sales.client.config.ClientImplements;
@@ -32,7 +29,8 @@ public class ClientJDBCSetDAO extends ClientGui implements ClientImplements {
 		jpnlClient.setBackground(Color.RED);
 		setActionSalesClient();
 		showProductsInJTableClient();
-		tableRows();
+
+		// tableRows();
 
 	}
 
@@ -93,13 +91,13 @@ public class ClientJDBCSetDAO extends ClientGui implements ClientImplements {
 		});
 		btnSalesClientSearch.addMouseListener(new java.awt.event.MouseAdapter() {
 			public void mouseClicked(java.awt.event.MouseEvent evt) {
-				jTableClientSearch();
+				showProductsInJTableClient();
 			}
 		});
 		txtSalesClientSearch.addKeyListener(new KeyAdapter() {
 			public void keyPressed(KeyEvent evt) {
 				if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
-					jTableClientSearch();
+					showProductsInJTableClient();
 				}
 			}
 		});
@@ -130,43 +128,6 @@ public class ClientJDBCSetDAO extends ClientGui implements ClientImplements {
 		} else {
 			return true;
 		}
-	}
-
-	@Override
-	public ArrayList<ClientConfig> getClientProductList() {
-		ArrayList<ClientConfig> productList = new ArrayList<ClientConfig>();
-		Connection con = DataBaseConnect.getConnection();
-		String query = "SELECT * FROM megrendelo ";
-		Statement st = null;
-		ResultSet rs = null;
-		try {
-			st = con.createStatement();
-			rs = st.executeQuery(query);
-			ClientConfig product;
-			while (rs.next()) {
-				product = new ClientConfig(rs.getInt("ID_m"), rs.getString("azonosito_m"), rs.getString("ceg"),
-						rs.getString("nev"), rs.getString("kapcsolat"), rs.getString("lakcim"),
-						rs.getString("megjegyzes_m"));
-				productList.add(product);
-			}
-		} catch (SQLException ex) {
-			Logger.getLogger(ClientJDBCSetDAO.class.getName()).log(Level.SEVERE, null, ex);
-		} finally {
-			try {
-				if (rs != null) {
-					rs.close();
-				}
-				if (st != null) {
-					st.close();
-				}
-				if (con != null) {
-					con.close();
-				}
-			} catch (SQLException e) {
-				Logger.getLogger(ClientJDBCSetDAO.class.getName()).log(Level.SEVERE, null, e);
-			}
-		}
-		return productList;
 	}
 
 	@Override
@@ -208,26 +169,8 @@ public class ClientJDBCSetDAO extends ClientGui implements ClientImplements {
 		return listSearch;
 	}
 
-	private void findClientSearch() {
-		ArrayList<ClientConfig> client = getListClient();
-		DefaultTableModel model = (DefaultTableModel) jtblSalesClient.getModel();
-		model.setRowCount(0);
-		Object[] row = new Object[7];
-		for (int i = 0; i < client.size(); i++) {
-			row[0] = client.get(i).getSalesClientID();
-			row[1] = client.get(i).getSalesClientNumber();
-			row[2] = client.get(i).getSalesClientCompanyName();
-			row[3] = client.get(i).getSalesClientName();
-			row[4] = client.get(i).getSalesClientMobil();
-			row[5] = client.get(i).getSalesClientHomeAddress();
-			row[6] = client.get(i).getSalesClientComment();
-			model.addRow(row);
-		}
-
-	}
-
 	private void showProductsInJTableClient() {
-		ArrayList<ClientConfig> list = getClientProductList();
+		ArrayList<ClientConfig> list = getListClient();
 		DefaultTableModel model = (DefaultTableModel) jtblSalesClient.getModel();
 		model.setRowCount(0);
 		Object[] row = new Object[7];
@@ -255,20 +198,6 @@ public class ClientJDBCSetDAO extends ClientGui implements ClientImplements {
 		// Device set
 		txtSalesDeviceClientName.setText(getListClient().get(index).getSalesClientName());
 		txtSalesDeviceClientID.setText(Integer.toString(getListClient().get(index).getSalesClientID()));
-	}
-
-	private void showItemClient(int index) {
-		txtSalesClientID.setText(Integer.toString(getClientProductList().get(index).getSalesClientID()));
-		txtSalesClientNumber.setText(getClientProductList().get(index).getSalesClientNumber());
-		txtSalesClientCompanyName.setText(getClientProductList().get(index).getSalesClientCompanyName());
-		txtSalesClientName.setText(getClientProductList().get(index).getSalesClientName());
-		txtSalesClientMobil.setText(getClientProductList().get(index).getSalesClientMobil());
-		txtSalesClientHomeAddress.setText(getClientProductList().get(index).getSalesClientHomeAddress());
-		txtSalesClientComment.setText(getClientProductList().get(index).getSalesClientComment());
-		// device set
-		txtSalesDeviceClientName.setText(getClientProductList().get(index).getSalesClientName());
-		txtSalesDeviceClientID.setText(Integer.toString(getClientProductList().get(index).getSalesClientID()));
-
 	}
 
 	private void jBtnInsertActionPerformedSalesClient() {
@@ -365,32 +294,27 @@ public class ClientJDBCSetDAO extends ClientGui implements ClientImplements {
 		showProductsInJTableClient();
 	}
 
-	private void jTableClientSearch() {
-		findClientSearch();
-	}
-
-	private void tableRows() {
-		TableRowSorter<TableModel> tableRowSorter = new TableRowSorter<TableModel>(jtblSalesClient.getModel());
-		tableRowSorter.setComparator(0, new Comparator<String>() {
-
-			@Override
-			public int compare(String s1, String s2) {
-				if (s1.isEmpty() && s2.isEmpty()) {
-					return 0;
-				} else if (s1.isEmpty() && !s2.isEmpty()) {
-					return 1;
-				} else if (!s1.isEmpty() && s2.isEmpty()) {
-					return -1;
-				}
-				return s1.compareTo(s2);
-			}
-		});
-		jtblSalesClient.setRowSorter(tableRowSorter);
-	}
+//	private void tableRows() {
+//		TableRowSorter<TableModel> tableRowSorter = new TableRowSorter<TableModel>(jtblSalesClient.getModel());
+//		tableRowSorter.setComparator(0, new Comparator<String>() {
+//
+//			@Override
+//			public int compare(String s1, String s2) {
+//				if (s1.isEmpty() && s2.isEmpty()) {
+//					return 0;
+//				} else if (s1.isEmpty() && !s2.isEmpty()) {
+//					return 1;
+//				} else if (!s1.isEmpty() && s2.isEmpty()) {
+//					return -1;
+//				}
+//				return s1.compareTo(s2);
+//			}
+//		});
+//		jtblSalesClient.setRowSorter(tableRowSorter);
+//	}
 
 	private void jTableProductsMouseClicked(java.awt.event.MouseEvent evt) {
 		int index = jtblSalesClient.getSelectedRow();
-		showItemClient(index);
 		showItemClientSearch(index);
 
 	}
