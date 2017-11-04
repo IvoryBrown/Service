@@ -3,14 +3,16 @@ package ex.main.service.client.config;
 public class ClientConfig {
 	private Integer iDm;
 	private String iD;
+	private String companyName;
 	private String name;
 	private String mobil;
 	private String homeAddress;
 	private String comment;
 
-	public ClientConfig(Integer cIdm,String cID, String cName, String cMobil, String cHomeAddress, String cComment) {
+	public ClientConfig(Integer cIdm,String cID,String companyName, String cName, String cMobil, String cHomeAddress, String cComment) {
 		this.iDm= cIdm;
 		this.iD = cID;
+		this.companyName=companyName;
 		this.name = cName;
 		this.mobil = cMobil;
 		this.homeAddress = cHomeAddress;
@@ -23,6 +25,10 @@ public class ClientConfig {
 
 	public String getiD() {
 		return iD;
+	}
+
+	public String getCompanyName() {
+		return companyName;
 	}
 
 	public String getName() {

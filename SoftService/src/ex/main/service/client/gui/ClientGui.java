@@ -13,26 +13,24 @@ import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 
 import ex.main.service.gui.ServiceGui;
+import javax.swing.JTextArea;
+import javax.swing.JComboBox;
 
 public class ClientGui extends ServiceGui {
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	protected JTextField txtSearchClient;
-	protected JTextField txtIDClient;
-	protected JTextField txtNameClient;
-	protected JTextField txtMobilClient;
-	protected JTextField txtHomeAddressClient;
-	protected JTextField txtCommentClient;
+	protected JTextField txtSearchClient, txtIdClient, txtIDClient, txtNameClient, txtMobilClient, txtHomeAddressClient,
+			txtCompanyNameClient;
 	protected JTable jTblClient;
-	protected JButton btnNewClient, btnDeleteClient, btnEditClient, btnNullClient;
-	private JButton btnSearchClient;
-	protected JTextField txtIdClient;
+	protected JButton btnNewClient, btnDeleteClient, btnEditClient, btnNullClient, btnSearchClient;
 	protected JPanel pnlDevice;
 	protected JLabel lblClientDeviceName;
-	protected JTextField txtClientDeviceName;
-	protected JTextField txtClientDeviceId;
+	protected JTextArea txtCommentClient;
+	protected JComboBox<Object> cmbClientSearch;
+	// device
+	protected JTextField txtClientDeviceName, txtClientDeviceId;
 
 	public ClientGui() {
 
@@ -45,7 +43,7 @@ public class ClientGui extends ServiceGui {
 		jplClients.setLayout(null);
 
 		JScrollPane jScPClient = new JScrollPane();
-		jScPClient.setBounds(10, 10, 286, 569);
+		jScPClient.setBounds(10, 10, 514, 569);
 		jplClients.add(jScPClient);
 
 		jTblClient = new JTable();
@@ -54,25 +52,9 @@ public class ClientGui extends ServiceGui {
 				new String[] { "sorszám", "név", "telefon" }));
 
 		JPanel jpnSettingClient = new JPanel();
-		jpnSettingClient.setBounds(302, 10, 805, 63);
+		jpnSettingClient.setBounds(534, 10, 555, 63);
 		jplClients.add(jpnSettingClient);
 		jpnSettingClient.setLayout(null);
-
-		btnDeleteClient = new JButton("törlés");
-		btnDeleteClient.setBounds(565, 12, 109, 37);
-		jpnSettingClient.add(btnDeleteClient);
-
-		btnEditClient = new JButton("szerkesztés");
-		btnEditClient.setHorizontalAlignment(SwingConstants.LEADING);
-		btnEditClient.setIcon(new ImageIcon(ClientGui.class.getResource("/icon/function/22x22/database-star.png")));
-		btnEditClient.setBounds(446, 12, 109, 37);
-		jpnSettingClient.add(btnEditClient);
-
-		btnNewClient = new JButton("új ügyfél");
-		btnNewClient.setIcon(
-				new ImageIcon(ClientGui.class.getResource("/icon/function/22x22/database_add.png")));
-		btnNewClient.setBounds(327, 11, 109, 37);
-		jpnSettingClient.add(btnNewClient);
 
 		txtSearchClient = new JTextField();
 		txtSearchClient.setBackground(new Color(127, 255, 212));
@@ -84,12 +66,14 @@ public class ClientGui extends ServiceGui {
 		btnSearchClient.setBounds(208, 12, 109, 37);
 		jpnSettingClient.add(btnSearchClient);
 
-		btnNullClient = new JButton("null");
-		btnNullClient.setBounds(684, 12, 109, 37);
-		jpnSettingClient.add(btnNullClient);
+		String clientShearch[] = { "nev", "azonosito_m", "kapcsolat", "lakcim" };
+		cmbClientSearch = new JComboBox<Object>(clientShearch);
+		cmbClientSearch.setFont(new Font("Tahoma", Font.PLAIN, 11));
+		cmbClientSearch.setBounds(327, 13, 202, 35);
+		jpnSettingClient.add(cmbClientSearch);
 
 		JPanel jpnNewClient = new JPanel();
-		jpnNewClient.setBounds(302, 79, 555, 341);
+		jpnNewClient.setBounds(534, 84, 555, 425);
 		jplClients.add(jpnNewClient);
 		jpnNewClient.setLayout(null);
 
@@ -99,34 +83,35 @@ public class ClientGui extends ServiceGui {
 		lblIDClient.setBounds(10, 11, 140, 35);
 		jpnNewClient.add(lblIDClient);
 
-		JLabel lblNameClient = new JLabel("név: ");
+		JLabel lblNameClient = new JLabel("kapcsolattartó: ");
 		lblNameClient.setHorizontalAlignment(SwingConstants.RIGHT);
 		lblNameClient.setFont(new Font("Tahoma", Font.BOLD, 15));
-		lblNameClient.setBounds(10, 55, 140, 35);
+		lblNameClient.setBounds(10, 99, 140, 35);
 		jpnNewClient.add(lblNameClient);
 
 		JLabel lblMobilClient = new JLabel("telefon: ");
 		lblMobilClient.setHorizontalAlignment(SwingConstants.RIGHT);
 		lblMobilClient.setFont(new Font("Tahoma", Font.BOLD, 15));
-		lblMobilClient.setBounds(10, 99, 140, 35);
+		lblMobilClient.setBounds(10, 141, 140, 35);
 		jpnNewClient.add(lblMobilClient);
 
 		JLabel lblHomeAddressClient = new JLabel("lakcím: ");
 		lblHomeAddressClient.setHorizontalAlignment(SwingConstants.RIGHT);
 		lblHomeAddressClient.setFont(new Font("Tahoma", Font.BOLD, 15));
-		lblHomeAddressClient.setBounds(10, 143, 140, 35);
+		lblHomeAddressClient.setBounds(10, 187, 140, 35);
 		jpnNewClient.add(lblHomeAddressClient);
 
 		JLabel lblCommentClient = new JLabel("megjegyzés: ");
 		lblCommentClient.setHorizontalAlignment(SwingConstants.RIGHT);
 		lblCommentClient.setFont(new Font("Tahoma", Font.BOLD, 15));
-		lblCommentClient.setBounds(10, 187, 140, 35);
+		lblCommentClient.setBounds(10, 235, 140, 35);
 		jpnNewClient.add(lblCommentClient);
 
 		txtIDClient = new JTextField();
+		txtIDClient.setEnabled(false);
 		txtIDClient.setBackground(new Color(245, 255, 250));
 		txtIDClient.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		txtIDClient.setBounds(153, 13, 189, 35);
+		txtIDClient.setBounds(153, 13, 287, 35);
 		jpnNewClient.add(txtIDClient);
 		txtIDClient.setColumns(10);
 
@@ -134,37 +119,75 @@ public class ClientGui extends ServiceGui {
 		txtNameClient.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		txtNameClient.setColumns(10);
 		txtNameClient.setBackground(new Color(245, 255, 250));
-		txtNameClient.setBounds(153, 57, 189, 35);
+		txtNameClient.setBounds(153, 99, 392, 35);
 		jpnNewClient.add(txtNameClient);
 
 		txtMobilClient = new JTextField();
 		txtMobilClient.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		txtMobilClient.setColumns(10);
 		txtMobilClient.setBackground(new Color(245, 255, 250));
-		txtMobilClient.setBounds(153, 101, 189, 35);
+		txtMobilClient.setBounds(153, 143, 392, 35);
 		jpnNewClient.add(txtMobilClient);
 
 		txtHomeAddressClient = new JTextField();
 		txtHomeAddressClient.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		txtHomeAddressClient.setColumns(10);
 		txtHomeAddressClient.setBackground(new Color(245, 255, 250));
-		txtHomeAddressClient.setBounds(153, 152, 189, 35);
+		txtHomeAddressClient.setBounds(153, 187, 392, 35);
 		jpnNewClient.add(txtHomeAddressClient);
-
-		txtCommentClient = new JTextField();
-		txtCommentClient.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		txtCommentClient.setColumns(10);
-		txtCommentClient.setBackground(new Color(245, 255, 250));
-		txtCommentClient.setBounds(153, 196, 189, 131);
-		jpnNewClient.add(txtCommentClient);
 
 		txtIdClient = new JTextField();
 		txtIdClient.setEnabled(false);
 		txtIdClient.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		txtIdClient.setColumns(10);
 		txtIdClient.setBackground(new Color(245, 255, 250));
-		txtIdClient.setBounds(352, 11, 95, 35);
+		txtIdClient.setBounds(450, 13, 95, 35);
 		jpnNewClient.add(txtIdClient);
+
+		JScrollPane scrollPane = new JScrollPane();
+		scrollPane.setBounds(153, 233, 392, 132);
+		jpnNewClient.add(scrollPane);
+
+		txtCommentClient = new JTextArea();
+		txtCommentClient.setBackground(new Color(245, 255, 250));
+		scrollPane.setViewportView(txtCommentClient);
+
+		txtCompanyNameClient = new JTextField();
+		txtCompanyNameClient.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		txtCompanyNameClient.setColumns(10);
+		txtCompanyNameClient.setBackground(new Color(245, 255, 250));
+		txtCompanyNameClient.setBounds(153, 57, 392, 35);
+		jpnNewClient.add(txtCompanyNameClient);
+
+		JLabel lblCompanyNameClient = new JLabel("cég: ");
+		lblCompanyNameClient.setHorizontalAlignment(SwingConstants.RIGHT);
+		lblCompanyNameClient.setFont(new Font("Tahoma", Font.BOLD, 15));
+		lblCompanyNameClient.setBounds(10, 57, 140, 35);
+		jpnNewClient.add(lblCompanyNameClient);
+
+		JPanel panel = new JPanel();
+		panel.setBounds(1099, 84, 130, 315);
+		jplClients.add(panel);
+		panel.setLayout(null);
+
+		btnNewClient = new JButton("új ügyfél");
+		btnNewClient.setBounds(10, 11, 109, 37);
+		panel.add(btnNewClient);
+		btnNewClient.setIcon(new ImageIcon(ClientGui.class.getResource("/icon/function/22x22/database_add.png")));
+
+		btnEditClient = new JButton("szerkesztés");
+		btnEditClient.setBounds(10, 59, 109, 37);
+		panel.add(btnEditClient);
+		btnEditClient.setHorizontalAlignment(SwingConstants.LEADING);
+		btnEditClient.setIcon(new ImageIcon(ClientGui.class.getResource("/icon/function/22x22/database-star.png")));
+
+		btnDeleteClient = new JButton("törlés");
+		btnDeleteClient.setBounds(10, 107, 109, 37);
+		panel.add(btnDeleteClient);
+
+		btnNullClient = new JButton("null");
+		btnNullClient.setBounds(10, 155, 109, 37);
+		panel.add(btnNullClient);
 		jplMainPanel.setLayout(null);
 		getContentPane().setLayout(null);
 		jplDevice.setLayout(null);

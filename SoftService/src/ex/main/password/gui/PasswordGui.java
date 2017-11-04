@@ -13,6 +13,7 @@ import javax.swing.SwingConstants;
 
 import ex.main.setting.centerwindow.CenterWindow;
 import javax.swing.ImageIcon;
+import com.jgoodies.forms.factories.DefaultComponentFactory;
 
 public class PasswordGui extends JFrame {
 
@@ -75,6 +76,12 @@ public class PasswordGui extends JFrame {
 		lblLogin.setHorizontalAlignment(SwingConstants.CENTER);
 		lblLogin.setBounds(10, 21, 564, 54);
 		getContentPane().add(lblLogin);
+		
+		JLabel lblNewJgoodiesLabel = DefaultComponentFactory.getInstance().createLabel("v: 1.173");
+		lblNewJgoodiesLabel.setHorizontalAlignment(SwingConstants.RIGHT);
+		lblNewJgoodiesLabel.setForeground(Color.WHITE);
+		lblNewJgoodiesLabel.setBounds(492, 346, 92, 14);
+		getContentPane().add(lblNewJgoodiesLabel);
 
 		label = new JLabel(
 				new ImageIcon(((new ImageIcon("Image\\line_dark_white_light_obliquely_46641_1680x1050.jpg")).getImage())
@@ -87,5 +94,4 @@ public class PasswordGui extends JFrame {
 		new CenterWindow().centerWindow(this);
 
 	}
-
 }

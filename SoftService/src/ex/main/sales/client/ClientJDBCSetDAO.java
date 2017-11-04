@@ -138,9 +138,8 @@ public class ClientJDBCSetDAO extends ClientGui implements ClientImplements {
 		Connection con = DataBaseConnect.getConnection();
 		try {
 			insertClient = con.createStatement();
-			String searchQuery = "SELECT * FROM `megrendelo` WHERE CONCAT (`"
-					+ cmbSalesClientSearch.getItemAt(cmbSalesClientSearch.getSelectedIndex()) + "`) LIKE '%"
-					+ txtSalesClientSearch.getText() + "%'";
+			String searchQuery = "SELECT * FROM `megrendelo` WHERE CONCAT (`" + cmbSalesClientSearch.getSelectedItem()
+					+ "`) LIKE '%" + txtSalesClientSearch.getText() + "%'";
 			rs = insertClient.executeQuery(searchQuery);
 			ClientConfig clientSearch;
 			while (rs.next()) {
@@ -294,24 +293,25 @@ public class ClientJDBCSetDAO extends ClientGui implements ClientImplements {
 		showProductsInJTableClient();
 	}
 
-//	private void tableRows() {
-//		TableRowSorter<TableModel> tableRowSorter = new TableRowSorter<TableModel>(jtblSalesClient.getModel());
-//		tableRowSorter.setComparator(0, new Comparator<String>() {
-//
-//			@Override
-//			public int compare(String s1, String s2) {
-//				if (s1.isEmpty() && s2.isEmpty()) {
-//					return 0;
-//				} else if (s1.isEmpty() && !s2.isEmpty()) {
-//					return 1;
-//				} else if (!s1.isEmpty() && s2.isEmpty()) {
-//					return -1;
-//				}
-//				return s1.compareTo(s2);
-//			}
-//		});
-//		jtblSalesClient.setRowSorter(tableRowSorter);
-//	}
+	// private void tableRows() {
+	// TableRowSorter<TableModel> tableRowSorter = new
+	// TableRowSorter<TableModel>(jtblSalesClient.getModel());
+	// tableRowSorter.setComparator(0, new Comparator<String>() {
+	//
+	// @Override
+	// public int compare(String s1, String s2) {
+	// if (s1.isEmpty() && s2.isEmpty()) {
+	// return 0;
+	// } else if (s1.isEmpty() && !s2.isEmpty()) {
+	// return 1;
+	// } else if (!s1.isEmpty() && s2.isEmpty()) {
+	// return -1;
+	// }
+	// return s1.compareTo(s2);
+	// }
+	// });
+	// jtblSalesClient.setRowSorter(tableRowSorter);
+	// }
 
 	private void jTableProductsMouseClicked(java.awt.event.MouseEvent evt) {
 		int index = jtblSalesClient.getSelectedRow();

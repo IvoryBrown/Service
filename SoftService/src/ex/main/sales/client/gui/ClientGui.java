@@ -57,7 +57,7 @@ public class ClientGui extends SalesGui {
 		jpnlClient.add(panel_2);
 		panel_2.setLayout(null);
 
-		String clientShearch[] = { "nev", "azonosito_m", "kapcsolat", "lakcim" };
+	
 
 		pnlClientSetting = new JPanel();
 		panel_2.add(pnlClientSetting);
@@ -172,6 +172,8 @@ public class ClientGui extends SalesGui {
 						368, java.awt.Image.SCALE_SMOOTH)));
 		lblSalesClientSettingImage.setBounds(0, 0, 478, 368);
 		pnlClientSetting.add(lblSalesClientSettingImage);
+		
+		String clientShearch[] = { "nev", "azonosito_m", "kapcsolat", "lakcim" };
 		cmbSalesClientSearch = new JComboBox<Object>(clientShearch);
 		cmbSalesClientSearch.setBounds(488, 57, 231, 35);
 		panel_2.add(cmbSalesClientSearch);

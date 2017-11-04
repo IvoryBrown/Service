@@ -1,6 +1,8 @@
 package ex.main.service.client;
 
 import java.awt.Color;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -17,9 +19,11 @@ import ex.main.service.client.config.ClientConfig;
 import ex.main.service.client.config.ClientImplements;
 import ex.main.service.client.gui.ClientGui;
 import ex.main.setting.database.DataBaseConnect;
+import ex.main.setting.identification.ClientIdentificationGenerator;
 
 public class ClientJDBCSetDAO extends ClientGui implements ClientImplements {
-
+	Object row[][];
+	String column[];
 	/**
 	 * 
 	 */
@@ -31,8 +35,10 @@ public class ClientJDBCSetDAO extends ClientGui implements ClientImplements {
 	}
 
 	private void setAction() {
-		jTblClient.setModel(
-				new javax.swing.table.DefaultTableModel(new Object[][] {}, new String[] { "sorszám", "név", "mobil" }));
+		column = new String[] { "azonosító", "cég", "név" };
+		jTblClient.setModel(new javax.swing.table.DefaultTableModel(row, column));
+		jTblClient.getColumn("azonosító").setMinWidth(80);
+		jTblClient.getColumn("azonosító").setMaxWidth(80);
 
 		jTblClient.addMouseListener(new java.awt.event.MouseAdapter() {
 			public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -66,14 +72,21 @@ public class ClientJDBCSetDAO extends ClientGui implements ClientImplements {
 				btnNullShowPerformed(evt);
 			}
 		});
+		btnSearchClient.addMouseListener(new java.awt.event.MouseAdapter() {
+			public void mouseClicked(java.awt.event.MouseEvent evt) {
+				showProductsInJTableClient();
+			}
+		});
+		txtSearchClient.addKeyListener(new KeyAdapter() {
+			public void keyPressed(KeyEvent evt) {
+				if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+					showProductsInJTableClient();
+				}
+			}
+		});
 	}
 
 	private boolean checkInputs() {
-		if (txtIDClient.getText().trim().isEmpty()) {
-			txtIDClient.setBackground(new Color(255, 250, 240));
-		} else {
-			txtIDClient.setBackground(new Color(245, 255, 250));
-		}
 		if (txtNameClient.getText().trim().isEmpty()) {
 			txtNameClient.setBackground(new Color(255, 250, 240));
 		} else {
@@ -89,8 +102,8 @@ public class ClientJDBCSetDAO extends ClientGui implements ClientImplements {
 		} else {
 			txtHomeAddressClient.setBackground(new Color(245, 255, 250));
 		}
-		if (txtIDClient.getText().trim().isEmpty() || txtNameClient.getText().trim().isEmpty()
-				|| txtMobilClient.getText().trim().isEmpty() || txtHomeAddressClient.getText().trim().isEmpty()) {
+		if (txtNameClient.getText().trim().isEmpty() || txtMobilClient.getText().trim().isEmpty()
+				|| txtHomeAddressClient.getText().trim().isEmpty()) {
 			return false;
 		} else {
 			return true;
@@ -102,7 +115,8 @@ public class ClientJDBCSetDAO extends ClientGui implements ClientImplements {
 	public ArrayList<ClientConfig> getClientProductList() {
 		ArrayList<ClientConfig> productList = new ArrayList<ClientConfig>();
 		Connection con = DataBaseConnect.getConnection();
-		String query = "SELECT * FROM megrendelo ";
+		String query = "SELECT * FROM `megrendelo` WHERE CONCAT (`" + cmbClientSearch.getSelectedItem() + "`) LIKE '%"
+				+ txtSearchClient.getText() + "%'";
 		Statement st = null;
 		ResultSet rs = null;
 		try {
@@ -110,8 +124,9 @@ public class ClientJDBCSetDAO extends ClientGui implements ClientImplements {
 			rs = st.executeQuery(query);
 			ClientConfig product;
 			while (rs.next()) {
-				product = new ClientConfig(rs.getInt("ID_m"), rs.getString("azonosito_m"), rs.getString("nev"),
-						rs.getString("kapcsolat"), rs.getString("lakcim"), rs.getString("megjegyzes_m"));
+				product = new ClientConfig(rs.getInt("ID_m"), rs.getString("azonosito_m"), rs.getString("ceg"),
+						rs.getString("nev"), rs.getString("kapcsolat"), rs.getString("lakcim"),
+						rs.getString("megjegyzes_m"));
 				productList.add(product);
 			}
 		} catch (SQLException ex) {
@@ -141,8 +156,8 @@ public class ClientJDBCSetDAO extends ClientGui implements ClientImplements {
 		Object[] row = new Object[3];
 		for (int i = 0; i < list.size(); i++) {
 			row[0] = list.get(i).getiD();
-			row[1] = list.get(i).getName();
-			row[2] = list.get(i).getMobil();
+			row[1] = list.get(i).getCompanyName();
+			row[2] = list.get(i).getName();
 			model.addRow(row);
 		}
 	}
@@ -151,6 +166,7 @@ public class ClientJDBCSetDAO extends ClientGui implements ClientImplements {
 		txtIdClient.setText(Integer.toString(getClientProductList().get(index).getiDm()));
 		txtClientDeviceId.setText(Integer.toString(getClientProductList().get(index).getiDm()));
 		txtIDClient.setText((getClientProductList().get(index).getiD()));
+		txtCompanyNameClient.setText(getClientProductList().get(index).getCompanyName());
 		txtNameClient.setText(getClientProductList().get(index).getName());
 		txtClientDeviceName.setText(getClientProductList().get(index).getName());
 		txtMobilClient.setText(getClientProductList().get(index).getMobil());
@@ -162,13 +178,15 @@ public class ClientJDBCSetDAO extends ClientGui implements ClientImplements {
 		if (checkInputs()) {
 			try {
 				Connection con = DataBaseConnect.getConnection();
-				PreparedStatement insertClient = con.prepareStatement("INSERT INTO megrendelo(azonosito_m, nev,"
-						+ "kapcsolat, lakcim, megjegyzes_m)" + "values(?,?,?,?,?) ");
-				insertClient.setInt(1, Integer.parseInt(txtIDClient.getText()));
-				insertClient.setString(2, txtNameClient.getText());
-				insertClient.setString(3, txtMobilClient.getText());
-				insertClient.setString(4, txtHomeAddressClient.getText());
-				insertClient.setString(5, txtCommentClient.getText());
+				PreparedStatement insertClient = con.prepareStatement("INSERT INTO megrendelo(azonosito_m, ceg, nev,"
+						+ "kapcsolat, lakcim, megjegyzes_m)" + "values(?,?,?,?,?,?) ");
+				txtIDClient.setText(ClientIdentificationGenerator.random());
+				insertClient.setString(1, txtIDClient.getText());
+				insertClient.setString(2, txtCompanyNameClient.getText());
+				insertClient.setString(3, txtNameClient.getText());
+				insertClient.setString(4, txtMobilClient.getText());
+				insertClient.setString(5, txtHomeAddressClient.getText());
+				insertClient.setString(6, txtCommentClient.getText());
 				insertClient.executeUpdate();
 				showProductsInJTableClient();
 				JOptionPane.showMessageDialog(null, "Adatok beillesztve");
@@ -186,15 +204,16 @@ public class ClientJDBCSetDAO extends ClientGui implements ClientImplements {
 			PreparedStatement ps = null;
 			Connection con = DataBaseConnect.getConnection();
 			try {
-				updateClient = "UPDATE megrendelo SET azonosito_m = ?, nev = ?"
+				updateClient = "UPDATE megrendelo SET azonosito_m = ?, ceg = ?, nev = ?"
 						+ ", kapcsolat = ?, lakcim = ?, megjegyzes_m = ? WHERE ID_m = ?";
 				ps = con.prepareStatement(updateClient);
-				ps.setInt(1, Integer.parseInt(txtIDClient.getText()));
-				ps.setString(2, txtNameClient.getText());
-				ps.setString(3, txtMobilClient.getText());
-				ps.setString(4, txtHomeAddressClient.getText());
-				ps.setString(5, txtCommentClient.getText());
-				ps.setInt(6, Integer.parseInt(txtIdClient.getText()));
+				ps.setString(1, txtIDClient.getText());
+				ps.setString(2, txtCompanyNameClient.getText());
+				ps.setString(3, txtNameClient.getText());
+				ps.setString(4, txtMobilClient.getText());
+				ps.setString(5, txtHomeAddressClient.getText());
+				ps.setString(6, txtCommentClient.getText());
+				ps.setInt(7, Integer.parseInt(txtIdClient.getText()));
 				ps.executeUpdate();
 				showProductsInJTableClient();
 				JOptionPane.showMessageDialog(null, "Sikeres Frissítés");
