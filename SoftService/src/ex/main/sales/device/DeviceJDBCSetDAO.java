@@ -370,7 +370,7 @@ public class DeviceJDBCSetDAO extends DeviceGui implements DeviceImplements {
 		try {
 			insertDevice = con.createStatement();
 			String searchQuery = "SELECT * FROM `gepadatok` WHERE CONCAT (`"
-					+ cmbSalesDeviceSearch.getItemAt(cmbSalesDeviceSearch.getSelectedIndex()) + "`) LIKE '%"
+					+ cmbSalesDeviceSearch.getSelectedItem() + "`) LIKE '%"
 					+ txtSalesDeviceSearch.getText() + "%'";
 			rs = insertDevice.executeQuery(searchQuery);
 			DeviceConfig deviceSearch;

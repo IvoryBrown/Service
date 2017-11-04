@@ -1,6 +1,8 @@
 package ex.main.service.device;
 
 import java.awt.Color;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -21,6 +23,7 @@ import ex.main.service.device.config.DeviceConfig;
 import ex.main.service.device.config.DeviceImplements;
 import ex.main.service.device.gui.DeviceGui;
 import ex.main.setting.database.DataBaseConnect;
+import ex.main.setting.identification.DeviceIdentificationGenereator;
 
 public class DeviceJDBCSetDAO extends DeviceGui implements DeviceImplements {
 	/**
@@ -29,14 +32,16 @@ public class DeviceJDBCSetDAO extends DeviceGui implements DeviceImplements {
 	private static final long serialVersionUID = 1L;
 	private String[] columns;
 
+	private Object row[][];
+
 	public DeviceJDBCSetDAO() {
 		setActionDevice();
 		showProductsInJTableDevice();
 	}
 
 	private void setActionDevice() {
-		columns = new String[] { "ügyfél", "eszköz", "sorozatszám" };
-		jTableDevice.setModel(new javax.swing.table.DefaultTableModel(new Object[][] {}, columns));
+		columns = new String[] { "ügyfél", "eszköz", "állapot" };
+		jTableDevice.setModel(new javax.swing.table.DefaultTableModel(row, columns));
 		jTableDevice.getColumn("ügyfél").setMinWidth(120);
 		jTableDevice.getColumn("ügyfél").setMaxWidth(120);
 		jTableDevice.getColumn("eszköz").setMinWidth(80);
@@ -73,6 +78,18 @@ public class DeviceJDBCSetDAO extends DeviceGui implements DeviceImplements {
 				btnNullShowPerformedDevice(evt);
 			}
 		});
+		btnSearchDevice.addMouseListener(new java.awt.event.MouseAdapter() {
+			public void mouseClicked(java.awt.event.MouseEvent evt) {
+				showProductsInJTableDevice();
+			}
+		});
+		txtSearchDevice.addKeyListener(new KeyAdapter() {
+			public void keyPressed(KeyEvent evt) {
+				if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+					showProductsInJTableDevice();
+				}
+			}
+		});
 	}
 
 	private boolean checkInputsDevice() {
@@ -94,7 +111,8 @@ public class DeviceJDBCSetDAO extends DeviceGui implements DeviceImplements {
 	public ArrayList<DeviceConfig> getDeviceProductList() {
 		ArrayList<DeviceConfig> productListDevice = new ArrayList<DeviceConfig>();
 		Connection con = DataBaseConnect.getConnection();
-		String query = "SELECT * FROM gepadatok ";
+		String query = "SELECT * FROM `gepadatok` WHERE CONCAT (`" + cmbDeviceSearch.getSelectedItem() + "`) LIKE '%"
+				+ txtSearchDevice.getText() + "%'";
 		Statement st = null;
 		ResultSet rs = null;
 		try {
@@ -139,7 +157,7 @@ public class DeviceJDBCSetDAO extends DeviceGui implements DeviceImplements {
 		for (int i = 0; i < listDevice.size(); i++) {
 			rowDevice[0] = listDevice.get(i).getClientName();
 			rowDevice[1] = listDevice.get(i).getDeviceName();
-			rowDevice[2] = listDevice.get(i).getSerial();
+			rowDevice[2] = listDevice.get(i).getStatus();
 			modelDevice.addRow(rowDevice);
 		}
 	}
@@ -187,9 +205,6 @@ public class DeviceJDBCSetDAO extends DeviceGui implements DeviceImplements {
 		}
 
 		// Image Set!!!
-		txtDeviceImageClientName.setText(getDeviceProductList().get(index).getClientName());
-		txtDeviceImageNameDevice.setText(getDeviceProductList().get(index).getDeviceName());
-		txtDeviceImageSerialDevice.setText(getDeviceProductList().get(index).getSerial());
 		txtDeviceImageIDDevice.setText(Integer.toString(getDeviceProductList().get(index).getIdg()));
 		txtDeviceImageID.setText(null);
 		// Softver set!!!
@@ -209,50 +224,61 @@ public class DeviceJDBCSetDAO extends DeviceGui implements DeviceImplements {
 			try {
 				Connection con = DataBaseConnect.getConnection();
 				PreparedStatement insertDevice = con
-						.prepareStatement("INSERT INTO gepadatok(ugyfel_nev, eszkoz_g, tipus,"
+						.prepareStatement("INSERT INTO gepadatok(ID_g, ugyfel_nev, eszkoz_g, tipus,"
 								+ "sorozatszam_g, allapot, prioritas, vasarlas_ido, rogzites,"
 								+ "hatarido, teljesitve, softwer, hardwer, takaritas, jelszo,"
 								+ "tartozekok, serules, hiba_leiras," + "valos_hiba, megrendelo_ID_m)"
-								+ "values(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?) ");
-				insertDevice.setString(1, txtClientDeviceName.getText());
-				insertDevice.setString(2, (String) cmBoxDevice.getItemAt(cmBoxDevice.getSelectedIndex()));
-				insertDevice.setString(3, txtTypeDevice.getText());
-				insertDevice.setString(4, txtSerialDevice.getText());
-				insertDevice.setString(5, (String) cmBoxStatusdevice.getItemAt(cmBoxStatusdevice.getSelectedIndex()));
-				insertDevice.setString(6,
-						(String) cmBoxPriorityDevice.getItemAt(cmBoxPriorityDevice.getSelectedIndex()));
+								+ "values(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?) ");
+				txtDeviceId.setText(DeviceIdentificationGenereator.random());
+				insertDevice.setString(1, txtDeviceId.getText());
+				insertDevice.setString(2, txtClientDeviceName.getText());
+				insertDevice.setString(3, (String) cmBoxDevice.getSelectedItem());
+				insertDevice.setString(4, txtTypeDevice.getText());
+				insertDevice.setString(5, txtSerialDevice.getText());
+				insertDevice.setString(6, (String) cmBoxStatusdevice.getSelectedItem());
+				insertDevice.setString(7, (String) cmBoxPriorityDevice.getSelectedItem());
 				SimpleDateFormat buyingDateFormat = new SimpleDateFormat("yyyy-MM-dd");
 				try {
 					buyingDateFormat.setLenient(false);
 					buyingDate = buyingDateFormat.format(txtDeviceBuyingDate.getDate());
 				} catch (Exception e) {
 				}
-				insertDevice.setString(7, buyingDate);
+				insertDevice.setString(8, buyingDate);
 				SimpleDateFormat addDateFormat = new SimpleDateFormat("yyyy-MM-dd");
 				String addDate = addDateFormat.format(txtWorkHourAddDate.getDate());
-				insertDevice.setString(8, addDate);
+				insertDevice.setString(9, addDate);
 				SimpleDateFormat endDateFormat = new SimpleDateFormat("yyyy-MM-dd");
 				String endDate = endDateFormat.format(txtWorkHourEndDate.getDate());
-				insertDevice.setString(9, endDate);
+				insertDevice.setString(10, endDate);
 				SimpleDateFormat completedDateFormat = new SimpleDateFormat("yyyy-MM-dd");
 				try {
 					completedDateFormat.setLenient(false);
 					completedDate = completedDateFormat.format(txtWorkHourCompletedDate.getDate());
 				} catch (Exception e) {
 				}
-				insertDevice.setString(10, completedDate);
-				insertDevice.setString(11,
-						(String) cmBoxDeviceSoftwer.getItemAt(cmBoxDeviceSoftwer.getSelectedIndex()));
-				insertDevice.setString(12,
-						(String) cmBoxDeviceInterchange.getItemAt(cmBoxDeviceInterchange.getSelectedIndex()));
-				insertDevice.setString(13, (String) cmBoxCleaning.getItemAt(cmBoxCleaning.getSelectedIndex()));
-				insertDevice.setString(14, txtDevicePassword.getText());
-				insertDevice.setString(15, txtAreaDeviceAccessory.getText());
-				insertDevice.setString(16, txtAreaInjury.getText());
-				insertDevice.setString(17, txtAreaComment.getText());
-				insertDevice.setString(18, txtAreaDeviceErrors.getText());
-				insertDevice.setString(19, txtClientDeviceId.getText());
+				insertDevice.setString(11, completedDate);
+				insertDevice.setString(12, (String) cmBoxDeviceSoftwer.getSelectedItem());
+				insertDevice.setString(13, (String) cmBoxDeviceInterchange.getSelectedItem());
+				insertDevice.setString(14, (String) cmBoxCleaning.getSelectedItem());
+				insertDevice.setString(15, txtDevicePassword.getText());
+				insertDevice.setString(16, txtAreaDeviceAccessory.getText());
+				insertDevice.setString(17, txtAreaInjury.getText());
+				insertDevice.setString(18, txtAreaComment.getText());
+				insertDevice.setString(19, txtAreaDeviceErrors.getText());
+				insertDevice.setString(20, txtClientDeviceId.getText());
 				insertDevice.executeUpdate();
+				PreparedStatement insertDeviceImage = con
+						.prepareStatement("INSERT INTO image_gep(gepadatok_ID_g)" + "values(?)");
+				insertDeviceImage.setString(1, txtDeviceId.getText());
+				insertDeviceImage.executeUpdate();
+				PreparedStatement insertDeviceSoftver = con
+						.prepareStatement("INSERT INTO software(gepadatok_ID_gs)" + "values(?)");
+				insertDeviceSoftver.setString(1, txtDeviceId.getText());
+				insertDeviceSoftver.executeUpdate();
+				PreparedStatement insertDeviceHardver = con
+						.prepareStatement("INSERT INTO alkatresz(gepadatok_ID_ga)" + "values(?)");
+				insertDeviceHardver.setString(1, txtDeviceId.getText());
+				insertDeviceHardver.executeUpdate();
 				showProductsInJTableDevice();
 				JOptionPane.showMessageDialog(null, "Adatok beillesztve");
 			} catch (SQLException ex) {
@@ -278,11 +304,11 @@ public class DeviceJDBCSetDAO extends DeviceGui implements DeviceImplements {
 						+ ", hiba_leiras = ?, valos_hiba = ?, megrendelo_ID_m = ? WHERE ID_g = ?";
 				ps = con.prepareStatement(updateDevice);
 				ps.setString(1, txtClientDeviceName.getText());
-				ps.setString(2, (String) cmBoxDevice.getItemAt(cmBoxDevice.getSelectedIndex()));
+				ps.setString(2, (String) cmBoxDevice.getSelectedItem());
 				ps.setString(3, txtTypeDevice.getText());
 				ps.setString(4, txtSerialDevice.getText());
-				ps.setString(5, (String) cmBoxStatusdevice.getItemAt(cmBoxStatusdevice.getSelectedIndex()));
-				ps.setString(6, (String) cmBoxPriorityDevice.getItemAt(cmBoxPriorityDevice.getSelectedIndex()));
+				ps.setString(5, (String) cmBoxStatusdevice.getSelectedItem());
+				ps.setString(6, (String) cmBoxPriorityDevice.getSelectedItem());
 				SimpleDateFormat buyingDateFormat = new SimpleDateFormat("yyyy-MM-dd");
 				try {
 					buyingDateFormat.setLenient(false);
@@ -303,8 +329,8 @@ public class DeviceJDBCSetDAO extends DeviceGui implements DeviceImplements {
 				} catch (Exception e) {
 				}
 				ps.setString(10, completedDate);
-				ps.setString(11, (String) cmBoxDeviceSoftwer.getItemAt(cmBoxDeviceSoftwer.getSelectedIndex()));
-				ps.setString(12, (String) cmBoxDeviceInterchange.getItemAt(cmBoxDeviceInterchange.getSelectedIndex()));
+				ps.setString(11, (String) cmBoxDeviceSoftwer.getSelectedItem());
+				ps.setString(12, (String) cmBoxDeviceInterchange.getSelectedItem());
 				ps.setString(13, (String) cmBoxCleaning.getItemAt(cmBoxCleaning.getSelectedIndex()));
 				ps.setString(14, txtDevicePassword.getText());
 				ps.setString(15, txtAreaDeviceAccessory.getText());
@@ -364,6 +390,7 @@ public class DeviceJDBCSetDAO extends DeviceGui implements DeviceImplements {
 		txtDevicePassword.setText(null);
 		txtAreaDeviceAccessory.setText(null);
 		txtAreaInjury.setText(null);
+		txtSearchDevice.setText(null);
 		showProductsInJTableDevice();
 	}
 

@@ -22,30 +22,24 @@ public class DeviceGui extends ClientJDBCSetDAO {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	protected JTextField txtSearchDevice;
+	protected JTextField txtSearchDevice, txtSerialDevice, txtDeviceId, txtDevicePassword, txtTypeDevice;
 	protected JTable jTableDevice;
-	protected JTextField txtSerialDevice;
-	protected JTextField txtDeviceId;
-	protected JButton btnNewDevice, btnNullDevice, btnEditDevice, jbtnDeleteDevice;
 	protected JComboBox<?> cmBoxStatusdevice, cmBoxPriorityDevice, cmBoxDeviceInterchange, cmBoxDeviceSoftwer,
-			cmBoxCleaning, cmBoxDevice;
-	protected JTextField txtDeviceImageClientName;
-	protected JTextField txtDeviceImageNameDevice;
-	protected JTextField txtDeviceImageSerialDevice;
-	protected JTextField txtDeviceImageDeviceId;
-	protected JPanel pnlWorkingHoursSetting, pnlSoftver, pnlFixture;
-	protected JTextField txtWorkingHoursDeviceName;
-	protected JTextField txtWorkingHoursDeviceSerial;
-	protected JDateChooser txtDeviceBuyingDate, txtWorkHourCompletedDate, txtWorkHourAddDate, txtWorkHourEndDate;
-	protected JTextField txtDeviceImageIDDevice;
-	protected JTextField txtDeviceImageID;
+			cmBoxCleaning, cmBoxDevice, cmbDeviceSearch;
 	protected JTextArea txtAreaComment, txtAreaDeviceErrors, txtAreaDeviceAccessory, txtAreaInjury;
-	private JLabel lbDevicelnterchange;
-	private JLabel lblSoftwerTelepts;
-	protected JTextField txtTypeDevice;
-	protected JTextField txtDevicePassword;
+	protected JDateChooser txtDeviceBuyingDate, txtWorkHourCompletedDate, txtWorkHourAddDate, txtWorkHourEndDate;
+
+	protected JButton btnNewDevice, btnNullDevice, btnEditDevice, jbtnDeleteDevice, btnSearchDevice;
+
+	protected JTextField txtDeviceImageID, txtDeviceImageIDDevice;
+
+	protected JPanel pnlWorkingHoursSetting, pnlSoftver, pnlFixture;
+
+	private JLabel lbDevicelnterchange, lblSoftwerTelepts;
+
 	protected JTextField txtSoftverDeviceName, txtSoftverserial, txtSoftverDeviceId;
 	protected JTextField txtFixtureDeviceName, txtFixtureDeviceSerial, txtFixtureDeviceId;
+	// txtWorkingHoursDeviceName,txtWorkingHoursDeviceSerial
 
 	public DeviceGui() {
 		lblClientDeviceName.setBounds(10, 11, 95, 35);
@@ -263,34 +257,41 @@ public class DeviceGui extends ClientJDBCSetDAO {
 
 		JPanel jpnSettingDevice = new JPanel();
 		jpnSettingDevice.setLayout(null);
-		jpnSettingDevice.setBounds(10, 11, 815, 63);
+		jpnSettingDevice.setBounds(10, 11, 1219, 63);
 		jplDevice.add(jpnSettingDevice);
 
 		jbtnDeleteDevice = new JButton("törlés");
-		jbtnDeleteDevice.setBounds(565, 12, 109, 37);
+		jbtnDeleteDevice.setBounds(981, 12, 109, 37);
 		jpnSettingDevice.add(jbtnDeleteDevice);
 
 		btnEditDevice = new JButton("szerkesztés");
-		btnEditDevice.setBounds(446, 12, 109, 37);
+		btnEditDevice.setBounds(862, 12, 109, 37);
 		jpnSettingDevice.add(btnEditDevice);
 
 		btnNewDevice = new JButton("új eszköz");
-		btnNewDevice.setBounds(327, 11, 109, 37);
+		btnNewDevice.setBounds(743, 12, 109, 37);
 		jpnSettingDevice.add(btnNewDevice);
 
 		txtSearchDevice = new JTextField();
+		txtSearchDevice.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		txtSearchDevice.setColumns(10);
 		txtSearchDevice.setBackground(new Color(127, 255, 212));
 		txtSearchDevice.setBounds(10, 13, 185, 35);
 		jpnSettingDevice.add(txtSearchDevice);
 
-		JButton btnSearchDevice = new JButton("keresés");
+		btnSearchDevice = new JButton("keresés");
 		btnSearchDevice.setBounds(208, 12, 109, 37);
 		jpnSettingDevice.add(btnSearchDevice);
 
 		btnNullDevice = new JButton("null");
-		btnNullDevice.setBounds(684, 12, 109, 37);
+		btnNullDevice.setBounds(1100, 12, 109, 37);
 		jpnSettingDevice.add(btnNullDevice);
+
+		String salesDeviceSearch[] = { "ugyfel_nev", "ID_g", "allapot" };
+		cmbDeviceSearch = new JComboBox<Object>(salesDeviceSearch);
+		cmbDeviceSearch.setFont(new Font("Tahoma", Font.PLAIN, 11));
+		cmbDeviceSearch.setBounds(327, 12, 189, 35);
+		jpnSettingDevice.add(cmbDeviceSearch);
 
 		JScrollPane jScpDevice = new JScrollPane();
 		jScpDevice.setBounds(10, 85, 356, 493);
@@ -404,14 +405,14 @@ public class DeviceGui extends ClientJDBCSetDAO {
 		pnlDevice.add(txtDeviceId);
 
 		txtTypeDevice = new JTextField();
-		txtTypeDevice.setBounds(103, 105, 189, 35);
+		txtTypeDevice.setBounds(103, 105, 294, 35);
 		pnlDevice.add(txtTypeDevice);
 		txtTypeDevice.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		txtTypeDevice.setColumns(10);
 		txtTypeDevice.setBackground(new Color(245, 255, 250));
 
 		txtSerialDevice = new JTextField();
-		txtSerialDevice.setBounds(103, 153, 189, 35);
+		txtSerialDevice.setBounds(103, 153, 294, 35);
 		pnlDevice.add(txtSerialDevice);
 		txtSerialDevice.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		txtSerialDevice.setColumns(10);
@@ -430,30 +431,6 @@ public class DeviceGui extends ClientJDBCSetDAO {
 		pnlDevice.add(txtWorkHourAddDate);
 		pnlDevice.add(txtWorkHourEndDate);
 		pnlDevice.add(txtWorkHourCompletedDate);
-
-		txtDeviceImageClientName = new JTextField();
-		txtDeviceImageClientName.setEnabled(false);
-		txtDeviceImageClientName.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		txtDeviceImageClientName.setColumns(10);
-		txtDeviceImageClientName.setBackground(new Color(245, 255, 250));
-		txtDeviceImageClientName.setBounds(318, 85, 189, 35);
-		jplDeviceImage.add(txtDeviceImageClientName);
-
-		txtDeviceImageNameDevice = new JTextField();
-		txtDeviceImageNameDevice.setEnabled(false);
-		txtDeviceImageNameDevice.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		txtDeviceImageNameDevice.setColumns(10);
-		txtDeviceImageNameDevice.setBackground(new Color(245, 255, 250));
-		txtDeviceImageNameDevice.setBounds(517, 85, 189, 35);
-		jplDeviceImage.add(txtDeviceImageNameDevice);
-
-		txtDeviceImageSerialDevice = new JTextField();
-		txtDeviceImageSerialDevice.setEnabled(false);
-		txtDeviceImageSerialDevice.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		txtDeviceImageSerialDevice.setColumns(10);
-		txtDeviceImageSerialDevice.setBackground(new Color(245, 255, 250));
-		txtDeviceImageSerialDevice.setBounds(716, 85, 189, 35);
-		jplDeviceImage.add(txtDeviceImageSerialDevice);
 
 		txtDeviceImageIDDevice = new JTextField();
 		txtDeviceImageIDDevice.setFont(new Font("Tahoma", Font.PLAIN, 14));

@@ -25,11 +25,13 @@ public class DeviceImageGui extends DeviceJDBCSetDAO {
 	protected JScrollPane scrlDeviceImage;
 
 	public DeviceImageGui() {
+		txtDeviceImageID.setLocation(835, 40);
+		txtDeviceImageIDDevice.setLocation(940, 40);
 
 		jlblDeviceImage = new JLabel();
 		jlblDeviceImage.setOpaque(true);
 		jlblDeviceImage.setBackground(new Color(204, 255, 255));
-		jlblDeviceImage.setBounds(322, 132, 907, 446);
+		jlblDeviceImage.setBounds(322, 86, 907, 492);
 		jplDeviceImage.add(jlblDeviceImage);
 
 		JPanel pnlDeviceImageSetting = new JPanel();
@@ -47,7 +49,7 @@ public class DeviceImageGui extends DeviceJDBCSetDAO {
 
 		btnDeviceImageNew = new JButton("új kép");
 		btnDeviceImageNew.setIcon(new ImageIcon("\\PNG\\Button Add-01.png"));
-		
+
 		btnDeviceImageNew.setBounds(327, 11, 109, 37);
 		pnlDeviceImageSetting.add(btnDeviceImageNew);
 
@@ -65,8 +67,8 @@ public class DeviceImageGui extends DeviceJDBCSetDAO {
 		btnDeviceImageUpload.setBounds(684, 12, 109, 37);
 		pnlDeviceImageSetting.add(btnDeviceImageUpload);
 
-		 scrlDeviceImage = new JScrollPane();
-		scrlDeviceImage.setBounds(10, 85, 298, 493);
+		scrlDeviceImage = new JScrollPane();
+		scrlDeviceImage.setBounds(10, 85, 302, 493);
 		jplDeviceImage.add(scrlDeviceImage);
 
 		jtblDeviceImage = new JTable();

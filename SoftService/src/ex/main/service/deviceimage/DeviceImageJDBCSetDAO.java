@@ -1,6 +1,8 @@
 package ex.main.service.deviceimage;
 
 import java.awt.Image;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -20,6 +22,7 @@ import javax.swing.JOptionPane;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.table.DefaultTableModel;
 
+import ex.main.sales.device.DeviceJDBCSetDAO;
 import ex.main.service.deviceimage.config.DeviceImageConfig;
 import ex.main.service.deviceimage.config.DeviceImageImplements;
 import ex.main.service.deviceimage.gui.DeviceImageGui;
@@ -31,6 +34,8 @@ public class DeviceImageJDBCSetDAO extends DeviceImageGui implements DeviceImage
 	 */
 	private static final long serialVersionUID = -1391054896161829962L;
 	String ImgPath = null;
+	private String[] rows;
+	private Object columns[][];
 
 	public DeviceImageJDBCSetDAO() {
 		setActionDeviceImage();
@@ -38,8 +43,10 @@ public class DeviceImageJDBCSetDAO extends DeviceImageGui implements DeviceImage
 	}
 
 	private void setActionDeviceImage() {
-		jtblDeviceImage.setModel(new javax.swing.table.DefaultTableModel(new Object[][] {},
-				new String[] { "ügyfél", "eszköz", "sorozatszám" }));
+		rows = new String[] { "ID", "eszköz azonosító", "kép" };
+		jtblDeviceImage.setModel(new javax.swing.table.DefaultTableModel(columns, rows));
+		jtblDeviceImage.getColumn("ID").setMinWidth(50);
+		jtblDeviceImage.getColumn("ID").setMaxWidth(50);
 		jtblDeviceImage.addMouseListener(new java.awt.event.MouseAdapter() {
 			public void mouseClicked(java.awt.event.MouseEvent evt) {
 				JTable_ProductsMouseClickedDeviceImage(evt);
@@ -70,11 +77,22 @@ public class DeviceImageJDBCSetDAO extends DeviceImageGui implements DeviceImage
 					return;
 			}
 		});
+		btnDeviceImageSearch.addMouseListener(new java.awt.event.MouseAdapter() {
+			public void mouseClicked(java.awt.event.MouseEvent evt) {
+				showProductsInJTableDeviceImage();
+			}
+		});
+		txtDeviceImageSearch.addKeyListener(new KeyAdapter() {
+			public void keyPressed(KeyEvent evt) {
+				if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+					showProductsInJTableDeviceImage();
+				}
+			}
+		});
 	}
 
 	private boolean checkInputsDeviceImage() {
-		if (txtDeviceImageClientName.getText().trim().isEmpty() || txtDeviceImageNameDevice.getText().trim().isEmpty()
-				|| txtDeviceImageSerialDevice.getText().trim().isEmpty()) {
+		if (txtDeviceImageIDDevice.getText().trim().isEmpty()) {
 			return false;
 		} else {
 			try {
@@ -111,21 +129,35 @@ public class DeviceImageJDBCSetDAO extends DeviceImageGui implements DeviceImage
 	public ArrayList<DeviceImageConfig> getDeviceImageProductList() {
 		ArrayList<DeviceImageConfig> productListDeviceImage = new ArrayList<DeviceImageConfig>();
 		Connection con = DataBaseConnect.getConnection();
-		String query = "SELECT * FROM image_gep ";
-		Statement st;
-		ResultSet rs;
+		String query = "SELECT * FROM `image_gep`WHERE CONCAT (`gepadatok_ID_g`) LIKE '%"
+				+ txtDeviceImageSearch.getText() + "%' ";
+		Statement st = null;
+		ResultSet rs = null;
 		try {
 			st = con.createStatement();
 			rs = st.executeQuery(query);
 			DeviceImageConfig product;
 			while (rs.next()) {
-				product = new DeviceImageConfig(rs.getInt("ID_image_gep"), rs.getString("ugyfel_nev_i"),
-						rs.getString("eszkoz_nev"), rs.getString("sorozatszam_i"), rs.getInt("gepadatok_ID_g"),
+				product = new DeviceImageConfig(rs.getInt("ID_image_gep"), rs.getInt("gepadatok_ID_g"),
 						rs.getBytes("Image_i"));
 				productListDeviceImage.add(product);
 			}
 		} catch (SQLException ex) {
 			Logger.getLogger(DeviceImageJDBCSetDAO.class.getName()).log(Level.SEVERE, null, ex);
+		} finally {
+			try {
+				if (rs != null) {
+					rs.close();
+				}
+				if (st != null) {
+					st.close();
+				}
+				if (con != null) {
+					con.close();
+				}
+			} catch (SQLException e) {
+				Logger.getLogger(DeviceJDBCSetDAO.class.getName()).log(Level.SEVERE, null, e);
+			}
 		}
 		return productListDeviceImage;
 	}
@@ -136,17 +168,15 @@ public class DeviceImageJDBCSetDAO extends DeviceImageGui implements DeviceImage
 		modelDevice.setRowCount(0);
 		Object[] rowDevice = new Object[3];
 		for (int i = 0; i < listDeviceImage.size(); i++) {
-			rowDevice[0] = listDeviceImage.get(i).getClientName();
-			rowDevice[1] = listDeviceImage.get(i).getDeviceImageName();
-			rowDevice[2] = listDeviceImage.get(i).getDeviceSerial();
+			rowDevice[0] = listDeviceImage.get(i).getDeviceImageId();
+			rowDevice[1] = listDeviceImage.get(i).getDeviceId();
+			rowDevice[2] = listDeviceImage.get(i).getPicture();
+
 			modelDevice.addRow(rowDevice);
 		}
 	}
 
 	private void ShowItemDeviceImage(int index) {
-		txtDeviceImageClientName.setText(getDeviceImageProductList().get(index).getClientName());
-		txtDeviceImageNameDevice.setText(getDeviceImageProductList().get(index).getDeviceImageName());
-		txtDeviceImageSerialDevice.setText(getDeviceImageProductList().get(index).getDeviceSerial());
 		txtDeviceImageIDDevice.setText((Integer.toString(getDeviceImageProductList().get(index).getDeviceId())));
 		txtDeviceImageID.setText((Integer.toString(getDeviceImageProductList().get(index).getDeviceImageId())));
 		jlblDeviceImage.setIcon(ResizeImage(null, getDeviceImageProductList().get(index).getPicture()));
@@ -174,14 +204,10 @@ public class DeviceImageJDBCSetDAO extends DeviceImageGui implements DeviceImage
 			try {
 				Connection con = DataBaseConnect.getConnection();
 				PreparedStatement insertDeviceImage = con
-						.prepareStatement("INSERT INTO image_gep(ugyfel_nev_i, eszkoz_nev,"
-								+ "sorozatszam_i, gepadatok_ID_g, Image_i)" + "values(?,?,?,?,?) ");
-				insertDeviceImage.setString(1, txtDeviceImageClientName.getText());
-				insertDeviceImage.setString(2, txtDeviceImageNameDevice.getText());
-				insertDeviceImage.setString(3, txtDeviceImageSerialDevice.getText());
-				insertDeviceImage.setString(4, txtDeviceImageIDDevice.getText());
+						.prepareStatement("INSERT INTO image_gep(gepadatok_ID_g, Image_i)" + "values(?,?) ");
+				insertDeviceImage.setString(1, txtDeviceImageIDDevice.getText());
 				InputStream img = new FileInputStream(new File(ImgPath));
-				insertDeviceImage.setBlob(5, img);
+				insertDeviceImage.setBlob(2, img);
 				insertDeviceImage.executeUpdate();
 				showProductsInJTableDeviceImage();
 				JOptionPane.showMessageDialog(null, "Adatok beillesztve");
@@ -196,21 +222,18 @@ public class DeviceImageJDBCSetDAO extends DeviceImageGui implements DeviceImage
 	}
 
 	private void jBtnUpdateActionPerformedDeviceImage(java.awt.event.ActionEvent evt) {
-		if (checkInputsDeviceImage()) {
+		if (checkInputsDeviceImage() && ImgPath != null) {
 			String updateDevice = null;
 			PreparedStatement psDeviceImage = null;
 			Connection con = DataBaseConnect.getConnection();
 			try {
-				updateDevice = "UPDATE image_gep SET ugyfel_nev_i = ?, eszkoz_nev = ?"
-						+ ", sorozatszam_i = ?, Image_i = ?, gepadatok_ID_g = ? WHERE ID_image_gep = ?";
+				updateDevice = "UPDATE image_gep SET  Image_i = ?, gepadatok_ID_g = ? WHERE ID_image_gep = ?";
 				psDeviceImage = con.prepareStatement(updateDevice);
-				psDeviceImage.setString(1, txtDeviceImageClientName.getText());
-				psDeviceImage.setString(2, txtDeviceImageNameDevice.getText());
-				psDeviceImage.setString(3, txtDeviceImageSerialDevice.getText());
+
 				InputStream img = new FileInputStream(new File(ImgPath));
-				psDeviceImage.setBlob(4, img);
-				psDeviceImage.setString(5, txtDeviceImageIDDevice.getText());
-				psDeviceImage.setString(6, txtDeviceImageID.getText());
+				psDeviceImage.setBlob(1, img);
+				psDeviceImage.setString(2, txtDeviceImageIDDevice.getText());
+				psDeviceImage.setString(3, txtDeviceImageID.getText());
 				psDeviceImage.executeUpdate();
 				showProductsInJTableDeviceImage();
 				JOptionPane.showMessageDialog(null, "Sikeres Frissítés");
