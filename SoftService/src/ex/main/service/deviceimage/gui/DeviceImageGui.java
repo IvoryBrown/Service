@@ -20,13 +20,14 @@ public class DeviceImageGui extends DeviceJDBCSetDAO {
 	protected JTextField txtDeviceImageSearch;
 	protected JTable jtblDeviceImage;
 	protected JButton btnDeviceImageSearch, btnDeviceImageDelete, btnDeviceImageNew, btnDeviceImageEdit,
-			btnDeviceImageUpload;
+			btnDeviceImageUpload, btnUpdate;
 	protected JLabel jlblDeviceImage;
 	protected JScrollPane scrlDeviceImage;
+	
 
 	public DeviceImageGui() {
-		txtDeviceImageID.setLocation(835, 40);
-		txtDeviceImageIDDevice.setLocation(940, 40);
+		txtDeviceImageID.setLocation(977, 40);
+		txtDeviceImageIDDevice.setLocation(1082, 40);
 
 		jlblDeviceImage = new JLabel();
 		jlblDeviceImage.setOpaque(true);
@@ -36,7 +37,7 @@ public class DeviceImageGui extends DeviceJDBCSetDAO {
 
 		JPanel pnlDeviceImageSetting = new JPanel();
 		pnlDeviceImageSetting.setLayout(null);
-		pnlDeviceImageSetting.setBounds(10, 11, 815, 63);
+		pnlDeviceImageSetting.setBounds(10, 11, 942, 63);
 		jplDeviceImage.add(pnlDeviceImageSetting);
 
 		btnDeviceImageSearch = new JButton("keresés");
@@ -66,6 +67,10 @@ public class DeviceImageGui extends DeviceJDBCSetDAO {
 		btnDeviceImageUpload = new JButton("kép feltöltés");
 		btnDeviceImageUpload.setBounds(684, 12, 109, 37);
 		pnlDeviceImageSetting.add(btnDeviceImageUpload);
+		
+		btnUpdate = new JButton("null");
+		btnUpdate.setBounds(803, 12, 109, 37);
+		pnlDeviceImageSetting.add(btnUpdate);
 
 		scrlDeviceImage = new JScrollPane();
 		scrlDeviceImage.setBounds(10, 85, 302, 493);

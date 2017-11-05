@@ -2,6 +2,8 @@ package ex.main.service.worksheet;
 
 import java.awt.Color;
 import java.awt.Component;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -27,20 +29,22 @@ public class WorkSheetJDBCSetDao extends WorksheetGui implements WorkSheetImplem
 	 */
 	private static final long serialVersionUID = 1L;
 	private String[] row;
-	private static final int ENDDATE_COL = 8;
-	private static final int PRIORYT_COL = 4;
+	private static final int ENDDATE_COL = 9;
+	private static final int PRIORYT_COL = 5;
 
 	public WorkSheetJDBCSetDao() {
 		setComponentJdbc();
 		showProductsInJTableWorkSheet();
 		getNewRenderedTable(tblWorksheet);
-}
+	}
 
 	private void setComponentJdbc() {
 
-		row = new String[] { "azonosító", "ügyfél", "e. azonosító", "eszköz", "állapot", "prioritás", "rögzítés",
+		row = new String[] { " ","azonosító", "ügyfél", "e. azonosító", "eszköz", "állapot", "prioritás", "rögzítés",
 				"határidő", "lezárva" };
 		tblWorksheet.setModel(new javax.swing.table.DefaultTableModel(new Object[][] {}, row));
+		tblWorksheet.getColumn(" ").setMinWidth(36);
+		tblWorksheet.getColumn(" ").setMaxWidth(36);
 		// oszlop méretezés
 		// tblWorksheet.getColumn("ID").setMaxWidth(36);
 		// oszlopok rendezés letíltás
@@ -57,13 +61,26 @@ public class WorkSheetJDBCSetDao extends WorksheetGui implements WorkSheetImplem
 				dispose();
 			}
 		});
+		btnSearch.addMouseListener(new java.awt.event.MouseAdapter() {
+			public void mouseClicked(java.awt.event.MouseEvent evt) {
+				showProductsInJTableWorkSheet();
+			}
+		});
+		txtSearch.addKeyListener(new KeyAdapter() {
+			public void keyPressed(KeyEvent evt) {
+				if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+					showProductsInJTableWorkSheet();
+				}
+			}
+		});
 	}
 
 	@Override
 	public ArrayList<WorkSheetConfig> getWorkShettProductList() {
 		ArrayList<WorkSheetConfig> productList = new ArrayList<WorkSheetConfig>();
 		Connection con = DataBaseConnect.getConnection();
-		String query = "SELECT * FROM megrendelo " + " JOIN gepadatok ON megrendelo_ID_m = ID_m";
+		String query = "SELECT * FROM megrendelo " + " JOIN gepadatok ON megrendelo_ID_m = ID_m WHERE CONCAT (`"
+				+ cmbSearch.getSelectedItem() + "`) LIKE '%" + txtSearch.getText() + "%'";
 		Statement st = null;
 		ResultSet rs = null;
 		try {
@@ -100,20 +117,22 @@ public class WorkSheetJDBCSetDao extends WorksheetGui implements WorkSheetImplem
 		ArrayList<WorkSheetConfig> list = getWorkShettProductList();
 		DefaultTableModel model = (DefaultTableModel) tblWorksheet.getModel();
 		model.setRowCount(0);
-		Object[] row = new Object[9];
+		Object[] row = new Object[10];
 		for (int i = 0; i < list.size(); i++) {
-			row[0] = list.get(i).getClientNameNumber();
-			row[1] = list.get(i).getClientNameWorkSheet();
-			row[2] = list.get(i).getDeviceId();
-			row[3] = list.get(i).getDeviceNameWorkSheet();
-			row[4] = list.get(i).getStatusWorkSheet();
-			row[5] = list.get(i).getPrioritWorkSheet();
-			row[6] = list.get(i).getAddDateWorkSheet();
-			row[7] = list.get(i).getEndDateWorkSheet();
-			row[8] = list.get(i).getCompleteDateWorkSheet();
+			row[0] = i+1;
+			row[1] = list.get(i).getClientNameNumber();
+			row[2] = list.get(i).getClientNameWorkSheet();
+			row[3] = list.get(i).getDeviceId();
+			row[4] = list.get(i).getDeviceNameWorkSheet();
+			row[5] = list.get(i).getStatusWorkSheet();
+			row[6] = list.get(i).getPrioritWorkSheet();
+			row[7] = list.get(i).getAddDateWorkSheet();
+			row[8] = list.get(i).getEndDateWorkSheet();
+			row[9] = list.get(i).getCompleteDateWorkSheet();
 			model.addRow(row);
 		}
 	}
+
 	@SuppressWarnings("serial")
 	private JTable getNewRenderedTable(JTable table) {
 		table.setDefaultRenderer(Object.class, new DefaultTableCellRenderer() {
@@ -123,15 +142,15 @@ public class WorkSheetJDBCSetDao extends WorksheetGui implements WorkSheetImplem
 				super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, col);
 				String endDate = (String) table.getModel().getValueAt(row, ENDDATE_COL);
 				String pryorit = (String) table.getModel().getValueAt(row, PRIORYT_COL);
-				if (endDate == null && "Új gép".equals(pryorit)) {
+				if ("Új gép".equals(pryorit) && endDate == null) {
 					setForeground(Color.WHITE);
-				} else if (endDate == null && "Bevizgálás alatt".equals(pryorit)) {
+				} else if ("Bevizsgálás alatt".equals(pryorit) && endDate == null) {
 					setForeground(Color.WHITE);
-				} else if (endDate == null && "Alkatrészre vár".equals(pryorit)) {
+				} else if ("Alkatrészre vár".equals(pryorit) && endDate == null) {
 					setForeground(Color.WHITE);
-				} else if (endDate == null && "Garanciális".equals(pryorit)) {
+				} else if ("Garanciális".equals(pryorit) && endDate == null) {
 					setForeground(Color.WHITE);
-				} else if (endDate == null && "Továbbküldve".equals(pryorit)) {
+				} else if ("Továbbküldve".equals(pryorit) && endDate == null) {
 					setForeground(Color.WHITE);
 				} else if ("Kiadva".equals(pryorit) && endDate != null) {
 					setForeground(new Color(153, 0, 0));
@@ -145,7 +164,9 @@ public class WorkSheetJDBCSetDao extends WorksheetGui implements WorkSheetImplem
 		});
 		return table;
 	}
+
 	private void JTableProductsMouseClicked(java.awt.event.MouseEvent evt) {
+		txtSearch.setText(null);
 		showProductsInJTableWorkSheet();
 	}
 }

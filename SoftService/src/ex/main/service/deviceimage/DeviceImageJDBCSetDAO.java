@@ -89,6 +89,11 @@ public class DeviceImageJDBCSetDAO extends DeviceImageGui implements DeviceImage
 				}
 			}
 		});
+		btnUpdate.addMouseListener(new java.awt.event.MouseAdapter() {
+			public void mouseClicked(java.awt.event.MouseEvent evt) {
+				showProductsInJTableDeviceImage();
+			}
+		});
 	}
 
 	private boolean checkInputsDeviceImage() {

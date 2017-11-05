@@ -15,6 +15,8 @@ public class PasswordJDBCSet extends PasswordGui {
 	 */
 	private static final long serialVersionUID = 1L;
 	protected PasswordDB db;
+	Integer j;
+	
 
 	public PasswordJDBCSet() {
 		setActionPassword();
@@ -34,7 +36,6 @@ public class PasswordJDBCSet extends PasswordGui {
 					} else {
 						JOptionPane.showMessageDialog(null, "Nem meg felelő név vagy jelszó!", "Hiba!!",
 								JOptionPane.ERROR_MESSAGE);
-						System.exit(0);
 					}
 				}
 
@@ -53,7 +54,6 @@ public class PasswordJDBCSet extends PasswordGui {
 					} else {
 						JOptionPane.showMessageDialog(null, "Nem meg felelő név vagy jelszó!", "Hiba!!",
 								JOptionPane.ERROR_MESSAGE);
-						System.exit(0);
 					}
 				}
 
@@ -72,7 +72,6 @@ public class PasswordJDBCSet extends PasswordGui {
 					} else {
 						JOptionPane.showMessageDialog(null, "Nem meg felelő név vagy jelszó!", "Hiba!!",
 								JOptionPane.ERROR_MESSAGE);
-						System.exit(0);
 					}
 				}
 			}

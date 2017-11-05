@@ -14,6 +14,7 @@ public class PasswordDB {
 	Connection con;
 	PreparedStatement pst;
 	ResultSet rs;
+	protected int jog;
 
 	public PasswordDB() {
 		try {
@@ -53,5 +54,9 @@ public class PasswordDB {
 				Logger.getLogger(PasswordDB.class.getName()).log(Level.SEVERE, null, e);
 			}
 		}
+	}
+
+	public Integer jog(Integer j) {
+		return j;
 	}
 }

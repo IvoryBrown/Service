@@ -9,6 +9,9 @@ import javax.swing.JTable;
 
 import ex.main.service.fixture.FixtureJDBCSetDAO;
 import java.awt.Color;
+import javax.swing.JTextField;
+import java.awt.Font;
+import javax.swing.JComboBox;
 
 public class WorksheetGui extends FixtureJDBCSetDAO {
 	/**
@@ -18,8 +21,9 @@ public class WorksheetGui extends FixtureJDBCSetDAO {
 	protected JTable tblWorksheet;
 	protected JButton btnUpdate;
 	protected JScrollPane scrollPane;
-	protected JButton btnBack;
-	
+	protected JButton btnBack, btnSearch;
+	protected JTextField txtSearch;
+	protected JComboBox<Object> cmbSearch;
 
 	public WorksheetGui() {
 		setComponent();
@@ -41,11 +45,26 @@ public class WorksheetGui extends FixtureJDBCSetDAO {
 		btnUpdate.setIcon(new ImageIcon(WorksheetGui.class.getResource("/icon/tango/22x22/actions/view-refresh.png")));
 		btnUpdate.setBounds(1120, 545, 109, 37);
 		jplWorksheet.add(btnUpdate);
-		
+
 		btnBack = new JButton("Vissza");
 		btnBack.setBounds(1001, 545, 109, 37);
 		jplWorksheet.add(btnBack);
-	}
 
-	 
+		txtSearch = new JTextField();
+		txtSearch.setFont(new Font("Tahoma", Font.BOLD, 14));
+		txtSearch.setColumns(10);
+		txtSearch.setBackground(new Color(153, 204, 204));
+		txtSearch.setBounds(10, 545, 173, 35);
+		jplWorksheet.add(txtSearch);
+
+		String shearch[] = { "nev", "azonosito_m", "ID_g" };
+		cmbSearch = new JComboBox<Object>(shearch);
+		cmbSearch.setFont(new Font("Tahoma", Font.BOLD, 11));
+		cmbSearch.setBounds(193, 545, 231, 35);
+		jplWorksheet.add(cmbSearch);
+
+		btnSearch = new JButton("keresés");
+		btnSearch.setBounds(434, 545, 109, 37);
+		jplWorksheet.add(btnSearch);
+	}
 }

@@ -25,8 +25,8 @@ import ex.main.setting.database.DataBaseConnect;
 public class WorkTableJDBCSetDAO extends WorkTableGui implements WorkTableImplements {
 	private String[] rows;
 	private Object columns[][];
-	private static final int ENDDATE_COL = 11;
-	private static final int PRIORYT_COL = 6;
+	private static final int ENDDATE_COL = 12;
+	private static final int PRIORYT_COL = 7;
 
 	public WorkTableJDBCSetDAO() {
 		setComponent();
@@ -41,9 +41,11 @@ public class WorkTableJDBCSetDAO extends WorkTableGui implements WorkTableImplem
 	private static final long serialVersionUID = -7705930576442305488L;
 
 	private void setComponent() {
-		rows = new String[] { "azonosító", "ügyfél", "kapcsolat", "lakcím", "e. azonosító", "eszköz", "állapot",
+		rows = new String[] { " ", "azonosító", "ügyfél", "kapcsolat", "lakcím", "e. azonosító", "eszköz", "állapot",
 				"prioritás", "vásárlás", "rögzítés", "határidő", "teljesítve" };
 		jtblSalesWorkTable.setModel(new javax.swing.table.DefaultTableModel(columns, rows));
+		jtblSalesWorkTable.getColumn(" ").setMinWidth(36);
+		jtblSalesWorkTable.getColumn(" ").setMaxWidth(36);
 		jtblSalesWorkTable.getColumn("azonosító").setMinWidth(100);
 		jtblSalesWorkTable.getColumn("azonosító").setMaxWidth(100);
 		jtblSalesWorkTable.getColumn("ügyfél").setMinWidth(160);
@@ -126,7 +128,7 @@ public class WorkTableJDBCSetDAO extends WorkTableGui implements WorkTableImplem
 				String pryorit = (String) table.getModel().getValueAt(row, PRIORYT_COL);
 				if (endDate == null && "Új gép".equals(pryorit)) {
 					setForeground(Color.WHITE);
-				} else if (endDate == null && "Bevizgálás alatt".equals(pryorit)) {
+				} else if (endDate == null && "Bevizsgálás alatt".equals(pryorit)) {
 					setForeground(Color.WHITE);
 				} else if (endDate == null && "Alkatrészre vár".equals(pryorit)) {
 					setForeground(Color.WHITE);
@@ -157,8 +159,7 @@ public class WorkTableJDBCSetDAO extends WorkTableGui implements WorkTableImplem
 
 			insertWork = con.createStatement();
 			String searchQuery = "SELECT * FROM `megrendelo` JOIN gepadatok ON megrendelo_ID_m = ID_m  WHERE CONCAT (`"
-					+ cmbWorkSearch.getItemAt(cmbWorkSearch.getSelectedIndex()) + "`) LIKE '%" + txtWorkSearch.getText()
-					+ "%'";
+					+ cmbWorkSearch.getSelectedItem() + "`) LIKE '%" + txtWorkSearch.getText() + "%'";
 			rs = insertWork.executeQuery(searchQuery);
 			WorkTableConfig workSearch;
 			while (rs.next()) {
@@ -196,20 +197,21 @@ public class WorkTableJDBCSetDAO extends WorkTableGui implements WorkTableImplem
 		ArrayList<WorkTableConfig> list = getWorktableSearchProductList();
 		DefaultTableModel model = (DefaultTableModel) jtblSalesWorkTable.getModel();
 		model.setRowCount(0);
-		Object[] row = new Object[12];
+		Object[] row = new Object[13];
 		for (int i = 0; i < list.size(); i++) {
-			row[0] = list.get(i).getWorkTableClientNumber();
-			row[1] = list.get(i).getWorkTableClientName();
-			row[2] = list.get(i).getWorkTableClientMobil();
-			row[3] = list.get(i).getWorkTableClientHomeAddress();
-			row[4] = list.get(i).getWorkTableDeviceID();
-			row[5] = list.get(i).getWorkTableDeviceName();
-			row[6] = list.get(i).getWorkTableDeviceStatus();
-			row[7] = list.get(i).getWorkTableDevicePriorit();
-			row[8] = list.get(i).getWorkTableDeviceBuyingDate();
-			row[9] = list.get(i).getWorkTableDeviceAddDate();
-			row[10] = list.get(i).getWorkTableDeviceExitDate();
-			row[11] = list.get(i).getWorkTableDeviceCompletedDate();
+			row[0] = i + 1;
+			row[1] = list.get(i).getWorkTableClientNumber();
+			row[2] = list.get(i).getWorkTableClientName();
+			row[3] = list.get(i).getWorkTableClientMobil();
+			row[4] = list.get(i).getWorkTableClientHomeAddress();
+			row[5] = list.get(i).getWorkTableDeviceID();
+			row[6] = list.get(i).getWorkTableDeviceName();
+			row[7] = list.get(i).getWorkTableDeviceStatus();
+			row[8] = list.get(i).getWorkTableDevicePriorit();
+			row[9] = list.get(i).getWorkTableDeviceBuyingDate();
+			row[10] = list.get(i).getWorkTableDeviceAddDate();
+			row[11] = list.get(i).getWorkTableDeviceExitDate();
+			row[12] = list.get(i).getWorkTableDeviceCompletedDate();
 
 			model.addRow(row);
 		}
