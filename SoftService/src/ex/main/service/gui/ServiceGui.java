@@ -2,15 +2,12 @@ package ex.main.service.gui;
 
 import java.awt.Color;
 import java.awt.FlowLayout;
-import java.awt.Font;
 import java.awt.Toolkit;
 
 import javax.swing.Icon;
 import javax.swing.JFrame;
-import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
-import javax.swing.SwingConstants;
 
 import ex.main.setting.centerwindow.CenterWindow;
 import ex.main.setting.database.DataBaseConnect;
@@ -72,13 +69,6 @@ public class ServiceGui extends JFrame {
 		
 		jplFixture = new JPanel();
 		jTbdPane.addTab("Alkatrész", null, jplFixture, null);
-
-		JLabel lblNewLabel = new JLabel("Verzió: 1.0.0");
-		lblNewLabel.setBounds(1152, 623, 82, 16);
-		lblNewLabel.setForeground(new Color(0, 128, 0));
-		lblNewLabel.setHorizontalAlignment(SwingConstants.RIGHT);
-		lblNewLabel.setFont(new Font("Tahoma", Font.BOLD, 13));
-		jplMainPanel.add(lblNewLabel);
 
 		panel = new JPanel();
 		panel.setBounds(5, 623, 225, 23);

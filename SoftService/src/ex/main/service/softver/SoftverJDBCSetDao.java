@@ -1,5 +1,7 @@
 package ex.main.service.softver;
 
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -12,6 +14,7 @@ import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
+import ex.main.service.client.ClientJDBCSetDAO;
 import ex.main.service.softver.config.SoftverConfig;
 import ex.main.service.softver.config.SoftverImplements;
 import ex.main.service.softver.gui.SoftverGui;
@@ -30,12 +33,12 @@ public class SoftverJDBCSetDao extends SoftverGui implements SoftverImplements {
 	}
 
 	private void setActionSoftver() {
-		columns = new String[] { "eszköz", "serial", "softver" };
+		columns = new String[] { "ID", "azonosító", "softver" };
 		tblSoftver.setModel(new javax.swing.table.DefaultTableModel(new Object[][] {}, columns));
-		tblSoftver.getColumn("eszköz").setMinWidth(120);
-		tblSoftver.getColumn("eszköz").setMaxWidth(120);
-		tblSoftver.getColumn("serial").setMinWidth(150);
-		tblSoftver.getColumn("serial").setMaxWidth(150);
+		tblSoftver.getColumn("ID").setMinWidth(50);
+		tblSoftver.getColumn("ID").setMaxWidth(50);
+		tblSoftver.getColumn("azonosító").setMinWidth(80);
+		tblSoftver.getColumn("azonosító").setMaxWidth(80);
 		tblSoftver.getTableHeader().setReorderingAllowed(false);
 
 		tblSoftver.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -68,11 +71,23 @@ public class SoftverJDBCSetDao extends SoftverGui implements SoftverImplements {
 				btnNullShowPerformedSoftver(evt);
 			}
 		});
+		btnSoftverSearch.addMouseListener(new java.awt.event.MouseAdapter() {
+			public void mouseClicked(java.awt.event.MouseEvent evt) {
+				showProductsInJTableSoftver();
+			}
+		});
+		txtSoftverSearch.addKeyListener(new KeyAdapter() {
+			public void keyPressed(KeyEvent evt) {
+				if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+					showProductsInJTableSoftver();
+				}
+			}
+		});
+
 	}
 
 	private boolean checkInputsSoftver() {
-		if (txtSoftverDeviceId.getText().trim().isEmpty() || txtSoftverDeviceName.getText().trim().isEmpty()
-				|| txtSoftverserial.getText().trim().isEmpty()) {
+		if (txtSoftverDeviceId.getText().trim().isEmpty() || cmbSoftverName.getSelectedItem() == null) {
 			return false;
 		} else {
 			return true;
@@ -84,21 +99,35 @@ public class SoftverJDBCSetDao extends SoftverGui implements SoftverImplements {
 	public ArrayList<SoftverConfig> getSoftverProductList() {
 		ArrayList<SoftverConfig> productListSoftver = new ArrayList<SoftverConfig>();
 		Connection con = DataBaseConnect.getConnection();
-		String query = "SELECT * FROM software ";
-		Statement st;
-		ResultSet rs;
+		String query = "SELECT * FROM `software` WHERE CONCAT (`gepadatok_ID_gs`) LIKE '%" + txtSoftverSearch.getText()
+				+ "%'";
+		Statement st = null;
+		ResultSet rs = null;
 		try {
 			st = con.createStatement();
 			rs = st.executeQuery(query);
 			SoftverConfig product;
 			while (rs.next()) {
-				product = new SoftverConfig(rs.getInt("ID_sofware"), rs.getString("eszkoz_nev_s"),
-						rs.getString("serial"), rs.getString("software"), rs.getString("megjegyzes_s"),
-						rs.getInt("gepadatok_ID_gs"));
+				product = new SoftverConfig(rs.getInt("ID_sofware"), rs.getString("software"),
+						rs.getString("megjegyzes_s"), rs.getInt("gepadatok_ID_gs"));
 				productListSoftver.add(product);
 			}
 		} catch (SQLException ex) {
 			Logger.getLogger(SoftverJDBCSetDao.class.getName()).log(Level.SEVERE, null, ex);
+		} finally {
+			try {
+				if (rs != null) {
+					rs.close();
+				}
+				if (st != null) {
+					st.close();
+				}
+				if (con != null) {
+					con.close();
+				}
+			} catch (SQLException e) {
+				Logger.getLogger(ClientJDBCSetDAO.class.getName()).log(Level.SEVERE, null, e);
+			}
 		}
 		return productListSoftver;
 	}
@@ -109,8 +138,8 @@ public class SoftverJDBCSetDao extends SoftverGui implements SoftverImplements {
 		model.setRowCount(0);
 		Object[] row = new Object[3];
 		for (int i = 0; i < list.size(); i++) {
-			row[0] = list.get(i).getSoftverDeviceName();
-			row[1] = list.get(i).getSoftverDeviceSerial();
+			row[0] = list.get(i).getSoftverId();
+			row[1] = list.get(i).getSoftverDeviceId();
 			row[2] = list.get(i).getSoftverName();
 			model.addRow(row);
 		}
@@ -118,9 +147,7 @@ public class SoftverJDBCSetDao extends SoftverGui implements SoftverImplements {
 
 	private void ShowItemSoftver(int index) {
 		txtSoftverDeviceId.setText(Integer.toString(getSoftverProductList().get(index).getSoftverDeviceId()));
-		txtSoftverDeviceName.setText(getSoftverProductList().get(index).getSoftverDeviceName());
 		txtSoftverID.setText(Integer.toString(getSoftverProductList().get(index).getSoftverId()));
-		txtSoftverserial.setText(getSoftverProductList().get(index).getSoftverDeviceSerial());
 		txtAreaSoftverComment.setText(getSoftverProductList().get(index).getSoftverComment());
 		cmbSoftverName.setSelectedItem(getSoftverProductList().get(index).getSoftverName());
 	}
@@ -129,13 +156,11 @@ public class SoftverJDBCSetDao extends SoftverGui implements SoftverImplements {
 		if (checkInputsSoftver()) {
 			try {
 				Connection con = DataBaseConnect.getConnection();
-				PreparedStatement insertInto = con.prepareStatement("INSERT INTO software(eszkoz_nev_s, serial,"
-						+ "software, megjegyzes_s, gepadatok_ID_gs)" + "values(?,?,?,?,?) ");
-				insertInto.setString(1, txtSoftverDeviceName.getText());
-				insertInto.setString(2, txtSoftverserial.getText());
-				insertInto.setString(3, (String) cmbSoftverName.getItemAt(cmbSoftverName.getSelectedIndex()));
-				insertInto.setString(4, txtAreaSoftverComment.getText());
-				insertInto.setString(5, txtSoftverDeviceId.getText());
+				PreparedStatement insertInto = con.prepareStatement(
+						"INSERT INTO software(software, megjegyzes_s, gepadatok_ID_gs)" + "values(?,?,?) ");
+				insertInto.setString(1, (String) cmbSoftverName.getSelectedItem());
+				insertInto.setString(2, txtAreaSoftverComment.getText());
+				insertInto.setString(3, txtSoftverDeviceId.getText());
 				insertInto.executeUpdate();
 				showProductsInJTableSoftver();
 				JOptionPane.showMessageDialog(null, "Adatok beillesztve");
@@ -153,15 +178,12 @@ public class SoftverJDBCSetDao extends SoftverGui implements SoftverImplements {
 			PreparedStatement ps = null;
 			Connection con = DataBaseConnect.getConnection();
 			try {
-				update = "UPDATE software SET eszkoz_nev_s = ?, serial = ?"
-						+ ", software = ?, megjegyzes_s = ?, gepadatok_ID_gs = ? WHERE ID_sofware = ?";
+				update = "UPDATE software SET  software = ?, megjegyzes_s = ?, gepadatok_ID_gs = ? WHERE ID_sofware = ?";
 				ps = con.prepareStatement(update);
-				ps.setString(1, txtSoftverDeviceName.getText());
-				ps.setString(2, txtSoftverserial.getText());
-				ps.setString(3, (String) cmbSoftverName.getItemAt(cmbSoftverName.getSelectedIndex()));
-				ps.setString(4, txtAreaSoftverComment.getText());
-				ps.setString(5, txtSoftverDeviceId.getText());
-				ps.setInt(6, Integer.parseInt(txtSoftverID.getText()));
+				ps.setString(1, (String) cmbSoftverName.getSelectedItem());
+				ps.setString(2, txtAreaSoftverComment.getText());
+				ps.setString(3, txtSoftverDeviceId.getText());
+				ps.setInt(4, Integer.parseInt(txtSoftverID.getText()));
 				ps.executeUpdate();
 				showProductsInJTableSoftver();
 				JOptionPane.showMessageDialog(null, "Sikeres Frissítés");
@@ -194,11 +216,11 @@ public class SoftverJDBCSetDao extends SoftverGui implements SoftverImplements {
 
 	private void btnNullShowPerformedSoftver(java.awt.event.ActionEvent evt) {
 		txtSoftverDeviceId.setText(null);
-		txtSoftverDeviceName.setText(null);
 		txtSoftverID.setText(null);
-		txtSoftverserial.setText(null);
 		txtAreaSoftverComment.setText(null);
 		cmbSoftverName.setSelectedItem(null);
+		txtSoftverSearch.setText(null);
+		showProductsInJTableSoftver();
 	}
 
 	private void JTable_ProductsMouseClickedDevice(java.awt.event.MouseEvent evt) {

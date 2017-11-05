@@ -40,12 +40,12 @@ public class DeviceJDBCSetDAO extends DeviceGui implements DeviceImplements {
 	}
 
 	private void setActionDevice() {
-		columns = new String[] { "ügyfél", "eszköz", "állapot" };
+		columns = new String[] { "ügyfél", "azonosító", "állapot" };
 		jTableDevice.setModel(new javax.swing.table.DefaultTableModel(row, columns));
 		jTableDevice.getColumn("ügyfél").setMinWidth(120);
 		jTableDevice.getColumn("ügyfél").setMaxWidth(120);
-		jTableDevice.getColumn("eszköz").setMinWidth(80);
-		jTableDevice.getColumn("eszköz").setMaxWidth(80);
+		jTableDevice.getColumn("azonosító").setMinWidth(80);
+		jTableDevice.getColumn("azonosító").setMaxWidth(80);
 		jTableDevice.getTableHeader().setReorderingAllowed(false);
 
 		jTableDevice.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -93,14 +93,11 @@ public class DeviceJDBCSetDAO extends DeviceGui implements DeviceImplements {
 	}
 
 	private boolean checkInputsDevice() {
-
-		if (cmBoxStatusdevice.getFocusTraversalKeysEnabled()) {
+		if (cmBoxStatusdevice.getSelectedItem() == null) {
 			cmBoxStatusdevice.getEditor().getEditorComponent().setBackground(new Color(255, 250, 240));
-
 		} else {
-
 		}
-		if (txtSerialDevice.getText().trim().isEmpty()) {
+		if (txtSerialDevice.getText().trim().isEmpty() || cmBoxStatusdevice.getSelectedItem() == null) {
 			return false;
 		} else {
 			return true;
@@ -156,7 +153,7 @@ public class DeviceJDBCSetDAO extends DeviceGui implements DeviceImplements {
 		Object[] rowDevice = new Object[3];
 		for (int i = 0; i < listDevice.size(); i++) {
 			rowDevice[0] = listDevice.get(i).getClientName();
-			rowDevice[1] = listDevice.get(i).getDeviceName();
+			rowDevice[1] = listDevice.get(i).getIdg();
 			rowDevice[2] = listDevice.get(i).getStatus();
 			modelDevice.addRow(rowDevice);
 		}
@@ -208,13 +205,9 @@ public class DeviceJDBCSetDAO extends DeviceGui implements DeviceImplements {
 		txtDeviceImageIDDevice.setText(Integer.toString(getDeviceProductList().get(index).getIdg()));
 		txtDeviceImageID.setText(null);
 		// Softver set!!!
-		txtSoftverDeviceName.setText(getDeviceProductList().get(index).getDeviceName());
-		txtSoftverserial.setText(getDeviceProductList().get(index).getSerial());
 		txtSoftverDeviceId.setText(Integer.toString(getDeviceProductList().get(index).getIdg()));
 		// Hardver set!!
 		txtFixtureDeviceId.setText(Integer.toString(getDeviceProductList().get(index).getIdg()));
-		txtFixtureDeviceName.setText(getDeviceProductList().get(index).getDeviceName());
-		txtFixtureDeviceSerial.setText(getDeviceProductList().get(index).getSerial());
 	}
 
 	private void jBtnInsertActionPerformedDevice(java.awt.event.ActionEvent evt) {

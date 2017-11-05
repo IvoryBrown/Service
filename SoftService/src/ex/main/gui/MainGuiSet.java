@@ -25,10 +25,10 @@ public class MainGuiSet extends MainGui implements ActionListener {
 	public void actionPerformed(ActionEvent e) {
 		if (e.getSource() == btnService)
 			new WorkSheetJDBCSetDao().setVisible(true);
-		dispose();
+		// dispose();
 		if (e.getSource() == btnSales)
 			new WorkTableJDBCSetDAO().setVisible(true);
-		dispose();
+		// dispose();
 
 	}
 }

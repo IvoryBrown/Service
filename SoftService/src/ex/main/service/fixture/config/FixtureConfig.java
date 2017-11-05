@@ -3,20 +3,18 @@ package ex.main.service.fixture.config;
 public class FixtureConfig {
 
 	private Integer fixtureId;
-	private String fixtureDeviceName;
-	private String fixtureDeviceSerial;
+	private Integer fixtureDeviceId;
 	private String fixtureName;
+	private String fixtureManufacturer;
 	private String fixtureSerial;
 	private String fixtureComment;
-	private Integer fixtureDeviceId;
 
-	public FixtureConfig(Integer fixtureId, String fixtureDeviceName, String fixtureDeviceSerial, String fixtureName,
-			String fixtureSerial, String fixtureComment, Integer fixtureDeviceId) {
+	public FixtureConfig(Integer fixtureId, String fixtureName, String fixtureManufacturer, String fixtureSerial,
+			String fixtureComment, Integer fixtureDeviceId) {
 		super();
 		this.fixtureId = fixtureId;
-		this.fixtureDeviceName = fixtureDeviceName;
-		this.fixtureDeviceSerial = fixtureDeviceSerial;
 		this.fixtureName = fixtureName;
+		this.fixtureManufacturer = fixtureManufacturer;
 		this.fixtureSerial = fixtureSerial;
 		this.fixtureComment = fixtureComment;
 		this.fixtureDeviceId = fixtureDeviceId;
@@ -26,16 +24,12 @@ public class FixtureConfig {
 		return fixtureId;
 	}
 
-	public String getFixtureDeviceName() {
-		return fixtureDeviceName;
-	}
-
-	public String getFixtureDeviceSerial() {
-		return fixtureDeviceSerial;
-	}
-
 	public String getFixtureName() {
 		return fixtureName;
+	}
+
+	public String getFixtureManufacturer() {
+		return fixtureManufacturer;
 	}
 
 	public String getFixtureSerial() {

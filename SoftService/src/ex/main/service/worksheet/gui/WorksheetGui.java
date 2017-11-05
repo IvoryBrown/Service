@@ -8,6 +8,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 
 import ex.main.service.fixture.FixtureJDBCSetDAO;
+import java.awt.Color;
 
 public class WorksheetGui extends FixtureJDBCSetDAO {
 	/**
@@ -34,6 +35,7 @@ public class WorksheetGui extends FixtureJDBCSetDAO {
 		jplWorksheet.add(scrollPane, BorderLayout.CENTER);
 
 		tblWorksheet = new JTable();
+		tblWorksheet.setBackground(Color.BLACK);
 		scrollPane.setViewportView(tblWorksheet);
 		btnUpdate = new JButton("frissités");
 		btnUpdate.setIcon(new ImageIcon(WorksheetGui.class.getResource("/icon/tango/22x22/actions/view-refresh.png")));

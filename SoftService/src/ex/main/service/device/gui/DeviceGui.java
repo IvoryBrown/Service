@@ -37,9 +37,9 @@ public class DeviceGui extends ClientJDBCSetDAO {
 
 	private JLabel lbDevicelnterchange, lblSoftwerTelepts;
 
-	protected JTextField txtSoftverDeviceName, txtSoftverserial, txtSoftverDeviceId;
-	protected JTextField txtFixtureDeviceName, txtFixtureDeviceSerial, txtFixtureDeviceId;
-	// txtWorkingHoursDeviceName,txtWorkingHoursDeviceSerial
+	protected JTextField txtSoftverDeviceId;
+	protected JTextField txtFixtureDeviceId;
+
 
 	public DeviceGui() {
 		lblClientDeviceName.setBounds(10, 11, 95, 35);
@@ -60,34 +60,12 @@ public class DeviceGui extends ClientJDBCSetDAO {
 		lblsoftverDeviceName.setBounds(10, 11, 106, 35);
 		pnlSoftver.add(lblsoftverDeviceName);
 
-		JLabel lblSoftverSerial = new JLabel("serial:");
-		lblSoftverSerial.setHorizontalAlignment(SwingConstants.RIGHT);
-		lblSoftverSerial.setFont(new Font("Tahoma", Font.BOLD, 15));
-		lblSoftverSerial.setBounds(10, 57, 106, 35);
-		pnlSoftver.add(lblSoftverSerial);
-
-		txtSoftverDeviceName = new JTextField();
-		txtSoftverDeviceName.setEnabled(false);
-		txtSoftverDeviceName.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		txtSoftverDeviceName.setColumns(10);
-		txtSoftverDeviceName.setBackground(new Color(245, 255, 250));
-		txtSoftverDeviceName.setBounds(116, 11, 189, 35);
-		pnlSoftver.add(txtSoftverDeviceName);
-
-		txtSoftverserial = new JTextField();
-		txtSoftverserial.setEnabled(false);
-		txtSoftverserial.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		txtSoftverserial.setColumns(10);
-		txtSoftverserial.setBackground(new Color(245, 255, 250));
-		txtSoftverserial.setBounds(116, 57, 189, 35);
-		pnlSoftver.add(txtSoftverserial);
-
 		txtSoftverDeviceId = new JTextField();
 		txtSoftverDeviceId.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		txtSoftverDeviceId.setEnabled(false);
 		txtSoftverDeviceId.setColumns(10);
 		txtSoftverDeviceId.setBackground(new Color(245, 255, 250));
-		txtSoftverDeviceId.setBounds(315, 57, 95, 35);
+		txtSoftverDeviceId.setBounds(120, 11, 95, 35);
 		pnlSoftver.add(txtSoftverDeviceId);
 		jplFixture.setLayout(null);
 
@@ -102,34 +80,12 @@ public class DeviceGui extends ClientJDBCSetDAO {
 		lblFixtureDeviceName.setBounds(10, 11, 106, 35);
 		pnlFixture.add(lblFixtureDeviceName);
 
-		JLabel lblFixtureSerial = new JLabel("serial:");
-		lblFixtureSerial.setHorizontalAlignment(SwingConstants.RIGHT);
-		lblFixtureSerial.setFont(new Font("Tahoma", Font.BOLD, 15));
-		lblFixtureSerial.setBounds(10, 57, 106, 35);
-		pnlFixture.add(lblFixtureSerial);
-
-		txtFixtureDeviceName = new JTextField();
-		txtFixtureDeviceName.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		txtFixtureDeviceName.setEnabled(false);
-		txtFixtureDeviceName.setColumns(10);
-		txtFixtureDeviceName.setBackground(new Color(245, 255, 250));
-		txtFixtureDeviceName.setBounds(116, 11, 189, 35);
-		pnlFixture.add(txtFixtureDeviceName);
-
-		txtFixtureDeviceSerial = new JTextField();
-		txtFixtureDeviceSerial.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		txtFixtureDeviceSerial.setEnabled(false);
-		txtFixtureDeviceSerial.setColumns(10);
-		txtFixtureDeviceSerial.setBackground(new Color(245, 255, 250));
-		txtFixtureDeviceSerial.setBounds(116, 57, 189, 35);
-		pnlFixture.add(txtFixtureDeviceSerial);
-
 		txtFixtureDeviceId = new JTextField();
 		txtFixtureDeviceId.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		txtFixtureDeviceId.setEnabled(false);
 		txtFixtureDeviceId.setColumns(10);
 		txtFixtureDeviceId.setBackground(new Color(245, 255, 250));
-		txtFixtureDeviceId.setBounds(315, 57, 95, 35);
+		txtFixtureDeviceId.setBounds(120, 11, 95, 35);
 		pnlFixture.add(txtFixtureDeviceId);
 
 		setComponent();

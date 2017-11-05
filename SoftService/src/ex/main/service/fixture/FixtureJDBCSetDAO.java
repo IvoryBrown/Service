@@ -1,5 +1,7 @@
 package ex.main.service.fixture;
 
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -12,6 +14,7 @@ import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
+import ex.main.sales.device.DeviceJDBCSetDAO;
 import ex.main.service.fixture.config.FixtureConfig;
 import ex.main.service.fixture.config.FixtureImplements;
 import ex.main.service.fixture.gui.FixtureGui;
@@ -22,7 +25,7 @@ public class FixtureJDBCSetDAO extends FixtureGui implements FixtureImplements {
 	 * 
 	 */
 	private static final long serialVersionUID = -1607088146574330251L;
-	String columns[];
+	private String row[];
 
 	public FixtureJDBCSetDAO() {
 		setActionFixture();
@@ -30,8 +33,14 @@ public class FixtureJDBCSetDAO extends FixtureGui implements FixtureImplements {
 	}
 
 	private void setActionFixture() {
-		columns = new String[] { "eszköz", "típus", "serial" };
-		tblFixture.setModel(new javax.swing.table.DefaultTableModel(new Object[][] {}, columns));
+		row = new String[] { "ID", "azonosító", "típus", "gyártó", "serial" };
+		tblFixture.setModel(new javax.swing.table.DefaultTableModel(new Object[][] {}, row));
+		tblFixture.getColumn("ID").setMinWidth(50);
+		tblFixture.getColumn("ID").setMaxWidth(50);
+		tblFixture.getColumn("azonosító").setMinWidth(100);
+		tblFixture.getColumn("azonosító").setMaxWidth(100);
+		tblFixture.getColumn("típus").setMinWidth(130);
+		tblFixture.getColumn("típus").setMaxWidth(130);
 		tblFixture.addMouseListener(new java.awt.event.MouseAdapter() {
 			public void mouseClicked(java.awt.event.MouseEvent evt) {
 				JTable_ProductsMouseClickedFixture(evt);
@@ -62,6 +71,18 @@ public class FixtureJDBCSetDAO extends FixtureGui implements FixtureImplements {
 				btnNullShowPerformedFixture(evt);
 			}
 		});
+		btnFixtureSearch.addMouseListener(new java.awt.event.MouseAdapter() {
+			public void mouseClicked(java.awt.event.MouseEvent evt) {
+				showProductsInJTableFixture();
+			}
+		});
+		txtFixtureSearch.addKeyListener(new KeyAdapter() {
+			public void keyPressed(KeyEvent evt) {
+				if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+					showProductsInJTableFixture();
+				}
+			}
+		});
 	}
 
 	private boolean checkInputsFixture() {
@@ -77,21 +98,35 @@ public class FixtureJDBCSetDAO extends FixtureGui implements FixtureImplements {
 	public ArrayList<FixtureConfig> getFixtureProductList() {
 		ArrayList<FixtureConfig> productListFixture = new ArrayList<FixtureConfig>();
 		Connection con = DataBaseConnect.getConnection();
-		String query = "SELECT * FROM alkatresz ";
-		Statement st;
-		ResultSet rs;
+		String query = "SELECT * FROM `alkatresz` WHERE CONCAT (`gepadatok_ID_ga`) LIKE '%" + txtFixtureSearch.getText()
+				+ "%'";
+		Statement st = null;
+		ResultSet rs = null;
 		try {
 			st = con.createStatement();
 			rs = st.executeQuery(query);
 			FixtureConfig product;
 			while (rs.next()) {
-				product = new FixtureConfig(rs.getInt("ID_a"), rs.getString("eszkoz_nev_a"),
-						rs.getString("eszkoz_serial_a"), rs.getString("alkatresz_tipus"),
+				product = new FixtureConfig(rs.getInt("ID_a"), rs.getString("alkatresz_tipus"), rs.getString("gyarto"),
 						rs.getString("alkatresz_serial"), rs.getString("megjegyzes_a"), rs.getInt("gepadatok_ID_ga"));
 				productListFixture.add(product);
 			}
 		} catch (SQLException ex) {
 			Logger.getLogger(FixtureJDBCSetDAO.class.getName()).log(Level.SEVERE, null, ex);
+		} finally {
+			try {
+				if (rs != null) {
+					rs.close();
+				}
+				if (st != null) {
+					st.close();
+				}
+				if (con != null) {
+					con.close();
+				}
+			} catch (SQLException e) {
+				Logger.getLogger(DeviceJDBCSetDAO.class.getName()).log(Level.SEVERE, null, e);
+			}
 		}
 		return productListFixture;
 	}
@@ -100,19 +135,20 @@ public class FixtureJDBCSetDAO extends FixtureGui implements FixtureImplements {
 		ArrayList<FixtureConfig> list = getFixtureProductList();
 		DefaultTableModel model = (DefaultTableModel) tblFixture.getModel();
 		model.setRowCount(0);
-		Object[] row = new Object[3];
+		Object[] row = new Object[5];
 		for (int i = 0; i < list.size(); i++) {
-			row[0] = list.get(i).getFixtureDeviceName();
-			row[1] = list.get(i).getFixtureName();
-			row[2] = list.get(i).getFixtureSerial();
+			row[0] = list.get(i).getFixtureId();
+			row[1] = list.get(i).getFixtureDeviceId();
+			row[2] = list.get(i).getFixtureName();
+			row[3] = list.get(i).getFixtureManufacturer();
+			row[4] = list.get(i).getFixtureSerial();
 			model.addRow(row);
 		}
 	}
 
 	private void ShowItemFixture(int index) {
-		txtFixtureDeviceName.setText(getFixtureProductList().get(index).getFixtureDeviceName());
 		txtFixtureDeviceId.setText(Integer.toString(getFixtureProductList().get(index).getFixtureDeviceId()));
-		txtFixtureDeviceSerial.setText(getFixtureProductList().get(index).getFixtureDeviceSerial());
+		txtFixtureManufacturer.setText(getFixtureProductList().get(index).getFixtureManufacturer());
 		txtFixtureId.setText(Integer.toString(getFixtureProductList().get(index).getFixtureId()));
 		txtFixtureName.setText(getFixtureProductList().get(index).getFixtureName());
 		txtFixtureSerial.setText(getFixtureProductList().get(index).getFixtureSerial());
@@ -124,16 +160,14 @@ public class FixtureJDBCSetDAO extends FixtureGui implements FixtureImplements {
 		if (checkInputsFixture()) {
 			try {
 				Connection con = DataBaseConnect.getConnection();
-				PreparedStatement insertInto = con
-						.prepareStatement("INSERT INTO alkatresz(eszkoz_nev_a, eszkoz_serial_a,"
-								+ "alkatresz_tipus, alkatresz_serial, megjegyzes_a,gepadatok_ID_ga)"
-								+ "values(?,?,?,?,?,?) ");
-				insertInto.setString(1, txtFixtureDeviceName.getText());
-				insertInto.setString(2, txtFixtureDeviceSerial.getText());
-				insertInto.setString(3, txtFixtureName.getText());
-				insertInto.setString(4, txtFixtureSerial.getText());
-				insertInto.setString(5, txtAreaFixtureComment.getText());
-				insertInto.setString(6, txtFixtureDeviceId.getText());
+				PreparedStatement insertInto = con.prepareStatement(
+						"INSERT INTO alkatresz(alkatresz_tipus, gyarto, alkatresz_serial, megjegyzes_a, gepadatok_ID_ga)"
+								+ "values(?,?,?,?,?) ");
+				insertInto.setString(1, txtFixtureName.getText());
+				insertInto.setString(2, txtFixtureManufacturer.getText());
+				insertInto.setString(3, txtFixtureSerial.getText());
+				insertInto.setString(4, txtAreaFixtureComment.getText());
+				insertInto.setString(5, txtFixtureDeviceId.getText());
 				insertInto.executeUpdate();
 				showProductsInJTableFixture();
 				JOptionPane.showMessageDialog(null, "Adatok beillesztve");
@@ -151,16 +185,15 @@ public class FixtureJDBCSetDAO extends FixtureGui implements FixtureImplements {
 			PreparedStatement ps = null;
 			Connection con = DataBaseConnect.getConnection();
 			try {
-				update = "UPDATE alkatresz SET eszkoz_nev_a = ?, eszkoz_serial_a = ?"
-						+ ", alkatresz_tipus = ?, alkatresz_serial = ?, megjegyzes_a = ?, gepadatok_ID_ga = ? WHERE ID_a = ?";
+				update = "UPDATE alkatresz SET alkatresz_tipus = ?, gyarto = ?, alkatresz_serial = ?, megjegyzes_a = ?"
+						+ ", gepadatok_ID_ga = ? WHERE ID_a = ?";
 				ps = con.prepareStatement(update);
-				ps.setString(1, txtFixtureDeviceName.getText());
-				ps.setString(2, txtFixtureDeviceSerial.getText());
-				ps.setString(3, txtFixtureName.getText());
-				ps.setString(4, txtFixtureSerial.getText());
-				ps.setString(5, txtAreaFixtureComment.getText());
-				ps.setString(6, txtFixtureDeviceId.getText());
-				ps.setInt(7, Integer.parseInt(txtFixtureId.getText()));
+				ps.setString(1, txtFixtureName.getText());
+				ps.setString(2, txtFixtureManufacturer.getText());
+				ps.setString(3, txtFixtureSerial.getText());
+				ps.setString(4, txtAreaFixtureComment.getText());
+				ps.setString(5, txtFixtureDeviceId.getText());
+				ps.setInt(6, Integer.parseInt(txtFixtureId.getText()));
 				ps.executeUpdate();
 				showProductsInJTableFixture();
 				JOptionPane.showMessageDialog(null, "Sikeres Frissítés");
@@ -192,13 +225,14 @@ public class FixtureJDBCSetDAO extends FixtureGui implements FixtureImplements {
 	}
 
 	private void btnNullShowPerformedFixture(java.awt.event.ActionEvent evt) {
-		txtFixtureDeviceName.setText(null);
 		txtFixtureDeviceId.setText(null);
-		txtFixtureDeviceSerial.setText(null);
 		txtFixtureId.setText(null);
 		txtFixtureName.setText(null);
 		txtFixtureSerial.setText(null);
 		txtAreaFixtureComment.setText(null);
+		txtFixtureManufacturer.setText(null);
+		txtFixtureSearch.setText(null);
+		showProductsInJTableFixture();
 	}
 
 	private void JTable_ProductsMouseClickedFixture(java.awt.event.MouseEvent evt) {

@@ -28,7 +28,7 @@ public class Teszt {
 		java.awt.EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				new WorkSheetJDBCSetDao().setVisible(true);
-			//	new WorkTableJDBCSetDAO().setVisible(true);
+				//	new WorkTableJDBCSetDAO().setVisible(true);
 			}
 		});
 	}

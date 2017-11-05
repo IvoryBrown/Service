@@ -18,15 +18,13 @@ public class FixtureGui extends SoftverJDBCSetDao {
 	 * 
 	 */
 	private static final long serialVersionUID = -3328000482934381440L;
-	protected JTextField txtFixtureSearch;
+	protected JTextField txtFixtureSearch, txtFixtureManufacturer, txtFixtureId, txtFixtureName, txtFixtureSerial;
 	protected JTable tblFixture;
-	protected JTextField txtFixtureId;
-	protected JTextField txtFixtureName;
-	protected JTextField txtFixtureSerial;
 	protected JTextArea txtAreaFixtureComment;
 	protected JButton btnFixtureDelete, btnFixtureEdit, btnFixtureNewFixture, btnFixtureSearch, btnFixtureNull;
 
 	public FixtureGui() {
+		txtFixtureDeviceId.setBounds(120, 11, 185, 35);
 
 		JPanel pnlFixtureSetting = new JPanel();
 		pnlFixtureSetting.setLayout(null);
@@ -78,18 +76,25 @@ public class FixtureGui extends SoftverJDBCSetDao {
 		txtFixtureName.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		txtFixtureName.setColumns(10);
 		txtFixtureName.setBackground(new Color(245, 255, 250));
-		txtFixtureName.setBounds(116, 103, 189, 35);
+		txtFixtureName.setBounds(120, 57, 290, 35);
 		pnlFixture.add(txtFixtureName);
+
+		txtFixtureManufacturer = new JTextField();
+		txtFixtureManufacturer.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		txtFixtureManufacturer.setColumns(10);
+		txtFixtureManufacturer.setBackground(new Color(245, 255, 250));
+		txtFixtureManufacturer.setBounds(120, 103, 290, 35);
+		pnlFixture.add(txtFixtureManufacturer);
 
 		txtFixtureSerial = new JTextField();
 		txtFixtureSerial.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		txtFixtureSerial.setColumns(10);
 		txtFixtureSerial.setBackground(new Color(245, 255, 250));
-		txtFixtureSerial.setBounds(116, 149, 189, 35);
+		txtFixtureSerial.setBounds(120, 149, 290, 35);
 		pnlFixture.add(txtFixtureSerial);
 
 		JScrollPane scrComment = new JScrollPane();
-		scrComment.setBounds(116, 195, 294, 63);
+		scrComment.setBounds(120, 195, 290, 63);
 		pnlFixture.add(scrComment);
 
 		txtAreaFixtureComment = new JTextArea();
@@ -100,7 +105,7 @@ public class FixtureGui extends SoftverJDBCSetDao {
 		JLabel lblFixtureName = new JLabel("típus:");
 		lblFixtureName.setHorizontalAlignment(SwingConstants.RIGHT);
 		lblFixtureName.setFont(new Font("Tahoma", Font.BOLD, 15));
-		lblFixtureName.setBounds(10, 103, 105, 35);
+		lblFixtureName.setBounds(10, 57, 105, 35);
 		pnlFixture.add(lblFixtureName);
 
 		JLabel lblFixtureSerial = new JLabel("serial:");
@@ -114,6 +119,12 @@ public class FixtureGui extends SoftverJDBCSetDao {
 		lblFixtureComent.setFont(new Font("Tahoma", Font.BOLD, 15));
 		lblFixtureComent.setBounds(10, 195, 105, 35);
 		pnlFixture.add(lblFixtureComent);
+
+		JLabel lblFixtureManufacturer = new JLabel("gyártó:");
+		lblFixtureManufacturer.setHorizontalAlignment(SwingConstants.RIGHT);
+		lblFixtureManufacturer.setFont(new Font("Tahoma", Font.BOLD, 15));
+		lblFixtureManufacturer.setBounds(10, 103, 105, 35);
+		pnlFixture.add(lblFixtureManufacturer);
 
 	}
 }

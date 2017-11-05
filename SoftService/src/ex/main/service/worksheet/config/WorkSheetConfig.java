@@ -3,6 +3,8 @@ package ex.main.service.worksheet.config;
 public class WorkSheetConfig {
 	private String clientNameNumber;
 	private String clientNameWorkSheet;
+	// eszköz
+	private Integer deviceId;
 	private String deviceNameWorkSheet;
 	private String addDateWorkSheet;
 	private String endDateWorkSheet;
@@ -10,11 +12,12 @@ public class WorkSheetConfig {
 	private String statusWorkSheet;
 	private String prioritWorkSheet;
 
-	public WorkSheetConfig(String clientNameNumber, String clientNameWorkSheet, String deviceNameWorkSheet,
-			String statusWorkSheet, String prioritWorkSheet, String addDateWorkSheet, String endDateWorkSheet,
-			String completeDateWorkSheet) {
+	public WorkSheetConfig(String clientNameNumber, String clientNameWorkSheet, Integer deviceId,
+			String deviceNameWorkSheet, String statusWorkSheet, String prioritWorkSheet, String addDateWorkSheet,
+			String endDateWorkSheet, String completeDateWorkSheet) {
 		this.clientNameNumber = clientNameNumber;
 		this.clientNameWorkSheet = clientNameWorkSheet;
+		this.deviceId = deviceId;
 		this.deviceNameWorkSheet = deviceNameWorkSheet;
 		this.addDateWorkSheet = addDateWorkSheet;
 		this.endDateWorkSheet = endDateWorkSheet;
@@ -29,6 +32,10 @@ public class WorkSheetConfig {
 
 	public String getClientNameWorkSheet() {
 		return clientNameWorkSheet;
+	}
+
+	public Integer getDeviceId() {
+		return deviceId;
 	}
 
 	public String getDeviceNameWorkSheet() {

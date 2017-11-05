@@ -35,6 +35,7 @@ public class SoftverGui extends DeviceImageJDBCSetDAO {
 	protected JTextArea txtAreaSoftverComment;
 
 	public SoftverGui() {
+		txtSoftverDeviceId.setBounds(120, 11, 185, 35);
 
 		setSoftverComponent();
 	}
@@ -49,7 +50,7 @@ public class SoftverGui extends DeviceImageJDBCSetDAO {
 				"Office 2016 64Bit Hungarian", "Egyéb" };
 		cmbSoftverName = new JComboBox<Object>(softverName);
 		cmbSoftverName.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		cmbSoftverName.setBounds(116, 103, 294, 35);
+		cmbSoftverName.setBounds(120, 57, 294, 35);
 		cmbSoftverName.setSelectedItem(null);
 		pnlSoftver.add(cmbSoftverName);
 
@@ -61,20 +62,20 @@ public class SoftverGui extends DeviceImageJDBCSetDAO {
 		txtSoftverID.setBounds(315, 11, 95, 35);
 		pnlSoftver.add(txtSoftverID);
 
-		JLabel lblSoftverComment = new JLabel("megjegyzés: ");
+		JLabel lblSoftverComment = new JLabel("megjegyzés:");
 		lblSoftverComment.setHorizontalAlignment(SwingConstants.RIGHT);
 		lblSoftverComment.setFont(new Font("Tahoma", Font.BOLD, 15));
-		lblSoftverComment.setBounds(10, 149, 102, 35);
+		lblSoftverComment.setBounds(14, 103, 102, 35);
 		pnlSoftver.add(lblSoftverComment);
 
 		JLabel lblSoftver = new JLabel("softver:");
 		lblSoftver.setHorizontalAlignment(SwingConstants.RIGHT);
 		lblSoftver.setFont(new Font("Tahoma", Font.BOLD, 15));
-		lblSoftver.setBounds(4, 103, 102, 35);
+		lblSoftver.setBounds(14, 57, 102, 35);
 		pnlSoftver.add(lblSoftver);
 
 		scrSoftverComment = new JScrollPane();
-		scrSoftverComment.setBounds(116, 149, 294, 63);
+		scrSoftverComment.setBounds(120, 103, 294, 109);
 		pnlSoftver.add(scrSoftverComment);
 
 		txtAreaSoftverComment = new JTextArea();

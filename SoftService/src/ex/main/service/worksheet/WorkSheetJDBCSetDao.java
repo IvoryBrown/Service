@@ -1,17 +1,18 @@
 package ex.main.service.worksheet;
 
+import java.awt.Color;
+import java.awt.Component;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
-import java.util.Comparator;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import javax.swing.JTable;
+import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
-import javax.swing.table.TableModel;
-import javax.swing.table.TableRowSorter;
 
 import ex.main.gui.MainGuiSet;
 import ex.main.service.client.ClientJDBCSetDAO;
@@ -25,20 +26,21 @@ public class WorkSheetJDBCSetDao extends WorksheetGui implements WorkSheetImplem
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	protected String[] columns;
+	private String[] row;
+	private static final int ENDDATE_COL = 8;
+	private static final int PRIORYT_COL = 4;
 
 	public WorkSheetJDBCSetDao() {
 		setComponentJdbc();
 		showProductsInJTableWorkSheet();
-		tablerows();
-
-	}
+		getNewRenderedTable(tblWorksheet);
+}
 
 	private void setComponentJdbc() {
 
-		columns = new String[] { "azonosító", "ügyfél", "eszköz", "állapot", "prioritás", "rögzítés", "határidő",
-				"lezárva" };
-		tblWorksheet.setModel(new javax.swing.table.DefaultTableModel(new Object[][] {}, columns));
+		row = new String[] { "azonosító", "ügyfél", "e. azonosító", "eszköz", "állapot", "prioritás", "rögzítés",
+				"határidő", "lezárva" };
+		tblWorksheet.setModel(new javax.swing.table.DefaultTableModel(new Object[][] {}, row));
 		// oszlop méretezés
 		// tblWorksheet.getColumn("ID").setMaxWidth(36);
 		// oszlopok rendezés letíltás
@@ -70,7 +72,7 @@ public class WorkSheetJDBCSetDao extends WorksheetGui implements WorkSheetImplem
 			WorkSheetConfig product;
 			while (rs.next()) {
 				product = new WorkSheetConfig(rs.getString("azonosito_m"), rs.getString("ugyfel_nev"),
-						rs.getString("eszkoz_g"), rs.getString("allapot"), rs.getString("prioritas"),
+						rs.getInt("ID_g"), rs.getString("eszkoz_g"), rs.getString("allapot"), rs.getString("prioritas"),
 						rs.getString("rogzites"), rs.getString("hatarido"), rs.getString("teljesitve"));
 				productList.add(product);
 			}
@@ -98,40 +100,51 @@ public class WorkSheetJDBCSetDao extends WorksheetGui implements WorkSheetImplem
 		ArrayList<WorkSheetConfig> list = getWorkShettProductList();
 		DefaultTableModel model = (DefaultTableModel) tblWorksheet.getModel();
 		model.setRowCount(0);
-		Object[] row = new Object[8];
+		Object[] row = new Object[9];
 		for (int i = 0; i < list.size(); i++) {
 			row[0] = list.get(i).getClientNameNumber();
 			row[1] = list.get(i).getClientNameWorkSheet();
-			row[2] = list.get(i).getDeviceNameWorkSheet();
-			row[3] = list.get(i).getStatusWorkSheet();
-			row[4] = list.get(i).getPrioritWorkSheet();
-			row[5] = list.get(i).getAddDateWorkSheet();
-			row[6] = list.get(i).getEndDateWorkSheet();
-			row[7] = list.get(i).getCompleteDateWorkSheet();
+			row[2] = list.get(i).getDeviceId();
+			row[3] = list.get(i).getDeviceNameWorkSheet();
+			row[4] = list.get(i).getStatusWorkSheet();
+			row[5] = list.get(i).getPrioritWorkSheet();
+			row[6] = list.get(i).getAddDateWorkSheet();
+			row[7] = list.get(i).getEndDateWorkSheet();
+			row[8] = list.get(i).getCompleteDateWorkSheet();
 			model.addRow(row);
 		}
 	}
-
-	private void tablerows() {
-		TableRowSorter<TableModel> tableRowSorter = new TableRowSorter<TableModel>(tblWorksheet.getModel());
-		tableRowSorter.setComparator(0, new Comparator<String>() {
-
+	@SuppressWarnings("serial")
+	private JTable getNewRenderedTable(JTable table) {
+		table.setDefaultRenderer(Object.class, new DefaultTableCellRenderer() {
 			@Override
-			public int compare(String s1, String s2) {
-				if (s1.isEmpty() && s2.isEmpty()) {
-					return 0;
-				} else if (s1.isEmpty() && !s2.isEmpty()) {
-					return 1;
-				} else if (!s1.isEmpty() && s2.isEmpty()) {
-					return -1;
+			public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected,
+					boolean hasFocus, int row, int col) {
+				super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, col);
+				String endDate = (String) table.getModel().getValueAt(row, ENDDATE_COL);
+				String pryorit = (String) table.getModel().getValueAt(row, PRIORYT_COL);
+				if (endDate == null && "Új gép".equals(pryorit)) {
+					setForeground(Color.WHITE);
+				} else if (endDate == null && "Bevizgálás alatt".equals(pryorit)) {
+					setForeground(Color.WHITE);
+				} else if (endDate == null && "Alkatrészre vár".equals(pryorit)) {
+					setForeground(Color.WHITE);
+				} else if (endDate == null && "Garanciális".equals(pryorit)) {
+					setForeground(Color.WHITE);
+				} else if (endDate == null && "Továbbküldve".equals(pryorit)) {
+					setForeground(Color.WHITE);
+				} else if ("Kiadva".equals(pryorit) && endDate != null) {
+					setForeground(new Color(153, 0, 0));
+				} else if ("Bevételezve".equals(pryorit) && endDate == null) {
+					setForeground(Color.ORANGE);
+				} else {
+					setForeground(new Color(102, 153, 204));
 				}
-				return s1.compareTo(s2);
+				return this;
 			}
 		});
-		tblWorksheet.setRowSorter(tableRowSorter);
-
+		return table;
 	}
-
 	private void JTableProductsMouseClicked(java.awt.event.MouseEvent evt) {
 		showProductsInJTableWorkSheet();
 	}
