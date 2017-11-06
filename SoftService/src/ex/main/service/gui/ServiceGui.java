@@ -10,7 +10,6 @@ import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
 
 import ex.main.setting.centerwindow.CenterWindow;
-import ex.main.setting.database.DataBaseConnect;
 
 public class ServiceGui extends JFrame {
 	/**
@@ -21,8 +20,6 @@ public class ServiceGui extends JFrame {
 	protected JTabbedPane jTbdPane;
 	protected JPanel jplWorksheet, jplClients, jplDevice;
 	protected FlowLayout fl_jplClients;
-	DataBaseConnect connect = new DataBaseConnect();
-	private JPanel panel;
 	protected JPanel jplDeviceImage;
 	protected  JPanel jplSoftver;
 	protected JPanel jplFixture;
@@ -69,14 +66,7 @@ public class ServiceGui extends JFrame {
 		
 		jplFixture = new JPanel();
 		jTbdPane.addTab("Alkatrész", null, jplFixture, null);
-
-		panel = new JPanel();
-		panel.setBounds(5, 623, 225, 23);
-		FlowLayout flowLayout = (FlowLayout) panel.getLayout();
-		flowLayout.setAlignment(FlowLayout.LEFT);
-		panel.setForeground(new Color(0, 128, 0));
-		jplMainPanel.add(panel);
-		panel.add(connect.getSubtitle());
+		
 
 	}
 }

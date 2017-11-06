@@ -153,6 +153,8 @@ public class FixtureJDBCSetDAO extends FixtureGui implements FixtureImplements {
 		txtFixtureName.setText(getFixtureProductList().get(index).getFixtureName());
 		txtFixtureSerial.setText(getFixtureProductList().get(index).getFixtureSerial());
 		txtAreaFixtureComment.setText(getFixtureProductList().get(index).getFixtureComment());
+		String s = (getFixtureProductList().get(index).getFixtureName());
+		System.out.print(s);
 
 	}
 
