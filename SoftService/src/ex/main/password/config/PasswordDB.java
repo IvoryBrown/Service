@@ -1,7 +1,6 @@
 package ex.main.password.config;
 
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -10,18 +9,24 @@ import java.util.logging.Logger;
 
 import javax.swing.JOptionPane;
 
+import ex.main.setting.database.DataBaseConnect;
+
 public class PasswordDB {
 	Connection con;
 	PreparedStatement pst;
 	ResultSet rs;
-	protected int jog;
+	static int jog;
 
 	public PasswordDB() {
+		getListClient();
+	}
+
+	public void getListClient() {
+
 		try {
-			Class.forName("com.mysql.jdbc.Driver");
-			con = DriverManager.getConnection(
-					"jdbc:mysql://localhost:3306/service?useUnicode=true&characterEncoding=UTF-8", "root", "12345");
-			pst = con.prepareStatement("select * from user where username=? and password=?");
+			con = DataBaseConnect.getConnection();
+			pst = con.prepareStatement("SELECT * FROM user WHERE username = ? AND password = ?");
+
 		} catch (Exception e) {
 			JOptionPane.showMessageDialog(null, "Server hiba!\n" + e, "Hiba!!", JOptionPane.ERROR_MESSAGE);
 
