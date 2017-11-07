@@ -79,7 +79,7 @@ public class ClientGui extends SalesGui {
 		lblSalesClientCompanyName.setBounds(10, 57, 140, 35);
 		pnlClientSetting.add(lblSalesClientCompanyName);
 
-		JLabel lblSalesClientName = new JLabel("kapcsolattartó: ");
+		JLabel lblSalesClientName = new JLabel("név: ");
 		lblSalesClientName.setForeground(new Color(153, 0, 0));
 		lblSalesClientName.setHorizontalAlignment(SwingConstants.RIGHT);
 		lblSalesClientName.setFont(new Font("Tahoma", Font.BOLD, 15));

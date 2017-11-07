@@ -339,7 +339,7 @@ public class DeviceGui extends ClientJDBCSetDAO {
 		cmbSalesDeviceSoftver.setFont(new Font("Tahoma", Font.BOLD, 14));
 		cmbSalesDeviceSoftver.setSelectedItem(null);
 
-		JLabel lblSalesDeviceSoftver = new JLabel("softwer:");
+		JLabel lblSalesDeviceSoftver = new JLabel("softver:");
 		lblSalesDeviceSoftver.setBounds(10, 57, 87, 35);
 		panel.add(lblSalesDeviceSoftver);
 		lblSalesDeviceSoftver.setHorizontalAlignment(SwingConstants.RIGHT);

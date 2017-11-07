@@ -47,6 +47,7 @@ public class MainGui extends JFrame {
 
 		JButton button = new JButton(new ImageIcon(
 				((new ImageIcon("Image/pc.png")).getImage()).getScaledInstance(400, 629, java.awt.Image.SCALE_SMOOTH)));
+		button.setEnabled(false);
 		button.setBackground(Color.BLACK);
 		button.setBounds(830, 11, 400, 629);
 		pnl.add(button);

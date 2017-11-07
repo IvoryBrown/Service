@@ -22,7 +22,7 @@ public class PasswordDB {
 	}
 
 	public void getListClient() {
-
+		
 		try {
 			con = DataBaseConnect.getConnection();
 			pst = con.prepareStatement("SELECT * FROM user WHERE username = ? AND password = ?");

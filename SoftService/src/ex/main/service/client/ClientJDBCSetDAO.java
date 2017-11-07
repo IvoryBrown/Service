@@ -149,7 +149,7 @@ public class ClientJDBCSetDAO extends ClientGui implements ClientImplements {
 		return productList;
 	}
 
-	private void showProductsInJTableClient() {
+	public void showProductsInJTableClient() {
 		ArrayList<ClientConfig> list = getClientProductList();
 		DefaultTableModel model = (DefaultTableModel) jTblClient.getModel();
 		model.setRowCount(0);

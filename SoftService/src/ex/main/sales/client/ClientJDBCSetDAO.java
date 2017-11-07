@@ -29,7 +29,6 @@ public class ClientJDBCSetDAO extends ClientGui implements ClientImplements {
 		jpnlClient.setBackground(Color.RED);
 		setActionSalesClient();
 		showProductsInJTableClient();
-
 		// tableRows();
 
 	}
@@ -168,7 +167,7 @@ public class ClientJDBCSetDAO extends ClientGui implements ClientImplements {
 		return listSearch;
 	}
 
-	private void showProductsInJTableClient() {
+	protected void showProductsInJTableClient() {
 		ArrayList<ClientConfig> list = getListClient();
 		DefaultTableModel model = (DefaultTableModel) jtblSalesClient.getModel();
 		model.setRowCount(0);
@@ -183,7 +182,6 @@ public class ClientJDBCSetDAO extends ClientGui implements ClientImplements {
 			row[6] = list.get(i).getSalesClientComment();
 			model.addRow(row);
 		}
-
 	}
 
 	private void showItemClientSearch(int index) {

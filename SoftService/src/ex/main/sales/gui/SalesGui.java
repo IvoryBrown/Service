@@ -19,8 +19,6 @@ public class SalesGui extends JFrame {
 	protected JPanel pnl, pnlSales, jpnlClient, jpnlDevice;
 	protected JTabbedPane tbdPnSales;
 	private JLabel lblNewLabel;
-	
-	
 
 	public SalesGui() {
 		setComponent();
@@ -31,7 +29,6 @@ public class SalesGui extends JFrame {
 		this.setSize(1250, 680);
 		this.setResizable(false);
 		getContentPane().setLayout(null);
-		
 
 		pnlSales = new JPanel();
 		pnlSales.setBackground(Color.BLACK);
@@ -45,29 +42,30 @@ public class SalesGui extends JFrame {
 
 		pnl = new JPanel();
 		pnl.setBackground(Color.BLACK);
-		tbdPnSales.addTab("", new ImageIcon(SalesGui.class.getResource("/icon/tulliana/22x22/actions/text_block.png")), pnl, null);
+		tbdPnSales.addTab("", new ImageIcon(SalesGui.class.getResource("/icon/tulliana/22x22/actions/text_block.png")),
+				pnl, null);
 		tbdPnSales.setForegroundAt(0, new Color(51, 0, 0));
 		tbdPnSales.setBackgroundAt(0, new Color(102, 0, 0));
 		pnl.setLayout(null);
 
-		
-
 		jpnlClient = new JPanel(new BorderLayout());
 		jpnlClient.setForeground(new Color(153, 0, 0));
-		tbdPnSales.addTab("", new ImageIcon(SalesGui.class.getResource("/icon/tulliana/22x22/apps/kdmconfig.png")), jpnlClient, null);
+		tbdPnSales.addTab("", new ImageIcon(SalesGui.class.getResource("/icon/tulliana/22x22/apps/kdmconfig.png")),
+				jpnlClient, null);
 		tbdPnSales.setBackgroundAt(1, new Color(153, 0, 0));
 		tbdPnSales.setForegroundAt(1, new Color(153, 0, 0));
-		
+
 		jpnlDevice = new JPanel();
 		jpnlDevice.setBackground(Color.BLACK);
-		tbdPnSales.addTab("", new ImageIcon(SalesGui.class.getResource("/icon/tulliana/22x22/apps/systemtray.png")), jpnlDevice, null);
-		
+		tbdPnSales.addTab("", new ImageIcon(SalesGui.class.getResource("/icon/tulliana/22x22/apps/systemtray.png")),
+				jpnlDevice, null);
+
 		lblNewLabel = new JLabel("New label");
 		lblNewLabel.setIcon(new ImageIcon("Image\\Red-And-Black-Abstract-Wallpaper-3.jpg"));
 		lblNewLabel.setBackground(Color.RED);
 		lblNewLabel.setBounds(0, 0, 1244, 62);
 		pnlSales.add(lblNewLabel);
-		
+
 		new CenterWindow().centerWindow(this);
 	}
 }

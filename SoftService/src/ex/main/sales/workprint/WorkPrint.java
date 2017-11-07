@@ -46,7 +46,7 @@ public class WorkPrint extends WorkPrintGui {
 			JOptionPane.showMessageDialog(null, "Nincs munkalap kiválasztva!");
 			jpnlWorkPrintTakeover0.setBackground(new Color(255, 0, 0));
 			jpnlWorkPrintTakeover.setBackground(new Color(255, 0, 0));
-		}else{
+		} else {
 			jpnlWorkPrintTakeover0.setBackground(Color.WHITE);
 			jpnlWorkPrintTakeover.setBackground(Color.WHITE);
 		}
@@ -56,10 +56,10 @@ public class WorkPrint extends WorkPrintGui {
 			return true;
 		}
 	}
-
+	
 	public void btnPrinting() {
 		SetPrinting print = new SetPrinting();
-		// panel.setBackground(Color.WHITE); ez még kell
+		
 		print.setComponent(jpnlWorkPrint);
 		print.print();
 	}
