@@ -32,18 +32,24 @@ public class DeviceGui extends ClientJDBCSetDAO {
 	 */
 	private static final long serialVersionUID = -1289447200090810218L;
 	protected JTable jtblSalesDevice;
-	protected JTextField txtSalesDevicePassword, txtSalesDeviceSerialNumber;
+	protected JTextField txtSalesDevicePassword, txtSalesDeviceSerialNumber, txtSalesDeviceDeliveryNote;
 	protected JTextField txtSalesDeviceID;
 	protected JComboBox<Object> cmbSalesDeviceName, txtSalesdeviceType, cmbSalesDeviceCondition, cmbSalesDevicePriority,
 			cmbSalesDeviceSoftver, cmbSalesDeviceCleaning, cmbSalesDeviceSearch, cmbSalesDeviceHardver;
 	protected JDateChooser dateSalesDeviceBuying, dateSalesDeviceEndDate, dateSalesDeviceAddDate;
-	protected JTextArea txtSalesDeviceComment, txtSalesDeviceInjury, txtSalesDeviceAccesssory;
+	protected JTextArea txtSalesDeviceComment, txtSalesDeviceInjury, txtSalesDeviceAccesssory, txtSalesDeviceNewComment;
 	protected JTextField txtSalesDeviceSearch;
 	protected JButton btnSalesDeviceSearch, btnSalesDeviceNew, btnSalesDeviceEdit, btnSalesDeviceDelete,
 			btnSalesDeviceNull;
 	private JLabel lblNewLabel_1;
 	private JLabel lblNewLabel_2;
 	protected JPanel panel_2, panel;
+	
+	protected JScrollPane scrSalesDeviceNewComment,scrSalesDeviceAccesssory,scrSalesDeviceInjury,scrSalesDeviceComment;
+	protected JLabel lblSalesDeviceNewComment, lblSalesDeviceCleaning, lblSalesDevicePassword, lblSalesDeviceAccesssory,
+			lblSalesDeviceInjury, lblSalesDeviceComment,lblSalesDeviceDeliveryNote;
+	
+	
 
 	private void setGuiDeviceClient() {
 		jpnlDevice.setLayout(null);
@@ -189,27 +195,29 @@ public class DeviceGui extends ClientJDBCSetDAO {
 		panel_2.setLayout(null);
 		panel_2.setBounds(398, 11, 509, 362);
 		jpnlDevice.add(panel_2);
-		panel_2.setVisible(true);
 
-		JLabel lblSalesDeviceCleaning = new JLabel("takarítás:");
+		lblSalesDeviceCleaning = new JLabel("takarítás:");
 		lblSalesDeviceCleaning.setHorizontalAlignment(SwingConstants.RIGHT);
 		lblSalesDeviceCleaning.setForeground(new Color(153, 0, 0));
 		lblSalesDeviceCleaning.setFont(new Font("Tahoma", Font.BOLD, 15));
 		lblSalesDeviceCleaning.setBounds(0, 11, 140, 35);
+		lblSalesDeviceCleaning.setVisible(true);
 		panel_2.add(lblSalesDeviceCleaning);
 
-		JLabel lblSalesDevicePassword = new JLabel("jelszó:");
+		lblSalesDevicePassword = new JLabel("jelszó:");
 		lblSalesDevicePassword.setHorizontalAlignment(SwingConstants.RIGHT);
 		lblSalesDevicePassword.setForeground(new Color(153, 0, 0));
 		lblSalesDevicePassword.setFont(new Font("Tahoma", Font.BOLD, 15));
 		lblSalesDevicePassword.setBounds(0, 57, 140, 35);
+		lblSalesDevicePassword.setVisible(true);
 		panel_2.add(lblSalesDevicePassword);
 
-		JLabel lblSalesDeviceAccesssory = new JLabel("tartozékok:");
+		lblSalesDeviceAccesssory = new JLabel("tartozékok:");
 		lblSalesDeviceAccesssory.setHorizontalAlignment(SwingConstants.RIGHT);
 		lblSalesDeviceAccesssory.setForeground(new Color(153, 0, 0));
 		lblSalesDeviceAccesssory.setFont(new Font("Tahoma", Font.BOLD, 15));
 		lblSalesDeviceAccesssory.setBounds(0, 103, 140, 35);
+		lblSalesDeviceAccesssory.setVisible(true);
 		panel_2.add(lblSalesDeviceAccesssory);
 
 		txtSalesDevicePassword = new JTextField("-");
@@ -218,6 +226,7 @@ public class DeviceGui extends ClientJDBCSetDAO {
 		txtSalesDevicePassword.setColumns(10);
 		txtSalesDevicePassword.setBackground(Color.WHITE);
 		txtSalesDevicePassword.setBounds(144, 57, 195, 35);
+		txtSalesDevicePassword.setVisible(true);
 		panel_2.add(txtSalesDevicePassword);
 
 		String BoxCleaning[] = { "Igen", "Nem" };
@@ -226,10 +235,12 @@ public class DeviceGui extends ClientJDBCSetDAO {
 		cmbSalesDeviceCleaning.setFont(new Font("Tahoma", Font.BOLD, 14));
 		cmbSalesDeviceCleaning.setBounds(144, 11, 195, 35);
 		cmbSalesDeviceCleaning.setSelectedItem(null);
+		cmbSalesDeviceCleaning.setVisible(true);
 		panel_2.add(cmbSalesDeviceCleaning);
 
-		JScrollPane scrSalesDeviceAccesssory = new JScrollPane();
+		scrSalesDeviceAccesssory = new JScrollPane();
 		scrSalesDeviceAccesssory.setBounds(144, 103, 355, 60);
+		scrSalesDeviceAccesssory.setVisible(true);
 		panel_2.add(scrSalesDeviceAccesssory);
 
 		txtSalesDeviceAccesssory = new JTextArea("-");
@@ -237,45 +248,91 @@ public class DeviceGui extends ClientJDBCSetDAO {
 		scrSalesDeviceAccesssory.setViewportView(txtSalesDeviceAccesssory);
 		txtSalesDeviceAccesssory.setFont(new Font("Tahoma", Font.BOLD, 14));
 		txtSalesDeviceAccesssory.setBackground(Color.WHITE);
+		txtSalesDeviceAccesssory.setVisible(true);
 
-		JScrollPane scrSalesDeviceInjury = new JScrollPane();
+		 scrSalesDeviceInjury = new JScrollPane();
 		scrSalesDeviceInjury.setBounds(144, 174, 355, 60);
+		scrSalesDeviceInjury.setVisible(true);
 		panel_2.add(scrSalesDeviceInjury);
 
 		txtSalesDeviceInjury = new JTextArea("-");
 		txtSalesDeviceInjury.setForeground(new Color(51, 0, 0));
 		txtSalesDeviceInjury.setFont(new Font("Tahoma", Font.BOLD, 14));
 		txtSalesDeviceInjury.setBackground(Color.WHITE);
+		txtSalesDeviceInjury.setVisible(true);
 		scrSalesDeviceInjury.setViewportView(txtSalesDeviceInjury);
 
-		JScrollPane scrSalesDeviceComment = new JScrollPane();
+		 scrSalesDeviceComment = new JScrollPane();
 		scrSalesDeviceComment.setBounds(144, 245, 355, 106);
+		scrSalesDeviceComment.setVisible(true);
 		panel_2.add(scrSalesDeviceComment);
 
 		txtSalesDeviceComment = new JTextArea();
 		txtSalesDeviceComment.setForeground(new Color(51, 0, 0));
 		txtSalesDeviceComment.setFont(new Font("Tahoma", Font.BOLD, 14));
 		txtSalesDeviceComment.setBackground(Color.WHITE);
+		txtSalesDeviceComment.setVisible(true);
 		scrSalesDeviceComment.setViewportView(txtSalesDeviceComment);
 
-		JLabel lblSalesDeviceInjury = new JLabel("sérlülés:");
+		scrSalesDeviceNewComment = new JScrollPane();
+		scrSalesDeviceNewComment.setBounds(126, 11, 373, 156);
+		scrSalesDeviceNewComment.setVisible(false);
+		panel_2.add(scrSalesDeviceNewComment);
+
+		txtSalesDeviceNewComment = new JTextArea();
+		txtSalesDeviceNewComment.setForeground(new Color(51, 0, 0));
+		txtSalesDeviceNewComment.setFont(new Font("Tahoma", Font.BOLD, 14));
+		txtSalesDeviceNewComment.setBackground(Color.WHITE);
+		txtSalesDeviceNewComment.setVisible(false);
+		scrSalesDeviceNewComment.setViewportView(txtSalesDeviceNewComment);
+
+		lblSalesDeviceNewComment = new JLabel("megjegyzés:");
+		lblSalesDeviceNewComment.setHorizontalAlignment(SwingConstants.RIGHT);
+		lblSalesDeviceNewComment.setForeground(new Color(153, 0, 0));
+		lblSalesDeviceNewComment.setFont(new Font("Tahoma", Font.BOLD, 15));
+		lblSalesDeviceNewComment.setBounds(10, 12, 106, 35);
+		lblSalesDeviceNewComment.setVisible(false);
+		panel_2.add(lblSalesDeviceNewComment);
+		
+		txtSalesDeviceDeliveryNote = new JTextField("");
+		txtSalesDeviceDeliveryNote.setForeground(new Color(51, 0, 0));
+		txtSalesDeviceDeliveryNote.setFont(new Font("Tahoma", Font.BOLD, 14));
+		txtSalesDeviceDeliveryNote.setColumns(10);
+		txtSalesDeviceDeliveryNote.setBackground(Color.WHITE);
+		txtSalesDeviceDeliveryNote.setBounds(126, 182, 373, 35);
+		txtSalesDeviceDeliveryNote.setVisible(false);
+		panel_2.add(txtSalesDeviceDeliveryNote);
+		
+		 lblSalesDeviceDeliveryNote = new JLabel("szállító. n.:");
+		lblSalesDeviceDeliveryNote.setHorizontalAlignment(SwingConstants.RIGHT);
+		lblSalesDeviceDeliveryNote.setForeground(new Color(153, 0, 0));
+		lblSalesDeviceDeliveryNote.setFont(new Font("Tahoma", Font.BOLD, 15));
+		lblSalesDeviceDeliveryNote.setBounds(10, 182, 106, 35);
+		lblSalesDeviceDeliveryNote.setVisible(false);
+		panel_2.add(lblSalesDeviceDeliveryNote);
+
+		lblSalesDeviceInjury = new JLabel("sérlülés:");
 		lblSalesDeviceInjury.setHorizontalAlignment(SwingConstants.RIGHT);
 		lblSalesDeviceInjury.setForeground(new Color(153, 0, 0));
 		lblSalesDeviceInjury.setFont(new Font("Tahoma", Font.BOLD, 15));
 		lblSalesDeviceInjury.setBounds(0, 174, 140, 35);
+		lblSalesDeviceInjury.setVisible(true);
 		panel_2.add(lblSalesDeviceInjury);
 
-		JLabel lblSalesDeviceComment = new JLabel("hiba leírása:");
+		lblSalesDeviceComment = new JLabel("hiba leírása:");
 		lblSalesDeviceComment.setHorizontalAlignment(SwingConstants.RIGHT);
 		lblSalesDeviceComment.setForeground(new Color(153, 0, 0));
 		lblSalesDeviceComment.setFont(new Font("Tahoma", Font.BOLD, 15));
 		lblSalesDeviceComment.setBounds(0, 245, 140, 35);
+		lblSalesDeviceComment.setVisible(true);
 		panel_2.add(lblSalesDeviceComment);
 
 		lblNewLabel_2 = new JLabel(new ImageIcon(((new ImageIcon("Image\\587cede4029fa159a80142ab.jpg")).getImage())
 				.getScaledInstance(509, 362, java.awt.Image.SCALE_SMOOTH)));
 		lblNewLabel_2.setBounds(0, 0, 509, 362);
 		panel_2.add(lblNewLabel_2);
+		
+		
 
 		txtSalesDeviceSearch = new JTextField();
 		txtSalesDeviceSearch.setForeground(Color.WHITE);

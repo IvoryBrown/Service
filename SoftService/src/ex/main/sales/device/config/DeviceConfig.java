@@ -11,19 +11,22 @@ public class DeviceConfig {
 	private String salesDeviceAddDate; // rögzités
 	private String salesDeviceExitDate;// határidő
 	private String salesDeviceSoftwer; // softver
-	private String salesDeviceHardver; //hardver
+	private String salesDeviceHardver; // hardver
 	private String salesDeviceCleaning;// takarítás
 	private String salesDevicePassword; // jelszó
 	private String salesDeviceAccesssory; // Tartozék
 	private String salesDeviceInjury; // sérülés
 	private String comment; // hibaleírás
+	private String salesDevicenewComment; // comment
+	private String salesDeviceDeliveryNote; // szállítólevél
 	private Integer clientId; // ügyfél id
 
 	public DeviceConfig(Integer salesDeviceID, String salesDeviceClientName, String salesDeviceName,
 			String salesDevicdetType, String salesDeviceStatus, String salesDevicePriorit, String salesDeviceBuyingDate,
-			String salesDeviceAddDate, String salesDeviceExitDate, String salesDeviceSoftwer,String salesDeviceHardver,
+			String salesDeviceAddDate, String salesDeviceExitDate, String salesDeviceSoftwer, String salesDeviceHardver,
 			String salesDeviceCleaning, String salesDevicePassword, String salesDeviceAccesssory,
-			String salesDeviceInjury, String comment, Integer clientId) {
+			String salesDeviceInjury, String comment, String salesDevicenewComment, String salesDeviceDeliveryNote,
+			Integer clientId) {
 		super();
 		this.salesDeviceID = salesDeviceID;
 		this.salesDeviceClientName = salesDeviceClientName;
@@ -35,12 +38,14 @@ public class DeviceConfig {
 		this.salesDeviceAddDate = salesDeviceAddDate;
 		this.salesDeviceExitDate = salesDeviceExitDate;
 		this.salesDeviceSoftwer = salesDeviceSoftwer;
-		this.salesDeviceHardver=salesDeviceHardver;
+		this.salesDeviceHardver = salesDeviceHardver;
 		this.salesDeviceCleaning = salesDeviceCleaning;
 		this.salesDevicePassword = salesDevicePassword;
 		this.salesDeviceAccesssory = salesDeviceAccesssory;
 		this.salesDeviceInjury = salesDeviceInjury;
 		this.comment = comment;
+		this.salesDevicenewComment = salesDevicenewComment;
+		this.salesDeviceDeliveryNote = salesDeviceDeliveryNote;
 		this.clientId = clientId;
 	}
 
@@ -106,6 +111,14 @@ public class DeviceConfig {
 
 	public String getComment() {
 		return comment;
+	}
+
+	public String getSalesDevicenewComment() {
+		return salesDevicenewComment;
+	}
+
+	public String getSalesDeviceDeliveryNote() {
+		return salesDeviceDeliveryNote;
 	}
 
 	public Integer getClientId() {

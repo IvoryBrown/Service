@@ -77,7 +77,7 @@ public class PasswordGui extends JFrame {
 		lblLogin.setBounds(10, 21, 564, 54);
 		getContentPane().add(lblLogin);
 		
-		JLabel lblNewJgoodiesLabel = DefaultComponentFactory.getInstance().createLabel("v: 1.173");
+		JLabel lblNewJgoodiesLabel = DefaultComponentFactory.getInstance().createLabel("v: 1.174");
 		lblNewJgoodiesLabel.setHorizontalAlignment(SwingConstants.RIGHT);
 		lblNewJgoodiesLabel.setForeground(Color.WHITE);
 		lblNewJgoodiesLabel.setBounds(492, 346, 92, 14);

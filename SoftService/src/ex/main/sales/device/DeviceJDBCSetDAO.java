@@ -191,10 +191,47 @@ public class DeviceJDBCSetDAO extends DeviceGui implements DeviceImplements {
 
 		cmbSalesDeviceCondition.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				panel_2.setVisible(true);
+				// második
+				scrSalesDeviceNewComment.setVisible(false);
+				txtSalesDeviceNewComment.setVisible(false);
+				lblSalesDeviceNewComment.setVisible(false);
+				lblSalesDeviceDeliveryNote.setVisible(false);
+				txtSalesDeviceDeliveryNote.setVisible(false);
+				// első
+				txtSalesDevicePassword.setVisible(true);
+				lblSalesDeviceCleaning.setVisible(true);
+				lblSalesDevicePassword.setVisible(true);
+				lblSalesDeviceAccesssory.setVisible(true);
+				lblSalesDeviceInjury.setVisible(true);
+				lblSalesDeviceComment.setVisible(true);
+				scrSalesDeviceAccesssory.setVisible(true);
+				scrSalesDeviceInjury.setVisible(true);
+				scrSalesDeviceComment.setVisible(true);
+				cmbSalesDeviceCleaning.setVisible(true);
+				txtSalesDeviceAccesssory.setVisible(true);
+				txtSalesDeviceInjury.setVisible(true);
+				txtSalesDeviceComment.setVisible(true);
 				String newDevice = (String) cmbSalesDeviceCondition.getSelectedItem();
 				if (newDevice != "Bevételezve") {
-					panel_2.setVisible(false);
+					txtSalesDevicePassword.setVisible(false);
+					lblSalesDeviceCleaning.setVisible(false);
+					lblSalesDevicePassword.setVisible(false);
+					lblSalesDeviceAccesssory.setVisible(false);
+					lblSalesDeviceInjury.setVisible(false);
+					lblSalesDeviceComment.setVisible(false);
+					scrSalesDeviceAccesssory.setVisible(false);
+					scrSalesDeviceInjury.setVisible(false);
+					scrSalesDeviceComment.setVisible(false);
+					cmbSalesDeviceCleaning.setVisible(false);
+					txtSalesDeviceAccesssory.setVisible(false);
+					txtSalesDeviceInjury.setVisible(false);
+					txtSalesDeviceComment.setVisible(false);
+					// második
+					scrSalesDeviceNewComment.setVisible(true);
+					txtSalesDeviceNewComment.setVisible(true);
+					lblSalesDeviceNewComment.setVisible(true);
+					lblSalesDeviceDeliveryNote.setVisible(true);
+					txtSalesDeviceDeliveryNote.setVisible(true);
 				}
 			}
 		});
@@ -369,9 +406,8 @@ public class DeviceJDBCSetDAO extends DeviceGui implements DeviceImplements {
 		Connection con = DataBaseConnect.getConnection();
 		try {
 			insertDevice = con.createStatement();
-			String searchQuery = "SELECT * FROM `gepadatok` WHERE CONCAT (`"
-					+ cmbSalesDeviceSearch.getSelectedItem() + "`) LIKE '%"
-					+ txtSalesDeviceSearch.getText() + "%'";
+			String searchQuery = "SELECT * FROM `gepadatok` WHERE CONCAT (`" + cmbSalesDeviceSearch.getSelectedItem()
+					+ "`) LIKE '%" + txtSalesDeviceSearch.getText() + "%'";
 			rs = insertDevice.executeQuery(searchQuery);
 			DeviceConfig deviceSearch;
 			while (rs.next()) {
@@ -380,7 +416,8 @@ public class DeviceJDBCSetDAO extends DeviceGui implements DeviceImplements {
 						rs.getString("vasarlas_ido"), rs.getString("rogzites"), rs.getString("hatarido"),
 						rs.getString("softwer"), rs.getString("hardwer"), rs.getString("takaritas"),
 						rs.getString("jelszo"), rs.getString("tartozekok"), rs.getString("serules"),
-						rs.getString("hiba_leiras"), rs.getInt("megrendelo_ID_m"));
+						rs.getString("hiba_leiras"), rs.getString("megjegyzes"), rs.getString("szallitolevel_szam"),
+						rs.getInt("megrendelo_ID_m"));
 				listSearch.add(deviceSearch);
 			}
 		} catch (SQLException ex) {
@@ -461,6 +498,8 @@ public class DeviceJDBCSetDAO extends DeviceGui implements DeviceImplements {
 		txtSalesDeviceAccesssory.setText(getListDevice().get(index).getSalesDeviceAccesssory());
 		txtSalesDeviceInjury.setText(getListDevice().get(index).getSalesDeviceInjury());
 		txtSalesDeviceComment.setText(getListDevice().get(index).getComment());
+		txtSalesDeviceNewComment.setText(getListDevice().get(index).getSalesDevicenewComment());
+		txtSalesDeviceDeliveryNote.setText(getListDevice().get(index).getSalesDeviceDeliveryNote());
 	}
 
 	private void jBtnInsertActionPerformedDevice(java.awt.event.ActionEvent evt) {
@@ -474,7 +513,7 @@ public class DeviceJDBCSetDAO extends DeviceGui implements DeviceImplements {
 							.prepareStatement("INSERT INTO gepadatok(ID_g, ugyfel_nev, eszkoz_g, tipus, sorozatszam_g,"
 									+ "allapot, prioritas, vasarlas_ido, rogzites,"
 									+ "hatarido, softwer, hardwer, takaritas, jelszo, tartozekok, serules, hiba_leiras,"
-									+ " megrendelo_ID_m)" + "values(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?) ");
+									+ " megrendelo_ID_m)" + "values(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,) ");
 					txtSalesDeviceID.setText(DeviceIdentificationGenereator.random());
 					insertDevice.setString(1, txtSalesDeviceID.getText());
 					insertDevice.setString(2, txtSalesDeviceClientName.getText());
@@ -503,7 +542,7 @@ public class DeviceJDBCSetDAO extends DeviceGui implements DeviceImplements {
 					insertDevice.setString(15, txtSalesDeviceAccesssory.getText());
 					insertDevice.setString(16, txtSalesDeviceInjury.getText());
 					insertDevice.setString(17, txtSalesDeviceComment.getText());
-					insertDevice.setString(18, txtSalesDeviceClientID.getText());
+					insertDevice.setString(19, txtSalesDeviceClientID.getText());
 					insertDevice.executeUpdate();
 					PreparedStatement insertDeviceImage = con
 							.prepareStatement("INSERT INTO image_gep(gepadatok_ID_g)" + "values(?)");
@@ -532,7 +571,8 @@ public class DeviceJDBCSetDAO extends DeviceGui implements DeviceImplements {
 					PreparedStatement insertDevice = con
 							.prepareStatement("INSERT INTO gepadatok(ID_g, ugyfel_nev, eszkoz_g, tipus, sorozatszam_g,"
 									+ "allapot, prioritas, vasarlas_ido, rogzites," + "hatarido, softwer, hardwer,"
-									+ " megrendelo_ID_m)" + "values(?,?,?,?,?,?,?,?,?,?,?,?,?) ");
+									+ "megjegyzes, szallitolevel_szam, megrendelo_ID_m)"
+									+ "values(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?) ");
 					txtSalesDeviceID.setText(DeviceIdentificationGenereator.random());
 					insertDevice.setString(1, txtSalesDeviceID.getText());
 					insertDevice.setString(2, txtSalesDeviceClientName.getText());
@@ -556,7 +596,9 @@ public class DeviceJDBCSetDAO extends DeviceGui implements DeviceImplements {
 					insertDevice.setString(10, endDate);
 					insertDevice.setString(11, (String) cmbSalesDeviceSoftver.getSelectedItem());
 					insertDevice.setString(12, (String) cmbSalesDeviceHardver.getSelectedItem());
-					insertDevice.setString(13, txtSalesDeviceClientID.getText());
+					insertDevice.setString(13, txtSalesDeviceNewComment.getText());
+					insertDevice.setString(14, txtSalesDeviceDeliveryNote.getText());
+					insertDevice.setString(15, txtSalesDeviceClientID.getText());
 					insertDevice.executeUpdate();
 					PreparedStatement insertDeviceImage = con
 							.prepareStatement("INSERT INTO image_gep(gepadatok_ID_g)" + "values(?)");
@@ -641,7 +683,8 @@ public class DeviceJDBCSetDAO extends DeviceGui implements DeviceImplements {
 				try {
 					updateDevice = "UPDATE gepadatok SET ugyfel_nev = ?, eszkoz_g = ?, tipus = ?, sorozatszam_g = ?,"
 							+ "allapot = ?, prioritas = ?, vasarlas_ido = ?, rogzites = ?,"
-							+ "hatarido = ?, softwer = ?, hardwer = ?," + " megrendelo_ID_m = ? WHERE ID_g = ?";
+							+ "hatarido = ?, softwer = ?, hardwer = ?, megjegyzes = ?, szallitolevel_szam = ?,"
+							+ " megrendelo_ID_m = ? WHERE ID_g = ?";
 					ps = con.prepareStatement(updateDevice);
 					ps.setString(1, txtSalesDeviceClientName.getText());
 					ps.setString(2, (String) cmbSalesDeviceName.getSelectedItem());
@@ -664,8 +707,10 @@ public class DeviceJDBCSetDAO extends DeviceGui implements DeviceImplements {
 					ps.setString(9, endDate);
 					ps.setString(10, (String) cmbSalesDeviceSoftver.getSelectedItem());
 					ps.setString(11, (String) cmbSalesDeviceHardver.getSelectedItem());
-					ps.setString(12, txtSalesDeviceClientID.getText());
-					ps.setInt(13, Integer.parseInt(txtSalesDeviceID.getText()));
+					ps.setString(12, txtSalesDeviceNewComment.getText());
+					ps.setString(13, txtSalesDeviceDeliveryNote.getText());
+					ps.setString(14, txtSalesDeviceClientID.getText());
+					ps.setInt(15, Integer.parseInt(txtSalesDeviceID.getText()));
 					ps.executeUpdate();
 					showProductsInJTableDevice();
 					JOptionPane.showMessageDialog(null, "Sikeres Frissítés");
